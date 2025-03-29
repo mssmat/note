@@ -1,1 +1,460 @@
-index
+
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>MAT note</title>
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000080'/%3E%3Cpath d='M30 95 L30 40 L50 40 L50 95 M70 95 L70 40 L50 40 M50 40 L50 10 M30 40 Q40 30 50 40 Q60 30 70 40' stroke='%23FFD700' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Noto+Sans+HK:wght@400;700&family=Noto+Sans+Thai:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<style>
+* { box-sizing: border-box; }
+body { font-size: 16px; font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, "Noto Sans", "Noto Sans HK", "Noto Sans SC", "Noto Sans KR", "Noto Sans Thai", "Noto Sans JP", sans-serif; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; line-height: 1.7; color: #333; margin: 0; padding: 0; background-color: #f7f7f7; }
+.container { max-width: 700px; margin: 0 auto; padding: 20px; background-color: #ffffff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+.spacer { height: 50px; }
+header { text-align: center; margin-bottom: 30px; }
+#header { position: fixed; top: 0; left: 0; width: 100%; height: 50px; background-color: rgba(255, 255, 255, 0.9); color: black; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease-in-out; border-bottom: 1px solid #ccc; z-index: 10; }
+.header-hidden { transform: translateY(-100%); }
+#footer { position: relative; width: 100%; height: 30px; background-color: rgba(0, 0, 0, 0.8); color: #999; display: flex; align-items: center; justify-content: center; font-size: 0.8em; }
+h1 { font-size: 1.9em; font-weight: bold; margin-bottom: 10px; }
+h2 { font-size: 1.5em; margin-top: 1.5em; margin-bottom: 0.5em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+h3 { font-size: 1.25em; margin-top: 1.2em; margin-bottom: 0.4em; }
+p { margin-bottom: 1em; }
+article { margin-bottom: 50px; }
+a { color: #1a0dab; text-decoration: none; }
+a:hover { text-decoration: underline; }
+iframe { aspect-ratio: 16 / 9; width: 100%; max-width: 600px; height: auto; display: block; margin: 1em auto; border: none; }
+@supports not (aspect-ratio: 16 / 9) { iframe { height: calc(100% * 9 / 16); max-height: calc(600px * 9 / 16); } }
+img { max-width: 600px; width: 100%; height: auto; display: block; margin: 1em auto; }
+ul, ol { margin-top: 0; margin-bottom: 1em; padding-left: 2em; }
+li { margin-bottom: 0.5em; }
+div.precode {
+padding: 5px;
+overflow-x: auto;
+background-color: #f6f8fa;
+border: 1px solid #e1e4e8;
+border-radius: 5px;
+}
+div.precode pre {
+margin: 0;
+}
+pre code.hljs {
+font-family: 'Cascadia Code', Consolas, 'Courier New', monospace;
+font-size: 0.85em;
+border-radius: 0 0 5px 5px;
+}
+/* Toggle Style */
+details { border: 1px solid #ddd; border-radius: 4px; margin: 1em 0; background-color: #f9f9f9; }
+details summary { padding: 10px; cursor: pointer; font-weight: bold; outline: none; display: list-item;}
+/* details summary::marker { content: "▶ "; } */
+details[open] summary { border-bottom: 1px solid #ddd; }
+/* details[open] summary::marker { content: "▼ "; } */
+.toggle-content { padding: 0 10px 10px 10px; margin-top: -1px; border-top: 1px solid #eee; }
+/* Audio Player Style */
+.notion-audio { width: 100%; margin: 1em 0; }
+/* File Block Style */
+.notion-file { display: flex; align-items: center; padding: 10px 15px; margin: 1em 0; border: 1px solid #ddd; border-radius: 4px; background-color: #f9f9f9; text-decoration: none; color: #333; transition: background-color 0.2s; }
+.notion-file:hover { background-color: #f0f0f0; }
+.notion-file svg { width: 1.2em; height: 1.2em; margin-right: 8px; fill: currentColor; flex-shrink: 0; }
+/* PDF Embed Style */
+.notion-pdf { width: 100%; height: 600px; border: 1px solid #ccc; margin: 1em 0; }
+/* Table Style */
+.notion-table-wrapper { overflow-x: auto; margin: 1em 0; }
+.notion-table { width: 100%; border-collapse: collapse; border: 1px solid #ccc; }
+.notion-table th, .notion-table td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; vertical-align: top; }
+.notion-table thead th { background-color: #f2f2f2; font-weight: bold; position: sticky; top: 0; z-index: 1; }
+.notion-table tbody th { background-color: #f9f9f9; font-weight: bold; }
+/* Callout Styles */
+.notion-callout { padding: 16px 16px 16px 12px; margin: 1em 0; border-radius: 3px; display: flex; align-items: flex-start; background-color: #f1f1f1; border: 1px solid rgba(0, 0, 0, 0.05); }
+.notion-callout .callout-icon { margin-right: 8px; font-size: 1.2em; line-height: 1.4; }
+.notion-callout.callout-gray_background { background-color: #f1f1f1; }
+/* Quote Styles */
+.notion-quote { border-left: 3px solid #ccc; padding-left: 14px; margin: 1em 0; }
+.notion-quote.quote-gray { border-left-color: gray; }
+/* Equation Style */
+.notion-equation { font-family: 'Times New Roman', Times, serif; background-color: #f3f3f3; padding: 2px 5px; margin: 8px 0; display: inline-block; }
+/* Divider Style */
+.notion-divider { margin: 1em 0; border: 0; border-top: 1px solid #eee; }
+/* ToDo List Style */
+.todo-item { display: flex; align-items: center; margin: 5px 0; }
+.todo-item input[type="checkbox"] { margin-right: 10px; }
+input.todo-checkbox:checked + label { text-decoration: line-through; color: #888; }
+/* Dark Mode Styles */
+body.dark-mode { background-color: #1a1a1a; color: #f0f0f0; }
+.dark-mode .container { background-color: #2a2a2a; box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); }
+.dark-mode #header { background-color: rgba(42, 42, 42, 0.9); color: #f0f0f0; border-bottom: 1px solid #444; }
+.dark-mode a { color: #6a9fff; }
+.dark-mode div.precode { background: #1a1a1a; border-color: #171733;}
+.dark-mode div[style*="background-color: #f6f8fa"] { background-color: #2a2a2a !important; border-color: #444 !important; }
+.dark-mode div[style*="background-color: #f1f1f1"] { background-color: #3a3a3a !important; color: #e0e0e0 !important; border-color: #444 !important; }
+.dark-mode details { border-color: #444; background-color: #3a3a3a; }
+.dark-mode details[open] summary { border-color: #444; }
+.dark-mode .toggle-content { border-top-color: #444; }
+.dark-mode .notion-file { border-color: #444; background-color: #3a3a3a; color: #f0f0f0; }
+.dark-mode .notion-file:hover { background-color: #4a4a4a; }
+.dark-mode .notion-pdf { border-color: #555; filter: invert(90%) hue-rotate(180deg); }
+.dark-mode .notion-table { border-color: #555; }
+.dark-mode .notion-table th, .dark-mode .notion-table td { border-color: #555; }
+.dark-mode .notion-table thead th { background-color: #4a4a4a; }
+.dark-mode .notion-table tbody th { background-color: #404040; }
+.dark-mode .notion-callout { background-color: #3a3a3a; border-color: #444; }
+.dark-mode .notion-quote { border-left-color: #666; }
+.dark-mode .notion-equation { background-color: #444; color: #eee; }
+.dark-mode .notion-divider { border-top-color: #444; }
+.dark-mode input.todo-checkbox:checked + label { color: #aaa; }
+.bookmark-block {
+border: 1px solid #e0e0e0;
+border-radius: 5px;
+padding: 15px;
+margin: 1em 0;
+background-color: #f8f9fa;
+transition: background-color 0.3s, border-color 0.3s;
+}
+.bookmark-link {
+text-decoration: none;
+display: flex;
+align-items: center;
+}
+.bookmark-text {
+flex: 1;
+min-width: 0;
+}
+.bookmark-title {
+font-weight: bold;
+color: #1a0dab;
+margin-bottom: 5px;
+word-break: break-all;
+white-space: normal;
+transition: color 0.3s;
+}
+.bookmark-url {
+color: #006621;
+font-size: 0.9em;
+word-break: break-all;
+white-space: normal;
+transition: color 0.3s;
+}
+.dark-mode .bookmark-block {
+background-color: #3a3a3a;
+border-color: #555;
+}
+.dark-mode .bookmark-title {
+color: inherit;
+}
+.dark-mode .bookmark-url {
+color: #8fbc8f;
+}
+#dark-mode-toggle { position: fixed; top: 10px; right: 10px; z-index: 1000; background-color: rgba(240, 240, 240, 0.8); color: #333; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s, color 0.3s; }
+.dark-mode #dark-mode-toggle { background-color: rgba(51, 51, 51, 0.8); color: #f0f0f0; }
+</style>
+</head>
+<body>
+<button id="dark-mode-toggle" aria-label="Dark Mode Toggle Button">🌓</button>
+<header id="header"><h1 style="color: white; text-shadow: 1px 1px 2px #ed2c5c,-1px -1px 2px #58ebe7;"><a href="./" style="color: inherit; text-decoration: inherit;">MAT note</a></h1></header>
+<div class="container">
+<div class="spacer"></div>
+<article>
+<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">独自ドメインを使う</h1></header>
+<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-03-29 19:00</span>
+</div>
+<p>note風のNotion blogで独自ドメインでの運用を試す。</p>
+<p>ホスティングはGitHubのまま。これまた無料で使える！</p>
+</article>
+<article>
+<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">ベタベタ貼り付ける</h1></header>
+<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">Twitter, YouTube</span>
+<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-03-27 21:23</span>
+</div>
+<iframe src="https://www.youtube-nocookie.com/embed/xTwdVt7_c6Q" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe src="https://www.youtube-nocookie.com/embed/SWQ3bBNA2Og" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe id="tweet_1904743890533704067" border="0" frameborder="0" scrolling="no" style="width: 100%; min-height: 350px; display: block; margin: 1em auto;" src="https://mssmat.github.io/twiframe/show.html?url=https://twitter.com/komiya5395/status/1904743890533704067&theme=" + (document.body.classList.contains("dark-mode") ? "dark" : "light")"></iframe>
+<iframe src="https://www.youtube-nocookie.com/embed/NQ-RbnQWGdo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe id="tweet_1904838714477731897" border="0" frameborder="0" scrolling="no" style="width: 100%; min-height: 350px; display: block; margin: 1em auto;" src="https://mssmat.github.io/twiframe/show.html?url=https://twitter.com/shodaiiiiii/status/1904838714477731897&theme=" + (document.body.classList.contains("dark-mode") ? "dark" : "light")"></iframe>
+<iframe src="https://www.youtube-nocookie.com/embed/LqR7ne8FGi4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe src="https://www.youtube-nocookie.com/embed/4y2Ul5RfpqY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe id="tweet_1904914818202820821" border="0" frameborder="0" scrolling="no" style="width: 100%; min-height: 350px; display: block; margin: 1em auto;" src="https://mssmat.github.io/twiframe/show.html?url=https://twitter.com/utaaoya/status/1904914818202820821&theme=" + (document.body.classList.contains("dark-mode") ? "dark" : "light")"></iframe>
+</article>
+<article>
+<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">色々なブロックを試してみる</h1></header>
+<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">Notion</span>
+<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-03-27 18:54</span>
+</div>
+<h2>Notionの色んなブロックを試してみる</h2>
+<h1>H1</h1>
+<h2>H2</h2>
+<h3>H3</h3>
+<ul>
+<li>箇条書き1</li>
+<li>箇条書き2</li>
+</ul>
+<ol>
+<li>番号リスト1</li>
+<li>番号リスト2</li>
+</ol>
+<div class="todo-item"><input type="checkbox" id="todo_1c3d9f25-4f6d-80fc-8b8f-f609232a6bec_2506" class="todo-checkbox" checked onclick="toggleTodo(this)"><label for="todo_1c3d9f25-4f6d-80fc-8b8f-f609232a6bec_2506">ToDoチェックボックスチェックアリ✅</label></div>
+<div class="todo-item"><input type="checkbox" id="todo_1c3d9f25-4f6d-8015-a7d8-d511f0d78c45_5066" class="todo-checkbox"  onclick="toggleTodo(this)"><label for="todo_1c3d9f25-4f6d-8015-a7d8-d511f0d78c45_5066">ToDoチェックボックスチェックナシ</label></div>
+<div class="notion-table-wrapper"><table class="notion-table">
+<tbody><tr><td>表</td><td>2</td></tr>
+<tr><td>3</td><td>4</td></tr>
+<tr><td>5</td><td>6</td></tr>
+</tbody></table></div>
+<hr class="notion-divider">
+<p>↑区切り線↑</p>
+<p>中国語: 您好专家转发专业骨头不错可乐气水</p>
+<p>絵文字: 😐😎</p>
+<p>ブックマーク。</p>
+
+                    <div class="bookmark-block">
+                        <a href="https://alpacat.com/posts/solution-to-image-url-expiration" target="_blank" class="bookmark-link">
+                            <img src="https://alpacat.com/favicon.png" alt="" style="width: 16px; height: 16px; margin-right: 5px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+                            <div class="bookmark-text">
+                                 <div class="bookmark-title">Notion API 画像URLの期限切れ対策を3つ紹介する - アルパカログ</div>
+                                  <div class="bookmark-url">https://alpacat.com/posts/solution-to-image-url-expiration</div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="bookmark-block">
+                        <a href="https://blog.35d.jp/2021-10-08-notion-api-image-expire-date" target="_blank" class="bookmark-link">
+                            <img src="https://blog.35d.jp/img/favicon.png" alt="" style="width: 16px; height: 16px; margin-right: 5px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+                            <div class="bookmark-text">
+                                 <div class="bookmark-title">Notion API でブログを構築するときの画像の Expire Date 問題を解決したい → 解決した | 35D BLOG</div>
+                                  <div class="bookmark-url">https://blog.35d.jp/2021-10-08-notion-api-image-expire-date</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="notion-callout callout-gray_background"><span class="callout-icon">💡</span><div>これはコールアウト。<br>コールアウトも表示可能。</div></div>
+<blockquote class="notion-quote ">これは引用。<br>引用も使えます。</blockquote>
+<div class="notion-table-wrapper"><table class="notion-table">
+<tbody><tr><td>表もいけます</td><td>Most interest in</td><td>Age</td></tr>
+<tr><td>Chris</td><td>HTML tables</td><td>22</td></tr>
+<tr><td>Dennis</td><td>Web accessibility</td><td>45</td></tr>
+<tr><td>Sarah</td><td>JavaScript frameworks</td><td>29</td></tr>
+<tr><td>Karen</td><td>Web performance</td><td>36</td></tr>
+<tr><td>Average age</td><td></td><td><strong>33</strong></td></tr>
+</tbody></table></div>
+<div class="notion-table-wrapper"><table class="notion-table">
+<tbody><tr><td>こちらも</td><td>列-A</td></tr>
+<tr><td>行-1</td><td>A-1</td></tr>
+<tr><td>行-2</td><td>A-2</td></tr>
+<tr><td>行-3</td><td>A-3</td></tr>
+</tbody></table></div>
+<p>ファイルを保存してみる。</p>
+<a href="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/b2d5728a-dd71-4fc2-a1f1-4ac52900240a/20240419004-1.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466UU7PMYKF%2F20250329%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250329T123420Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEAwaCXVzLXdlc3QtMiJGMEQCICtJsU5zgmU1hdVaPfMedPnScHBTgh34esH564m1y2SfAiATDDiplyuqlzPOXsvNT1t2YoMaxa8mxYlJiYyTCXkkWCr%2FAwh1EAAaDDYzNzQyMzE4MzgwNSIMxZT7bZXb%2BxXnvhhvKtwDFeqcG4I516we4cyyKuPe8bBhPJLetcpTCOfFoRwzoUx4X6geMuFvEl7stgL8kwK8UJEB9jUtsEQViBPG3jNjQdNd4wn4OvfjJ7CkRUpYdNJZlEJKWS7uQ4oDlnRTwXLtOWeioPxCC0pHfROmsp89VIZZ4TBAEwKUUQCSM%2FGsMb1Q8dW50lrdozvEEu4qtpxpx%2BW5SX0xhjU9KmmCL8X1aVpx1oD1a%2FeO2peaOY%2B3sR0My7ilvT2HR8w3s9G3TPLrKPEYkgdga3zu0jKgy15v8%2BJj5MUGGTGqtghv%2FvYKtMAboLINk1UkapO%2BeorTnxrOlLrjOjSxaLIFdhfS49UjLJXXHfKbDXNgpJYkiZ7w09iFVP8PVFfsPAuPqoZ%2FxF2yLlgohjDrWzDOIJRdZWim8pf%2BPp%2BxqLc3p4hyoxYIsmTjy9kb2nfCusSfvsjrih4DrS2WCdh54rMMfTYusjFOSaBkU8S%2BUhasvwt%2FBawfSdsOUrDjNeudtAUReQlgTxeMvcMjyUFZZWaylzqkVGah8KxjahbrO6UqxFR71qJSr1WlMimznr4WEjzknFeOMx3%2FphwX2ODkCzsfFc0IpeVqjKLHuNXH0ewNB4G3wHueNtEh7mBV486atLVXIN8wnLWfvwY6pgFrvEpzlf6%2BpFh702IJFO9KjPK41AiXSEMirxVnlcpqvzThaSXB02GI87jCcWnPrX51P1Xr79uISKUdT48LlWkr6t2dslvkm4Iafao4XZlEyKgf%2FueZrY48CnkclIm4yaDG7WOWxb1%2FyyiHFCn%2FptqL0J230MeTYpKpmF5wJNtgZYKsnOHt%2BYul17kEaQFKrHtYb6EtaIsakKD5rtH4qFEjLtU7%2B%2FMj&amp;X-Amz-Signature=bd82f59244c5d8373ef7afcc2b089c708049f5850f3a3c9b1566d25fb8eabd5d&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" target="_blank" download="20240419004-1.pdf" class="notion-file"><svg viewBox="0 0 24 24"><path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2ZM18 20H6V4H13V9H18V20Z M12 19L8 15H11V11H13V15H16L12 19Z"></path></svg>20240419004-1.pdf</a>
+</article>
+<article>
+<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">画像や動画</h1></header>
+<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">Notion</span>
+<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-03-24 22:32</span>
+</div>
+<p>画像や動画などを直接Notionに保存した場合、クラウドの保存先のURLの有効期限は1時間。
+時間が過ぎると画像が表示されなくなります。</p>
+<p>これを防ぐには、ちょくちょく更新してURLを更新する必要があります。</p>
+<p>Notionだと画像を貼るのもラクなので便利です。</p>
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/630c2648-1ca6-4544-b409-2b4bbb8c5a03/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466S26NIGCR%2F20250329%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250329T123421Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEAwaCXVzLXdlc3QtMiJHMEUCICXAJ5yfPq2fSSODoPn1aAALrb2f7gugQwc%2Boa%2BPT1HbAiEA9A8bM%2FzaCn1yW4b48qAsuSsQG61MkVYwdsNforgq%2BWsq%2FwMIdRAAGgw2Mzc0MjMxODM4MDUiDIX4vFqR%2FEZFXSIFOyrcA59Fs1SmP5IGcVP1TbXjhMIVnq47iQtCI37xLFBJ0sDO0snMhFkpN7089kR93EwwmVnPJbMLILhBQuty4hDc904B3NYqCHJnxvhoQQtEQcQs%2FPHYJREHyuopSy%2FjlzbvPOO5I1qiPUUucPjieOPBbyB2TFz%2F%2BHpjSuGW43Vzv5rhiNlaD%2F85ij9Ts3Xd1DJyEeo8C0Myigbg%2FiP0dIZXRQx3w42DVfbjf9NHzEtRklGW530%2BimOS%2FBKODOTdZpBFzJJo5GRnC6y6jyjzuDeEshpzKY6ThsjKbQnix8bqJ5%2FcXDdktckhhrgu6NmULy3PB6%2FaXyQ6hn3GBwyn55dMOhNma%2BrmG3lwIWyjCeb2%2BKXLKLex8Zzm7hUcbiVAj%2Bj3J%2FnZTIt653V1kjdbEnuUFAAArB0YB9gIgPP4QBGJGG%2FDG7iAR0C2PdiXd%2Fc7CJ7KRXKVWUiFsw3Gv%2BxkUP9eYCJHNlW5f7i2HMJtB3PW1kl0vYmQDY6SU1iD%2BuoLEoEqk1PfHIqrOhOh1ICv2DAhqv3wdycQvcrDPJj1%2FuP0BgJfFCxzzuEs5U5O%2BwyOo7mMq54yTzlc1tCNvffK28TYgX2QrmRlluS4RBRhyhYTMwKebOQUFYryF9UmUVffMKK1n78GOqUBNJ1n4YiOZ6wwZcFzxK8IRLEufIinAgzqtIcBm6ywLyS23dk3QxRAZa%2B5A8btg2OnZlkLA%2FIl0uh3sygOx6cuONDRzNngtwWY1rOVNW6G0CQ5thipdBe2BEIMtGmmOa1Gk%2F1lt4JxpxYC7MJzVC6FwsCnynkcDhaxVZV167pE1bsjOAB5TFklC9fYaxfnu2PsmmOmacHl%2BTg9cWBgw0rAhMNdmYaz&amp;X-Amz-Signature=b7efc3ac2d32af5f9be38bbebdb164a2bb0e57db78f9dad05d91c3800546c1cf&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/65103eb5-0fa0-4468-956d-806769f9201c/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466S26NIGCR%2F20250329%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250329T123421Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEAwaCXVzLXdlc3QtMiJHMEUCICXAJ5yfPq2fSSODoPn1aAALrb2f7gugQwc%2Boa%2BPT1HbAiEA9A8bM%2FzaCn1yW4b48qAsuSsQG61MkVYwdsNforgq%2BWsq%2FwMIdRAAGgw2Mzc0MjMxODM4MDUiDIX4vFqR%2FEZFXSIFOyrcA59Fs1SmP5IGcVP1TbXjhMIVnq47iQtCI37xLFBJ0sDO0snMhFkpN7089kR93EwwmVnPJbMLILhBQuty4hDc904B3NYqCHJnxvhoQQtEQcQs%2FPHYJREHyuopSy%2FjlzbvPOO5I1qiPUUucPjieOPBbyB2TFz%2F%2BHpjSuGW43Vzv5rhiNlaD%2F85ij9Ts3Xd1DJyEeo8C0Myigbg%2FiP0dIZXRQx3w42DVfbjf9NHzEtRklGW530%2BimOS%2FBKODOTdZpBFzJJo5GRnC6y6jyjzuDeEshpzKY6ThsjKbQnix8bqJ5%2FcXDdktckhhrgu6NmULy3PB6%2FaXyQ6hn3GBwyn55dMOhNma%2BrmG3lwIWyjCeb2%2BKXLKLex8Zzm7hUcbiVAj%2Bj3J%2FnZTIt653V1kjdbEnuUFAAArB0YB9gIgPP4QBGJGG%2FDG7iAR0C2PdiXd%2Fc7CJ7KRXKVWUiFsw3Gv%2BxkUP9eYCJHNlW5f7i2HMJtB3PW1kl0vYmQDY6SU1iD%2BuoLEoEqk1PfHIqrOhOh1ICv2DAhqv3wdycQvcrDPJj1%2FuP0BgJfFCxzzuEs5U5O%2BwyOo7mMq54yTzlc1tCNvffK28TYgX2QrmRlluS4RBRhyhYTMwKebOQUFYryF9UmUVffMKK1n78GOqUBNJ1n4YiOZ6wwZcFzxK8IRLEufIinAgzqtIcBm6ywLyS23dk3QxRAZa%2B5A8btg2OnZlkLA%2FIl0uh3sygOx6cuONDRzNngtwWY1rOVNW6G0CQ5thipdBe2BEIMtGmmOa1Gk%2F1lt4JxpxYC7MJzVC6FwsCnynkcDhaxVZV167pE1bsjOAB5TFklC9fYaxfnu2PsmmOmacHl%2BTg9cWBgw0rAhMNdmYaz&amp;X-Amz-Signature=ac878793f4e256e4a47ab9af380360416539b81a6d9cd1b156219f796c793ce8&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<p>動画も保存できる。</p>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/b652eb08-843e-490b-9ae4-6cf4c099f6cb/homepage-hero.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466S26NIGCR%2F20250329%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250329T123421Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEAwaCXVzLXdlc3QtMiJHMEUCICXAJ5yfPq2fSSODoPn1aAALrb2f7gugQwc%2Boa%2BPT1HbAiEA9A8bM%2FzaCn1yW4b48qAsuSsQG61MkVYwdsNforgq%2BWsq%2FwMIdRAAGgw2Mzc0MjMxODM4MDUiDIX4vFqR%2FEZFXSIFOyrcA59Fs1SmP5IGcVP1TbXjhMIVnq47iQtCI37xLFBJ0sDO0snMhFkpN7089kR93EwwmVnPJbMLILhBQuty4hDc904B3NYqCHJnxvhoQQtEQcQs%2FPHYJREHyuopSy%2FjlzbvPOO5I1qiPUUucPjieOPBbyB2TFz%2F%2BHpjSuGW43Vzv5rhiNlaD%2F85ij9Ts3Xd1DJyEeo8C0Myigbg%2FiP0dIZXRQx3w42DVfbjf9NHzEtRklGW530%2BimOS%2FBKODOTdZpBFzJJo5GRnC6y6jyjzuDeEshpzKY6ThsjKbQnix8bqJ5%2FcXDdktckhhrgu6NmULy3PB6%2FaXyQ6hn3GBwyn55dMOhNma%2BrmG3lwIWyjCeb2%2BKXLKLex8Zzm7hUcbiVAj%2Bj3J%2FnZTIt653V1kjdbEnuUFAAArB0YB9gIgPP4QBGJGG%2FDG7iAR0C2PdiXd%2Fc7CJ7KRXKVWUiFsw3Gv%2BxkUP9eYCJHNlW5f7i2HMJtB3PW1kl0vYmQDY6SU1iD%2BuoLEoEqk1PfHIqrOhOh1ICv2DAhqv3wdycQvcrDPJj1%2FuP0BgJfFCxzzuEs5U5O%2BwyOo7mMq54yTzlc1tCNvffK28TYgX2QrmRlluS4RBRhyhYTMwKebOQUFYryF9UmUVffMKK1n78GOqUBNJ1n4YiOZ6wwZcFzxK8IRLEufIinAgzqtIcBm6ywLyS23dk3QxRAZa%2B5A8btg2OnZlkLA%2FIl0uh3sygOx6cuONDRzNngtwWY1rOVNW6G0CQ5thipdBe2BEIMtGmmOa1Gk%2F1lt4JxpxYC7MJzVC6FwsCnynkcDhaxVZV167pE1bsjOAB5TFklC9fYaxfnu2PsmmOmacHl%2BTg9cWBgw0rAhMNdmYaz&amp;X-Amz-Signature=1a9d95920282f585d512edcf8a5e59c2df5e734c0479769bea8bef6144af42d9&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</article>
+<article>
+<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">コードも書ける</h1></header>
+<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI, Python</span>
+<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-03-24 22:07</span>
+</div>
+<p>コードを書くことも。</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                javascript
+                            </div>
+                            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Prime Numbers&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;
+    &lt;style&gt;
+        body {
+            background-color: #1a1a1a;
+            color: #e2e8f0;
+        }
+        .prime-container {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .prime-number {
+            font-size: 1.2rem;
+            transition: color 1s;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body class=&quot;flex items-center justify-center min-h-screen&quot;&gt;
+    &lt;div class=&quot;prime-container&quot; id=&quot;prime-container&quot;&gt;&lt;/div&gt;
+    &lt;script&gt;
+        function isPrime(num) {
+            if (num &lt;= 1) return false;
+            if (num &lt;= 3) return true;
+            if (num % 2 === 0 || num % 3 === 0) return false;
+            for (let i = 5; i * i &lt;= num; i += 6) {
+                if (num % i === 0 || num % (i + 2) === 0) return false;
+            }
+            return true;
+        }
+
+        let currentNumber = 2;
+        function displayNextPrime() {
+            while (!isPrime(currentNumber)) {
+                currentNumber++;
+            }
+            const primeContainer = document.getElementById(&#x27;prime-container&#x27;);
+            primeContainer.innerHTML = &#x27;&#x27;; // Clear previous prime number
+            const primeElement = document.createElement(&#x27;div&#x27;);
+            primeElement.className = &#x27;prime-number&#x27;;
+            primeElement.textContent = currentNumber;
+            primeContainer.appendChild(primeElement);
+
+            // Change text color from light to dark and back
+            let opacity = 0.2;
+            const interval = setInterval(() =&gt; {
+                opacity += 0.1;
+                primeElement.style.color = `rgba(226, 232, 240, ${opacity})`;
+                if (opacity &gt;= 1) {
+                    clearInterval(interval);
+                    setTimeout(() =&gt; {
+                        let fadeOutInterval = setInterval(() =&gt; {
+                            opacity -= 0.1;
+                            primeElement.style.color = `rgba(226, 232, 240, ${opacity})`;
+                            if (opacity &lt;= 0.2) {
+                                clearInterval(fadeOutInterval);
+                                currentNumber++;
+                                setTimeout(displayNextPrime, 1000);
+                            }
+                        }, 100);
+                    }, 1000);
+                }
+            }, 100);
+        }
+
+        displayNextPrime();
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                python
+                            </div>
+                            <pre><code>import time
+
+def is_prime(n):
+    if n &lt; 2:
+        return False
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def prime_generator():
+    num = 2
+    while True:
+        if is_prime(num):
+            yield num
+        num += 1
+
+def display_primes():
+    for prime in prime_generator():
+        print(prime)
+        time.sleep(1)
+
+if __name__ == &quot;__main__&quot;:
+    display_primes()</code></pre>
+                        </div>
+                    </div>
+                    </article>
+
+</div>
+<div id="footer">© MAT note</div>
+<script>
+// --- ToDo Checkbox ---
+function toggleTodo(checkbox) {
+localStorage.setItem(checkbox.id, checkbox.checked);
+const label = document.querySelector(`label[for="${checkbox.id}"]`);
+if (label) {
+if (checkbox.checked) {
+label.style.textDecoration = 'line-through';
+label.style.color = '#888';
+} else {
+label.style.textDecoration = 'none';
+label.style.color = '';
+}
+}
+}
+document.addEventListener('DOMContentLoaded', function() {
+document.querySelectorAll('.todo-checkbox').forEach(checkbox => {
+const savedState = localStorage.getItem(checkbox.id);
+if (savedState !== null) checkbox.checked = savedState === 'true';
+const label = document.querySelector(`label[for="${checkbox.id}"]`);
+if (label) { checkbox.checked ? label.style.textDecoration = 'line-through' : label.style.textDecoration = 'none'; checkbox.checked ? label.style.color = '#888' : label.style.color = ''; } // Initial style
+});
+// --- Dark Mode ---
+const darkModeToggle = document.getElementById("dark-mode-toggle");
+const body = document.body;
+const labelSwitchToDark = "Switch To Dark Mode";
+const labelSwitchToLight = "Switch To Light Mode";
+function updateAriaLabel() {
+if (body.classList.contains("dark-mode")) {
+darkModeToggle.setAttribute('aria-label', labelSwitchToLight);
+darkModeToggle.textContent = "☀️";
+} else {
+darkModeToggle.setAttribute('aria-label', labelSwitchToDark);
+darkModeToggle.textContent = "🌓";
+}
+}
+const isDarkMode = localStorage.getItem("darkMode") === "true";
+function updateTweetIframesTheme(isDark) { document.querySelectorAll("iframe[id^='tweet_']").forEach(iframe => { try { const url = new URL(iframe.src); url.searchParams.set('theme', isDark ? 'dark' : 'light'); if (iframe.getAttribute('src') !== url.toString()) iframe.src = url.toString(); } catch (e) { console.error("Tweet theme update error:", e); } }); }
+if (isDarkMode) { body.classList.add("dark-mode"); updateTweetIframesTheme(true); } else { updateTweetIframesTheme(false); }
+updateAriaLabel();
+darkModeToggle.addEventListener("click", () => {
+body.classList.toggle("dark-mode");
+const currentlyDark = body.classList.contains("dark-mode");
+localStorage.setItem("darkMode", currentlyDark);
+updateTweetIframesTheme(currentlyDark);
+updateAriaLabel();
+document.querySelectorAll('.todo-checkbox').forEach(cb => {
+const lbl = document.querySelector(`label[for="${cb.id}"]`);
+if (lbl && cb.checked) {
+lbl.style.color = currentlyDark ? '#aaa' : '#888';
+} else if (lbl) {
+lbl.style.color = '';
+}
+});
+});
+// --- Header Scroll ---
+const header = document.getElementById("header"); let lastScrollTop = 0; const delta = 5;
+window.addEventListener("scroll", function() { let st = window.pageYOffset || document.documentElement.scrollTop; if (Math.abs(lastScrollTop - st) <= delta) return; if (st > lastScrollTop && st > header.offsetHeight) header.classList.add("header-hidden"); else if (st + window.innerHeight < document.documentElement.scrollHeight) header.classList.remove("header-hidden"); lastScrollTop = st <= 0 ? 0 : st; }, false);
+// --- Tweet Embed Height ---
+document.querySelectorAll("iframe[id^='tweet_']").forEach(iframe => { iframe.addEventListener("load", function() { try { this.contentWindow.postMessage({ element: this.id, query: "height" }, "https://mssmat.github.io"); } catch (e) { console.error("Tweet postMessage error:", e); } }); });
+window.addEventListener("message", function(e) { if (e.origin !== "https://mssmat.github.io" || !e.data.height || !e.data.element || !e.data.element.match(/^tweet_/)) return; const iframe = document.getElementById(e.data.element); if (iframe) iframe.style.height = parseInt(e.data.height) + "px"; });
+// --- URL Param Article Display ---
+function getUrlParameter(name) { return new URLSearchParams(window.location.search).get(name); }
+function displayArticlesByParameter() { const p = getUrlParameter("p"); const articles = document.querySelectorAll("article"); if (p === null) { articles.forEach(a => a.style.display = "block"); return; } const idx = parseInt(p, 10); if (isNaN(idx) || idx < 1 || idx > articles.length) { console.warn("Invalid 'p' param, showing all."); articles.forEach(a => a.style.display = "block"); return; } articles.forEach((a, i) => a.style.display = (i === idx - 1) ? "block" : "none"); }
+displayArticlesByParameter();
+// --- Syntax Highlighting ---
+hljs.highlightAll();
+});
+</script>
+
+<!-- 2025-03-29 21:34 -->
+</body>
+</html>
