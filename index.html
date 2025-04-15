@@ -159,6 +159,27 @@ color: #8fbc8f;
 <div class="container">
 <div class="spacer"></div>
 <article>
+<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Hyper-V環境でMCP(Docker/VS Code)</h1></header>
+<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-04-15 19:01</span>
+<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
+</div>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/f39e2faf-8b2e-441e-800b-2d9c15890cda/mcp.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466Y47OGU3C%2F20250415%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250415T100821Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEKL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCICMI3RZCI7vYBq9PV461bOLQzGC2NGB4Xo23c%2FSuzliTAiEArZE%2Fny9LQfLN7hdG4wKuffkkh95DZjtERGbXhuXKK9Yq%2FwMIKxAAGgw2Mzc0MjMxODM4MDUiDMTrFbakjTooqtNI8yrcAxHfPzaXpINbph0GELSLUn7BprF7WhgTz6wuLuJn0uENgzoxG46vp8akaeN64VEFyUS%2F0Gb2S8bbnymnk6Je3kOgOSgtDHcYMr6EgV2LlAJUOoOSzjCm6lUi64D0qX%2FwFvXwQ1oDpGh2G%2B6JbMKP0CCiEUNwA%2BDYs0c3Bka6S%2FPHWuT1snyAZ%2BhtamhxTDANS6vRKVjbAkVT9ywNtLVGO8AA%2F1Z81RB7eXEJvjfextyTXIqMgPLM4gIPgu%2Fma7rfoW2Fi4YESeWmsfoolHtuMo7JCvRwu7dhkb2WxGG8VQ92q1xeN9hGnzxR1J%2BTO96Yg0yedobi3JRhRgsq0EJRXH1bqN3yGZY1rrNTtWf%2BGjKnRly%2BEkFPkKK8M9S3hxuhIL4qGELR0SKhtP8sVUApmmokF3nOBLF8oDv8KVK%2F%2BFVscBGc69U53%2F4WAIjiKlLmyyW4ogiBJZ0AmBiWEN7V1SD9%2FavQ8QABd2sHPUjHVLb8%2B2v2hgOuwNr2vVyf7Sp54m9hZKLtQwbSQKML%2BSotvwHHoGM4uUsdm6Qa48B6r4z0HB06UvWB78pWCOn9r7nJ9dtTLlpm0Kg5PlZ7xkKxZarVK3jckKJBWXHuEo3Q0CCEhLaLha8tTD2%2BJ05tMMTO%2BL8GOqUBxjkFpoKhEzrIGlY5bTilLLXTzecGu%2BlhctO1CGqP6W95SZ1w3nOhBXrdlRj6mBNYUxjqBKd%2F0aqnHM%2FNMMlzux5I1Q8k78O5IHZ%2F37NfENY%2B2Q3HjiXfjnHmP7TxKWUrNoRjSOC7rjfqVh5CMO%2BtVcWsRz7I%2B%2FydK%2BRMll906NBeDsGNTdultqNP99sWl8a0YX3Q7rutZIrDUwjOXRC6CObJJ58s&amp;X-Amz-Signature=1fc6e38d87a116e81559f28e4881a07be13478cdd27c59c5146d7ef6f51e5384&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<p>Hyper-V環境でMCPが使えるようになりました～</p>
+<p>今回は、Claude for Desktopではなく、VS Code(Cline)でMCPが使えるようにしました。<br>これでClaude Sonnet以外のモデルでもMCPが使えます。<br>(OpenRouter経由でGeminiを使ってみましたがワークしました)</p>
+<p>また今回、サーバーはNode.jsではなくDockerにしました。<br>ハマりポイントがありましたが、Clineに設定jsonファイルを記載するだけで自動的にDockerにインストールされました。</p>
+<p>ただ、まだMCPの便利さが理解できていません。<br>サーバーはすでに沢山あるので以下の動画みたいにエージェントっぽく動いてくれるのはいいけど.. どうかな?<br>使いこなせてないだけ?!<br>(Function Calling以上の使い方ができてない)</p>
+
+                    <div class="bookmark-block">
+                        <a href="https://zenn.dev/karaage0703/articles/42f7b0655a6af8" target="_blank" class="bookmark-link">
+                            <img src="https://static.zenn.studio/images/icon.png" alt="" style="width: 16px; height: 16px; margin-right: 5px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+                            <div class="bookmark-text">
+                                 <div class="bookmark-title">Model Context Protocol (MCP) サーバを使ってみた・作ってみた</div>
+                                  <div class="bookmark-url">https://zenn.dev/karaage0703/articles/42f7b0655a6af8</div>
+                            </div>
+                        </a>
+                    </div>
+                    </article>
+<article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Googleカレンダーに登録するウェブアプリ</h1></header>
 <div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-04-11 12:20</span>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
@@ -182,7 +203,7 @@ color: #8fbc8f;
                         </div>
                     </div>
                     <p>Googleカレンダーに登録できるリンクが生成できる。</p>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/605733ae-c787-402b-94d6-a00c9f0b4469/tourokunotest.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466W5FSQGN6%2F20250415%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250415T094604Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEKL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQDvxkDfm1iJmVoxy9U26mrEaKYK7R3l30hVyuCR6JdGtwIgK9PRsNg%2BjX%2B6yblMGdEw1jadXekFViBoBDx6RrmN4twq%2FwMIKxAAGgw2Mzc0MjMxODM4MDUiDLFX3WkBrGjO%2FeIljSrcA4gbRDFvOcc%2FDLzsMsv%2FOq%2B7sY8cSiDSXOzP9V558%2FBsqeT0sH62k1PXik1POmaVvlnwBvS%2FDCExDNljGqxnOhLlB8F6LE8QjmpStGhmAYgPyu8A0SbC1DW574OchQok1mDdse28jj8yao7wBOR7BCxcov1vXqjw1vOFk4nIcvut5GnW4SupKF9pvK2lsmV5cFK8SaxVVOO9fw7XRlNs5lFCrRUUyBYqdkHvHnwbiymdGLWjYEGr3hPEBo%2BYUKdI6WXR68zmMMWLaRtkyZMJarRJYIqdtfBBFA6%2Bxcy4NQygsnw7LPoqoyPZGlHTdULbrIqjpGc4heGnJNIkB0k3eKoVebD%2B%2BcyY9XmC6J9uSY15eIv0Xrsfh0puZOsPy1IRKbpBKc4ceXbSI9%2FG2RYQXf%2BB2MXlJ5zF5q1hVRQeTK5pRBr%2FFbHs8WTuWMP1DM68pkEmnGcNbDJoBFpjt6r0pHnL371gFhDwM7AdPqGlqd0XMXBvz7maifxk%2FQxylIYM9zv51XPReaN9xTKH%2FHKwlIbJFnq9rIUvsUYcdYIXSSun2b5H7J4Jgt%2BpTZ3iydEEgFdm20gq7%2FJyYcEbtThwbZI%2FJDmHUVpsAqfp9bfMigAjoRswk8s83l80HyauMLTO%2BL8GOqUByPNwnIvKPFdUAKgFdAL7aWOqz2CdA4SeVx9k6Q9oPzuDdP0X6EEXE5OQYjy5MbxBWy8KjEJGuvmCCRkcNQfL4QmX%2BQJT%2ByOrXPane7bi8ebRG1YsriTHFwko2JxKbc2IHHvWRNoyuf4YGLMNXLdmWoILHMcHoyU6gJm71ZmqyyzoKd0H9ZhwvyD1nw2O4%2F2Lvi7m5mbP3iFSPZzADwMQNQtlxE%2Bd&amp;X-Amz-Signature=7377e0f9ba7a166d7bdb3348c58535f72b5fd11b538db2c8af05a184568876be&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/605733ae-c787-402b-94d6-a00c9f0b4469/tourokunotest.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667W34CMXT%2F20250415%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250415T100821Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEKL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIGC4iwX0zDKEf%2FB9oeyefBB12x5AP3D9wpWXeV4T9cFxAiEA9yizuL2WdSScwdeMWqcRe%2Bbypx0uQM7YjhQHX84Xvu0q%2FwMIKxAAGgw2Mzc0MjMxODM4MDUiDC4KQ%2Fvv9qOBf5y%2F3ircAz2eSuSJ1Zx6I90UyRGnTV%2FSx9edeziC339dsmDpZMmdLVNnWIZcGgr1WyOaXYFqapTqdXQUlxZ%2BkdFssDsRhTvJmZceKSC1%2Fv0n9xQVeotNZXUqSJxhonE7AtV4e2qKySdn%2BV4EVD65VCDsMV0J3gTBJW6nq5MUN6hzSeqL1HJJ8usDGu%2BI6b994F38qTR2h8%2B2KrzorcRNFCdVZsqfSde7zC2iAHc4Rnmw5tRkS3byzYf1Cz6EdDY0LePOxWFozGHWUvb7EIhPBQ6wZNql0oc155EeIV%2FqtstXZMMMWJeyTUubnFHQiRfM2%2FlrNms6fmbK%2BqH3qtz55C%2Fz%2FtzJ6gHfGOqZUPrNSwQCX73E3XdVSmOCToLI8dpR803xUJ7TIGqlUlnrqAcJXXnwKYxkMNsp8wCfID4UBDEBLCTj3j%2FlT1oOdPzkAJsBadw6tmNi6QkvSt2gq8xy5%2FwBGOiOQyryCwZmrXRe8xijLf2lkuwiBD51bo7sI6ns2WSJOrsAr8hvSHddOH8uwVKRLcX0hS5KehCp8D9ClNv%2BBRe2HOYbfIJubB3U9M1WaQjskQyidmhiwo0iawEzY34IDdsmVaczAmozHzsJHYfVkri12wh%2FVTGVW4pqWX3d2%2BoBMJTP%2BL8GOqUBeU0EUfRAS3zOPJfsIKw3xh1j17CvVE4hgLEiuv1odZRS37Fb2oPhN5hZ3df3oWgdBKz74ivpE7DM6cpf6NTpIUS%2FIpuOBRL4YPNtmLhz%2B6vbar0GKy6dvelouOUmvEM064ZD%2F12mSnqOTmzCVAiFYZPUtgGqvuDivP8vSTb5T7oj%2BPbvtotIVeHs7wD%2Fmj0sfBDZkre330QGZ72HZAbpiIylSkwd&amp;X-Amz-Signature=910d8be279f6c08b37d1e4988f0c2f509e5a53f5a92adb01fd8c06902e1e14e6&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <p>OpenAIのAPI(GPT-4o mini)で、Function Callingを使っている。</p>
 
                     <div style="margin: 15px 0;">
@@ -728,7 +749,7 @@ errorMessage.style.display = &quot;block&quot;;
 </div>
 <p>note風のNotion blogで独自ドメインでの運用を試す。</p>
 <p>ホスティングはGitHubのまま。これまた無料で使える！(ドメイン登録費用は別途必要)</p>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/cad08d04-e1cd-406f-8716-290c97d55fba/kore.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466TK57SSD2%2F20250415%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250415T094607Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEKL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIC67f4gB0HLFUePeM4r%2BWqFN2%2BeqwkURnLRkcNSEgJnrAiEAwFoLQsOhz1M%2Fxq3Z0O9DKTaCPoTLf9h6fGZ1LYbd4%2FIq%2FwMIKxAAGgw2Mzc0MjMxODM4MDUiDFEhK04PyQs%2Bz4dTkSrcAxCwLqojYRUhxvnlRgqC7C6ETPQmc4%2BNCGawClneWjlgXkToY8oI2gBKKxWdlDtO1VLPmQ0HSgRlehf%2BsT4O0dHmQXjMtBwT%2BTqUvjF1gd07099BAHD6sbn94xQdHtrAXLARpfzYgvxwzybSafFx1zAANTdn%2Fz3AVjLSp0mlyDJFqaRXAGWA7Zn9HDZR8ICdpSU9WwCsbMQK0VtLZBE8l5rPi5NU1A0wOemIgSZP5J5PIzy4mCrgekNkdEyBshYQc1RATofH%2F6bSRd4E32W5XHM9C8TeldXUnzatlGyFXM5b2Uae1ro4W%2FQqc4T2ewvoKOjf46WL72o41OX%2Bsl5gQWrNTbTwYSFkD1ZWZJ%2B2Rs6SnimtDQY11PkMHEKjTbyUE678rvx3j0%2FK2RH0uW2eahiMlMz08hgbs2RiHwg21fz5XrMW2ktufSSOqhYWGhr9cbZ8wRo9VuVoEFjJyB3V3cIMVdV%2BwdWCiOspoVuxEHdDRs5iHPNSg%2BiJkrOc2TVqk%2FZB8EP%2Fi17T6VyMGA9UfkYpBpN%2BHICkG4Wqyd%2BrOgcVXA38V1pkAAJVbOu%2FjqCrD7729oRIXXpBfc8Iyvwn5ha8P00bery0Wdom5wzMJyOrXdOlKre6g2KYZ%2B8xMK7O%2BL8GOqUBbQw89Q5Qh7IeDhrPEemiMou5uZ7FQVcSsdjYJmJ%2BytHheg38mx9QbsBkkaxKSxiWLngR9RffuaZ0EpkPTdlpOr8fzg1wG0j94%2Bnw6zBSKYrV2RflcGvt3T1CcZvtNUW%2BHJ0RNPC%2FTYQpEBrCbWjWO%2BtK5J4rTQQ7aGX04hCPDp5tfU2vfIGS4TxRzSD5wG33kCNL%2FfAyBTqQ2BjxcpYXTAfOdYTY&amp;X-Amz-Signature=90ed88451aa369869535572aaf75404b2fe8569992e7a6379726cf341ee16299&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/cad08d04-e1cd-406f-8716-290c97d55fba/kore.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466QQPT3G7H%2F20250415%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250415T100823Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEKL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIEcyu6WIsASPsxsRITdmeKmf2b9yXCn7qEpoCUqzPRCbAiEA0%2BIbfjnc75VVyXQZUPNBiDe9e%2BBSUrK7Fk60%2BtxcCWQq%2FwMIKxAAGgw2Mzc0MjMxODM4MDUiDPlD3BsCAxnrCNy4myrcA4Rc9VEWdT2xrPcthP%2BCoSgIbLxvp1A91i8yE7psChx6hyL0sDdxzpyz9Yyd0VrcON3Y5SiXfIwW2%2Be%2FMbLp10o0mf6Lkkb7zNUbZZy%2FWx6qWL%2BlS5hNf2GIDCbVQHZ%2BKFBJzVsfEmY10bEkCG3q6ftv6%2FQMVUKMtkaH3mTMXJCzYz5ESdHSEmqPC34UZov3FFmK3QKCXjYd6LfmOsJ8moinW6wtHIaGBPSfd4jsB7R%2FzZpom2NAF8ne6VNLv%2FjVtgKTmy%2BJ%2B7Tg1Wcs2JWBBr7y%2BiQ8zEVYSfjMhIIF305uKqVfXQ3M3O5CbUJ9M49bKMH3Ucv8ohytgboE5HzO0wyhuq85q8X4icGKWQWK1G68PS6kFN1TDIy0roaTPWyDHPEeHJIoXOqIHLFTyi7KmZzpWo0IgZ8UgZM27YkflgK6A35fB%2F8pezvtE1lMRggkZZ6%2FkV%2FS6lqXiOvRkiI%2FZnuIKRvUlzCg1YxSKercJ3I5xzpI3ZwZ8yksb05UoXLv5JIWC%2BU3V5IBp%2FEKdqexkhZKxWF%2Fgqqf0sfHH9kYV%2FH4t7DmzllXG4vI1MEOqN7C%2FfhG0f8X7WZHOd6fb6hWpOO1KSXjcUuWtnh3oAHH%2FQkXiwNrITEbjzADvTUBMOjO%2BL8GOqUBNFadO5BZ5oKN8yQBDgF4aFN9MCU%2Bf%2Fp5g5WaIl0pVSKUYClTSWVpp3szYezQZqyuDTKNEyBrppOsULjLKEu%2BfTD1vAQ1ncWlMEUtskAjFrgQcV3scw8YaodYKOkHK7fxhc%2B7OfICSRQaOEZAvE1yOJRZhM%2B3TTnGO1OWqYVY9c9saxtgDaiS1JWDXsgRD3WyCB1w6EdLiMfLvaGqsnl8QPWB7h2c&amp;X-Amz-Signature=8b7740175acf762664b922df26d079649f6a35bab365f4a388616312d805079f&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 </article>
 <article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">ベタベタ貼り付ける</h1></header>
@@ -740,76 +761,6 @@ errorMessage.style.display = &quot;block&quot;;
 <iframe id="tweet_1904743890533704067" border="0" frameborder="0" scrolling="no" style="width: 100%; min-height: 350px; display: block; margin: 1em auto;" src="https://mssmat.github.io/twiframe/show.html?url=https://twitter.com/komiya5395/status/1904743890533704067&theme=" + (document.body.classList.contains("dark-mode") ? "dark" : "light")"></iframe>
 <iframe src="https://www.youtube-nocookie.com/embed/4y2Ul5RfpqY" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <iframe id="tweet_1904838714477731897" border="0" frameborder="0" scrolling="no" style="width: 100%; min-height: 350px; display: block; margin: 1em auto;" src="https://mssmat.github.io/twiframe/show.html?url=https://twitter.com/shodaiiiiii/status/1904838714477731897&theme=" + (document.body.classList.contains("dark-mode") ? "dark" : "light")"></iframe>
-</article>
-<article>
-<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">色々なブロックを試してみる</h1></header>
-<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-03-27 18:54</span>
-<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">Notion</span>
-</div>
-<h2>Notionの色んなブロックを試してみる</h2>
-<h1>H1</h1>
-<h2>H2</h2>
-<h3>H3</h3>
-<ul>
-<li>箇条書き1</li>
-<li>箇条書き2</li>
-</ul>
-<ol>
-<li>番号リスト1</li>
-<li>番号リスト2</li>
-</ol>
-<div class="todo-item"><input type="checkbox" id="todo_1c3d9f25-4f6d-80fc-8b8f-f609232a6bec_8336" class="todo-checkbox" checked onclick="toggleTodo(this)"><label for="todo_1c3d9f25-4f6d-80fc-8b8f-f609232a6bec_8336">ToDoチェックボックスチェックアリ✅</label></div>
-<div class="todo-item"><input type="checkbox" id="todo_1c3d9f25-4f6d-8015-a7d8-d511f0d78c45_6739" class="todo-checkbox"  onclick="toggleTodo(this)"><label for="todo_1c3d9f25-4f6d-8015-a7d8-d511f0d78c45_6739">ToDoチェックボックスチェックナシ</label></div>
-<div class="notion-table-wrapper"><table class="notion-table">
-<tbody><tr><td>表</td><td>2</td></tr>
-<tr><td>3</td><td>4</td></tr>
-<tr><td>5</td><td>6</td></tr>
-</tbody></table></div>
-<hr class="notion-divider">
-<p>↑区切り線↑</p>
-<p>同一ブロック内での改行。<br>これは<br>同じ<br>ブロック内で<br>改行しています。</p>
-<p>中国語: 您好专家转发专业骨头不错可乐气水</p>
-<p>絵文字: 😐😎</p>
-<p><a href="https://0click.nezihiko.com/" target="_blank">テキストのリンク</a>埋め込み</p>
-<p>ブックマーク。</p>
-
-                    <div class="bookmark-block">
-                        <a href="https://alpacat.com/posts/solution-to-image-url-expiration" target="_blank" class="bookmark-link">
-                            <img src="https://alpacat.com/favicon.png" alt="" style="width: 16px; height: 16px; margin-right: 5px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
-                            <div class="bookmark-text">
-                                 <div class="bookmark-title">Notion API 画像URLの期限切れ対策を3つ紹介する - アルパカログ</div>
-                                  <div class="bookmark-url">https://alpacat.com/posts/solution-to-image-url-expiration</div>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="bookmark-block">
-                        <a href="https://blog.35d.jp/2021-10-08-notion-api-image-expire-date" target="_blank" class="bookmark-link">
-                            <img src="https://blog.35d.jp/img/favicon.png" alt="" style="width: 16px; height: 16px; margin-right: 5px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
-                            <div class="bookmark-text">
-                                 <div class="bookmark-title">Notion API でブログを構築するときの画像の Expire Date 問題を解決したい → 解決した | 35D BLOG</div>
-                                  <div class="bookmark-url">https://blog.35d.jp/2021-10-08-notion-api-image-expire-date</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="notion-callout callout-gray_background"><span class="callout-icon">💡</span><div>これはコールアウト。<br>コールアウトも表示可能。</div></div>
-<blockquote class="notion-quote ">これは引用。<br>引用も使えます。</blockquote>
-<div class="notion-table-wrapper"><table class="notion-table">
-<tbody><tr><td>表もいけます</td><td>Most interest in</td><td>Age</td></tr>
-<tr><td>Chris</td><td>HTML tables</td><td>22</td></tr>
-<tr><td>Dennis</td><td>Web accessibility</td><td>45</td></tr>
-<tr><td>Sarah</td><td>JavaScript frameworks</td><td>29</td></tr>
-<tr><td>Karen</td><td>Web performance</td><td>36</td></tr>
-<tr><td>Average age</td><td></td><td><strong>33</strong></td></tr>
-</tbody></table></div>
-<div class="notion-table-wrapper"><table class="notion-table">
-<tbody><tr><td>こちらも</td><td>列-A</td></tr>
-<tr><td>行-1</td><td>A-1</td></tr>
-<tr><td>行-2</td><td>A-2</td></tr>
-<tr><td>行-3</td><td>A-3</td></tr>
-</tbody></table></div>
-<p>ファイルを保存してみる。</p>
-<a href="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/b2d5728a-dd71-4fc2-a1f1-4ac52900240a/20240419004-1.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466SYNIT6GM%2F20250415%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250415T094608Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEKL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIEx9U0b3dHd4oREFmM6ZjDkLPektHwvqYSTI2mvQyxj9AiEAk8AFmevTgz8bB9oezpg35hfIaT6mLCUL8AUvIVZvCWAq%2FwMIKxAAGgw2Mzc0MjMxODM4MDUiDAMXbHaGpVqP71i1RircAxdM4Oyb%2BbAVB1zKw68%2BItwFqqnRe6AWf1AFD0Mdjfj3wcBDuVXmn4caQKq64zu%2FpBtUIl5rONWSmFbZ8OwdvbHa4wmcNdzmgxDu29A%2BT%2BxwNeC8lZca%2BQKSXO5CIID9TvNLuLQ2j2neRJAmkRJy8Z25Dz20XlgdtnnRA8343SxFCU2AS0vyG4dmUyTDpU%2F%2FU%2FB6Sc29o0Z9wXJqlL6Wo4FAUZw6yHfxMtmi2y0%2BWiHoqUDjDLhAmIHoJgr1C1XtPw92MYkv%2BfR2lMCQuthLjKngSe5bFt7dagwR2AuQ3zCqES5yjh7lDSXtgi%2F6YkTQ2tac3gmu5ygUwPuK%2BrOH%2Fu5SqnOZ9MneFY1XCx6kxNqhcmBjhuwApaE7Y%2Bkji3r009%2B04RzIaZTR8Ze%2FHuDqk09V19Wa83Bz2fjmTJp%2FaMq3GNam%2Bauw3ETus8RrbxVrALxmG8boHczRtComlqktC1%2FRaFa9V%2FDV3Mo1h7IxXxxlR6NjO1LB5NlQ2gqF8M89SMe9IcHaVQkjjF5xmHwZ8G1ljZY97NWYka8KleC1PQs72UAc0bWOb8cuteWzzWQ7hs98qlcy5SVDie4YiXqlEDbntqjoqHF2xRNIxkBrGE2JGqZaVc64hKfNm7yBMLnO%2BL8GOqUBMknf2yu7pc8KWvheHrh%2BzScwqN7A2sl9E4Ies3FnGzPVBCWNEo2SnBDkYVWLL6DsMgBl7oACIXYH96MUA49YXE7hOOD1XgjXFP2m%2B55Zxl27uX9RshUlwz7PrELLWaTF5WSeLSvH%2BWN0QZu54ElQ0A2VgA2TN0wRXAITn7e%2F8FoOYk4655JILUTPu1Lmkhs0S1ihsHhBFIJfXJ9COWkmEo%2BhBo5p&amp;X-Amz-Signature=c4168981689eb854ed76c05b16217853ffa917a87dd9fcf1c48d63e145c20ddc&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" target="_blank" download="20240419004-1.pdf" class="notion-file"><svg viewBox="0 0 24 24"><path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2ZM18 20H6V4H13V9H18V20Z M12 19L8 15H11V11H13V15H16L12 19Z"></path></svg>20240419004-1.pdf</a>
 </article>
 
 </div>
@@ -884,6 +835,6 @@ hljs.highlightAll();
 });
 </script>
 
-<!-- 2025-04-15 18:46 -->
+<!-- 2025-04-15 19:08 -->
 </body>
 </html>
