@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>MAT note</title>
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000080'/%3E%3Cpath d='M30 95 L30 40 L50 40 L50 95 M70 95 L70 40 L50 40 M50 40 L50 10 M30 40 Q40 30 50 40 Q60 30 70 40' stroke='%23FFD700' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M30 95 L30 40 L50 40 L50 95 M70 95 L70 40 L50 40 M50 40 L50 10 M30 40 Q40 30 50 40 Q60 30 70 40' stroke='%23808080' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -159,11 +159,188 @@ color: #8fbc8f;
 <div class="container">
 <div class="spacer"></div>
 <article>
+<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">AivisSpeechを使って、AI生成音声でニュース解説動画を作ってみた</h1></header>
+<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-04-16 20:31</span>
+<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI, Python</span>
+</div>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/b73d687e-24ac-43e6-b773-8684ab310058/aivis_srt.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466SXJJH32A%2F20250416%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250416T113512Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjELv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIHax4PCNaYuQuCCycnQRouD5BIGqpftSf%2BmtPLCDmDaRAiBg2s7geoHPRz6Ra65VjbKpmgoiqV2b2ebLhJQFfLVzQir%2FAwhEEAAaDDYzNzQyMzE4MzgwNSIMorvrRgshOPxzW56BKtwDXLYmhKUn%2FUv4jhgHtEUotmNYiK2%2BBJ7zbd9sotjDL%2FGEH6A5MQ9ihGhUzbvnaPEFcmB6raYAb94q8W6DqszYeN13xedyLBGi8lv1rCymC9Jwgmpw8dWHLmOMczGEh2s0cFsN17Wps%2BtaJbF7eIFZHTHMpyRubVIAKZXQtSE1RpueZ%2F2zJRUUclmiIBIYrMZy5DFgp5G029TcfURWWBbDHgE7bkDE2Fwp4oJRBaYXQC532%2B5daM5dANqKm%2BFVwBfC%2Fj39Znu3coSw%2FNmpUJyTMjJWnpgcOzAWF1ZJkTF8OawWy3LtM1zlwIqG%2BpCgpek3uwHVSu9fXpkS3hKLn5q2TY3GoVYvbpRZ%2B4GP7710KOVn%2FgxAD1GPuG0uEg8Btqy%2F1%2BqJQDrEAmoisQqhBUETOrh%2Ft%2BBrI4GSm5M5Ox6zVxPQhTj9r6%2FHP27oM07pDR%2BbllBt90NwzOP409J3QCkQI8DY0FZgEWE3pkrWfcfZ1EzxN9k4z%2F2AD3Bt0Sw4ClWsT8Am3K3mAp2jnLw3t5TiyJHrcxCWd802IEAA3YJm2T2iQ%2F7G%2F168V%2B49oC4SmcLnqnAr6iwkUprodrMwMpkaHm8N5uAmoyfK26E9Ugnwqa6OCtiv1%2BOuxFcob7Uw8o%2F%2BvwY6pgHc46qx6L1%2FGng%2F8z6ILSBDnnnpy2kBNjLNxHwLTZvDWuuWowUsWVDBJ5Y5u0BrrJdDDKxdH0AVjb7RT4BUY22FbqtSQSC5uYQYEMcGsIu3y2QfJQ3IjOUa2L3ij74CP6YFYShxyHfZd%2FDlOFrTRTiivUmoRpijIv9%2BOwnrNKccmnmgBMWngqBNPDuurYZSZCV2P9Srue7%2F8jNX17%2BYWfJQD%2Fyb93c5&amp;X-Amz-Signature=d1770124901f70b77a281ee86dec7b3e81436119bd811ee2b50518497febaf70&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<p>１．まずニュースなどのテキストをコピペします<br>今回のソースはこれにしました</p>
+
+                    <div class="bookmark-block">
+                        <a href="https://gigazine.net/news/20250415-openai-gpt-4-1-released" target="_blank" class="bookmark-link">
+                            <img src="https://gigazine.net/apple-touch-icon.png" alt="" style="width: 16px; height: 16px; margin-right: 5px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+                            <div class="bookmark-text">
+                                 <div class="bookmark-title">OpenAIが「GPT 4.1」のAPIを公開、100万トークン対応と実用性能で飛躍的進化を遂げた次世代AIモデル - GIGAZINE</div>
+                                  <div class="bookmark-url">https://gigazine.net/news/20250415-openai-gpt-4-1-released</div>
+                            </div>
+                        </a>
+                    </div>
+                    <p>２．<a href="https://gemini.google.com/app" target="_blank">Gemini</a>などに貼り付けます</p>
+<p>３．以下のようなプロンプトで指示します</p>
+<blockquote class="notion-quote ">上記のニュースを解説する対話を作ってください。<br>対話は以下のフォーマットに従ってください。idは2名分ありますので、それを話者として分けてください。idは変えないでください。</blockquote>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                json
+                            </div>
+                            <pre><code>[
+  {&quot;id&quot;: 888753760, &quot;text&quot;: &quot;やあ、こんにちは。&quot;},
+  {&quot;id&quot;: 1310138976, &quot;text&quot;: &quot;お、こんにちは。珍しいね、どうしたんだい？&quot;},
+  {&quot;id&quot;: 888753760, &quot;text&quot;: &quot;いや、ちょっと近くまで来たもんだからさ。元気？&quot;},
+  {&quot;id&quot;: 1310138976, &quot;text&quot;: &quot;ああ、元気だよ。そっちは？相変わらず忙しそうだけど。&quot;}
+]</code></pre>
+                        </div>
+                    </div>
+                    <p>４．出力された以下のようなJSONをテキストファイルで保存します</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                json
+                            </div>
+                            <pre><code>[
+  {&quot;id&quot;: 888753760, &quot;text&quot;: &quot;やあ、こんにちは。&quot;},
+  {&quot;id&quot;: 1310138976, &quot;text&quot;: &quot;お、こんにちは。珍しいね、どうしたんだい？&quot;},
+  {&quot;id&quot;: 888753760, &quot;text&quot;: &quot;いや、ちょっと近くまで来たもんだからさ。元気？&quot;},
+  {&quot;id&quot;: 1310138976, &quot;text&quot;: &quot;ああ、元気だよ。そっちは？相変わらず忙しそうだけど。&quot;},
+  {&quot;id&quot;: 888753760, &quot;text&quot;: &quot;まあね。そういえば、OpenAIが新しいAIモデル「GPT-4.1」を発表したってニュース、もう見たかい？&quot;},
+  {&quot;id&quot;: 1310138976, &quot;text&quot;: &quot;え、そうなの？知らなかったな。GPT-4oは便利に使ってるけど、さらに新しいのが出たんだ。どんな感じなんだい？&quot;},
+  {&quot;id&quot;: 888753760, &quot;text&quot;: &quot;それが、かなり進化してるみたいなんだ。まず、一度に扱える情報の量が桁違いで、最大100万トークンに対応したらしい。&quot;},
+  {&quot;id&quot;: 1310138976, &quot;text&quot;: &quot;100万トークン！ それはすごいね。数百ページの資料とか、かなり大きなプログラムコードも丸ごと理解できるってことか。&quot;},
+  {&quot;id&quot;: 888753760, &quot;text&quot;: &quot;そういうことみたいだね。だから、法律関係とか金融、あとは大規模なコード分析とか、実用的な場面での活躍が期待されてるみたいだよ。&quot;},
+  {&quot;id&quot;: 1310138976, &quot;text&quot;: &quot;なるほど。それは業務で使ってる人には朗報だろうな。他にはどんな特徴が？&quot;},
+  {&quot;id&quot;: 888753760, &quot;text&quot;: &quot;コーディング能力と、こっちが出した指示に正確に従う能力が、GPT-4oと比べて大幅に向上したって。ベンチマークのスコアもかなり良くなってるらしい。&quot;},
+  {&quot;id&quot;: 1310138976, &quot;text&quot;: &quot;へぇー、コーディングが得意になったのは開発者としては嬉しいね。指示への追従性も、複雑な頼みごとをする時に重要だからな。&quot;},
+  {&quot;id&quot;: 888753760, &quot;text&quot;: &quot;うんうん。それに、図とかグラフみたいな画像情報の理解力も上がってるみたい。あと、応答速度が速くなって、コストパフォーマンスも改善されたって。&quot;},
+  {&quot;id&quot;: 1310138976, &quot;text&quot;: &quot;コストが下がって性能が上がるのは理想的だな。軽量版の「mini」とか「nano」も同時に出たのか。&quot;},
+  {&quot;id&quot;: 888753760, &quot;text&quot;: &quot;そうそう。だから、処理速度やコストを重視する用途にも対応できるってわけだ。APIでの提供がメインみたいだけどね。&quot;},
+  {&quot;id&quot;: 1310138976, &quot;text&quot;: &quot;APIか。ChatGPTですぐ使えるわけではないんだね。でも、記事によるとChatGPTのGPT-4oにも段階的に改良点が取り込まれる予定なのか。それは楽しみだ。&quot;},
+  {&quot;id&quot;: 888753760, &quot;text&quot;: &quot;みたいだね。APIの価格も発表されてて、GPT-4.1の通常モデルで入力100万トークンあたり2ドル、出力が8ドルだって。キャッシュ使うともっと安くなるし、miniやnanoはさらに手頃な価格設定になってる。&quot;},
+  {&quot;id&quot;: 1310138976, &quot;text&quot;: &quot;なるほど、価格帯も色々あるんだな。あと、そういえば「GPT-4.5 Preview」っていうのはどうなるんだい？&quot;},
+  {&quot;id&quot;: 888753760, &quot;text&quot;: &quot;ああ、それは今年の7月14日で廃止されるらしいよ。GPT-4.1の方が多くの面で優れてるから、そっちに移行してねってことだろうね。&quot;},
+  {&quot;id&quot;: 1310138976, &quot;text&quot;: &quot;そうか、世代交代が進んでるんだな。それにしても、100万トークン対応と性能向上は大きな進歩だね。またAIでできることが広がりそうだ。&quot;},
+  {&quot;id&quot;: 888753760, &quot;text&quot;: &quot;本当だね。実用性がかなり高まった感じがするよ。今後の展開も楽しみだ。&quot;},
+  {&quot;id&quot;: 1310138976, &quot;text&quot;: &quot;うん。詳しく教えてくれてありがとう。また何か面白い情報があったら教えてくれよ。&quot;},
+  {&quot;id&quot;: 888753760, &quot;text&quot;: &quot;ああ、もちろんだよ。じゃあ、またな！&quot;},
+  {&quot;id&quot;: 1310138976, &quot;text&quot;: &quot;またな！&quot;}
+]</code></pre>
+                        </div>
+                    </div>
+                    <p>５．テキストファイルを自作のスクリプトで読み込んでTTSの処理をします(python→<a href="https://aivis-project.com/" target="_blank">AivisSpeech</a> API)</p>
+<p>６．AI生成の音声ファイルとSRTが出力されます</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                plain text
+                            </div>
+                            <pre><code>1
+00:00:00,000 --&gt; 00:00:01,596
+やあ、こんにちは。
+
+2
+00:00:02,096 --&gt; 00:00:05,478
+お、こんにちは。珍しいね、どうしたんだい？
+
+3
+00:00:05,978 --&gt; 00:00:09,467
+いや、ちょっと近くまで来たもんだからさ。元気？
+
+4
+00:00:09,967 --&gt; 00:00:14,253
+ああ、元気だよ。そっちは？相変わらず忙しそうだけど。
+
+5
+00:00:14,753 --&gt; 00:00:22,979
+まあね。そういえば、OpenAIが新しいAIモデル「GPT-4.1」を発表したってニュース、もう見たかい？
+
+6
+00:00:23,479 --&gt; 00:00:31,785
+え、そうなの？知らなかったな。GPT-4oは便利に使ってるけど、さらに新しいのが出たんだ。どんな感じなんだい？
+
+7
+00:00:32,285 --&gt; 00:00:41,501
+それが、かなり進化してるみたいなんだ。まず、一度に扱える情報の量が桁違いで、最大100万トークンに対応したらしい。
+
+8
+00:00:42,001 --&gt; 00:00:49,889
+100万トークン！ それはすごいね。数百ページの資料とか、かなり大きなプログラムコードも丸ごと理解できるってことか。
+
+9
+00:00:50,389 --&gt; 00:01:01,247
+そういうことみたいだね。だから、法律関係とか金融、あとは大規模なコード分析とか、実用的な場面での活躍が期待されてるみたいだよ。
+
+10
+00:01:01,747 --&gt; 00:01:07,647
+なるほど。それは業務で使ってる人には朗報だろうな。他にはどんな特徴が？
+
+11
+00:01:08,147 --&gt; 00:01:19,413
+コーディング能力と、こっちが出した指示に正確に従う能力が、GPT-4oと比べて大幅に向上したって。ベンチマークのスコアもかなり良くなってるらしい。
+
+12
+00:01:19,913 --&gt; 00:01:28,565
+へぇー、コーディングが得意になったのは開発者としては嬉しいね。指示への追従性も、複雑な頼みごとをする時に重要だからな。
+
+13
+00:01:29,065 --&gt; 00:01:39,998
+うんうん。それに、図とかグラフみたいな画像情報の理解力も上がってるみたい。あと、応答速度が速くなって、コストパフォーマンスも改善されたって。
+
+14
+00:01:40,498 --&gt; 00:01:46,781
+コストが下がって性能が上がるのは理想的だな。軽量版の「mini」とか「nano」も同時に出たのか。
+
+15
+00:01:47,281 --&gt; 00:01:56,049
+そうそう。だから、処理速度やコストを重視する用途にも対応できるってわけだ。APIでの提供がメインみたいだけどね。
+
+16
+00:01:56,549 --&gt; 00:02:08,753
+APIか。ChatGPTですぐ使えるわけではないんだね。でも、記事によるとChatGPTのGPT-4oにも段階的に改良点が取り込まれる予定なのか。それは楽しみだ。
+
+17
+00:02:09,253 --&gt; 00:02:25,270
+みたいだね。APIの価格も発表されてて、GPT-4.1の通常モデルで入力100万トークンあたり2ドル、出力が8ドルだって。キャッシュ使うともっと安くなるし、miniやnanoはさらに手頃な価格設定になってる。
+
+18
+00:02:25,770 --&gt; 00:02:33,133
+なるほど、価格帯も色々あるんだな。あと、そういえば「GPT-4.5 Preview」っていうのはどうなるんだい？
+
+19
+00:02:33,633 --&gt; 00:02:43,866
+ああ、それは今年の7月14日で廃止されるらしいよ。GPT-4.1の方が多くの面で優れてるから、そっちに移行してねってことだろうね。
+
+20
+00:02:44,366 --&gt; 00:02:54,582
+そうか、世代交代が進んでるんだな。それにしても、100万トークン対応と性能向上は大きな進歩だね。またAIでできることが広がりそうだ。
+
+21
+00:02:55,082 --&gt; 00:03:01,394
+本当だね。実用性がかなり高まった感じがするよ。今後の展開も楽しみだ。
+
+22
+00:03:01,894 --&gt; 00:03:07,551
+うん。詳しく教えてくれてありがとう。また何か面白い情報があったら教えてくれよ。
+
+23
+00:03:08,051 --&gt; 00:03:10,774
+ああ、もちろんだよ。じゃあ、またな！
+
+24
+00:03:11,274 --&gt; 00:03:12,252
+またな！</code></pre>
+                        </div>
+                    </div>
+                    <p>７．Premiereなどで音声ファイルとSRTファイルを読み込んで動画にします</p>
+<p>８．そうしてできたのが冒頭の動画です</p>
+</article>
+<article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Hyper-V環境でMCP(Docker/VS Code)</h1></header>
 <div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-04-15 19:01</span>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
 </div>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/f39e2faf-8b2e-441e-800b-2d9c15890cda/mcp.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4665RPZ545W%2F20250416%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250416T105116Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjELv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQDcE2S%2F6r7M4GHxTN1spfudc5iCDDSJenyq%2FbjcZs1cjQIhAMEvZT6TPXD%2Bqb045gGxg34s1bPmUBi6X9jpDAQlPCA7Kv8DCEQQABoMNjM3NDIzMTgzODA1IgyHuev9li08HVMI40Aq3ANpLDPnH0rrftry55rQagTflmVCJyYUFpSgBGHCaZjPe3kjMimv4I2wsv3MtuxHO0o5VGWOta5YpnT%2BUZJT43yQ%2BRr%2BiIaLrbPeXoNMktelWJevx9Of9SSCZ2FUjCU5HvGx3zuuLi%2BQdSh961%2BQRq6s0jlSvtQcej5ja4HSn9ZOnEQGgKozug4EK5ThJgS5UASbt7Y63KEmmLioDx0EJ5uxq%2FlpLAg%2BhYh89xrICnIWaJ241M40Gw52D2aXP4XSFjK8hFGPpswq8Al1%2F6Fng3KEaCUtVcbpMSaYuJLHM%2FWmUWzoxauwSCcffaOEcSajdAzIiiz3HG1Tph2pmdbrON6xUlofSr5tuIRgAK7i6gF1%2FN1Jky9awlUtsdt3mZoXqPuxcip2ljSYAs9B1jLc3FCuGn5WHOmOaJX%2FQceSnY1pqZAapGYIc8sxmPnsyoQNO1Cx%2BTBcLCxDldGh5WLABCkcj%2BjrI6sjDrMZ2qg%2FEKcINmWVyjcoPHF%2BOHHi60H8WHgwaPd5QiB3%2Bm9QbLBqnURO7hSddLNYJvufTfomaAHQ8lyGPexTCHE0rAHMJqrYMxzRwLOXNWYZVW65jbUe0UNXklgQfg6%2FIovL0R6bJKnAfW44Jxq0wO5YVqTX5zC5j%2F6%2FBjqkAaUXKJc9QbfoEllF1%2FPT%2FsqjrqXv1WA4MTUMCiFIKWDQyBQMLHKaxHxlLiOYJmNfKt3DTU5KFcnozvoO0FEp4iaLHZEl1rhyKxnQQDSOp5A41A75xpt2v5uSof1o1lM32dtLdGY1JROfoSWFc0aNY2IeZGfwaGwtbwJ703keUeHxMzX%2BYAZvQUebTpjo3e1iuesRwdWBJlrYlOvxRwRDRfJnNZyu&amp;X-Amz-Signature=19636471f1388a849c3431a79d33533e749407191eb72a6c6ee0afd2c63dee46&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/f39e2faf-8b2e-441e-800b-2d9c15890cda/mcp.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466ZDKITXBD%2F20250416%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250416T113515Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjELv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIAt5jId8McxVnDLGSBCWUj1M8Hy%2BCpjAXYZ25WpKUTpGAiAjvoRCUl3mmNVVOQRVJZYuuVLWKCLueur1UnW6206aQSr%2FAwhEEAAaDDYzNzQyMzE4MzgwNSIMOQzxyf0GmmWhYhV%2FKtwDZGFtDDb8TSPwzXbWoCD%2FtzgE52LM%2BgMSyWBm3ITVhyX6mIesGIih%2F3ggJj9Dw0%2FrIcTOjehXcIszR4gdtdtXBCOSpB5ZSVd9MBHxlzHJO2rCFPio08kTGWGOAm3GEHA61t5mEpdRBqzT6%2FtrToD1D3iQt2IerhdstHUuBS8IlfgjAiSLzFMoxWfyMATEUrsWId1yvjDn%2Fae3Qma0ZPjKi7HWm07cMgeekkbHaioUshh1%2B2n2MrsQLoZ4KHrTcpBiMkQ67bU9bVtYpxKBf0XhC%2FDcFQFhyzafLWkuujUuCdNXirebWACgNV9stALeWpXVg9%2BOD25nxGr23L%2FZTU1oBMUe542%2FaFhKy8clqEu%2BjCbnwu%2BQQHfzC1oNzcjOhz0snRsLQhdLScboSoRNg%2Fgj8jr2SrXld9hfAq0G2aFPva2Xu2aBBZl9ZTgC5DAxqq8D1V3pOW69mCvn2qEomXjrSzwMmwEOoO%2FYTDS8GOH0SxJOqNdCEg9TYIghvqsKm6IjCHJPqFcmxShsHR6h85%2Frt7bdzqH%2FjUB7190r54hYi93yLehj5p2plwTENBfEzcUEJDdnlItb7MRP5zbeo%2BPtqRlHlCqStESrPl2HAhyqvnZ4FdbTKZNkg%2BIhN6Aw0o%2F%2BvwY6pgHd3dCWb6YbErIeivdbcal6np1uh1aUKyxzmrtGaCIuKryCnhu8KV12zyYYvzmXrpEMPZciCANxZnqirrRNiJK1WMRvse2ONJysekiFmGkNwgHkPYZXJ4ECDWS5YJkbicxWvw2euf0L1%2BqPoDAnywqOfLM%2F%2B8IvP7kS0fu8bCZ6qJuuJFAr1zi88d6P1InAByrRn3vqycYW4bXzNrYuGAfAdJrHoaOB&amp;X-Amz-Signature=f2eea950b04d4087d0982bd21718d6d98ce39ce5abb451b6d0d76f9455aa2213&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <p>Hyper-V環境でMCPが使えるようになりました～</p>
 <p>今回は、Claude for Desktopではなく、VS Code(Cline)でMCPが使えるようにしました。<br>これでClaude Sonnet以外のモデルでもMCPが使えます。<br>(OpenRouter経由でGeminiを使ってみましたがワークしました)</p>
 <p>また今回、サーバーはNode.jsではなくDockerにしました。<br>ハマりポイントがありましたが、Clineに設定jsonファイルを記載するだけで自動的にDockerにインストールされました。</p>
@@ -203,7 +380,7 @@ color: #8fbc8f;
                         </div>
                     </div>
                     <p>Googleカレンダーに登録できるリンクが生成できる。</p>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/605733ae-c787-402b-94d6-a00c9f0b4469/tourokunotest.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4663VGWWRRE%2F20250416%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250416T105116Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjELv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIHaYVWvvAg%2Bp8Ni5EUv4jX5nL3GDdOZArgym4j8EVd1TAiA%2FxP0Lg4nKCfkMoMWQOejAGoQt0phpaRYci0ry4vIftyr%2FAwhEEAAaDDYzNzQyMzE4MzgwNSIMNCaWeVEvncZVvl4dKtwD4h9VxEh6zL36dtn2BLe7BYhHpBAcWud35dLUtqf1iAp3DgRHP1OH5xGHdBCj6z0yHu6Bg8NdEOekVpmsmE%2FX1lFoQ2pmLl2tXeSJClU0S9qLw5U%2FLahgOENmaodXlWCW8B2KmUGiiLsTf3QunvZPDeNre6%2F%2F4b2lyN%2FWRe3XSooVfMzybAHjtLvR4%2BLo7lEOscpag4gxqsOrMLxCX%2BUedGajyV5kMzja5aUVU0fHDvHsKuCv4m4LK8ZE7i%2BHxteLSZ6St7j9047snfzSq9Gh6oJ2uiTi6sl6X2F3KlCHV3eMKkYrFJr7Dm54lVm1LTYztu7BxqSVwmP0I7gW7lq18didhaCvFKMJ3bDEt8K7%2B9hrHP%2FKF12HBrfceQolMrT64%2F3G%2BZkfp69lizKPxybTUjI9J%2BayiJ8SkouT%2FIotG9HKyAPy9OrCxAUyZmwQk%2BLWk6bInzQkEO%2FF807KXx9JhJwUpWChvotXE5MaVLUtF2iRFig9h%2FWgk%2BEdA4uCSOVBPWEb2YnuZHfwEj%2FVQAt1bBwM3G2miisT5dAs79UdJH5xHT2R5PSZrlJQay6OUW9DD7GNOlZlj4quyiF%2Bc53vqLMTVqvakh6WldEFrtsm48R4JZLDDuMYk1sH1qIwzY%2F%2BvwY6pgHJLytbrO3qatGaCNE80iQrd0BiJQS2V08nXQ5duTjR3m%2FLf%2FUD2jPeSSypg1kmq0yYoCUF899ObzcMlqjo4eJrjjnA0bNkm2M3K957Z1tjc2jgQaU7VU15Re7Y9a%2BLyWfrcUpQwH6IU9J3vABpv5XLWhfmYSRLefeVUb9KPdj%2FU5bYnZodO8tpMq00f1mB3jgqxCVbVSskIk1v55xhKaWcVFP97QRV&amp;X-Amz-Signature=103929333aa537cda54e6ccdb51b6f81a3dcfaa303febebcf6f4a56035369e8c&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/605733ae-c787-402b-94d6-a00c9f0b4469/tourokunotest.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4665WCDOULA%2F20250416%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250416T113517Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjELv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQC06tWz28i%2FPJyK0S0hMEsrClXz30DsdTkP7tomRXLIGgIgZLcrwZDfCiQ9GxjiVHr2JjzFuDhx49L7QE%2FxbJ%2B52oEq%2FwMIRBAAGgw2Mzc0MjMxODM4MDUiDJKIhi2kybAzrbemmSrcA3yIxMBasQ73eYQcIbaPwKEyGppDn%2Fq8v5oyQDNlNSBf58lLPRG8%2BWf%2BrbpYfCGBCnGhmUhu5%2BYgNbGNP6yD%2BOFb50anTVOO3BB%2FvnC9QBCBJv3EgiKJvTWmXQdXMKGVaFY5o4lPpV8sunM%2FHjzf%2BEyxXN2bZm7bu39oFro62LMOCh8GISSfO1KR30w1D%2FRavDIanSGMnPbrqY8ndjKMQnINgdOUObprgmOCx1f4lpKt3iRPmWDQR5GC8%2FmDZbMoPcHqEdATpm7Umt1emDRrxdWUEKJl2SRz49jqT%2FlHxu4cNnW3eufUjmmbuGExmay1Y%2FTWx8BxcCclGdcejX5mzirUca%2FeO7ae9nNYC6bp0Y%2FMS3q8gtm1wOWOkBeeiJHXyPfsRe76cYuqZ1d91P%2F%2FNA6BJRPSpWJ8EO2K0W3vCh0YHsRpySlqCTFc8gVZpTd2Mh1iflQd8zmNfmAkQH07kikKU3r8%2FvAMENhAVGHX3MpHFseU4DGQX%2BYyRaKyVqDcT4yF%2FcEV8Lxewz5bBDyt6zifZ7MznMFA07DcQ3ew%2B0i4b8pVidod9dPFKPJC%2FGnLFOg%2FuVdt1pq8GRXFHWmzRNQY9eI8CKcc6add6An8g0e28trrLHEHjuZvleLxMJmP%2Fr8GOqUBq39ahTpk0Y3L2KMi%2BmKIhdcw9MZVr3SQewKHE8I2rQanf71Ud0viGTKB8Jk8f5ycSdtSZ54cn4NP1%2BOmAJnq%2F4xLT5Qs10ICNtwMk1h1nW8X12e35csyJLn9KiEjKhhS2LFiTfEND8v3DW%2FwmJkFhr1BzM4%2Ft8vn7%2FhUnPNGDvMJSJbVqEBv31BtcSMNcu%2B37mK6Dd6OG%2BLzQebPpWiJkg8buKCy&amp;X-Amz-Signature=6a79c9892718dd7d47a7e7649a219cfea177e871fc0dc17b3d8e2577b5ce654d&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <p>OpenAIのAPI(GPT-4o mini)で、Function Callingを使っている。</p>
 
                     <div style="margin: 15px 0;">
@@ -749,18 +926,7 @@ errorMessage.style.display = &quot;block&quot;;
 </div>
 <p>note風のNotion blogで独自ドメインでの運用を試す。</p>
 <p>ホスティングはGitHubのまま。これまた無料で使える！(ドメイン登録費用は別途必要)</p>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/cad08d04-e1cd-406f-8716-290c97d55fba/kore.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466T6ETZHDJ%2F20250416%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250416T105119Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjELv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCIHsPrRwa60RrhL6Kwwjt8QmeTuxP7%2FSGzfjGaDWzYRgIgZ0XXG7xvjtREu8FW2apB%2F8bKRCmbrDG2%2F1wwijwe12Aq%2FwMIRBAAGgw2Mzc0MjMxODM4MDUiDHjrJ%2FRxEe0TR3XkXircA4kcL55I2aJZyti69P2v%2Bk1mme%2Bj5zOGa2Gk55%2BNdCaLIpArdSMPQPtAJIffiuCXzfRwBBxB4i%2BhCfL0rUHEP7eJnJxL0qCpURcg4YiRmBOlyRG6y60uAh4rBGVG2bu6FCiTR3Lo2lIH6fSahTSsdgtibMm40WdogymgPO%2BbTYaMUlwIsDT%2B2SZ0WtSMOd8vDAAAjG64uC26bI8rWLSkBWzjRLvAb3YwmhNwGSlkDtAukhlQoIykbkxLGDGJd2fWlMjViWUoKe3CbGNU6Dhck%2F2HjEJPpegFbk9lS1peH697OMiVO8Qb7OGHpH8q%2FUlOUw16L%2Fy1Xa5yTajCKvRGqhh%2Bfocvd6F5uMzKmlL9pLbdkR2%2Fp23U7r4VrbA5Z%2BMSvqhsteUSLVOUCbHPhmpJenSv1cMN7WXs2Emh97kZM%2BA5%2B0cDugTz6a9vruOrW3YbrRzJXnEFiJI6xmfNODnJEkxAbUTRsjoB3ERueHjDlhSipSQStRZkIp09j5sRGeWx2kr1a5hXUnunBsKVdcAoPTYAJ%2B6miJn1XtyTIzR%2FS10CElZ7kKXGmrCY2OWSkjZlC4ArwcupzCmgqP1B5MHqOb7SGdgS6CocJg2GUQ3QuISleeVk0e4JS4Pc7DKWMLaP%2Fr8GOqUBtMYxxG2hNUTPMPv1lyTAT%2FjfCun81DleJgD%2F9kWA9Meph6f4Ap5zvQDBhijUS7oLZdgdRBpZz4cFqTbc90qJlpSl4HpAXBxiABnTT925suRWeyThRbMQTN%2BXjPLrwIMgyLBPaN6OTMGpHn7eESGz8%2FOatZxn9s6miyinj3bcec7bdbxXGSttj5UREccbdjUryJF34euPtQrQI%2BZ0cS%2FzlOZO4hof&amp;X-Amz-Signature=189c944a40b476b44f625d4777cbaea2d497e861fc10333b0ef07279f5fbf53d&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-</article>
-<article>
-<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">ベタベタ貼り付ける</h1></header>
-<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-03-27 21:23</span>
-<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">Twitter, YouTube</span>
-</div>
-<iframe src="https://www.youtube-nocookie.com/embed/LqR7ne8FGi4" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-<iframe src="https://www.youtube-nocookie.com/embed/SWQ3bBNA2Og" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-<iframe id="tweet_1904743890533704067" border="0" frameborder="0" scrolling="no" style="width: 100%; min-height: 350px; display: block; margin: 1em auto;" src="https://mssmat.github.io/twiframe/show.html?url=https://twitter.com/komiya5395/status/1904743890533704067&theme=" + (document.body.classList.contains("dark-mode") ? "dark" : "light")"></iframe>
-<iframe src="https://www.youtube-nocookie.com/embed/4y2Ul5RfpqY" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-<iframe id="tweet_1904838714477731897" border="0" frameborder="0" scrolling="no" style="width: 100%; min-height: 350px; display: block; margin: 1em auto;" src="https://mssmat.github.io/twiframe/show.html?url=https://twitter.com/shodaiiiiii/status/1904838714477731897&theme=" + (document.body.classList.contains("dark-mode") ? "dark" : "light")"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/cad08d04-e1cd-406f-8716-290c97d55fba/kore.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466XHEL5ZIJ%2F20250416%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250416T113519Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjELz%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCrcnakqxYQuIpB3xlDFdiP3gSBbpEpp2OnqjvUaZwn4wIgc6cr6un0LaP5c0BHFunHJKu%2BwUz8I2LLLKXyk3l92LEq%2FwMIRRAAGgw2Mzc0MjMxODM4MDUiDAZcMEmdz2c5EIOW8CrcAzCRZ2H0DvdytjjlpvrabruGx7OhNFqXzcUsjHUKzItGcxwc4IY8G542RYYPVnQ9jOouu7KGMzs2wKJ5WV2IZYiT4qXKwMyCr8ptnKo4hK4ET5WBspoWCnxfIA7QAyRO6WSH39kYXj3eYTdA%2Fxq%2FqtpKPEuS9p1Dvxx68zoqiNdkxTjmgvH7p%2BqPJvulzT9mA7fzYeCPvsyVPLSwdidReHy0vnWe6h%2B6IbcKxD3u22d6uCBNoKah9HC94sW8c%2F9laBHRlIzB98uHhVNE36VB2s2yBwiRHiLhF30XdG4nHndVUsbJgcRs5lR0D0ldHBto5KkMs5GJCHlFfLfGUYUw06Ozbk10UAkl9bZN3OSzhSyUszk01MQXXYIlRTf6IDqut3b%2FbDB2pRGQDvgWod6mE%2BX7wLvgqSrG%2FIP70w%2B39G7V94VMlO4fZzmzknCxMlJgr6Ek7IHZaaKsVXvL4p6AVSG6wahBhJCPdfovASHio%2B8CnRlPmcbTmo0FO2iaWAHV8zFqe%2BpEMQ9CT00rRF4i9M6S80GV3F3s8hT70dtGZEybEudLewYdP%2FV%2BB1rzuRVQKUE7yzXcOMvM%2FmcEmyg8Z7QEijUFST0jAW30Q%2FuLG23FCO8KgwFj5TfNKraEMOyq%2Fr8GOqUBoOywJWs5%2FA7lPXqpQv2kuJ96Rul103WbTTnUD%2FHXAdvu6%2FjrcNkoJgXxnUUpjnx7EHdumZh8RsNkWfyFCI3YdbdoM%2FmfTq7xwj7t4VaJHT1Z9oxlWOnb7fTLuNHDbUBedlUjvyNqjymGWXMfpWbmf6q%2FlSaCu%2BBxheFZBcEY7CHEVyYxuNGtqBbslNbqvPN2%2BSUhjAcyKHci5W9Z4IQEBNVwv12B&amp;X-Amz-Signature=3369cd972b18b3c260e85775355ae1368d4fb983e628a78653682f2e012cc33e&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 </article>
 
 </div>
@@ -835,6 +1001,6 @@ hljs.highlightAll();
 });
 </script>
 
-<!-- 2025-04-16 19:51 -->
+<!-- 2025-04-16 20:35 -->
 </body>
 </html>
