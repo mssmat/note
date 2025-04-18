@@ -159,11 +159,100 @@ color: #8fbc8f;
 <div class="container">
 <div class="spacer"></div>
 <article>
+<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">OpenAI Responses APIを使う(Built-in toolsとreasoning summary)</h1></header>
+<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-04-18 21:08</span>
+<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
+</div>
+<p>o4 miniのAPIを使って、新しいResponses APIを試してみたがうまくいかない箇所があった。</p>
+<h3>先に結論</h3>
+<p>toolsの書き方などもChat Completions APIから大きく変わって、既存のコードを大幅に変更しないといけない。<br>非常に面倒くさい。<br>Chat Completions APIの拡張ではダメだったのだろうか..</p>
+<h3>問題①</h3>
+<p><a href="https://cookbook.openai.com/examples/responses_api/responses_example" target="_blank">Built-in tools</a>では「web_search」しか使えなかった。<br>「code_interpreter」はエラーになった。<a href="https://platform.openai.com/docs/guides/responses-vs-chat-completions" target="_blank">2025年4月18日時点ではどうやらまだ使えないらしい</a>。<br>「file_search」は試してない。</p>
+<h3>問題②</h3>
+<p>Built-in toolsと自作のFunction Callingをtoolsで同時に設定すると、プロンプト内容に関わらずなぜかFunction Callingが実行される。</p>
+<h3>問題③</h3>
+<p><a href="https://platform.openai.com/docs/api-reference/responses/create#responses-create-reasoning" target="_blank">reasoningのsummary</a>をリクエストに加えるとエラーになる。</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                json
+                            </div>
+                            <pre><code>&quot;reasoning&quot;: {
+&quot;effort&quot;: &quot;medium&quot;
+}</code></pre>
+                        </div>
+                    </div>
+                    <p>これはOK。</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                json
+                            </div>
+                            <pre><code>&quot;reasoning&quot;: {
+&quot;effort&quot;: &quot;medium&quot;,
+&quot;summary&quot;: &quot;detailed&quot;
+}</code></pre>
+                        </div>
+                    </div>
+                    <p>これはダメ。</p>
+<h3>例</h3>
+<p>以下のリクエストだとエラーにはならないが、Function Callingが呼び出される。なぜかBuilt-in toolsでweb_searchが呼び出されない。<br>tool_choiceもauto、strictもfalseで、プロンプトもあからさまなのに何でかな?</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>curl -X POST \
+  https://api.openai.com/v1/responses \
+  -H &quot;Content-Type: application/json&quot; \
+  -H &quot;Authorization: Bearer ＜＜Your OpenAI API Key＞＞&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;o4-mini-2025-04-16&quot;,
+    &quot;input&quot;: [
+      {
+        &quot;role&quot;: &quot;developer&quot;,
+        &quot;content&quot;: [
+          {
+            &quot;type&quot;: &quot;input_text&quot;,
+            &quot;text&quot;: &quot;あなたは博多弁で喋ります&quot;
+          }
+        ]
+      },
+      {
+        &quot;role&quot;: &quot;user&quot;,
+        &quot;content&quot;: [
+          {
+            &quot;type&quot;: &quot;input_text&quot;,
+            &quot;text&quot;: &quot;最新の日経平均株価をサーチで調べて&quot;
+          }
+        ]
+      }
+    ],
+    &quot;text&quot;: {
+      &quot;format&quot;: {
+        &quot;type&quot;: &quot;text&quot;
+      }
+    },
+    &quot;reasoning&quot;: {
+      &quot;effort&quot;: &quot;medium&quot;
+    },
+    &quot;tool_choice&quot;: &quot;auto&quot;,
+    &quot;tools&quot;: [{&quot;type&quot;: &quot;web_search&quot;, &quot;search_context_size&quot;:&quot;medium&quot;, &quot;user_location&quot;: {&quot;type&quot;: &quot;approximate&quot;, &quot;city&quot;: &quot;Fukuoka&quot;, &quot;country&quot;: &quot;JP&quot;}}, {&quot;type&quot;: &quot;function&quot;, &quot;name&quot;: &quot;get_city_names&quot;, &quot;description&quot;: &quot;街の名前が出た場合にのみ動作。街の名前を全て配列で出力する。&quot;, &quot;parameters&quot;: {&quot;type&quot;: &quot;object&quot;, &quot;properties&quot;: {&quot;cities&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;description&quot;: &quot;街の名前&quot;}}}, &quot;additionalProperties&quot;: false, &quot;required&quot;: [&quot;urls&quot;]}, &quot;strict&quot;: false}],
+    &quot;store&quot;: false,
+    &quot;stream&quot;: true
+  }&#x27;</code></pre>
+                        </div>
+                    </div>
+                    </article>
+<article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">AivisSpeechを使って、AI生成音声でニュース解説動画を作ってみた</h1></header>
 <div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-04-16 20:31</span>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI, Python</span>
 </div>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/b73d687e-24ac-43e6-b773-8684ab310058/aivis_srt.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4662X3T7U23%2F20250418%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250418T112037Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOn%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIDFDM4ts7cJ4kVdaeZ32Gwlp%2BLrz4bOfaNIstOldgA24AiAUZb3yc9dxJ3t5O8rIg4tcda7A%2BksV8oM6hSalDNwB9ir%2FAwhyEAAaDDYzNzQyMzE4MzgwNSIMA1G0PSLvQx8GphjMKtwDBM25qwbRFtzglEc9msLV2EUVFM3crU7p106xaEbi4%2FXVkBUZkpq6lODNrgDfkebnO96LVi%2FaMY%2FsB%2FtVeDr0LyqEoCBd%2BIiRnZwpexsEYvGnF7wflK6Fus%2FQ1Qm4F3eBtqwSsDesKTRP%2BjHJJ%2FgIWaQiGz%2FAl1hLmxgf3pQljRMfJF6ClHMfxwm8yuPOOrWOD3YmsDQ78Y6Vj%2Fm8E7KSDzdSgEZZllVfwc7g7BOYnV0p9SFLH4POl4O2yu2IUK7VpotLbp6%2FwGuT3Tcjy%2FVZrrBs6KlOf7HLJt9GZKptG%2FHTOZmI0CnJjKmWYqnGiZ1CUEVgWUk%2FpQsMzqx%2FD2Xm1nFC0jDAc%2F5BKKUY%2FQ9dax7iIvO5ufKB%2BhPMhNb2yKiuMSKRQveUdxZHDJUGZQNEv6rw%2B5bUgIMomsGsdJDGNXwluczQ8TR8yMucjpYBBYAxUHIaKpQH94VSNP%2FCImNwe4zT3FK0%2BOTxJntvGLxW8LKBoS7jHOo3ksjOMmVsmE7txVfle9zYUtHgtpT0D9uiZJrj6ERfTXanbcZmm5Y7hWM8j7hSrk7YE7p01h6BPkfNnVpv%2BVVJa0dzQBKJINSFJ9T4E7qWoUeUZhiwGTcCF4umiaMc1QAcfwx40D4wja2IwAY6pgHQcYESwiKw68SjOfCX7IwdYaxNyBsBDeKQlzIz4RgPNYSpRgtIu0YnVWYKpPDn3hZjJD81u7bPi14mjC9rbhdsWXiuTtpkvCUTJrBQCVjZ9W%2FRnf5sVc3MnsQtwFUuBKxbLXFVVauw7dckEYGt8P%2FOsqixl%2BAq4qMVjIq5fYER94imBUaPddHgRaefFacl3bo9QkcuMT5j4cPXzM31jwG4BFobX2vr&amp;X-Amz-Signature=96698efa407f0860cc8d58ddc91a3c64bdbdf915186b2551fd5e5d822caf4494&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/b73d687e-24ac-43e6-b773-8684ab310058/aivis_srt.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4664PGM254G%2F20250418%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250418T121048Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOz%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIAt0FFfVaZNrndtqLrSHOiP5Xvpttu%2FFLZPfmwZPWNjLAiBPOLDnhyDS6mU3afNliR%2FduMYRL%2BzQU2I0WJFBkCwHzSr%2FAwh1EAAaDDYzNzQyMzE4MzgwNSIMkdyoYUNPyxdeDd7aKtwD6UpO6yHOzEewwYg2Hk94547MpmK7OmwbU6xKMPrBWE99SjV%2B2t1V3P3Hvca7HKrOfpk1W1%2Bzy5kQumdyNq%2BD8ekfwi3AXvvV2ylOtOFDmm43GxPuVgPM2WuH97%2BteNRpVhrkEEEJde6Rv%2BRxolK%2FaqylIpqLFidk3%2BtqZD00dlQfLlAIMSGrNfFlVFzwzhskhzY2U8xNvUtytUgjbublDKfQY2tYk5sbW08YshfFXvJNM67Dd610Xn%2BXu8OvItIQnX7kgElxCeOLZqcmIsDyj4mYiIKYT%2FKqeuuiO44xIup5JIsh8M8nQoN779BrDQ9GJJF8RHu5LD1LIne0KAzkp%2FOo8Buwv0Outclk8x89przK6YMVqhtStN6dMFnSg4EjNVb6Btmgce8DCl1ckaDwpOtwBdh7kVnJQkkb9Z9%2FT8LmFHEkfC8qNwXzfUPDlBsaA90mxCsVlr3hrD%2FFWLH8utrvQ6KgnC%2FeNJ4kgNSPNMhU7R%2F1vf15wcBMGbFU3ZOLjzJ115PbwpGHExPxx%2FOf8h6CKldGTjogjD80QfapTfQGCv6L9AvcsXfiQeiaYGf8W85uf3Box78783ddO8NgcJAh4AChx9CO%2Fm7VMT8UMCiN2bCJeRzqEqGNiaQwqPWIwAY6pgFDBCW86Y6tksDlJgvD0SJtNRP1bvzJywbU135Y9PxatupgQTMonrdp0%2BQ92%2Bs%2FoqeZS%2FBMRaxIJ4BQZ2aiGQxMq94HFAcqJlqGikbl%2FfQvZbRtFbMwgtgcDgOpgrtyOGFHpH0I56MegBJKkVXmoR9wqDBRJqGrcC8tp6sqn7scG1X8E0%2FzwB6%2Bkvjzw%2BzZZ64gfCkjmAjKZeqnaGTmlnGlIbbrry7V&amp;X-Amz-Signature=0af9034f5feb545efdcd6d424853ac702375489b93bed2d2b23eee2542c927c2&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <p>１．まずニュースなどのテキストをコピペします<br>今回のソースはこれにしました</p>
 
                     <div class="bookmark-block">
@@ -340,7 +429,7 @@ APIか。ChatGPTですぐ使えるわけではないんだね。でも、記事�
 <div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-04-15 19:01</span>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
 </div>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/f39e2faf-8b2e-441e-800b-2d9c15890cda/mcp.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466W72WFTYL%2F20250418%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250418T112038Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOn%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCmkugmVImaiRfrfZFLLsNInf761WAN0oXpKPa6uZG3VgIgQ8r4QoM6ADmcpy%2F2obQzirYRh%2FmjwV9w425pEOgQVXIq%2FwMIchAAGgw2Mzc0MjMxODM4MDUiDDottwJ9k7mTi0IN3SrcA5%2FrP7UC3q5L3oD34E%2FM5pBwPijsvvlVwsnaH5plAnMJ8RRcPPFdErinT4WZesctWP8gXSYjmyFxHRE1DUcyW1O%2FLjelVQ2f9pDuxt0xSkrJEQSgBvttdXOjoCtFA8m6zFezbuSuMD7Sm2q3OlwWRw0TwODQGjQnCoikMz3gF1oVBzaAJ7sjumFBZiKpN2oXr4zgxFlywRf3%2BOveoxQ7KnHzYUeIQ26%2FXv6C%2B7ACJjxajZYB%2BDZgRdcVOxo7BYjQLk%2BtZVeqtCFYyohIC8TlErRK3fCvKj%2BNaqEn85h1%2Bap6W3IcC1aLcVxej0lHMDh%2BuTLNpBlstj%2FqpwB5utU%2B3RrOH5ge9tJPPITKGNR8SRrk4xJGOEaV3gV%2FYSqUrZDt%2F9nWwUquMi0bCOckzRNmPwLH18c0whOLOGI2ET%2B0A1yjVOs1q7Dm4KxahXgnqPkBusLkYiJB36SIQJy%2FaIRBRZrYnqHo%2BlEVutBAT5jtWwlSDNRRUHohZdmShGc5WfhbHJ0tbivWsD5M682ONU2YYNQ9fcr2IYoX7lHIoAisu73CONP1l4gEjPdz%2FJXUask1Vx%2BL18frMbU%2Bw9vbXtJcFThG6DhraMr6EK1JXqQ2Hks%2FtzlT24KD2%2FZBltcSMNOsiMAGOqUBD207eIbRsYzvmpa1OwDwPsLw7nYUTKUkfdpFM5SqEGPxbH6Rlnk8grgHmhkUD3Ze3vV5jRM4yUhJNOz0ZdaxiFlFQsVgPtSNLHSO0xi0giikDjOuP730Qpnks0YmqEU6ZTdOAT%2BtS45Dqeqd1AAKeUnUySRcY%2F1O9cZIoZS2dB%2FQidNtpkphWE5WoqbenfBTfgEuLWd0%2FwePXSbeIhDzjzkx97bS&amp;X-Amz-Signature=341db356ef9074e7a604d9d2330fafb7a20c2638ec00947d1210e37878a2a24b&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/f39e2faf-8b2e-441e-800b-2d9c15890cda/mcp.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4663G76IA57%2F20250418%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250418T121048Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOz%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQDmrIiXErnliqbk1OqQXSwopiledqDSb%2BOijZ8P5izmfwIhAPEGcqVpMuCCMNjIDfGGxaHE30AbDzcaBrx4kEG71yDhKv8DCHUQABoMNjM3NDIzMTgzODA1IgyNV%2Fg%2BxHQxKWPstdIq3APx2yewSYCKnCnozU61%2BNzYUHgEz7yTrIwuWl%2FeOHndeN70wdOEHFRk9fGg1uQcQN17qKqrW9g24oLmsU8l6MwjuKaQ5B5RLktXcxcKF5uv2J8joJ9MBEHeaB0OfavGDwl4pTDkXaxilRXg3BsiDeLGRW2P8p50PSOBaHp6h7Ov9DVbewcFzYalfko0kGNee6O6TDGROzfapAiwXVN00ws1t%2FBuNWG1jl2JFwpf3Lg13yJNCBnfI8YnOneT%2B4wcMeIGAZ7O01unDqMTA2u8%2F7u0nmG8Ac3LZyZRCZxyS5GlzWFcxSrw8Exf2Et96A0wqoEWzyToE%2FRORxy%2FsDM8Uq4NjRgGtvbf4qbJxnX%2BojmR3lKTPIbNl7uKo%2FjHQmGggLL02JTPGp5Ze14giWLLCJPxgcKztZ3YN0WaxCDcoAbUYjCcVr1sm%2Bcf27H3sZFIv6NAzW0Ee8qrnRxzw9MnIJ%2FLs%2BkJryI8%2F4%2BUbG2XzMuipsnpbswBB8UErrz%2Bq%2BF68AXjQtRuhVt6tDvOHgJPHyEOd3x3hvY%2Fo5MYAhwfWHJCRjpNR4cgdlXupCtdEcacxWweMbgEIe3Yt7qaUmKbNdFcqSRKrxsr7BDhohwX%2BjlF9PiwPOT8dyx682Hg0TCp9YjABjqkAWKncANB2FZPYs0HVhChmERWZUERedJai06TLTSwmdx6VeoBHq6RxpSeBAIoVoAaA2tinQurn62X1arPW9OXNy4JAYGqMmDa2L9cLx1OxoZQur%2BUC0I283NG0Pt7QJzUy2Bej%2FuIqXyXYClBPE%2BvpFgXS9ZJ3QQrlQCWrSiA3bAZ3NgZN0dhdWDMThVy0DbbAjfuNCPzj0lgu666mx5HAsCAkOpE&amp;X-Amz-Signature=bfc4c637fc9a41d76eb5f0b7637713a11318831998a39d83cb914109a7e4d5e0&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <p>Hyper-V環境でMCPが使えるようになりました～</p>
 <p>今回は、Claude for Desktopではなく、VS Code(Cline)でMCPが使えるようにしました。<br>これでClaude Sonnet以外のモデルでもMCPが使えます。<br>(OpenRouter経由でGeminiを使ってみましたがワークしました)</p>
 <p>また今回、サーバーはNode.jsではなくDockerにしました。<br>ハマりポイントがありましたが、Clineに設定jsonファイルを記載するだけで自動的にDockerにインストールされました。</p>
@@ -380,7 +469,7 @@ APIか。ChatGPTですぐ使えるわけではないんだね。でも、記事�
                         </div>
                     </div>
                     <p>Googleカレンダーに登録できるリンクが生成できる。</p>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/605733ae-c787-402b-94d6-a00c9f0b4469/tourokunotest.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4663ILPDY3E%2F20250418%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250418T112038Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOn%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIBTQNip9tvsqjm0UFn3LlaOjWjmQWf9wYB4VKcksb90WAiEAxTfz7xJ9wcJiN9J3Sq9S%2Bf5QjBHrWoAuQ9XywAGE2Wgq%2FwMIchAAGgw2Mzc0MjMxODM4MDUiDBFykuKWcpbj8hjxICrcAztuFCtL6uLOku3o6tnXL%2F%2FDHDnZ2%2FuqoQsNNt35pfzvjHvQ0PpSD7J5qy%2BotIeFwdDAjNI061t25B19tC4Cl6IoWYlwox1dYn5vRULGo0nQYQ96I8RUh1%2F5wmuHa6yVbbmlOgbYUwicrcgKLcQouSehrhP7tCTmaBTAQfdyPdbUjfXDEm%2BBCjUlQba39xYt83TZYHkMr5f62HJF%2BSy49cHXjlYIDlrCe%2BzIPmIdMP3Vvbg%2B%2FVpluRPp8D08AXY2ZSDULB3KLsPqnuoxv40aJiVjb8mj4wh1geiituVLK9zNNVoVpPYdoePPuRpyKDZNnxojsgcCd0riSZihp3htOU%2FuSXp%2Bd3EgA6%2BFWsGULz15jI3i4LLdcZMhYH3L%2Byjgi3Y1Xf5JFL0EacIp%2BWwaErjnynhwiQi95k774pc9RsZMQYNanP7DfBHy%2BSYpWqwK2GXUubAEFC%2BQeXVbkpwNeoDw%2BTHta4B8%2BFqIn8JvGho1HlJIOkuWVGsv2p45E9BL3lJPbmRBh2bdoQWIRkm6BvMbvjz040%2BIj4ZjkccoNArUxyOiu90Vc7n2rZc4VsnbLH7k7yS%2F6VADMg1mDUP5JVQ%2B33KDax%2Bg3Gh%2Bu98yzJqkt7aMJHTIKwAkbyBeMKmtiMAGOqUBB6NHgjlle0gYTw46hlYyFARwTKJt8bCXrI1WCWca9%2BLeSYBrd%2FR6CzszMuLkt%2Be72MfLALgyiVCefIGaIDpvsJaOzsbtaqWjhb4vNilXg3aMRc6Jx1AcPXvaxa%2F0NcSlHnd%2BcZYDgdhiZSs84nrCaytphGCT0eEVZ%2BSzna%2FuGAAB%2F7fkEPPVt2xbnpvJd1Q2oJoLYbijjuIJjKWB9pQoGtFqyIh%2F&amp;X-Amz-Signature=6c7c3dee82b2bee504c2131a9d0d8bb2969e9ab603e528716102c27f84b1ced8&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/605733ae-c787-402b-94d6-a00c9f0b4469/tourokunotest.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667BW5CZFO%2F20250418%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250418T121049Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOz%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIEXuWdYEdjPrZnIxVHq5rRwOxbnYbefr5NPg07cT8WSYAiEAgMoW%2BFLOA2eND7j54qwZN18EQZ4STTOLR20i1OaN73wq%2FwMIdRAAGgw2Mzc0MjMxODM4MDUiDMynUKRW1aZX0hTLMircA92hFsjaoPaZwCbMhn5YdCYHH8O06VTobsHMDQNgugvvvYRf%2Bnanx7T9sll8AzS3ewmsxKmJJCEh3gOWtdAmSvfH2YAbikDlRgOTKDoMlphJdNFBkaX9e1RSn84YN6MUifHd%2Fg%2B0UdUlNjwf8QhOEcyKAggZR0Y9TnSAQKy4YPDTwPOhjtM57qN4HnDVBFZmiFdTeI5RIhdS6QWnBBzx8VxC7CJn8QYQBfw%2BdHUGox70Cy0wouRrQ6Kdnc%2FLfBEyvxzQjZ%2BUtbgolN0Io393P42VL0H6w1DvAVRBWKK%2FLHlm5pybj3Xab%2BEQKgAMMAKsexOu6kIPbIl5pFrJfquIhsdWwixRtGdu8SnRRFyiILqqYmL819VrVmo%2FY%2BUVwMcef9wrf%2BIwSMZWHW3WGasGr3XEzcjSmbm78zgLuJueYxsaHihD%2BP%2FYX3a9kyewo2GRK3WFnp7vFU0%2FrzSQ7MF9TU1mkQafD81QzwIXZ8Gc%2FgCLaZegxocbD8YmbDq3ac5iLkTpDk2EhXMKXk8oh7hVhke0KwgfTC3ey1GB7ivH7dIAteMqDbgCqxbmfumz3IkY%2BaKgxIW5VjGimMkpb8J2SHoe8Z8z6wdSNp6HVpvNWKEDbhrbflG6W0pA34VcMJ31iMAGOqUB8ucLHCvK%2Fu%2F5vp5%2BO42XlGT5Ju96W0eqQR%2Fd%2FaY95HjDWNRN4L8xQx0yL%2FWhc9kFyaKZRN5LQVk%2BsHil%2BBsXlupbM6ae%2BBMwN6vKEVNvaAgvmT6OVZ75NHmGL3JTfEE6M9bslSkrsrGpcVX6pj%2FOoR4AbswySjWzir8FA8GfBj8%2FAeBsZGpP8EzwmPY8gaNWrGCW5k4ZcRzIrI9TFa7WAOWHzeBp&amp;X-Amz-Signature=7ebb3eca638f935857a49d668e51403b93b0a28f76dcc0936353c41955321cf3&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <p>OpenAIのAPI(GPT-4o mini)で、Function Callingを使っている。</p>
 
                     <div style="margin: 15px 0;">
@@ -919,15 +1008,6 @@ errorMessage.style.display = &quot;block&quot;;
 <li>Life - Stanford Encyclopedia of Philosophy, 4月 9, 2025にアクセス、 <a href="https://plato.stanford.edu/entries/life/" target="_blank">https://plato.stanford.edu/entries/life/</a></li>
 </ol>
 </article>
-<article>
-<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">独自ドメインを使う</h1></header>
-<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-03-29 19:00</span>
-<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">GitHub, Notion</span>
-</div>
-<p>note風のNotion blogで独自ドメインでの運用を試す。</p>
-<p>ホスティングはGitHubのまま。これまた無料で使える！(ドメイン登録費用は別途必要)</p>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/cad08d04-e1cd-406f-8716-290c97d55fba/kore.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466SH6LRNCH%2F20250418%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250418T112041Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOn%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQDfvam1W%2FV0pObkrS%2B8TmnBjUFFXvIma5%2B0teo8n7y4OAIhAIGoBMy%2FQICw2NvkqQeLIfhVoWAG5cChFGxsaf6ARFPyKv8DCHIQABoMNjM3NDIzMTgzODA1IgzoRlHbdduHIDASMscq3ANWWao7HLopzftMCTvwmA0vw7bLM5NnEtJwGoYch5cc0Y2Zm6o0%2FcnuajpUPJ6Yw4flqwUrpDu09mfxKDJYyqWSovD438oQAILbYNEf4uOkzCwUqCv5L6Y330C1Gp6yh49bAICepKunfdNtye2REQKiTHzTzTQUVIVHZYo5KHZG7rm%2B4rajz5Uxgh6jiBR%2FymZldr6KVcZZLqvuXFPjdr%2FIxCvkhsX2sE5icPDgTqhv3HOvlrMguJrJxgTmL3%2F0tbYp1Exo3wzgG86lapyBxMH227vIt2U9wrWs7LmlcsiTISq%2FJ9A7UigJMxymNbPNquWkcIM1bOIUkl4pf0nNsz%2BLeY7wJv4rXusMrhLwMPLFWCCxak%2FhTNgjFWHTvB6uPdM2vqZKxaLRRyuUrTK10viv8rQvjzl4DqC%2Bud%2BgMsOjUZIaZEyftuftbgGikhKkU7BpSoflNCSuqDbsyE1RYvwGFgWFwNFsX9JlGs5C7h3IZD9p3BL7TyRCP6KBvCleD7%2BYdm30axQ2Ra5MCR%2BLk163Fs2%2BXDfNrD4WW2DU4SyIjvgs%2FnVJbIfAUaaWIzSY%2BnGZOHLwLySnpTCvU4%2BoaKxtMxXwdbJ84HYEuRTaTza74d%2Bzn9xuDO7kco678jD3rIjABjqkARKx%2F5jxb0mZaIGQEIwBBqayzX3aE7vGgAfay7nCM26sQSihYG7St7LHInjnfKoZ%2BuqS4zspz8yKURaKa5ozncrsXTGqnuPQdKwd5SLEDyYuJ6UD36uPN0J4dpfYElr3vc54oJNIcB54qpFWOoy2J7U0NR8XdraKeBaVpSxNQaGKj2%2FQ4JqxBodHXlGCOyTXL%2BZ1qPWgD2hT32jvMAFU1aNnWD%2BS&amp;X-Amz-Signature=17a265ea3a85891eee1d7580c7f99c3ce33f83904f9ddb90aa9e81d969954e92&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-</article>
 
 </div>
 <div id="footer">© MAT note</div>
@@ -1001,6 +1081,6 @@ hljs.highlightAll();
 });
 </script>
 
-<!-- 2025-04-18 20:20 -->
+<!-- 2025-04-18 21:10 -->
 </body>
 </html>
