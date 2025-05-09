@@ -115,39 +115,92 @@ margin: 1em 0;
 background-color: #f8f9fa;
 transition: background-color 0.3s, border-color 0.3s;
 }
+.bookmark-block {
+border: 1px solid #e0e0e0;
+border-radius: 8px;
+padding: 12px 15px;
+margin: 1em 0;
+background-color: #f8f9fa;
+transition: background-color 0.3s, border-color 0.3s;
+overflow: hidden;
+}
 .bookmark-link {
 text-decoration: none;
 display: flex;
-align-items: center;
+align-items: flex-start;
+justify-content: space-between;
 }
 .bookmark-text {
 flex: 1;
 min-width: 0;
+margin-right: 15px;
+display: flex;
+flex-direction: column;
 }
 .bookmark-title {
 font-weight: bold;
-color: #1a0dab;
-margin-bottom: 5px;
+color: #333;
+margin-bottom: 4px;
+font-size: 1em;
 word-break: break-all;
 white-space: normal;
 transition: color 0.3s;
+line-height: 1.4;
 }
 .bookmark-url {
-color: #006621;
-font-size: 0.9em;
+color: #555;
+font-size: 0.85em;
 word-break: break-all;
 white-space: normal;
 transition: color 0.3s;
+line-height: 16px;
+}
+.bookmark-description {
+font-size: 0.85em;
+color: #666;
+margin-bottom: 8px;
+line-height: 1.5;
+word-break: break-all;
+white-space: normal;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+overflow: hidden;
+}
+.bookmark-source-info {
+display: flex;
+align-items: center;
+margin-top: auto;
+}
+.bookmark-og-image {
+flex-shrink: 0;
+width: 130px;
+max-height: 100px;
+border-radius: 6px;
+overflow: hidden;
+background-color: #eee;
+}
+.bookmark-og-image img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
 }
 .dark-mode .bookmark-block {
-background-color: #3a3a3a;
-border-color: #555;
+background-color: #2e2e32;
+border-color: #4a4a50;
 }
 .dark-mode .bookmark-title {
-color: inherit;
+color: #e0e0e0;
+}
+.dark-mode .bookmark-description {
+color: #b0b0b0;
 }
 .dark-mode .bookmark-url {
-color: #8fbc8f;
+color: #9dbf9d;
+}
+.dark-mode .bookmark-og-image {
+background-color: #444;
 }
 #dark-mode-toggle { position: fixed; top: 10px; right: 10px; z-index: 1000; background-color: rgba(240, 240, 240, 0.8); color: #333; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s, color 0.3s; }
 .dark-mode #dark-mode-toggle { background-color: rgba(51, 51, 51, 0.8); color: #f0f0f0; }
@@ -163,10 +216,11 @@ color: #8fbc8f;
 <div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-05-08 18:02</span>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
 </div>
-<iframe src="https://docs.google.com/gview?url=https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fc99ff766-953b-463c-9421-9f731ef02528%2F8d41185d-17da-4e00-b898-e3d52016ca27%2FMCP_slide_html.pdf%3FX-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Content-Sha256%3DUNSIGNED-PAYLOAD%26X-Amz-Credential%3DASIAZI2LB4664ZPUAQ3N%252F20250509%252Fus-west-2%252Fs3%252Faws4_request%26X-Amz-Date%3D20250509T090455Z%26X-Amz-Expires%3D3600%26X-Amz-Security-Token%3DIQoJb3JpZ2luX2VjEOH%252F%252F%252F%252F%252F%252F%252F%252F%252F%252FwEaCXVzLXdlc3QtMiJIMEYCIQDcd1A4cCDMRaBk%252Fyhhc%252BIj606A%252FRrz1pWDY8lnK%252BBsnQIhAIBG%252FxJcIdRLlk2Hnw6S152VWR24h%252F7YBL%252F%252FmTbb5oT%252BKogECIr%252F%252F%252F%252F%252F%252F%252F%252F%252F%252FwEQABoMNjM3NDIzMTgzODA1Igzy2p02QdkZMtp%252F%252B0cq3APGYCsZolCszevLb6BGy%252FNKoXyUKpW%252FV3ll4Ao1Zj%252Fgu2n8It7KFojxef3CA6lO7qdC0XvJwihqHHGr2rN91v7UprdYJ2XEhON17%252BR0uG8JMvqMNgrIKILLms1nbnYsulTkTLP91k92miRCZrshS2KrTTY4Q1uXMF8%252FLwxDSZ2DbHGOmsRpuR1LHYNHjIJpbBfpECfe8K0dyUJ7kLxP%252FhXZes3DvPdkU2058Ukdhlr2MJsVT9j3GbqOys8nJw2aJ%252FE4omfC9D%252BXJBYsQ8d8i%252FI8%252FiDPP09bwyd%252F1BQw%252FtMMiFlr%252Ft5Z24R2wkl7vPxKjDbl5nrL8sMXAeNC1EuDAbEpxjBtdLk1Qfb1iaq%252BNX2%252FUlqXHwnrqzdXnbtzk4Z30AwYLIH8WcPAEsykpj2fUzGGlHOo8Wk%252ByJYCOAr%252F%252BLJKE3sfJ9RgbDfWJIShdmeaY5bhjLDyF7WcHylylHmK4VcAaUPvMxEP5LuM1KCGyLGRCKK%252BoVVXdthm0xgHKNFJuePa63eYedlboff46JuI%252B%252FAZBuwQ6XBL%252BRdCpNoqQb32WMUJFm8YlywRCX6y7dHLbvQXOrXA%252FQhemWlaAr2I3zwWi3kCZixtxcOcNIviT3aoeMwgGnge%252BA%252FHjnNtLjDI%252BPbABjqkAY5KjpWsQoiPJ%252BlgqX0yOU%252FCsqW9%252B2Q%252FMXxDnh4PTx8leCYp1L%252FT2S6KEDW6t%252FP0zjqABr62rAtFxuBaN1fT59iN0izlDgkPvDHNRc2GvvlpafD0AEhELhkcb2lK1ZVkfp7aLmApaoXBTscIMNh0vliRBHghgyRh5g5WXcvx%252Btz0r1z69XIIEmrgcoKTuf31MQn6UgutWz%252Byr06esMLWalYgDS0J%26X-Amz-Signature%3Dc15cce1e5a65c521a45e4a3d427d6eeb4bc2b231ef3d1cc53a30a07b9c538774%26X-Amz-SignedHeaders%3Dhost%26x-id%3DGetObject&embedded=true" class="notion-pdf" title="Embedded PDF">お使いのブラウザはiframeに対応していないか、コンテンツの表示がブロックされています。</iframe><iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/e1bd7be6-7d15-4237-a529-f319bb59a53c/perplexity_fetch_h264.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4664ZPUAQ3N%2F20250509%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250509T090455Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQDcd1A4cCDMRaBk%2Fyhhc%2BIj606A%2FRrz1pWDY8lnK%2BBsnQIhAIBG%2FxJcIdRLlk2Hnw6S152VWR24h%2F7YBL%2F%2FmTbb5oT%2BKogECIr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1Igzy2p02QdkZMtp%2F%2B0cq3APGYCsZolCszevLb6BGy%2FNKoXyUKpW%2FV3ll4Ao1Zj%2Fgu2n8It7KFojxef3CA6lO7qdC0XvJwihqHHGr2rN91v7UprdYJ2XEhON17%2BR0uG8JMvqMNgrIKILLms1nbnYsulTkTLP91k92miRCZrshS2KrTTY4Q1uXMF8%2FLwxDSZ2DbHGOmsRpuR1LHYNHjIJpbBfpECfe8K0dyUJ7kLxP%2FhXZes3DvPdkU2058Ukdhlr2MJsVT9j3GbqOys8nJw2aJ%2FE4omfC9D%2BXJBYsQ8d8i%2FI8%2FiDPP09bwyd%2F1BQw%2FtMMiFlr%2Ft5Z24R2wkl7vPxKjDbl5nrL8sMXAeNC1EuDAbEpxjBtdLk1Qfb1iaq%2BNX2%2FUlqXHwnrqzdXnbtzk4Z30AwYLIH8WcPAEsykpj2fUzGGlHOo8Wk%2ByJYCOAr%2F%2BLJKE3sfJ9RgbDfWJIShdmeaY5bhjLDyF7WcHylylHmK4VcAaUPvMxEP5LuM1KCGyLGRCKK%2BoVVXdthm0xgHKNFJuePa63eYedlboff46JuI%2B%2FAZBuwQ6XBL%2BRdCpNoqQb32WMUJFm8YlywRCX6y7dHLbvQXOrXA%2FQhemWlaAr2I3zwWi3kCZixtxcOcNIviT3aoeMwgGnge%2BA%2FHjnNtLjDI%2BPbABjqkAY5KjpWsQoiPJ%2BlgqX0yOU%2FCsqW9%2B2Q%2FMXxDnh4PTx8leCYp1L%2FT2S6KEDW6t%2FP0zjqABr62rAtFxuBaN1fT59iN0izlDgkPvDHNRc2GvvlpafD0AEhELhkcb2lK1ZVkfp7aLmApaoXBTscIMNh0vliRBHghgyRh5g5WXcvx%2Btz0r1z69XIIEmrgcoKTuf31MQn6UgutWz%2Byr06esMLWalYgDS0J&amp;X-Amz-Signature=d817af1a834daa629a3a2f6843d02949eee0b211171d51c26fc37cd5e8ed1d7d&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/122cc8eb-06a6-4f89-8201-5e4143568efd/blender1_h264.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4664ZPUAQ3N%2F20250509%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250509T090455Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQDcd1A4cCDMRaBk%2Fyhhc%2BIj606A%2FRrz1pWDY8lnK%2BBsnQIhAIBG%2FxJcIdRLlk2Hnw6S152VWR24h%2F7YBL%2F%2FmTbb5oT%2BKogECIr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1Igzy2p02QdkZMtp%2F%2B0cq3APGYCsZolCszevLb6BGy%2FNKoXyUKpW%2FV3ll4Ao1Zj%2Fgu2n8It7KFojxef3CA6lO7qdC0XvJwihqHHGr2rN91v7UprdYJ2XEhON17%2BR0uG8JMvqMNgrIKILLms1nbnYsulTkTLP91k92miRCZrshS2KrTTY4Q1uXMF8%2FLwxDSZ2DbHGOmsRpuR1LHYNHjIJpbBfpECfe8K0dyUJ7kLxP%2FhXZes3DvPdkU2058Ukdhlr2MJsVT9j3GbqOys8nJw2aJ%2FE4omfC9D%2BXJBYsQ8d8i%2FI8%2FiDPP09bwyd%2F1BQw%2FtMMiFlr%2Ft5Z24R2wkl7vPxKjDbl5nrL8sMXAeNC1EuDAbEpxjBtdLk1Qfb1iaq%2BNX2%2FUlqXHwnrqzdXnbtzk4Z30AwYLIH8WcPAEsykpj2fUzGGlHOo8Wk%2ByJYCOAr%2F%2BLJKE3sfJ9RgbDfWJIShdmeaY5bhjLDyF7WcHylylHmK4VcAaUPvMxEP5LuM1KCGyLGRCKK%2BoVVXdthm0xgHKNFJuePa63eYedlboff46JuI%2B%2FAZBuwQ6XBL%2BRdCpNoqQb32WMUJFm8YlywRCX6y7dHLbvQXOrXA%2FQhemWlaAr2I3zwWi3kCZixtxcOcNIviT3aoeMwgGnge%2BA%2FHjnNtLjDI%2BPbABjqkAY5KjpWsQoiPJ%2BlgqX0yOU%2FCsqW9%2B2Q%2FMXxDnh4PTx8leCYp1L%2FT2S6KEDW6t%2FP0zjqABr62rAtFxuBaN1fT59iN0izlDgkPvDHNRc2GvvlpafD0AEhELhkcb2lK1ZVkfp7aLmApaoXBTscIMNh0vliRBHghgyRh5g5WXcvx%2Btz0r1z69XIIEmrgcoKTuf31MQn6UgutWz%2Byr06esMLWalYgDS0J&amp;X-Amz-Signature=779059c4d6893ad076f091db9ec275076ebd839146f37e9e9af7b20338804e75&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/cb62f9e6-7c7d-4b2f-bb53-dd6b01072185/blender2_h264.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4664ZPUAQ3N%2F20250509%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250509T090455Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQDcd1A4cCDMRaBk%2Fyhhc%2BIj606A%2FRrz1pWDY8lnK%2BBsnQIhAIBG%2FxJcIdRLlk2Hnw6S152VWR24h%2F7YBL%2F%2FmTbb5oT%2BKogECIr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1Igzy2p02QdkZMtp%2F%2B0cq3APGYCsZolCszevLb6BGy%2FNKoXyUKpW%2FV3ll4Ao1Zj%2Fgu2n8It7KFojxef3CA6lO7qdC0XvJwihqHHGr2rN91v7UprdYJ2XEhON17%2BR0uG8JMvqMNgrIKILLms1nbnYsulTkTLP91k92miRCZrshS2KrTTY4Q1uXMF8%2FLwxDSZ2DbHGOmsRpuR1LHYNHjIJpbBfpECfe8K0dyUJ7kLxP%2FhXZes3DvPdkU2058Ukdhlr2MJsVT9j3GbqOys8nJw2aJ%2FE4omfC9D%2BXJBYsQ8d8i%2FI8%2FiDPP09bwyd%2F1BQw%2FtMMiFlr%2Ft5Z24R2wkl7vPxKjDbl5nrL8sMXAeNC1EuDAbEpxjBtdLk1Qfb1iaq%2BNX2%2FUlqXHwnrqzdXnbtzk4Z30AwYLIH8WcPAEsykpj2fUzGGlHOo8Wk%2ByJYCOAr%2F%2BLJKE3sfJ9RgbDfWJIShdmeaY5bhjLDyF7WcHylylHmK4VcAaUPvMxEP5LuM1KCGyLGRCKK%2BoVVXdthm0xgHKNFJuePa63eYedlboff46JuI%2B%2FAZBuwQ6XBL%2BRdCpNoqQb32WMUJFm8YlywRCX6y7dHLbvQXOrXA%2FQhemWlaAr2I3zwWi3kCZixtxcOcNIviT3aoeMwgGnge%2BA%2FHjnNtLjDI%2BPbABjqkAY5KjpWsQoiPJ%2BlgqX0yOU%2FCsqW9%2B2Q%2FMXxDnh4PTx8leCYp1L%2FT2S6KEDW6t%2FP0zjqABr62rAtFxuBaN1fT59iN0izlDgkPvDHNRc2GvvlpafD0AEhELhkcb2lK1ZVkfp7aLmApaoXBTscIMNh0vliRBHghgyRh5g5WXcvx%2Btz0r1z69XIIEmrgcoKTuf31MQn6UgutWz%2Byr06esMLWalYgDS0J&amp;X-Amz-Signature=8db9b36f143b86e13ab1a239459f2051bf865ac5951ed6244ad2a09f21093991&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/c32b17d7-bccc-48a5-a5a8-13a6a7cbfe10/n8n_h264.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4664ZPUAQ3N%2F20250509%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250509T090455Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQDcd1A4cCDMRaBk%2Fyhhc%2BIj606A%2FRrz1pWDY8lnK%2BBsnQIhAIBG%2FxJcIdRLlk2Hnw6S152VWR24h%2F7YBL%2F%2FmTbb5oT%2BKogECIr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1Igzy2p02QdkZMtp%2F%2B0cq3APGYCsZolCszevLb6BGy%2FNKoXyUKpW%2FV3ll4Ao1Zj%2Fgu2n8It7KFojxef3CA6lO7qdC0XvJwihqHHGr2rN91v7UprdYJ2XEhON17%2BR0uG8JMvqMNgrIKILLms1nbnYsulTkTLP91k92miRCZrshS2KrTTY4Q1uXMF8%2FLwxDSZ2DbHGOmsRpuR1LHYNHjIJpbBfpECfe8K0dyUJ7kLxP%2FhXZes3DvPdkU2058Ukdhlr2MJsVT9j3GbqOys8nJw2aJ%2FE4omfC9D%2BXJBYsQ8d8i%2FI8%2FiDPP09bwyd%2F1BQw%2FtMMiFlr%2Ft5Z24R2wkl7vPxKjDbl5nrL8sMXAeNC1EuDAbEpxjBtdLk1Qfb1iaq%2BNX2%2FUlqXHwnrqzdXnbtzk4Z30AwYLIH8WcPAEsykpj2fUzGGlHOo8Wk%2ByJYCOAr%2F%2BLJKE3sfJ9RgbDfWJIShdmeaY5bhjLDyF7WcHylylHmK4VcAaUPvMxEP5LuM1KCGyLGRCKK%2BoVVXdthm0xgHKNFJuePa63eYedlboff46JuI%2B%2FAZBuwQ6XBL%2BRdCpNoqQb32WMUJFm8YlywRCX6y7dHLbvQXOrXA%2FQhemWlaAr2I3zwWi3kCZixtxcOcNIviT3aoeMwgGnge%2BA%2FHjnNtLjDI%2BPbABjqkAY5KjpWsQoiPJ%2BlgqX0yOU%2FCsqW9%2B2Q%2FMXxDnh4PTx8leCYp1L%2FT2S6KEDW6t%2FP0zjqABr62rAtFxuBaN1fT59iN0izlDgkPvDHNRc2GvvlpafD0AEhELhkcb2lK1ZVkfp7aLmApaoXBTscIMNh0vliRBHghgyRh5g5WXcvx%2Btz0r1z69XIIEmrgcoKTuf31MQn6UgutWz%2Byr06esMLWalYgDS0J&amp;X-Amz-Signature=b1142474055cc0f82b69abac0baca89747017c8017f0046fa3eefbb9f7a886a9&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://docs.google.com/gview?url=https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fc99ff766-953b-463c-9421-9f731ef02528%2F8d41185d-17da-4e00-b898-e3d52016ca27%2FMCP_slide_html.pdf%3FX-Amz-Algorithm%3DAWS4-HMAC-SHA256%26X-Amz-Content-Sha256%3DUNSIGNED-PAYLOAD%26X-Amz-Credential%3DASIAZI2LB466V66QJIBA%252F20250509%252Fus-west-2%252Fs3%252Faws4_request%26X-Amz-Date%3D20250509T091131Z%26X-Amz-Expires%3D3600%26X-Amz-Security-Token%3DIQoJb3JpZ2luX2VjEOH%252F%252F%252F%252F%252F%252F%252F%252F%252F%252FwEaCXVzLXdlc3QtMiJGMEQCIDerEIbuw2mTK88e85AQ9tyz5ZS%252FEfsyaesd7IFNn6GTAiBVr2r7ei%252Fheh%252BliYars9TcFXymn%252F7js6Ay6eSn7iCIwiqIBAiK%252F%252F%252F%252F%252F%252F%252F%252F%252F%252F8BEAAaDDYzNzQyMzE4MzgwNSIMVaKeW5iApEMxeLtXKtwDHSDHG6LpQ9JjBqfsZRr%252BpEJ5p%252BYncnbECXWllt9eMAuaesqqP2owSq7QFEOCdNa4ZL9iZd%252BZx7gUiyTS7uI1SYbXOvTKVYX9ZOMx6Q4lqtQuJh0bhUjztvBizibGPT7NOb7VCVX56zZnD4cw%252BXVdP3nGn23I1LKe797wIjsf3epgRe0gyjpcaWVrw6YM2gharu94yvuKZ0D3KfZysDOgD5oDg7BT0SQdd%252FmKeYeG%252FELXnOC%252BMct6Dm72Pj9Vasz7R1j7CC7p%252F6f3xykLU8ocqdZmG6FecxPJMwwmZEBkmMmZWBxtEXgA3FOgy%252BlBPD17NaADGbng9l1hBDYGCsIYHIM8bjSaDiXEltiTswFcKKks2xWe7DlvP4phkUZMQ1lzOrLjq9Vee9aU808TdKWy2yBFAIfM1XeQbJhVDSRD%252BJNk%252F%252FVrSIS4%252Bg3PTrGqgoWTm25tDLyTFm1RXMn5Q5jGulUllesXQg5FgzNz%252FlGvnMiR2%252BEQnMxAjawj8ra9is3h2sG9fgwkhj%252FQoEM82AqjaShTbtkVfRqVRenuU8vRmUNJMw%252BvpGzT7E%252FFH7KQYX%252BYLTrBAG2UTOGUGPL%252By9f0gdJyxbOdoUBocAoCEMR2pvqYtKjS9aYIRPqxQVEw5vj2wAY6pgEwpHBXFoxreyB8WY4VrD3iEeqLp9p261u9r69PpSK%252BNaLdavLqz29YLVkuyvX%252FVTUW7Wt8RZPSpqvWxnv7Mwste4B1qij9I3%252FA4V%252FiJoN4623oG87pq6NuqW%252FebWwav0N3KVYrNzYbbrRpD0ECAyn4EOWxo7BtkFJb%252B1bPM6osbAMTm2THwgEQ6gDTf%252BOuPrzQjEducSLMhZTuRUSRADffTgbYDivg%26X-Amz-Signature%3D2d518a9c268e35d75edc7d8cd2e794ebca3e86ae773efa82f21c521d1b9e29b9%26X-Amz-SignedHeaders%3Dhost%26x-id%3DGetObject&embedded=true" class="notion-pdf" title="Embedded PDF">お使いのブラウザはiframeに対応していないか、コンテンツの表示がブロックされています。</iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/e1bd7be6-7d15-4237-a529-f319bb59a53c/perplexity_fetch_h264.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466V66QJIBA%2F20250509%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250509T091131Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIDerEIbuw2mTK88e85AQ9tyz5ZS%2FEfsyaesd7IFNn6GTAiBVr2r7ei%2Fheh%2BliYars9TcFXymn%2F7js6Ay6eSn7iCIwiqIBAiK%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMVaKeW5iApEMxeLtXKtwDHSDHG6LpQ9JjBqfsZRr%2BpEJ5p%2BYncnbECXWllt9eMAuaesqqP2owSq7QFEOCdNa4ZL9iZd%2BZx7gUiyTS7uI1SYbXOvTKVYX9ZOMx6Q4lqtQuJh0bhUjztvBizibGPT7NOb7VCVX56zZnD4cw%2BXVdP3nGn23I1LKe797wIjsf3epgRe0gyjpcaWVrw6YM2gharu94yvuKZ0D3KfZysDOgD5oDg7BT0SQdd%2FmKeYeG%2FELXnOC%2BMct6Dm72Pj9Vasz7R1j7CC7p%2F6f3xykLU8ocqdZmG6FecxPJMwwmZEBkmMmZWBxtEXgA3FOgy%2BlBPD17NaADGbng9l1hBDYGCsIYHIM8bjSaDiXEltiTswFcKKks2xWe7DlvP4phkUZMQ1lzOrLjq9Vee9aU808TdKWy2yBFAIfM1XeQbJhVDSRD%2BJNk%2F%2FVrSIS4%2Bg3PTrGqgoWTm25tDLyTFm1RXMn5Q5jGulUllesXQg5FgzNz%2FlGvnMiR2%2BEQnMxAjawj8ra9is3h2sG9fgwkhj%2FQoEM82AqjaShTbtkVfRqVRenuU8vRmUNJMw%2BvpGzT7E%2FFH7KQYX%2BYLTrBAG2UTOGUGPL%2By9f0gdJyxbOdoUBocAoCEMR2pvqYtKjS9aYIRPqxQVEw5vj2wAY6pgEwpHBXFoxreyB8WY4VrD3iEeqLp9p261u9r69PpSK%2BNaLdavLqz29YLVkuyvX%2FVTUW7Wt8RZPSpqvWxnv7Mwste4B1qij9I3%2FA4V%2FiJoN4623oG87pq6NuqW%2FebWwav0N3KVYrNzYbbrRpD0ECAyn4EOWxo7BtkFJb%2B1bPM6osbAMTm2THwgEQ6gDTf%2BOuPrzQjEducSLMhZTuRUSRADffTgbYDivg&amp;X-Amz-Signature=067cd8a3fc392651e2b1e354ad393d1f30e0e475257d837aa3cf08378437f3f2&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/122cc8eb-06a6-4f89-8201-5e4143568efd/blender1_h264.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466V66QJIBA%2F20250509%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250509T091131Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIDerEIbuw2mTK88e85AQ9tyz5ZS%2FEfsyaesd7IFNn6GTAiBVr2r7ei%2Fheh%2BliYars9TcFXymn%2F7js6Ay6eSn7iCIwiqIBAiK%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMVaKeW5iApEMxeLtXKtwDHSDHG6LpQ9JjBqfsZRr%2BpEJ5p%2BYncnbECXWllt9eMAuaesqqP2owSq7QFEOCdNa4ZL9iZd%2BZx7gUiyTS7uI1SYbXOvTKVYX9ZOMx6Q4lqtQuJh0bhUjztvBizibGPT7NOb7VCVX56zZnD4cw%2BXVdP3nGn23I1LKe797wIjsf3epgRe0gyjpcaWVrw6YM2gharu94yvuKZ0D3KfZysDOgD5oDg7BT0SQdd%2FmKeYeG%2FELXnOC%2BMct6Dm72Pj9Vasz7R1j7CC7p%2F6f3xykLU8ocqdZmG6FecxPJMwwmZEBkmMmZWBxtEXgA3FOgy%2BlBPD17NaADGbng9l1hBDYGCsIYHIM8bjSaDiXEltiTswFcKKks2xWe7DlvP4phkUZMQ1lzOrLjq9Vee9aU808TdKWy2yBFAIfM1XeQbJhVDSRD%2BJNk%2F%2FVrSIS4%2Bg3PTrGqgoWTm25tDLyTFm1RXMn5Q5jGulUllesXQg5FgzNz%2FlGvnMiR2%2BEQnMxAjawj8ra9is3h2sG9fgwkhj%2FQoEM82AqjaShTbtkVfRqVRenuU8vRmUNJMw%2BvpGzT7E%2FFH7KQYX%2BYLTrBAG2UTOGUGPL%2By9f0gdJyxbOdoUBocAoCEMR2pvqYtKjS9aYIRPqxQVEw5vj2wAY6pgEwpHBXFoxreyB8WY4VrD3iEeqLp9p261u9r69PpSK%2BNaLdavLqz29YLVkuyvX%2FVTUW7Wt8RZPSpqvWxnv7Mwste4B1qij9I3%2FA4V%2FiJoN4623oG87pq6NuqW%2FebWwav0N3KVYrNzYbbrRpD0ECAyn4EOWxo7BtkFJb%2B1bPM6osbAMTm2THwgEQ6gDTf%2BOuPrzQjEducSLMhZTuRUSRADffTgbYDivg&amp;X-Amz-Signature=5f808202ba9f770ce3e25f9d1b34cc07d7ba9e6b8b86858616324248713fad35&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/cb62f9e6-7c7d-4b2f-bb53-dd6b01072185/blender2_h264.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466V66QJIBA%2F20250509%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250509T091131Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIDerEIbuw2mTK88e85AQ9tyz5ZS%2FEfsyaesd7IFNn6GTAiBVr2r7ei%2Fheh%2BliYars9TcFXymn%2F7js6Ay6eSn7iCIwiqIBAiK%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMVaKeW5iApEMxeLtXKtwDHSDHG6LpQ9JjBqfsZRr%2BpEJ5p%2BYncnbECXWllt9eMAuaesqqP2owSq7QFEOCdNa4ZL9iZd%2BZx7gUiyTS7uI1SYbXOvTKVYX9ZOMx6Q4lqtQuJh0bhUjztvBizibGPT7NOb7VCVX56zZnD4cw%2BXVdP3nGn23I1LKe797wIjsf3epgRe0gyjpcaWVrw6YM2gharu94yvuKZ0D3KfZysDOgD5oDg7BT0SQdd%2FmKeYeG%2FELXnOC%2BMct6Dm72Pj9Vasz7R1j7CC7p%2F6f3xykLU8ocqdZmG6FecxPJMwwmZEBkmMmZWBxtEXgA3FOgy%2BlBPD17NaADGbng9l1hBDYGCsIYHIM8bjSaDiXEltiTswFcKKks2xWe7DlvP4phkUZMQ1lzOrLjq9Vee9aU808TdKWy2yBFAIfM1XeQbJhVDSRD%2BJNk%2F%2FVrSIS4%2Bg3PTrGqgoWTm25tDLyTFm1RXMn5Q5jGulUllesXQg5FgzNz%2FlGvnMiR2%2BEQnMxAjawj8ra9is3h2sG9fgwkhj%2FQoEM82AqjaShTbtkVfRqVRenuU8vRmUNJMw%2BvpGzT7E%2FFH7KQYX%2BYLTrBAG2UTOGUGPL%2By9f0gdJyxbOdoUBocAoCEMR2pvqYtKjS9aYIRPqxQVEw5vj2wAY6pgEwpHBXFoxreyB8WY4VrD3iEeqLp9p261u9r69PpSK%2BNaLdavLqz29YLVkuyvX%2FVTUW7Wt8RZPSpqvWxnv7Mwste4B1qij9I3%2FA4V%2FiJoN4623oG87pq6NuqW%2FebWwav0N3KVYrNzYbbrRpD0ECAyn4EOWxo7BtkFJb%2B1bPM6osbAMTm2THwgEQ6gDTf%2BOuPrzQjEducSLMhZTuRUSRADffTgbYDivg&amp;X-Amz-Signature=616c89a84ed47bc0ab927f22d538f3ff1dc4ea1030bd60706d490d39055d7f36&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/c32b17d7-bccc-48a5-a5a8-13a6a7cbfe10/n8n_h264.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466V66QJIBA%2F20250509%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250509T091131Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIDerEIbuw2mTK88e85AQ9tyz5ZS%2FEfsyaesd7IFNn6GTAiBVr2r7ei%2Fheh%2BliYars9TcFXymn%2F7js6Ay6eSn7iCIwiqIBAiK%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMVaKeW5iApEMxeLtXKtwDHSDHG6LpQ9JjBqfsZRr%2BpEJ5p%2BYncnbECXWllt9eMAuaesqqP2owSq7QFEOCdNa4ZL9iZd%2BZx7gUiyTS7uI1SYbXOvTKVYX9ZOMx6Q4lqtQuJh0bhUjztvBizibGPT7NOb7VCVX56zZnD4cw%2BXVdP3nGn23I1LKe797wIjsf3epgRe0gyjpcaWVrw6YM2gharu94yvuKZ0D3KfZysDOgD5oDg7BT0SQdd%2FmKeYeG%2FELXnOC%2BMct6Dm72Pj9Vasz7R1j7CC7p%2F6f3xykLU8ocqdZmG6FecxPJMwwmZEBkmMmZWBxtEXgA3FOgy%2BlBPD17NaADGbng9l1hBDYGCsIYHIM8bjSaDiXEltiTswFcKKks2xWe7DlvP4phkUZMQ1lzOrLjq9Vee9aU808TdKWy2yBFAIfM1XeQbJhVDSRD%2BJNk%2F%2FVrSIS4%2Bg3PTrGqgoWTm25tDLyTFm1RXMn5Q5jGulUllesXQg5FgzNz%2FlGvnMiR2%2BEQnMxAjawj8ra9is3h2sG9fgwkhj%2FQoEM82AqjaShTbtkVfRqVRenuU8vRmUNJMw%2BvpGzT7E%2FFH7KQYX%2BYLTrBAG2UTOGUGPL%2By9f0gdJyxbOdoUBocAoCEMR2pvqYtKjS9aYIRPqxQVEw5vj2wAY6pgEwpHBXFoxreyB8WY4VrD3iEeqLp9p261u9r69PpSK%2BNaLdavLqz29YLVkuyvX%2FVTUW7Wt8RZPSpqvWxnv7Mwste4B1qij9I3%2FA4V%2FiJoN4623oG87pq6NuqW%2FebWwav0N3KVYrNzYbbrRpD0ECAyn4EOWxo7BtkFJb%2B1bPM6osbAMTm2THwgEQ6gDTf%2BOuPrzQjEducSLMhZTuRUSRADffTgbYDivg&amp;X-Amz-Signature=0334392cb5099c742352ed0bac7b243413093c8ec1998ea4cbb5a97fe4824128&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 </article>
 <article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">RocketChatを導入</h1></header>
@@ -174,15 +228,19 @@ color: #8fbc8f;
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI, VPS</span>
 </div>
 
-                    <div class="bookmark-block">
-                        <a href="https://www.rocket.chat/" target="_blank" class="bookmark-link">
-                            <img src="https://cdn.prod.website-files.com/611a19b9853b7414a0f6b3f6/6132017f51d1acdee170210c_webclip%20256px.png" alt="" style="width: 16px; height: 16px; margin-right: 5px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
-                            <div class="bookmark-text">
-                                 <div class="bookmark-title">Rocket.Chat | Secure CommsOS™ for Mission-Critical Operations</div>
-                                  <div class="bookmark-url">https://www.rocket.chat/</div>
-                            </div>
-                        </a>
-                    </div>
+<div class="bookmark-block">
+<a href="https://www.rocket.chat/" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<div class="bookmark-text">
+<div class="bookmark-title">Rocket.Chat | Secure CommsOS™ for Mission-Critical Operations</div>
+
+<div class="bookmark-source-info">
+<img src="https://cdn.prod.website-files.com/611a19b9853b7414a0f6b3f6/6132017f51d1acdee170210c_webclip%20256px.png" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+<span class="bookmark-url">www.rocket.chat</span>
+</div>
+</div>
+
+</a>
+</div>
                     <p>Slackの代わりに、自社ホスティングのRocketChatを導入した。<br>(Skype→LINE WORKS→RocketChat)</p>
 <p>【条件】</p>
 <ul>
@@ -193,7 +251,7 @@ color: #8fbc8f;
 <p>そこでRocketChatを導入することに。<br>RocketChatはSlackライクなOSSだそうです。<br>Slackは使ったことがないですが、チャレンジしてみよう。</p>
 <p>オンプレミスだとハードの用意から必要になるので、VPSを借り、そこに展開する。<br>OSはubutuを選ぶ。<br>GUIも導入できるので、Linuxに慣れてなくても最悪何とかなるはず。</p>
 <p>少しのコマンドですぐに使えるようになった。<br>(サーバーの初期設定などは除く)<br>しかも半自動で独自ドメインがTLSで使えるように。<br><a href="https://www.ssllabs.com/ssltest" target="_blank">SSL Labs</a>での評価も「A」。</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/3cf5f9dc-603f-469d-90d3-98afa8cbb8ef/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4665MIMUEZ7%2F20250509%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250509T090455Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQDYBvTpQGmcn5ikX4%2BUDH4yXt4VQ%2F%2B15qMeXT46JxIDrgIgZ%2BArdAuIK9zzK9bSpiJB3hCBsdlQulw9pkEqqJ3UCPsqiAQIiv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDAzMN287XybY4g3j7CrcA%2BnyUx8bwsKpsISXspXQ6%2BbC2dEOSmOB10GpbzaUYhXs69SLq5S3NH5QJam36EO9ByoMbVRqvPMdXieUBEJ%2B0PsVTfZzxbC2o13v0VRO2jxko3CZxdc7BvIyACQ9uN18RcypcNfZgAdUbWDbYw%2FwbDJzrvG53cOuy4hwSO1TDNNpKbEB%2BmRgCVlFXSDRglX7hlPrRzDd5iboEUg%2BUBc6LqDqw8nrQ1k1t2WheCMtEqNdw4jzHsGUx5tL10a5Mjset%2BLkvVF8fAds7FcZazfAFDRxIyVMNnzJtH3clgN1QvWtlusP%2BVqKXQ%2BcdgX11Q4VXmaN6s5WffNNtbE30TjmpwYZnekyuwxxWO9F%2B7AEFZc2vouaAtUDyOp6RsFvORfDZFYeOEdy7o6TOyLXWwjAtvN00ak3f8J5MB%2BND0kjx4du1zN1d0fFCSphyGJMrTLGxTvDSHLA3tffFga1nUUZAwaF7CBr6lYaV7xB2JxkeY3RspHmjA2wCVvcWlI08BQ%2FqHglAbWHdF1nNIc4VEHHIfGtUHCc2gEFX41GPd2sB%2F1vsGR1pkqX4B46AwR0TK1TUkMj1BI4eUEcd2RJjuWItZ7T%2FX6yRnixm9y%2FLObFKQjnjYkbfOd6REA4QvqoMNT49sAGOqUB5zoJDuXfasBidsHYCxca%2F3lX5cj%2BJfaBsBWriSZkr9NX%2FL8m%2BQC2vxDByV4Ve8BzdhZsAxeJdKm%2FpGhUjepyR03hx7CbbbUSnGDR2VdklM6bIGilAJZah%2FYlnN8HuWeHsbWyDAUiEVq1bqKKI19lBd9IcGrGjqRNp7HTjHK7M0UH9w6LoaqEeZvRoj6EhBgFZzXo3Wi%2FEwEJzD0LGEhwkkwD8jGw&amp;X-Amz-Signature=61100040302ada02b8110db60cb115cd5070b2d36f38c35d702abb6cefe5b7c3&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/3cf5f9dc-603f-469d-90d3-98afa8cbb8ef/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4663YD5VPYH%2F20250509%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250509T091133Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQCQC2z30r5cTh%2BqJB3iPp7rzhWrBKrp2Ba25V52Ljz8fAIhAJpfszmPUdscg0cxkkNfSmEDktS04J9VzUfvCXIxLMNrKogECIr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1IgzzMCetwCifnoSOhHkq3ANsAotpivkjUSgevof2ikKRkI4rikFkCNcBVZd%2FSsoMUqcMfckqeRTxxlwzzzVhH8OSxl9Fybcmq9tw0EWm8Jf6ix1zQpQi2Ppi%2FpQLNRN7XbYNOqEQe42P3usNBVueQkj9FwbjNGsN9fceqsnTO%2BZ4S30Z2E8QMXoTmYwbNGwE8ynBy%2BjBYH%2BzsWDA0p9Q%2BIB5Q7uJjf8aHJTYCzpJfzj4sa0heYsMGnDhBlTGRgS2FYQ2uv47vo1otSkbYh2ltH7SXcMPIT8vpOb9yrfgvUNBfcsRXjw3%2BfZJPzlCYcGSG5meMonFkhmp9WDS6mLsjgShktKVqg3y8xjWulBig9BSdZnwrT06uMUyynQyzAhDzTfyf%2BXfPknggT3Eb2htwUvfLbufGboBzigabOSm1Nqr0uduiFVJnOmnN9JfTMggILnacRscu56T7xmP5ekeslM%2BjnExGEWJMbTBG15GBXnQfjJ6g%2FqG8GGw8G1LL2EwTYr8phm%2BHvliXNaIwL%2FGCvsiN4SjMYyNAU7yHdlPu5nnjmJI9TDrZxrfQl%2BTMjyl8KdSkNC5jzEx2dS7opQnC0i22rXiFguqSJ%2B0nCl20Gwmupq1jKc0YuCq%2FqRn8Esl7IYQdIo9FMIB49fCEDDX%2BPbABjqkAZJnZ8ici8bU5PqQ1X4guhUmA9iJM2vpDwv2x%2F09D1YRZQDyuTmYc4UkoTkxA0yt%2FwG0S6derS4FRUJfG3exT5USmMvfOUjJ2X4PEGtDWlSDRiVeKEM%2FDTzEEMs7lPbmInebzexYXIDP6q4dU2%2Bv4Z%2Blgi0eJTU8Y7Ey%2FVRN59vzKOITNZQbCi3OrWFMVPO0y9g6fpuS0CUS1OFNlA98pHpQEhAh&amp;X-Amz-Signature=48525bdca75969912cf44f7601774a63f3330378fa5429e6027629560a7450da&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>先人たちには感謝しかない。</p>
 <p>某C国からもアクセスできることは確認済み。<br>VPS費用は月に500円～1000円程度(CPUやメモリ、ストレージによる)。</p>
 <p>分からないことがあれば、人に聞く、ググる、本で調べる。<br>これにAIが加わった。THE 日常使い。</p>
@@ -203,7 +261,7 @@ color: #8fbc8f;
 <div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-05-02 18:52</span>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
 </div>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/a59b4d9e-c17b-4dcf-b4d1-56358b025b7d/atopppyyyiiii.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466ZITVVZTC%2F20250509%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250509T090455Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCICD4vuvaX2nJPtulW5LVJoezxyH780pOCpAl28VwzuICAiAlKcw%2Ftx0DVpzpJ3GTlY0ro9x%2FCAVFhZUN2bAOHEn%2B0yqIBAiK%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMiyM%2FJynpvvEAlnPdKtwDEu%2F3vxfjwKCHDFkX9fEpBM%2BWQAt%2Bw1XNet4wkJ6iuak4j%2B57FO1VdRlfANnjqoHQ78YL48dYKRE2tMyjiTK3U%2F66CQyFnllOfHNlkwAkdCRY9P5eN2w5Vn3nkUVunRaIjph5kWyhxoSTJg%2Fs5Gtbu2vRQSuLfpKNG%2B4vbLHb8%2F3vyII5Ah4PbVldolexMSETVu3U2joZvRck%2BFSY%2B4T0l43B%2FRvBYB4zCuCEhZVlXrVvmVGg1OW2VE1%2Fu1UTG3edBhdCukLjBTN1FAbaGVrD0P5kuCt%2BkRQtO25Todej0LMtRNKcqyWiQohf7PW4jcPi49FelyNa9V7Y0H3WA%2B59PRXymPhJH3G8Lr2762cZoUUnccCY1qTtujGN1gw2LQXw6HPcp76n9FJ9lf4CnZuTdl8i6l8AIfydglNqGS%2BGqxv%2BgL%2BBuddSsTxAV81qY7xXpZ2tRR4z0Y4xbHEHrgopmlNU8YQhHLhZcHll1%2F%2BWzyOl2E6oDnetIUdouoj%2BJKuURnpzj0mJAQhcForTGTpFBB9gX6HHhhUTuS2jyu3z%2FCrvgGbGl3sxUSvUg7dDAIvrdSivsxqhw2SyNOWRieUugKgFsuM1LReCiQoPOTreoMgMAIdSdOekK13%2BDc8wmvn2wAY6pgE7QdbkBEa6gHaE8SOi0oBPTJSb3LKzuRc53dp2FyrtgiEhoD4rLIZLXIev5hBJwxk7vPBHnjnv9ZvremBAYW6YEAhtc9zJxQ7yLSnm12W2Yi8zhGYpYY5fPMlCHRVvIyPJRct2mOov3dQvbJXbmKXTu18HAgWWlixifF00sB5aaeXizVqvUCnV8Hyb6CeColhJZBaI%2Bu%2Fvc1u11dNuiqgy2XNVy7y4&amp;X-Amz-Signature=feb038761a57da31fe96734c79441af2edc68f21d799a7408ac347ccf5c0e0b2&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/a59b4d9e-c17b-4dcf-b4d1-56358b025b7d/atopppyyyiiii.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4662X3LP4KS%2F20250509%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250509T091133Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIF3nrSI92tMf98e03HF90td6KRCP96HP03lvDrO4A3kuAiA%2BYo4Jc4GedU2MvZ0K6foFs5M9WgMPDevUbd7mnuRX3SqIBAiK%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMhUm0OBHyvYcSujKnKtwD1ISrXWloZKhN3usJA2nU%2B3mqeQbvwSiyQ6%2BeXBbkuRpjMoDqwSVMgv1ndXIPVPR6dko0ikBIMMv7Q7ago4lZczAezIRvxedCydMrpRFobpxaPnb4ZmBs0%2B%2Bybq5PPqZNZte0YRglZ87AyY3%2BDDsx0r9x3kP9tjlBm5GHeMUnDKsU9ukY4OyS8LnRobuR2ywsqCqWcOYrHKQdVO8hiNOEe4XZM4m9kzvApBKkyJ9nq%2FySMQzJt2Bg7X96gHPjIr42X2QeMRTXLDOZTtknXQ12pGeG%2B1CUUPAcz%2FpLUqCD4%2BmKczXSYzR2CQumh%2BS5DvRpgP5vWncXavbXkItFYiyCzd1Sh32M%2FZKrxsPfokIld19e1U17LUDj5hk%2B2JfY8fSymRYuZwkMGpU21CkyoGZbsTAUGetxNEC5W5T0FbHR%2FyMWmsaegQKyWXOKPXhBF1SqO4hGCqriRhbhy7W5%2FWy0JfvV5t%2B3TbjmCz%2FZo4HIIG640e9rDbGJkT3k7OX%2BBBAdWKbusYvfxrMRJeuf6HiHQY8p8v70B6UFOfp93DwG34nrDPSI1kqMPwa0Lr6J6C%2F8lscprCsJxg3N2hJy%2BKaqoCxRba4ZNaQVsnv%2BjKPqkwOml%2B80nnTZTmTzs7Awi%2Fn2wAY6pgGKEdCLDvvddlpJjHxVLL2vq12kZAsQj%2FRKJYX3HVDyFO2Pta9U%2Be7fzEyA4LHlRFnkcigq6xjN3Z058JSFPka98gC5lo6dB0U%2F79COkvDuy5p0EVmSajuK0fGQnLFjT%2F398piK1RXwvMLcX8ZiADEUxLLGicYmzRy1R5wxHmnKcmIc5guFdOqQzo9ZwlK0dho8PJCntWriyFMt0qKmJngW6N3JiQyC&amp;X-Amz-Signature=30a39bd689bb204875358e520ed5889365f6b4e6a582b455b42d7cd89b528c2d&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <p>参考文献「<a href="https://www.diamond.co.jp/book/9784478108475.html" target="_blank">世界最高のエビデンスでやさしく伝える 最新医学で一番正しい アトピーの治し方</a>(大塚 篤司)」</p>
 </article>
 <article>
@@ -300,28 +358,36 @@ color: #8fbc8f;
 <div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-04-16 20:31</span>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI, Python</span>
 </div>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/b73d687e-24ac-43e6-b773-8684ab310058/aivis_srt.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4665ZSJE2FS%2F20250509%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250509T090456Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCNDAa%2FIb0vJAP7wGGU%2B5lwSXVNnCwq%2BEnrKLRHLZlUIwIgEN%2FfgqaO82rasgImSZrw3yMajEUDth1cIZDxjkPLVsUqiAQIiv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDKNRFP6TsWResJw8HSrcAzcGfYE6IncYwNTb1qBTzG6nyvzjBGX200VcebCwO0h0Dgu%2FTmln4FTfHoz45QUEY53UEubK6ZDst6PNN0r%2BOuoiOIflwEmtmtI56yQnv%2FOyUoW6uNUQFdkNZVh14QqefOvACMZLzaWBclXDP3jxur%2Fn27F5ZwbnchuKC6Gecj86cGpCtMsTCJj%2FveGNIuRZszzxkI5iePHZIZR4vINucM4lqUMU4QJiW9a1Ggx%2B59jXblQgoIBxjojhRMP8BZkmDIT4d%2Box0wYVMrPdQPWYQnmVKgJbgePTcuHzj4gysCVtWEYY1RHicE2RwT%2BiIjGME86k8uIHzPJGlGtrS17uczRyUdbtHns0cq%2FtpE7DZcixEl%2Bop3s5%2F%2BVV6r0s3jBuR7xWgYPbohtA0hGQ5ZWHVp%2BfYPa0Yf6pe0FrjR4ugdtjcu941yulMePKB4SLb3Mcxm74FwFeWv8XB0FjwMiPg2DPytJAkg4nxEhtA6w4UpCIeAi%2BEtRfgp6qqnKOaeKpyszU2cWQh5qhd4houI6Iw2PYMKek%2BCGzyuK2LwXzIxrS5LXeMZB0Ads5o1RFWyiCaApXh%2Fm6HnZqUfbRhmr5w6%2F5qIZRQQ%2BWRTA%2FuYPx9KqQAgohDbNtlo2efEvHMNj49sAGOqUB%2B%2B8%2FbDO%2BB1cVTcttXOYy%2BaoaMMQu0GLbvAOqrsC4y7FFouME4DmgaouTJ4SO%2F8QVLTcMeG9mzW6ZnKmxLmx%2Bwq%2FNNl3D9mw8H5tEBqWg8%2Fho%2Fc4jMG9ivdU2QfggiRJ8Yve2ikrcNzpVJJWMDZ22ObuoYAJPTPkMzuzdTWZcT9wfjaJdH3I8S1AEfpN1t2zaALrb0H7PxzC0Zrk4HbBXIs4ELk%2BF&amp;X-Amz-Signature=f5decdd7b1220deb17e9c96adee9e336caace951074b9653458454359fdd2f65&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/b73d687e-24ac-43e6-b773-8684ab310058/aivis_srt.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666VHLITLX%2F20250509%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250509T091134Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQDnWf2naQIqT5nS0Q8mRNBE1IT1zYo3wX8Z%2BOcxqyHriAIgGMZkPL%2BvBcNe%2F0%2BEAIVObORG0SlNcoLV4VZJtwlTXsAqiAQIif%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDGt96j3kY61M9myXoircA4fqWxVkbsTK2vPO1tes%2B9gbMVPI5DuiK9w%2BaaVIq2qgZMsGu6BsC0QujZthejowh7wdy7eD%2FaeHbuDABDkqnQpcnn%2BqQP9XyfW%2B7nCqp9op5bJbbBv%2FnHmhdw6aft2Vg4exv8M1ZvIGiouRCzrTsYK%2FzL1lAuKroF9rPhpBno2EOC8Ljpna63gWn0YTgolrC8tmHypCtC1BRvPBvi%2FDErc31%2BBk4YOff8pv8Rzgb5%2BgzMY%2Fc7ZE9Se%2F5YP7FCGA%2F7M4BUS8gBy6jmVfYZOorS%2FofOgtk3foJpa0Jdo%2FA73o8P1SfNxmWa8eCAs6yahlbrqANz%2BpQMP6RWHM8w8OumzoFrUqvPIcLyp1rEBA19PzW3iJ0bcrCa4L%2BgDlZuYuRiq2IOkGlD6DmlknUR459RSU0m7cxWP0uNM0Cngqw53XdUnMqu3CV2q9umey%2F0gd%2BXGmWuoVZ7VY%2FT30viCzYP2SLphprdSc5Zjg1sn1N3Zon3FC3KpCOjZy8AhUSCIOTL%2BLCy8KkIuE04qqvhR9LSDMLGspEI5uARObU%2F1x2PJ15%2F0wiA4gbgtQxkITM3zvMS%2Bg2H5%2FihOEkE2zVnVRD3U%2BD%2BqN2OBLCQRFizE05MCageoE%2FhQUVPNMaGPQMLn49sAGOqUB6uJOCeSWYkX3%2B0M%2BMYOUboI%2BJpiVznIWuUske0ep7%2BtxSWCHuxAVmsf4iLrPTo%2FqtCHFJOc9roajnberhKo8dLicX7aMszq7pdgdRydA%2FbIC%2F9CKTIWS26ZOsWho9b94osY%2FrBlsF3IGVlO4KIj6YT99gFKmoo7h3fZeDqpmwPpQfOL7e94Vwd6jhHV7b8F7mzieni5ji%2B9giZa%2FzoZHjZJhBgd3&amp;X-Amz-Signature=1ab3a242810dc8874cd71a07b8f84b2d54efe18212dc5e90568b7c576b264280&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <p>１．まずニュースなどのテキストをコピペします<br>今回のソースはこれにしました</p>
 
-                    <div class="bookmark-block">
-                        <a href="https://studio.design/ja" target="_blank" class="bookmark-link">
-                            <img src="https://storage.googleapis.com/production-os-assets/assets/26d54128-0a12-4994-887b-3ff5625c3f83" alt="" style="width: 16px; height: 16px; margin-right: 5px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
-                            <div class="bookmark-text">
-                                 <div class="bookmark-title">Studio | ノーコードWeb制作プラットフォーム</div>
-                                  <div class="bookmark-url">https://studio.design/ja</div>
-                            </div>
-                        </a>
-                    </div>
+<div class="bookmark-block">
+<a href="https://studio.design/ja" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<div class="bookmark-text">
+<div class="bookmark-title">Studio | ノーコードWeb制作プラットフォーム</div>
+<p class="bookmark-description">コードやテンプレートに縛られずに、 誰でも自由自在にデザイン可能。 作成したサイトは、1クリックで世界に公開。 そう、必要なのはStudioだけです。</p>
+<div class="bookmark-source-info">
+<img src="https://storage.googleapis.com/production-os-assets/assets/26d54128-0a12-4994-887b-3ff5625c3f83" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+<span class="bookmark-url">studio.design</span>
+</div>
+</div>
+<div class="bookmark-og-image"><img src="https://storage.googleapis.com/production-os-assets/assets/ade23316-5615-4099-9153-a513026b8b5a" alt="Preview for Studio | ノーコードWeb制作プラットフォーム"></div>
+</a>
+</div>
                     
-                    <div class="bookmark-block">
-                        <a href="https://gigazine.net/news/20250415-openai-gpt-4-1-released" target="_blank" class="bookmark-link">
-                            <img src="https://gigazine.net/apple-touch-icon.png" alt="" style="width: 16px; height: 16px; margin-right: 5px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
-                            <div class="bookmark-text">
-                                 <div class="bookmark-title">OpenAIが「GPT 4.1」のAPIを公開、100万トークン対応と実用性能で飛躍的進化を遂げた次世代AIモデル - GIGAZINE</div>
-                                  <div class="bookmark-url">https://gigazine.net/news/20250415-openai-gpt-4-1-released</div>
-                            </div>
-                        </a>
-                    </div>
+<div class="bookmark-block">
+<a href="https://gigazine.net/news/20250415-openai-gpt-4-1-released/" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<div class="bookmark-text">
+<div class="bookmark-title">OpenAIが「GPT 4.1」のAPIを公開、100万トークン対応と実用性能で飛躍的進化を遂げた次世代AIモデル - GIGAZINE</div>
+<p class="bookmark-description">OpenAIが「GPT-4.1」「GPT-4.1 mini」「GPT-4.1 nano」のAPIを2025年4月14日に発表しました。...</p>
+<div class="bookmark-source-info">
+<img src="https://gigazine.net/apple-touch-icon.png" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+<span class="bookmark-url">gigazine.net</span>
+</div>
+</div>
+<div class="bookmark-og-image"><img src="https://i.gzn.jp/img/2025/04/15/openai-gpt-4-1-released/00_m.png" alt="Preview for OpenAIが「GPT 4.1」のAPIを公開、100万トークン対応と実用性能で飛躍的進化を遂げた次世代AIモデル - GIGAZINE"></div>
+</a>
+</div>
                     <p>２．<a href="https://gemini.google.com/app" target="_blank">Gemini</a>などに貼り付けます</p>
 <p>３．以下のようなプロンプトで指示します</p>
 <blockquote class="notion-quote ">上記のニュースを解説する対話を作ってください。<br>対話は以下のフォーマットに従ってください。idは2名分ありますので、それを話者として分けてください。idは変えないでください。</blockquote>
@@ -555,6 +621,6 @@ hljs.highlightAll();
 });
 </script>
 
-<!-- 2025-05-09 18:04 -->
+<!-- 2025-05-09 18:11 -->
 </body>
 </html>
