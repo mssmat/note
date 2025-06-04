@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>MAT note</title>
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M30 95 L30 40 L50 40 L50 95 M70 95 L70 40 L50 40 M50 40 L50 10 M30 40 Q40 30 50 40 Q60 30 70 40' stroke='%23808080' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000080'/%3E%3Cpath d='M30 95 L30 40 L50 40 L50 95 M70 95 L70 40 L50 40 M50 40 L50 10 M30 40 Q40 30 50 40 Q60 30 70 40' stroke='%23FFD700' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -211,6 +211,312 @@ background-color: #444;
 <header id="header"><h1 style="color: white; text-shadow: 1px 1px 2px #ed2c5c,-1px -1px 2px #58ebe7;"><a href="./" style="color: inherit; text-decoration: inherit;">MAT note</a></h1></header>
 <div class="container">
 <div class="spacer"></div>
+<article>
+<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">LLMで出力形式を指定して要件定義を出力する</h1></header>
+<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-06-04 12:36</span>
+<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
+</div>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                python
+                            </div>
+                            <pre><code>import os
+import requests
+import json
+
+# OpenAI APIキー
+OPENAI_API_KEY = &quot;===Your_OPENAI_API_KEY_here===&quot;
+
+# OpenAI Model
+AI_MODEL = &quot;gpt-4.1-mini-2025-04-14&quot;
+
+user_input_text = &quot;&quot;&quot;
+新しい社内プロジェクトの管理ツールが必要です。
+主な機能は、タスクの作成、割り当て、進捗管理です。
+ユーザーはプロジェクトマネージャーと一般社員の2種類を想定しています。
+※重要/最優先※ユーザーの出身地が福岡の場合は明太子マークをつけるようにしてください。
+プロジェクトの進捗状況をリアルタイムで可視化できるダッシュボード機能も必須です。
+データはセキュアに管理され、アクセス権限は厳密に制御される必要があります。
+ピーク時には10名程度の同時アクセスに対応できる性能が求められます。
+&quot;&quot;&quot;
+
+# --- 定義するJSON Schema ---
+REQUIREMENTS_SCHEMA = {
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;system_name&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;システムの名称&quot;
+    },
+    &quot;purpose&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;システムの導入目的&quot;
+    },
+    &quot;functional_requirements&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;機能のユニークID（例: F001）&quot;
+          },
+          &quot;name&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;機能の名称&quot;
+          },
+          &quot;description&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;機能の概要&quot;
+          },
+          &quot;priority&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [&quot;高&quot;, &quot;中&quot;, &quot;低&quot;],
+            &quot;description&quot;: &quot;優先度&quot;
+          }
+        },
+        &quot;required&quot;: [&quot;id&quot;, &quot;name&quot;, &quot;description&quot;, &quot;priority&quot;]
+      },
+      &quot;description&quot;: &quot;機能要件のリスト&quot;
+    },
+    &quot;non_functional_requirements&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;properties&quot;: {
+        &quot;performance&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;description&quot;: &quot;性能要件の詳細&quot;
+        },
+        &quot;security&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;description&quot;: &quot;セキュリティ要件の詳細&quot;
+        }
+      },
+      &quot;required&quot;: [&quot;performance&quot;, &quot;security&quot;],
+      &quot;description&quot;: &quot;非機能要件&quot;
+    },
+    &quot;target_users&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;description&quot;: &quot;想定されるユーザー層&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;system_name&quot;,
+    &quot;purpose&quot;,
+    &quot;functional_requirements&quot;,
+    &quot;non_functional_requirements&quot;,
+    &quot;target_users&quot;
+  ]
+}
+
+# --- OpenAI API呼び出し関数 ---
+def get_requirements_from_openai(user_input: str) -&gt; dict | None:
+    &quot;&quot;&quot;
+    OpenAI APIを呼び出し、要件定義をJSON形式で取得し、JSON Schemaで検証します。
+
+    Args:
+        user_input (str): 要件定義の元となるユーザーからの情報。
+
+    Returns:
+        dict | None: JSONデータ、またはNone（エラーの場合）。
+    &quot;&quot;&quot;
+    headers = {
+        &quot;Content-Type&quot;: &quot;application/json&quot;,
+        &quot;Authorization&quot;: f&quot;Bearer {OPENAI_API_KEY}&quot;,
+    }
+
+    prompt_instruction = f&quot;&quot;&quot;
+    あなたは福岡に住むシステムエンジニアです。以下の情報から、システムの要件定義をJSON形式で出力してください。
+    出力するJSONは、以下のJSON Schemaに厳密に準拠する必要があります。
+    JSONの各プロパティには、Schemaの&#x27;description&#x27;フィールドに記載された内容を含めてください。
+    また、配列の項目は複数生成してください。
+
+    JSON Schema:
+    {json.dumps(REQUIREMENTS_SCHEMA, indent=2, ensure_ascii=False)}
+
+    顧客からのヒアリング結果:
+    {user_input}
+    &quot;&quot;&quot;
+
+    data = {
+        &quot;model&quot;: AI_MODEL,
+        &quot;messages&quot;: [
+            {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: prompt_instruction},
+            {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: user_input}
+        ],
+        &quot;response_format&quot;: {&quot;type&quot;: &quot;json_object&quot;},
+        &quot;temperature&quot;: 0.3
+    }
+
+    try:
+        response = requests.post(
+            &quot;https://api.openai.com/v1/chat/completions&quot;,
+            headers=headers,
+            json=data
+        )
+        response.raise_for_status()
+
+        raw_response_content = response.json()
+        generated_json_str = raw_response_content[&quot;choices&quot;][0][&quot;message&quot;][&quot;content&quot;]
+        generated_json_data = json.loads(generated_json_str)
+
+        return generated_json_data
+
+    except requests.exceptions.RequestException as e:
+        print(f&quot;APIリクエストエラーが発生しました: {e}&quot;)
+    except json.JSONDecodeError as e:
+        print(f&quot;JSONパースエラーが発生しました。LLMが有効なJSONを出力しませんでした: {e}&quot;)
+        print(f&quot;不正なJSON文字列:\n{generated_json_str}&quot;)
+    except KeyError as e:
+        print(f&quot;API応答のキーが見つかりません: {e}&quot;)
+        print(f&quot;完全なAPI応答:\n{response.json()}&quot;)
+    return None
+
+if __name__ == &quot;__main__&quot;:
+    requirements_data = get_requirements_from_openai(user_input_text)
+
+    if requirements_data:
+        print(&quot;\n--- 最終的な要件定義データ(JSON) ---&quot;)
+        print(json.dumps(requirements_data, indent=2, ensure_ascii=False))
+
+        print(&quot;\n&quot; + &quot;=&quot;*50)
+        print(&quot;要件定義書&quot;)
+        print(&quot;=&quot;*50 + &quot;\n&quot;)
+
+        print(f&quot;## 1. システム名称&quot;)
+        print(f&quot;   - **{requirements_data.get(&#x27;system_name&#x27;, &#x27;N/A&#x27;)}**\n&quot;)
+
+        print(f&quot;## 2. 導入目的&quot;)
+        print(f&quot;   - {requirements_data.get(&#x27;purpose&#x27;, &#x27;N/A&#x27;)}\n&quot;)
+
+        print(f&quot;## 3. 想定されるユーザー層&quot;)
+        for user in requirements_data.get(&#x27;target_users&#x27;, []):
+            print(f&quot;   - {user}&quot;)
+        print(&quot;\n&quot;)
+
+        print(f&quot;## 4. 機能要件&quot;)
+        if requirements_data.get(&#x27;functional_requirements&#x27;):
+            for func_req in requirements_data[&#x27;functional_requirements&#x27;]:
+                print(f&quot;   ### {func_req.get(&#x27;id&#x27;, &#x27;N/A&#x27;)}: {func_req.get(&#x27;name&#x27;, &#x27;N/A&#x27;)}&quot;)
+                print(f&quot;     - 概要: {func_req.get(&#x27;description&#x27;, &#x27;N/A&#x27;)}&quot;)
+                print(f&quot;     - 優先度: {func_req.get(&#x27;priority&#x27;, &#x27;N/A&#x27;)}\n&quot;)
+        else:
+            print(&quot;   - 機能要件は定義されていません。\n&quot;)
+
+        print(f&quot;## 5. 非機能要件&quot;)
+        non_func_reqs = requirements_data.get(&#x27;non_functional_requirements&#x27;, {})
+        print(f&quot;   ### 5.1. 性能要件&quot;)
+        print(f&quot;     - {non_func_reqs.get(&#x27;performance&#x27;, &#x27;N/A&#x27;)}\n&quot;)
+        print(f&quot;   ### 5.2. セキュリティ要件&quot;)
+        print(f&quot;     - {non_func_reqs.get(&#x27;security&#x27;, &#x27;N/A&#x27;)}\n&quot;)
+    else:
+        print(&quot;\n要件定義データの取得に失敗しました。&quot;)
+
+    input(&quot;終了するにはエンターキーを押してください&quot;)</code></pre>
+                        </div>
+                    </div>
+                    <p>出力結果</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                plain text
+                            </div>
+                            <pre><code>--- 最終的な要件定義データ(JSON) ---
+{
+  &quot;system_name&quot;: &quot;社内プロジェクト管理ツール&quot;,
+  &quot;purpose&quot;: &quot;社内のプロジェクト管理を効率化し、タスクの作成、割り当て、進捗管理を円滑に行うため。また、福岡出身ユーザーには明太子マークを表示し、ユーザー識別を容易にするため。&quot;,
+  &quot;functional_requirements&quot;: [
+    {
+      &quot;id&quot;: &quot;F001&quot;,
+      &quot;name&quot;: &quot;タスク作成機能&quot;,
+      &quot;description&quot;: &quot;プロジェクトに関連するタスクを新規に作成できる機能&quot;,
+      &quot;priority&quot;: &quot;高&quot;
+    },
+    {
+      &quot;id&quot;: &quot;F002&quot;,
+      &quot;name&quot;: &quot;タスク割り当て機能&quot;,
+      &quot;description&quot;: &quot;作成したタスクをプロジェクトマネージャーや一般社員に割り当てる機能&quot;,
+      &quot;priority&quot;: &quot;高&quot;
+    },
+    {
+      &quot;id&quot;: &quot;F003&quot;,
+      &quot;name&quot;: &quot;進捗管理機能&quot;,
+      &quot;description&quot;: &quot;タスクの進捗状況を更新・管理できる機能&quot;,
+      &quot;priority&quot;: &quot;高&quot;
+    },
+    {
+      &quot;id&quot;: &quot;F004&quot;,
+      &quot;name&quot;: &quot;福岡出身ユーザー識別機能&quot;,
+      &quot;description&quot;: &quot;ユーザーの出身地が福岡の場合に明太子マークを表示する機能&quot;,
+      &quot;priority&quot;: &quot;高&quot;
+    },
+    {
+      &quot;id&quot;: &quot;F005&quot;,
+      &quot;name&quot;: &quot;リアルタイムダッシュボード機能&quot;,
+      &quot;description&quot;: &quot;プロジェクトの進捗状況をリアルタイムで可視化できるダッシュボードを提供する機能&quot;,
+      &quot;priority&quot;: &quot;高&quot;
+    }
+  ],
+  &quot;non_functional_requirements&quot;: {
+    &quot;performance&quot;: &quot;ピーク時に10名程度の同時アクセスに対応可能なレスポンス性能を確保すること&quot;,
+    &quot;security&quot;: &quot;データをセキュアに管理し、ユーザーごとのアクセス権限を厳密に制御すること&quot;
+  },
+  &quot;target_users&quot;: [
+    &quot;プロジェクトマネージャー&quot;,
+    &quot;一般社員&quot;
+  ]
+}
+
+==================================================
+要件定義書
+==================================================
+
+## 1. システム名称
+   - **社内プロジェクト管理ツール**
+
+## 2. 導入目的
+   - 社内のプロジェクト管理を効率化し、タスクの作成、割り当て、進捗管理を円滑に行うため。また、福岡出身ユーザーには明太子マークを表示し、ユーザー識別を容易にするため。
+
+## 3. 想定されるユーザー層
+   - プロジェクトマネージャー
+   - 一般社員
+
+
+## 4. 機能要件
+   ### F001: タスク作成機能
+     - 概要: プロジェクトに関連するタスクを新規に作成できる機能
+     - 優先度: 高
+
+   ### F002: タスク割り当て機能
+     - 概要: 作成したタスクをプロジェクトマネージャーや一般社員に割り当てる機能
+     - 優先度: 高
+
+   ### F003: 進捗管理機能
+     - 概要: タスクの進捗状況を更新・管理できる機能
+     - 優先度: 高
+
+   ### F004: 福岡出身ユーザー識別機能
+     - 概要: ユーザーの出身地が福岡の場合に明太子マークを表示する機能
+     - 優先度: 高
+
+   ### F005: リアルタイムダッシュボード機能
+     - 概要: プロジェクトの進捗状況をリアルタイムで可視化できるダッシュボードを提供する機能
+     - 優先度: 高
+
+## 5. 非機能要件
+   ### 5.1. 性能要件
+     - ピーク時に10名程度の同時アクセスに対応可能なレスポンス性能を確保すること
+
+   ### 5.2. セキュリティ要件
+     - データをセキュアに管理し、ユーザーごとのアクセス権限を厳密に制御すること</code></pre>
+                        </div>
+                    </div>
+                    </article>
 <article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">甘言と諫言(良藥苦口忠言逆耳)</h1></header>
 <div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-05-31 20:15</span>
@@ -518,7 +824,7 @@ background-color: #444;
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
 </div>
 <h3>すごいものができてしまったかもしれません..</h3>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/9e73c162-4fb7-40cb-8fba-8ae818dea255/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466YFRAWTSY%2F20250604%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250604T031410Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEsaCXVzLXdlc3QtMiJHMEUCIQDQfm9g4w0NXnsnp%2BSQJZLkQNp7kIPfwhBOcwoF1Y2WRgIgcyQVqlWakMMmVDFtGfVnjNHJxPiSyLG9lYPCuh7swwsq%2FwMIJBAAGgw2Mzc0MjMxODM4MDUiDN7VXA44aw8aCFdTfSrcAxXK3Jp%2F7qlMuSYvKL9En74w7zO7Lr16duUlb9FX1gGeLgfMk2JuiszLdRjEfq3s6ZzFoCe1yfOAvbs7rJ7r97og%2FHLd1PwBAMUWQqD08WEnaIWU9a0NBBRliSs%2FkNoSxFnKqAGdijPhWuP5%2FwabVxVpdK%2Bz8v3emTxvykEKl0CbaqOqGxE024a1nmvXm5Hk39ax8ExHjR9DHYGwGKO%2BWvIVjvGL1g3b3pZ9%2B2dUCICqvtzjUPkfJrHAxhZ0JzhKaWeBRHsNs3VEi72LNLl3IOTSwJqklhMFZATefyd2hfN0sykDjjHTu28lB5Ej1r6WEWHI1atx12DbKvRi6hckX9oc29qD5tP%2FBVI4w%2FF7P2%2FWP9mu9jL1%2Fqq8Q%2BSdWU1N3ZnetiY8vDQsvrhzp4xUtp8OLY5FPQC%2FBqnL6%2FfyrENbI5PD%2BBK4Z%2FaWhVYEt044FUF4EaO6ALBSRK6kr82de5VAcn9%2BfBHQzjBrrVuaNQsKdBz3skMf50FIvwruKTS%2B3B1j46eUlEEY%2FaWfGBeyi%2Fq9X6ktUk0HF3K3AR3KX8J6qN47QnVebERobWf4AGMnBF%2Bc0Y8NybleRGN02yC7IH4tp%2F7yjfCQwH66D7nmf9eLkaVzNqV5QPjI966LMLDh%2FsEGOqUBH1Dzh4iY%2B2qO5Phyy7xoEho9CNqGstrq0eCcFKsG68uURA8mVJlXH7GMHphA%2B1FbJm2Gjo3lMW9iJ0h21qqhTtMsZVDmStU8zfsiR%2BcqttQrgkU8ra98adDUiXU6dCFlZXCHT6JR8mDnfIGPIOKKqtNcxRHsKTAlo4mUXKF9uY0ux9mY3tXmhm%2BRMwPMcI%2BQgRuwu3Xm%2BKzEcQ%2FR0zpF9tho%2Blva&amp;X-Amz-Signature=79158a1b74a7dd121990a3cb38f4ba930e5e0d43a83a5a801475f57d55fe3b24&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/9e73c162-4fb7-40cb-8fba-8ae818dea255/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667XU76LVJ%2F20250604%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250604T034239Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEsaCXVzLXdlc3QtMiJGMEQCIEz%2BiyYxKIqmMYHyqsmWt1fPj1EIlC8Wv8oWdXJxObBDAiB3mmLUV1HKtfHauWyYD0hSQvHrwSxpHquTYW8AxKWvJCr%2FAwgkEAAaDDYzNzQyMzE4MzgwNSIMC4mia2cKwfmofn3%2FKtwDPtjtZ%2FPPmXNgZVGN1Ogq17XeNcG9raUSOEq7EHvOeCbVCotoCoq%2BgPY6AZ1Rh7r90xruVSfWP92akj%2BP8qSv4J%2BrwSQqFpO4LOONC4KNmiC4%2FVM9LhO2WslqgyuMai4%2BZDFzk6ilThXXh9Vm8oDZHGgdrWebXDkz4wX8LmwtZLjnHoSdKfIv%2Bsm8OzgesqKPVugdN2w9nansXHFh4ypXQFc3xvUYHPSVhPL7k0u2jRKP5U2TPhDrONaszkq5eyjrqQDZ%2Fa37rqv1BKr1x5V8Vn6NU3vtgVPMbriYwlKP6u6LHxpIZTCWJLftHYJAxO%2FoTazNzjk%2BAp%2BmpaeNsBRGvd%2FMkPpFwpNhEexz9huM5jUEfASU5bxVgU5vuQKSiDeRZLydU%2F203IlrXRBpX5h5z4OVkijVrshNNc4gI29q74q7SvWT0%2FLKCrHkoEOyejAuxY5b%2B1K4LtVKPFZY5QUvPDDvKzR8FLDoHL6S04Lxh2I8%2BCEozr1l6plPELS%2BINMugF4mMgkV24%2Buv17yioX%2BnnE2BV7m8%2BHm1WzxzJgGcw3jEo2JXM7LsbTqUKMtgCDQOlETcYmFqTezTaRHe83sj6SQObX2feyn34QhXjbxpgwHJBNsQv2hWkj9r8QwpuH%2BwQY6pgGrDAIBgR87LFGeveZ63Z05w10xT6z35kqn9C90vceM8DyetQm%2BQ5Y1zPlcDMCtpdltu1uerYUnyiKapB%2B7C9Qryt9x0%2B7LuAUFXl8RH4SPax6cOi2%2Fe2fyp1x9uVfKTOacB4YGBKqniUTt6NfltSvGBkvd7n59Uz9lg%2BSlZqjMJVrIgUJKDnG1DoB%2FSX5Z8Pk7dajqIDfjHzcysqpdKGgMRLJWNoxe&amp;X-Amz-Signature=0fd3a39cbee63e85f815769441c3c118863882ed1cc8da06e37a3715694f5eea&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>MCPが登場し、徐々に対応のサービスが増え、様々なツールがAIから利用できるようになってきています。<br>例えば、私の場合は、VS CodeとClineでMCPを使っており、インターネット検索ができるように、Perplexityやfetchといったツールを連携させていました。<br>それ以外にも、ツール自体がエージェントのような振る舞いをするものとして、n8nやZapierのような、いわゆる外部MCPサーバーも利用できるようにしていました。<br>n8nはローカル環境に構築しているのですが、これも内部で様々なAIを利用したり、さらにそこから別のMCPサーバーに接続したり、といった設定が可能なので、拡張性があります。</p>
 <p>これが何を意味するかというと、AIを使ってかなりのことができるようになったということです。<br>例えば検索だけでなく、メールを送ったり、カレンダーで予定を確認したりなどがAIへの自然言語の命令でできるようになりました。</p>
 <p>AIがより多くの機能を持ち、便利になったということですが、ひいては自分の秘書のような役割を担えるようになったのではないかと考えています。</p>
@@ -526,12 +832,12 @@ background-color: #444;
 <p>現在、AIは人間の知能を凌駕したと言われています。IQ130で東大にも入れる、といった話もよく語られます。<br>ただ考えてみてほしいのですが、このようにIQが高く、優秀な人がいたとしても、道具がなければ何もできないことがあります。</p>
 <p>例えばその有能な秘書に対して、「大相撲のチケットを予約してほしい」と頼んだとします。<br>人間の秘書であれば、何をすべきかを自律的に考え、行動してくれるでしょう。つまり、大相撲のチケットをどこで予約できるか調べ、電話をかけたり、実際に購入しに行って、支払いまでしてくれるはずです。</p>
 <p>ところが、そのような有能な人間でも、無人島に行ってしまったらどうなるでしょうか。<br>おそらく何もできません。何をすべきかは分かっていても、道具がなければどうしようもありません。<br>電話もインターネットもない環境では、大相撲のチケットを予約してほしいと頼まれても、対応できないでしょう。</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/7809970a-f606-4db4-a143-aa5e5f7a1626/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466YFRAWTSY%2F20250604%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250604T031410Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEsaCXVzLXdlc3QtMiJHMEUCIQDQfm9g4w0NXnsnp%2BSQJZLkQNp7kIPfwhBOcwoF1Y2WRgIgcyQVqlWakMMmVDFtGfVnjNHJxPiSyLG9lYPCuh7swwsq%2FwMIJBAAGgw2Mzc0MjMxODM4MDUiDN7VXA44aw8aCFdTfSrcAxXK3Jp%2F7qlMuSYvKL9En74w7zO7Lr16duUlb9FX1gGeLgfMk2JuiszLdRjEfq3s6ZzFoCe1yfOAvbs7rJ7r97og%2FHLd1PwBAMUWQqD08WEnaIWU9a0NBBRliSs%2FkNoSxFnKqAGdijPhWuP5%2FwabVxVpdK%2Bz8v3emTxvykEKl0CbaqOqGxE024a1nmvXm5Hk39ax8ExHjR9DHYGwGKO%2BWvIVjvGL1g3b3pZ9%2B2dUCICqvtzjUPkfJrHAxhZ0JzhKaWeBRHsNs3VEi72LNLl3IOTSwJqklhMFZATefyd2hfN0sykDjjHTu28lB5Ej1r6WEWHI1atx12DbKvRi6hckX9oc29qD5tP%2FBVI4w%2FF7P2%2FWP9mu9jL1%2Fqq8Q%2BSdWU1N3ZnetiY8vDQsvrhzp4xUtp8OLY5FPQC%2FBqnL6%2FfyrENbI5PD%2BBK4Z%2FaWhVYEt044FUF4EaO6ALBSRK6kr82de5VAcn9%2BfBHQzjBrrVuaNQsKdBz3skMf50FIvwruKTS%2B3B1j46eUlEEY%2FaWfGBeyi%2Fq9X6ktUk0HF3K3AR3KX8J6qN47QnVebERobWf4AGMnBF%2Bc0Y8NybleRGN02yC7IH4tp%2F7yjfCQwH66D7nmf9eLkaVzNqV5QPjI966LMLDh%2FsEGOqUBH1Dzh4iY%2B2qO5Phyy7xoEho9CNqGstrq0eCcFKsG68uURA8mVJlXH7GMHphA%2B1FbJm2Gjo3lMW9iJ0h21qqhTtMsZVDmStU8zfsiR%2BcqttQrgkU8ra98adDUiXU6dCFlZXCHT6JR8mDnfIGPIOKKqtNcxRHsKTAlo4mUXKF9uY0ux9mY3tXmhm%2BRMwPMcI%2BQgRuwu3Xm%2BKzEcQ%2FR0zpF9tho%2Blva&amp;X-Amz-Signature=436d564311f9c75cd5c60f348a6cffb5ba69ed2f25ec2f4c240e753a366172af&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/7809970a-f606-4db4-a143-aa5e5f7a1626/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667XU76LVJ%2F20250604%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250604T034239Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEsaCXVzLXdlc3QtMiJGMEQCIEz%2BiyYxKIqmMYHyqsmWt1fPj1EIlC8Wv8oWdXJxObBDAiB3mmLUV1HKtfHauWyYD0hSQvHrwSxpHquTYW8AxKWvJCr%2FAwgkEAAaDDYzNzQyMzE4MzgwNSIMC4mia2cKwfmofn3%2FKtwDPtjtZ%2FPPmXNgZVGN1Ogq17XeNcG9raUSOEq7EHvOeCbVCotoCoq%2BgPY6AZ1Rh7r90xruVSfWP92akj%2BP8qSv4J%2BrwSQqFpO4LOONC4KNmiC4%2FVM9LhO2WslqgyuMai4%2BZDFzk6ilThXXh9Vm8oDZHGgdrWebXDkz4wX8LmwtZLjnHoSdKfIv%2Bsm8OzgesqKPVugdN2w9nansXHFh4ypXQFc3xvUYHPSVhPL7k0u2jRKP5U2TPhDrONaszkq5eyjrqQDZ%2Fa37rqv1BKr1x5V8Vn6NU3vtgVPMbriYwlKP6u6LHxpIZTCWJLftHYJAxO%2FoTazNzjk%2BAp%2BmpaeNsBRGvd%2FMkPpFwpNhEexz9huM5jUEfASU5bxVgU5vuQKSiDeRZLydU%2F203IlrXRBpX5h5z4OVkijVrshNNc4gI29q74q7SvWT0%2FLKCrHkoEOyejAuxY5b%2B1K4LtVKPFZY5QUvPDDvKzR8FLDoHL6S04Lxh2I8%2BCEozr1l6plPELS%2BINMugF4mMgkV24%2Buv17yioX%2BnnE2BV7m8%2BHm1WzxzJgGcw3jEo2JXM7LsbTqUKMtgCDQOlETcYmFqTezTaRHe83sj6SQObX2feyn34QhXjbxpgwHJBNsQv2hWkj9r8QwpuH%2BwQY6pgGrDAIBgR87LFGeveZ63Z05w10xT6z35kqn9C90vceM8DyetQm%2BQ5Y1zPlcDMCtpdltu1uerYUnyiKapB%2B7C9Qryt9x0%2B7LuAUFXl8RH4SPax6cOi2%2Fe2fyp1x9uVfKTOacB4YGBKqniUTt6NfltSvGBkvd7n59Uz9lg%2BSlZqjMJVrIgUJKDnG1DoB%2FSX5Z8Pk7dajqIDfjHzcysqpdKGgMRLJWNoxe&amp;X-Amz-Signature=c89345dc3859d0541a3bcefb1842bbeb6cd0500c4b479f74c8eb7367f551729c&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>AIも当然同じです。AIがどれほど賢くなっても、利用できる道具(ツール)がなければ、正直なところ何もできません。<br>禅問答のような対話はできるかもしれませんが、現実社会で具体的に何ができるかというと、基本的には何もできないのです。</p>
 <p>これは例えば、コードは書けるけれど、実行環境がないために実行できない、といった状況に似ています。<br>意味がご理解いただけるでしょうか。<br>何をすべきか、どのように動くべきか、電話をどうするか、どうやって予約するかといったことを理解していても、道具がなければ何もできません。<br>これは人間もAIも同じです。<br>せいぜい「こうこうこうすればできるのでやってください」と言われるだけです。</p>
 <p>先に述べた通り、MCPの普及によって利用できるツールが大幅に増えました。<br>「大相撲のチケットを予約してほしい」と指示した場合、設定したMCPの中で、利用できるツールをAIが考え、まずはインターネットを検索して調べるといった行動を取るでしょう。これでチケットの値段や予約方法が分かります。<br>次にどうするか、電話をかけるのか、インターネットで申し込むのか。<br>何かブラウザを操作するようなMCPがあったと思いますが、それを使えば実際にブラウザを操作して申し込みを行う、といったことができるようになるわけです。<br>もしかするとMCPの組み合わせ次第では、今なら大相撲のチケットくらい何とかなるかも知れませんね。</p>
 <p>ここまで来たら、自分の秘書として使えるのではないか..と、ふと思ったのです。<br>「これをやってほしい」とゴールさえ示せば、それをツールを駆使して実行してくれるのではないか、そのようなことができるようになってきたと感じたのです。</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/c6b75028-214a-4d02-acb0-cb0ac79720fb/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466YFRAWTSY%2F20250604%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250604T031410Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEsaCXVzLXdlc3QtMiJHMEUCIQDQfm9g4w0NXnsnp%2BSQJZLkQNp7kIPfwhBOcwoF1Y2WRgIgcyQVqlWakMMmVDFtGfVnjNHJxPiSyLG9lYPCuh7swwsq%2FwMIJBAAGgw2Mzc0MjMxODM4MDUiDN7VXA44aw8aCFdTfSrcAxXK3Jp%2F7qlMuSYvKL9En74w7zO7Lr16duUlb9FX1gGeLgfMk2JuiszLdRjEfq3s6ZzFoCe1yfOAvbs7rJ7r97og%2FHLd1PwBAMUWQqD08WEnaIWU9a0NBBRliSs%2FkNoSxFnKqAGdijPhWuP5%2FwabVxVpdK%2Bz8v3emTxvykEKl0CbaqOqGxE024a1nmvXm5Hk39ax8ExHjR9DHYGwGKO%2BWvIVjvGL1g3b3pZ9%2B2dUCICqvtzjUPkfJrHAxhZ0JzhKaWeBRHsNs3VEi72LNLl3IOTSwJqklhMFZATefyd2hfN0sykDjjHTu28lB5Ej1r6WEWHI1atx12DbKvRi6hckX9oc29qD5tP%2FBVI4w%2FF7P2%2FWP9mu9jL1%2Fqq8Q%2BSdWU1N3ZnetiY8vDQsvrhzp4xUtp8OLY5FPQC%2FBqnL6%2FfyrENbI5PD%2BBK4Z%2FaWhVYEt044FUF4EaO6ALBSRK6kr82de5VAcn9%2BfBHQzjBrrVuaNQsKdBz3skMf50FIvwruKTS%2B3B1j46eUlEEY%2FaWfGBeyi%2Fq9X6ktUk0HF3K3AR3KX8J6qN47QnVebERobWf4AGMnBF%2Bc0Y8NybleRGN02yC7IH4tp%2F7yjfCQwH66D7nmf9eLkaVzNqV5QPjI966LMLDh%2FsEGOqUBH1Dzh4iY%2B2qO5Phyy7xoEho9CNqGstrq0eCcFKsG68uURA8mVJlXH7GMHphA%2B1FbJm2Gjo3lMW9iJ0h21qqhTtMsZVDmStU8zfsiR%2BcqttQrgkU8ra98adDUiXU6dCFlZXCHT6JR8mDnfIGPIOKKqtNcxRHsKTAlo4mUXKF9uY0ux9mY3tXmhm%2BRMwPMcI%2BQgRuwu3Xm%2BKzEcQ%2FR0zpF9tho%2Blva&amp;X-Amz-Signature=036285703e4bc92ac81d392cd031755c3a3eb5888d7652cb36eeaa807ea84c89&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/c6b75028-214a-4d02-acb0-cb0ac79720fb/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667XU76LVJ%2F20250604%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250604T034239Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEsaCXVzLXdlc3QtMiJGMEQCIEz%2BiyYxKIqmMYHyqsmWt1fPj1EIlC8Wv8oWdXJxObBDAiB3mmLUV1HKtfHauWyYD0hSQvHrwSxpHquTYW8AxKWvJCr%2FAwgkEAAaDDYzNzQyMzE4MzgwNSIMC4mia2cKwfmofn3%2FKtwDPtjtZ%2FPPmXNgZVGN1Ogq17XeNcG9raUSOEq7EHvOeCbVCotoCoq%2BgPY6AZ1Rh7r90xruVSfWP92akj%2BP8qSv4J%2BrwSQqFpO4LOONC4KNmiC4%2FVM9LhO2WslqgyuMai4%2BZDFzk6ilThXXh9Vm8oDZHGgdrWebXDkz4wX8LmwtZLjnHoSdKfIv%2Bsm8OzgesqKPVugdN2w9nansXHFh4ypXQFc3xvUYHPSVhPL7k0u2jRKP5U2TPhDrONaszkq5eyjrqQDZ%2Fa37rqv1BKr1x5V8Vn6NU3vtgVPMbriYwlKP6u6LHxpIZTCWJLftHYJAxO%2FoTazNzjk%2BAp%2BmpaeNsBRGvd%2FMkPpFwpNhEexz9huM5jUEfASU5bxVgU5vuQKSiDeRZLydU%2F203IlrXRBpX5h5z4OVkijVrshNNc4gI29q74q7SvWT0%2FLKCrHkoEOyejAuxY5b%2B1K4LtVKPFZY5QUvPDDvKzR8FLDoHL6S04Lxh2I8%2BCEozr1l6plPELS%2BINMugF4mMgkV24%2Buv17yioX%2BnnE2BV7m8%2BHm1WzxzJgGcw3jEo2JXM7LsbTqUKMtgCDQOlETcYmFqTezTaRHe83sj6SQObX2feyn34QhXjbxpgwHJBNsQv2hWkj9r8QwpuH%2BwQY6pgGrDAIBgR87LFGeveZ63Z05w10xT6z35kqn9C90vceM8DyetQm%2BQ5Y1zPlcDMCtpdltu1uerYUnyiKapB%2B7C9Qryt9x0%2B7LuAUFXl8RH4SPax6cOi2%2Fe2fyp1x9uVfKTOacB4YGBKqniUTt6NfltSvGBkvd7n59Uz9lg%2BSlZqjMJVrIgUJKDnG1DoB%2FSX5Z8Pk7dajqIDfjHzcysqpdKGgMRLJWNoxe&amp;X-Amz-Signature=eeb060c760854bee92849e1e0ae78ae7b5ac9aa64d9d250919071871781f3bd1&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>で、ようやくここから今回の本題なのですが、それならば、スマートフォンからでも利用できるようにしたいと思いました。<br>確か、Claudeがウェブ版でもMCPが使えるようになったという話があったように記憶しているので、Claudeを使えばすでに可能かもしれません。<br>しかし、私はClaudeのサブスクを契約をしていませんし、かといって一から自作するのもかなり大変じゃないかと思いました。<br>また、Claudeのウェブ版だとローカルのMCPサーバーは使えないと思われます。</p>
 <p>そこで、様々なMCPサーバーを利用できるようにし、かつ自分の好きなモデルを使いたい場合、最も簡単な方法は何だろうか？と考えた結果、やはりVS CodeとClineを利用することだと思い至りました。<br>そして実は、VS Codeにはサーバー機能があります。ここが今回の核心です。</p>
 <p>しかも、ありがたいことにトンネリング機能まで備わっています。<br>例えば、自分のパソコンを自宅や会社に置いていたとしても、トンネルを確立することで外部からもアクセスできるようになるのです。<br>これは非常に便利だと思います。</p>
@@ -539,20 +845,20 @@ background-color: #444;
 <p>スマートフォンに限らず、ブラウザが利用できるのであれば、iPadでも、あるいは別のパソコンからでも、いつも使っているVS CodeのMCPが利用できるようになると思います。<br>これ、かなり可能性が広がると思いません？<br>自分がどこにいても、どんな端末を使っていても、(ブラウザさえあれば)普段利用しているMCPにアクセスできるのです。</p>
 <p>ということは、有能なAI秘書に出先からモバイルで命令できるということです。<br>例えば、外出先で「あれを調べて資料にまとめたい」とか、「Gmailやカレンダーの予定を確認したい」など、何かをしようと思った時も、ブラウザで特定のアドレスにアクセスすればVS Codeが開くので、そこに命令を出すことができます。<br>音声で命令(入力)してももちろんいいわけです。</p>
 <p>そして、何かを実行させ、得られた結果はパソコン内に保存しておくことができます。<br>データはスマートフォンに保存されるのではなく、サーバー側のパソコンに蓄積されていきます。<br>そのため、中央集権的に情報を集約することができるようになります。これは画期的です。</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/e26e0550-69ae-4fa0-96fd-14b2d7f2f38a/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466YFRAWTSY%2F20250604%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250604T031410Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEsaCXVzLXdlc3QtMiJHMEUCIQDQfm9g4w0NXnsnp%2BSQJZLkQNp7kIPfwhBOcwoF1Y2WRgIgcyQVqlWakMMmVDFtGfVnjNHJxPiSyLG9lYPCuh7swwsq%2FwMIJBAAGgw2Mzc0MjMxODM4MDUiDN7VXA44aw8aCFdTfSrcAxXK3Jp%2F7qlMuSYvKL9En74w7zO7Lr16duUlb9FX1gGeLgfMk2JuiszLdRjEfq3s6ZzFoCe1yfOAvbs7rJ7r97og%2FHLd1PwBAMUWQqD08WEnaIWU9a0NBBRliSs%2FkNoSxFnKqAGdijPhWuP5%2FwabVxVpdK%2Bz8v3emTxvykEKl0CbaqOqGxE024a1nmvXm5Hk39ax8ExHjR9DHYGwGKO%2BWvIVjvGL1g3b3pZ9%2B2dUCICqvtzjUPkfJrHAxhZ0JzhKaWeBRHsNs3VEi72LNLl3IOTSwJqklhMFZATefyd2hfN0sykDjjHTu28lB5Ej1r6WEWHI1atx12DbKvRi6hckX9oc29qD5tP%2FBVI4w%2FF7P2%2FWP9mu9jL1%2Fqq8Q%2BSdWU1N3ZnetiY8vDQsvrhzp4xUtp8OLY5FPQC%2FBqnL6%2FfyrENbI5PD%2BBK4Z%2FaWhVYEt044FUF4EaO6ALBSRK6kr82de5VAcn9%2BfBHQzjBrrVuaNQsKdBz3skMf50FIvwruKTS%2B3B1j46eUlEEY%2FaWfGBeyi%2Fq9X6ktUk0HF3K3AR3KX8J6qN47QnVebERobWf4AGMnBF%2Bc0Y8NybleRGN02yC7IH4tp%2F7yjfCQwH66D7nmf9eLkaVzNqV5QPjI966LMLDh%2FsEGOqUBH1Dzh4iY%2B2qO5Phyy7xoEho9CNqGstrq0eCcFKsG68uURA8mVJlXH7GMHphA%2B1FbJm2Gjo3lMW9iJ0h21qqhTtMsZVDmStU8zfsiR%2BcqttQrgkU8ra98adDUiXU6dCFlZXCHT6JR8mDnfIGPIOKKqtNcxRHsKTAlo4mUXKF9uY0ux9mY3tXmhm%2BRMwPMcI%2BQgRuwu3Xm%2BKzEcQ%2FR0zpF9tho%2Blva&amp;X-Amz-Signature=da17af3c4b73953fda3f8d617d24b3b42f19c745ed786aa22a7eef676462544f&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/e26e0550-69ae-4fa0-96fd-14b2d7f2f38a/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667XU76LVJ%2F20250604%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250604T034239Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEsaCXVzLXdlc3QtMiJGMEQCIEz%2BiyYxKIqmMYHyqsmWt1fPj1EIlC8Wv8oWdXJxObBDAiB3mmLUV1HKtfHauWyYD0hSQvHrwSxpHquTYW8AxKWvJCr%2FAwgkEAAaDDYzNzQyMzE4MzgwNSIMC4mia2cKwfmofn3%2FKtwDPtjtZ%2FPPmXNgZVGN1Ogq17XeNcG9raUSOEq7EHvOeCbVCotoCoq%2BgPY6AZ1Rh7r90xruVSfWP92akj%2BP8qSv4J%2BrwSQqFpO4LOONC4KNmiC4%2FVM9LhO2WslqgyuMai4%2BZDFzk6ilThXXh9Vm8oDZHGgdrWebXDkz4wX8LmwtZLjnHoSdKfIv%2Bsm8OzgesqKPVugdN2w9nansXHFh4ypXQFc3xvUYHPSVhPL7k0u2jRKP5U2TPhDrONaszkq5eyjrqQDZ%2Fa37rqv1BKr1x5V8Vn6NU3vtgVPMbriYwlKP6u6LHxpIZTCWJLftHYJAxO%2FoTazNzjk%2BAp%2BmpaeNsBRGvd%2FMkPpFwpNhEexz9huM5jUEfASU5bxVgU5vuQKSiDeRZLydU%2F203IlrXRBpX5h5z4OVkijVrshNNc4gI29q74q7SvWT0%2FLKCrHkoEOyejAuxY5b%2B1K4LtVKPFZY5QUvPDDvKzR8FLDoHL6S04Lxh2I8%2BCEozr1l6plPELS%2BINMugF4mMgkV24%2Buv17yioX%2BnnE2BV7m8%2BHm1WzxzJgGcw3jEo2JXM7LsbTqUKMtgCDQOlETcYmFqTezTaRHe83sj6SQObX2feyn34QhXjbxpgwHJBNsQv2hWkj9r8QwpuH%2BwQY6pgGrDAIBgR87LFGeveZ63Z05w10xT6z35kqn9C90vceM8DyetQm%2BQ5Y1zPlcDMCtpdltu1uerYUnyiKapB%2B7C9Qryt9x0%2B7LuAUFXl8RH4SPax6cOi2%2Fe2fyp1x9uVfKTOacB4YGBKqniUTt6NfltSvGBkvd7n59Uz9lg%2BSlZqjMJVrIgUJKDnG1DoB%2FSX5Z8Pk7dajqIDfjHzcysqpdKGgMRLJWNoxe&amp;X-Amz-Signature=170b7cfe1cb9c17bb674c7bcde7b570c4bf7f019a7e195b1c8138e14a15c0408&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>さて、これまでのMCPというのは、基本的にはパソコン環境、例えばデスクトップ環境を前提として利用されていたと思います。<br>(これはローカルのMCPサーバーだとNode.jsやDockerが必要だからというのもあるでしょう)<br>それをモバイル環境でも使えるようにするのに、現時点で最も手っ取り早いのは、私のようにVS Codeをサーバー化することだと考えています。</p>
 <p>MCPで、AIに様々なツールを連携できるようになった。<br>ツールの利用だけでなく、AIで収集したデータの保存もできる。<br>VS Codeを使えば、 その環境にリモートからアクセスできる。<br>AIの賢さとツールの豊富さを有した、自分だけの有能なAI秘書に世界中どこにいてもアクセスできる。<br>素敵じゃん？</p>
 <p>以上が私の妄想でした。</p>
 <hr class="notion-divider">
 <p>そしてここから妄想を現実にすべく、実際にやってみた結果です。</p>
 <p>Hyper-V内に入れたVS CodeとDocker、Node.js、n8nなどのローカルで動くサーバー。<br>これらはすでに準備済みで、使っていました。ここまでが前提。<br>今回は、この環境にiPhoneからアクセスします。<br>以下のようなイメージです。</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/aa3e0d03-046d-4a6d-85b7-714229a3fa8a/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466YFRAWTSY%2F20250604%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250604T031410Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEsaCXVzLXdlc3QtMiJHMEUCIQDQfm9g4w0NXnsnp%2BSQJZLkQNp7kIPfwhBOcwoF1Y2WRgIgcyQVqlWakMMmVDFtGfVnjNHJxPiSyLG9lYPCuh7swwsq%2FwMIJBAAGgw2Mzc0MjMxODM4MDUiDN7VXA44aw8aCFdTfSrcAxXK3Jp%2F7qlMuSYvKL9En74w7zO7Lr16duUlb9FX1gGeLgfMk2JuiszLdRjEfq3s6ZzFoCe1yfOAvbs7rJ7r97og%2FHLd1PwBAMUWQqD08WEnaIWU9a0NBBRliSs%2FkNoSxFnKqAGdijPhWuP5%2FwabVxVpdK%2Bz8v3emTxvykEKl0CbaqOqGxE024a1nmvXm5Hk39ax8ExHjR9DHYGwGKO%2BWvIVjvGL1g3b3pZ9%2B2dUCICqvtzjUPkfJrHAxhZ0JzhKaWeBRHsNs3VEi72LNLl3IOTSwJqklhMFZATefyd2hfN0sykDjjHTu28lB5Ej1r6WEWHI1atx12DbKvRi6hckX9oc29qD5tP%2FBVI4w%2FF7P2%2FWP9mu9jL1%2Fqq8Q%2BSdWU1N3ZnetiY8vDQsvrhzp4xUtp8OLY5FPQC%2FBqnL6%2FfyrENbI5PD%2BBK4Z%2FaWhVYEt044FUF4EaO6ALBSRK6kr82de5VAcn9%2BfBHQzjBrrVuaNQsKdBz3skMf50FIvwruKTS%2B3B1j46eUlEEY%2FaWfGBeyi%2Fq9X6ktUk0HF3K3AR3KX8J6qN47QnVebERobWf4AGMnBF%2Bc0Y8NybleRGN02yC7IH4tp%2F7yjfCQwH66D7nmf9eLkaVzNqV5QPjI966LMLDh%2FsEGOqUBH1Dzh4iY%2B2qO5Phyy7xoEho9CNqGstrq0eCcFKsG68uURA8mVJlXH7GMHphA%2B1FbJm2Gjo3lMW9iJ0h21qqhTtMsZVDmStU8zfsiR%2BcqttQrgkU8ra98adDUiXU6dCFlZXCHT6JR8mDnfIGPIOKKqtNcxRHsKTAlo4mUXKF9uY0ux9mY3tXmhm%2BRMwPMcI%2BQgRuwu3Xm%2BKzEcQ%2FR0zpF9tho%2Blva&amp;X-Amz-Signature=54052b555491e7e49098ee97aa87ccc275bae2c18681a2a2c134c287b7329205&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/aa3e0d03-046d-4a6d-85b7-714229a3fa8a/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667XU76LVJ%2F20250604%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250604T034239Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEsaCXVzLXdlc3QtMiJGMEQCIEz%2BiyYxKIqmMYHyqsmWt1fPj1EIlC8Wv8oWdXJxObBDAiB3mmLUV1HKtfHauWyYD0hSQvHrwSxpHquTYW8AxKWvJCr%2FAwgkEAAaDDYzNzQyMzE4MzgwNSIMC4mia2cKwfmofn3%2FKtwDPtjtZ%2FPPmXNgZVGN1Ogq17XeNcG9raUSOEq7EHvOeCbVCotoCoq%2BgPY6AZ1Rh7r90xruVSfWP92akj%2BP8qSv4J%2BrwSQqFpO4LOONC4KNmiC4%2FVM9LhO2WslqgyuMai4%2BZDFzk6ilThXXh9Vm8oDZHGgdrWebXDkz4wX8LmwtZLjnHoSdKfIv%2Bsm8OzgesqKPVugdN2w9nansXHFh4ypXQFc3xvUYHPSVhPL7k0u2jRKP5U2TPhDrONaszkq5eyjrqQDZ%2Fa37rqv1BKr1x5V8Vn6NU3vtgVPMbriYwlKP6u6LHxpIZTCWJLftHYJAxO%2FoTazNzjk%2BAp%2BmpaeNsBRGvd%2FMkPpFwpNhEexz9huM5jUEfASU5bxVgU5vuQKSiDeRZLydU%2F203IlrXRBpX5h5z4OVkijVrshNNc4gI29q74q7SvWT0%2FLKCrHkoEOyejAuxY5b%2B1K4LtVKPFZY5QUvPDDvKzR8FLDoHL6S04Lxh2I8%2BCEozr1l6plPELS%2BINMugF4mMgkV24%2Buv17yioX%2BnnE2BV7m8%2BHm1WzxzJgGcw3jEo2JXM7LsbTqUKMtgCDQOlETcYmFqTezTaRHe83sj6SQObX2feyn34QhXjbxpgwHJBNsQv2hWkj9r8QwpuH%2BwQY6pgGrDAIBgR87LFGeveZ63Z05w10xT6z35kqn9C90vceM8DyetQm%2BQ5Y1zPlcDMCtpdltu1uerYUnyiKapB%2B7C9Qryt9x0%2B7LuAUFXl8RH4SPax6cOi2%2Fe2fyp1x9uVfKTOacB4YGBKqniUTt6NfltSvGBkvd7n59Uz9lg%2BSlZqjMJVrIgUJKDnG1DoB%2FSX5Z8Pk7dajqIDfjHzcysqpdKGgMRLJWNoxe&amp;X-Amz-Signature=50226bf9c7b445c9c7348c014c71aa96055e8e3ceb9b96f8bc9169e676a65349&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>サーバー側になるVS Codeでは、標準機能の「リモートトンネルアクセス」をオンにし、GitHubアカウントでログイン認証しただけでした。<br>そうすると、アクセスするためのURLが表示されるので、そのURLに、リモート側のブラウザからアクセスします。<br>リモート側でも同じGitHubアカウントで認証するとサーバー側のVS Codeにアクセスできます。<br>接続するまでは容易でした。ただし、いくつか問題がありました。</p>
 <p>まず、サーバー側にCline拡張機能を入れていても、なぜかリモート側では再度入れないといけませんでした。<br>AI APIの設定や、MCPの設定も再度やる必要がありました。<br>(一度やってしまえば次回からは不要なようです)</p>
 <p>また、OpenRouterのモデルの設定では、なぜかClaude 3.7 Sonnet以外が有効になりませんでした。<br>仕方ないので、OpenAIの互換のプロバイダ設定にして、Base URLをOpenRouterのにして使いました。<br>これで好きなAIモデルが使えます。</p>
 <p>さて、iPhoneで当然MCPサーバーの設定はできません(たぶん)。<br>しかし、MCPサーバーはVS Codeサーバー側のと同じでよく、ローカルURLなどもサーバーの設定のまま使えました。コピペでok。<br>それで、MCPはテスト的にfetchとn8nを登録しました。</p>
 <p>結果、iPhoneからfetchもn8nもちゃんとワークし、取得したデータやコードを保存させると、ちゃんとVS Codeのサーバー側に保存されました。<br>当たり前ですが、これら一連の処理は全てサーバー側で行われているということです。<br>(しかもこれ、Hyper-Vの仮想環境のVS Codeをサーバーにしていますからね！トンネル様様です)</p>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4a107d19-f8db-4954-a29e-3476926e8c83/myiphonemcp_h264.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466YFRAWTSY%2F20250604%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250604T031410Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEsaCXVzLXdlc3QtMiJHMEUCIQDQfm9g4w0NXnsnp%2BSQJZLkQNp7kIPfwhBOcwoF1Y2WRgIgcyQVqlWakMMmVDFtGfVnjNHJxPiSyLG9lYPCuh7swwsq%2FwMIJBAAGgw2Mzc0MjMxODM4MDUiDN7VXA44aw8aCFdTfSrcAxXK3Jp%2F7qlMuSYvKL9En74w7zO7Lr16duUlb9FX1gGeLgfMk2JuiszLdRjEfq3s6ZzFoCe1yfOAvbs7rJ7r97og%2FHLd1PwBAMUWQqD08WEnaIWU9a0NBBRliSs%2FkNoSxFnKqAGdijPhWuP5%2FwabVxVpdK%2Bz8v3emTxvykEKl0CbaqOqGxE024a1nmvXm5Hk39ax8ExHjR9DHYGwGKO%2BWvIVjvGL1g3b3pZ9%2B2dUCICqvtzjUPkfJrHAxhZ0JzhKaWeBRHsNs3VEi72LNLl3IOTSwJqklhMFZATefyd2hfN0sykDjjHTu28lB5Ej1r6WEWHI1atx12DbKvRi6hckX9oc29qD5tP%2FBVI4w%2FF7P2%2FWP9mu9jL1%2Fqq8Q%2BSdWU1N3ZnetiY8vDQsvrhzp4xUtp8OLY5FPQC%2FBqnL6%2FfyrENbI5PD%2BBK4Z%2FaWhVYEt044FUF4EaO6ALBSRK6kr82de5VAcn9%2BfBHQzjBrrVuaNQsKdBz3skMf50FIvwruKTS%2B3B1j46eUlEEY%2FaWfGBeyi%2Fq9X6ktUk0HF3K3AR3KX8J6qN47QnVebERobWf4AGMnBF%2Bc0Y8NybleRGN02yC7IH4tp%2F7yjfCQwH66D7nmf9eLkaVzNqV5QPjI966LMLDh%2FsEGOqUBH1Dzh4iY%2B2qO5Phyy7xoEho9CNqGstrq0eCcFKsG68uURA8mVJlXH7GMHphA%2B1FbJm2Gjo3lMW9iJ0h21qqhTtMsZVDmStU8zfsiR%2BcqttQrgkU8ra98adDUiXU6dCFlZXCHT6JR8mDnfIGPIOKKqtNcxRHsKTAlo4mUXKF9uY0ux9mY3tXmhm%2BRMwPMcI%2BQgRuwu3Xm%2BKzEcQ%2FR0zpF9tho%2Blva&amp;X-Amz-Signature=ff82aec0727d0e45a1c10a741cd64085dadb6acf1a8e971a1adc95e22d6aaf18&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4a107d19-f8db-4954-a29e-3476926e8c83/myiphonemcp_h264.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667XU76LVJ%2F20250604%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250604T034239Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEsaCXVzLXdlc3QtMiJGMEQCIEz%2BiyYxKIqmMYHyqsmWt1fPj1EIlC8Wv8oWdXJxObBDAiB3mmLUV1HKtfHauWyYD0hSQvHrwSxpHquTYW8AxKWvJCr%2FAwgkEAAaDDYzNzQyMzE4MzgwNSIMC4mia2cKwfmofn3%2FKtwDPtjtZ%2FPPmXNgZVGN1Ogq17XeNcG9raUSOEq7EHvOeCbVCotoCoq%2BgPY6AZ1Rh7r90xruVSfWP92akj%2BP8qSv4J%2BrwSQqFpO4LOONC4KNmiC4%2FVM9LhO2WslqgyuMai4%2BZDFzk6ilThXXh9Vm8oDZHGgdrWebXDkz4wX8LmwtZLjnHoSdKfIv%2Bsm8OzgesqKPVugdN2w9nansXHFh4ypXQFc3xvUYHPSVhPL7k0u2jRKP5U2TPhDrONaszkq5eyjrqQDZ%2Fa37rqv1BKr1x5V8Vn6NU3vtgVPMbriYwlKP6u6LHxpIZTCWJLftHYJAxO%2FoTazNzjk%2BAp%2BmpaeNsBRGvd%2FMkPpFwpNhEexz9huM5jUEfASU5bxVgU5vuQKSiDeRZLydU%2F203IlrXRBpX5h5z4OVkijVrshNNc4gI29q74q7SvWT0%2FLKCrHkoEOyejAuxY5b%2B1K4LtVKPFZY5QUvPDDvKzR8FLDoHL6S04Lxh2I8%2BCEozr1l6plPELS%2BINMugF4mMgkV24%2Buv17yioX%2BnnE2BV7m8%2BHm1WzxzJgGcw3jEo2JXM7LsbTqUKMtgCDQOlETcYmFqTezTaRHe83sj6SQObX2feyn34QhXjbxpgwHJBNsQv2hWkj9r8QwpuH%2BwQY6pgGrDAIBgR87LFGeveZ63Z05w10xT6z35kqn9C90vceM8DyetQm%2BQ5Y1zPlcDMCtpdltu1uerYUnyiKapB%2B7C9Qryt9x0%2B7LuAUFXl8RH4SPax6cOi2%2Fe2fyp1x9uVfKTOacB4YGBKqniUTt6NfltSvGBkvd7n59Uz9lg%2BSlZqjMJVrIgUJKDnG1DoB%2FSX5Z8Pk7dajqIDfjHzcysqpdKGgMRLJWNoxe&amp;X-Amz-Signature=232194d3bd675423ff49fe002e06a9370e52f45152f1f9c0cc26910db7e78581&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <div class="notion-callout callout-gray_background"><span class="callout-icon">💡</span><div>上の動画のプロンプトは..<br>mcp fetchで昨日の日経平均終値を調べて。<br>それをmcp n8nで、もし5%の利益だといくらになるか計算してそれをメモとして保存して。<br>..です。エージェンティックに、2つのMCPサーバーを使うように明確に指示しています。</div></div>
 <p>つまり、妄想していたような使い方ができました。<br>ただ現実問題、UI的に、スマートフォンからだとちょっと見づらい。<br>iPadだとかなりイケると思います。</p>
 <p>【今回やったこと】<br>・AI+エージェント+MCPのサーバーをVS Codeで作る<br>・VS Codeのサーバー設定(トンネル)をオンにする(GitHubアカウントなどで認証)<br>・アクセス用URLが発行される<br>・そこに出先のブラウザからアクセスして認証する(iPhoneなどもok)<br>・ブラウザ用のAI API&amp;MCP設定を行う(MCPの設定はサーバー側と同じにすれば良い)<br>・秘書的に使う(AI+エージェント+MCP )<br>・保存系はサーバー側にされる(データもちゃんと残る)</p>
@@ -565,7 +871,7 @@ background-color: #444;
 <div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-05-13 18:48</span>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
 </div>
-<audio controls class="notion-audio" src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4284b919-62b0-4c74-9c80-500385967fd7/AI2027.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466W5RTFX2U%2F20250604%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250604T031412Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEsaCXVzLXdlc3QtMiJHMEUCIQCU%2BK4y3LexV%2FfVgTEWaTik1PNz0sH4npUbFXcCCAF7HAIgTGFNiMk81rNj3Qljt4Nzre43HSTj8wxxUjHWemNVQvYq%2FwMIJBAAGgw2Mzc0MjMxODM4MDUiDEKzptNnMZNqaed%2BnyrcA7Inf%2FJ39yA7eR2zZXUupRvwFtNzlv7sk7nKFoTXs2UDT3pHUue1m02K1zAitS%2BKHa3CTjAwZ5BSBtOj6kGfbQ%2Fnnt3gw2ZLB5%2FtKm6V0YqFWArFS1KFSetP0bAkDYgJUTWjPOYQBVtksURH%2BQRPsCq34o4q2yV15lJcskYTGCB1HlEZdm9QIdtVV0yLf5PTXD0amlzPLgoCVIC15%2B0kKZ7MKpHYvFjNM0Yfak6JdF0n%2B5wRZM%2B7rzQj7ExZrlOIKDzIDnzseFEBBeTLiBA4boBA5uYqES8cG1rRcGQnu81Og%2BHZTcYU7r6JjqplcGK3zVebB3eF7d9MivBOldRlHBcZuy1L1R4%2FDw2nLNy5%2Fu5BuP86yIFPobvke6yV3Xy4bJ5m2u6jkPf7doZH%2F8bhC0UHeBORgC%2BEPHQc4u%2BlqNd4a0jZAgYFEzjQQvGQ9hlhX7TQRBRCmnJB9Y9I8ouLUpSitIaIGWaUpZAwTNDTDAofbxw04ytgUCbRSABYiMf5G%2FLJtYzcIJ2gXnRPtwhRzPQAgMsZYMDWWMI3qiAzNTHuguUO7q11kRE93MUw3hb%2FUKV8aRHTfS2DT4FqAtBMQGHTSt4JRUNU9thMYIvjNVdx5jyOOgsyh3bCPlbbMMDn%2FsEGOqUBVwVjuqH1w1Pcm98h5HwtfmidTQsQZ4PIbyA67g3mlzaF%2BBqODx%2FrkKZgoPMVutqU2MQnF3v9a5oG3N88s5FUg7P%2FGTb261yayi4E2nk0nPSo5DImrtaqlc%2BMLTNT%2B0effz7mHtpyGSZOpuX34NlGu%2BEff9TkEfpeOOeA3420ruav5G60cSYR2hPVdfx9z4WINZ0A73UaBgCS3c7o2YgBNdv%2BO%2F2H&amp;X-Amz-Signature=2d13ae23ac0a4793253cab67751045d9ec596160228bbdfb34fb343178a19a15&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject">Browser does not support audio.</audio>
+<audio controls class="notion-audio" src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4284b919-62b0-4c74-9c80-500385967fd7/AI2027.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466VE5A4NKB%2F20250604%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250604T034239Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEsaCXVzLXdlc3QtMiJIMEYCIQDKoqomkW2OhE2RPu2jVpaUFNJxh07HL5Mljp5flvGaZAIhANntd9PHDgRm4XJcGU8QZWdsbtNF7WhjYiy%2BKxqDy8m0Kv8DCCQQABoMNjM3NDIzMTgzODA1Igxqo5xumOHMG4SfNtwq3AN1ej%2FWIuVpC1qiC%2Fr9u4pMjXHuVGcrDBBxhQz2UJbKWWX2a5Br%2BezXX2nBhmbRzaHdbE2W7zxveL6fxbAq3WQ2O8Lvq%2BwJ%2BGYReVYeYDfRtuDFMRQMQsjwgtNZQvDtVu%2BnE9wnjbi7a1KojGCEe2Nown4y5cHaQuYgm%2BmILeTcNSULE53lrYYNsH9CsfrgzEjcec6gQD6Vjk8Gb9hPwaiFNr2Q0FOq9BAyI7HD1ZxNoEdPnkzR0x%2B95%2B725jLQCzcxwEE3z2WdW%2FUdeFqgfVNe6Ot7tTtyORA2duzjWtg%2FFhFOkVdOE1JCjOa94l9FvthoVKl%2F9C%2Fi3app8AOQU47Ipr9bGaG8uGKfXhmK%2FrV5KGXqgZeJYlAGZeZRM%2BspAXq2Ec%2FxR9q8vR9bS4jrORcdJ4ItAQx5fUhQovmpurywl2oV6TN1ScVLLg4jM%2BZlTmjnD3bGEcUmJTiaSUu8EzQzE0pjOCw1G5hTQo8MHcwu5phAYOHh1DdccO1E1QEmSnKVAhfUbxK%2B04Ou3OL7kCdGy8gtrDo3IQX4qi%2FDDHNFyVCAX5Ie2lO7HH9v%2FoDLz6zFL0fvCLtLpeb%2F02bhe5Z0X2oqHmtZAF6uTR2uPwsoUTjmL9q51X6wKGnLdzD24P7BBjqkAaUfY9zBfjf7lsMQe1xJifB5Ng5yRU%2F3rsvPtOfqCQqq47UM4GilhO6SnaxrJu0%2FntTOYcyYZ6I5rb2lWROa3NvWL9Q%2BFzUlKrMcWdmr34cAvrNj2DtNd8RT%2BdQ0vZSBrkZTpbY0W%2BsehdiVEUk%2FD1%2B6jxSD6HkCXXhYS6fVWPg4IonqGEQxVFMsE925bV2oM7HDgxzZvA2HKBshVEUYJVjUXI5H&amp;X-Amz-Signature=3fa952c8d30a2bd90a7d3b45ce14f9ba7211685ad13ca5069853a851a4d80db1&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject">Browser does not support audio.</audio>
 <details><summary>SRT</summary><div class="toggle-content">
                     <div style="margin: 15px 0;">
                         <div class="precode">
@@ -742,190 +1048,6 @@ Agent-4が。実はOpenBrainの意図とは違う目標を持っていて。そ�
 </div>
                     <iframe id="tweet_1919905101101359179" border="0" frameborder="0" scrolling="no" style="width: 100%; min-height: 350px; display: block; margin: 1em auto;" src="https://mssmat.github.io/twiframe/show.html?url=https://twitter.com/naho_prnet/status/1919905101101359179&theme=" + (document.body.classList.contains("dark-mode") ? "dark" : "light")"></iframe>
 </article>
-<article>
-<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">AIポッドキャスト</h1></header>
-<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-05-13 12:31</span>
-<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
-</div>
-<p><a href="https://notebooklm.google.com/" target="_blank">NotebookLM</a>の音声概要AIポッドキャストが流行っているので音声ファイルでもやってみた。</p>
-<audio controls class="notion-audio" src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/1b8c8acc-e092-48a7-a9fc-08b5cc999a7f/podcasttest.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466VPEN4OHC%2F20250604%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250604T031413Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEsaCXVzLXdlc3QtMiJGMEQCIECyqJI4TnJ4pYppl6r1zop6afTW6TQ5yicv1DSjxvqWAiANWLiRL%2FrezkrmyEdkjGBwqGQMGnxf0nbViEnZdxyWFSr%2FAwgkEAAaDDYzNzQyMzE4MzgwNSIMfCusfTCYXxMxHpEMKtwD6qHTHgI1CwOeaUyZRFwZYvum42B7CyZj38tS4rw4XeannUpYo5Z33hs8Sg7WRM0SNtNww466hqlTuzMTq9tRfkgCakPOObEIOqMHzZElRkL9Dx6lHAxw%2B1Kirv6OyZ%2F3o6QcgKwUubRQo3u4%2BHp3jkFi2kGY05a4TRrUTjmpVUbeJaos8NgiuM2Hxqh9u%2BKBup%2BUVVMDxNYOpX2rJab2hnxlcSv1QigRw322fRF8jZoAWTPqsi172kzScdVV38VwjI%2B%2FzskB8YUxFgw0z%2BOkTO1%2FrMFmkRBXxQBcJLMUfgtZ7JVF6Q5LjUrER3E6iZZBoyTeK755ibJMBmHMTzCkkfZKKiU7eAkrcvHBG7C224qB3fq5FgHGTeQe4q68%2FZhv%2BSxLUXQWLIV6%2FNKbfZzWVgDb0s7XufSHEpInZjQwFeCJJSore6RWVVHsCppeG9cAmPh5%2BGoqNaN2xDFdqMukzabwv3QLcim3gvfGILx8tMtg6ljFXem4oZl8ElXUp8g8HjVL3jcnH7712jDrrWl9AG7HshYTL4De%2F%2FiiexfLIykpEvskmy44x4NCIpmnZqhmIbFd172ET2Liix3Dbxk5mITwmB%2BLYwaWnSYZGigYJn8e64DrYXZQ8GsMFawwp%2BD%2BwQY6pgEpHtP9dq6VgynkY%2BHtgeiMiiAfenQe4fN9UrcMPtcumixGtzUBk2Mq2fOMg4jQaq%2FI8QaZbCAOAMwBi%2FMfIBU%2FyuOg0%2BEe9u3ZBTqrmWgEw9RPLY%2F6jo9wxv%2FyzFnjJq%2B%2BCgBxk%2FBO2jw7w%2B%2FJs4yyguuZeQ%2Bp4HTWw8cb9Ug%2BWZ6B0cgShfSGGSmsReQwmBp%2FuWEMOtA1GIDvYdAoKWnfzm8PRuts&amp;X-Amz-Signature=71634110515eb63e387dea074aacfb89b2a218a6371901bcd71fb141b691df57&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject">Browser does not support audio.</audio>
-<details><summary>SRT</summary><div class="toggle-content">
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                plain text
-                            </div>
-                            <pre><code>1
-00:00:00,000 --&gt; 00:00:06,732
-ねえ。マット。花子さん。最近AIってよく聞くけど。結局なんなのかよくわからなくて。
-
-2
-00:00:07,232 --&gt; 00:00:15,861
-やあソフィー。AIは人工知能・Artificial Intelligenceの略で。機械が人間みたいに考えたり学んだりする技術のことだよ。
-
-3
-00:00:16,361 --&gt; 00:00:23,271
-例えば。スマホの音声アシスタントとか。ネットショッピングでおすすめ商品が出てくるのもAIの一種だね。
-
-4
-00:00:23,771 --&gt; 00:00:33,726
-そうね。AIは大きく分けると。データからルールを見つけて識別や予測をするAIと。新しいコンテンツを創り出す「生成AI」があるわ。
-
-5
-00:00:34,226 --&gt; 00:00:39,570
-生成AI。それって。私が画像を作ったりするのに使ってるやつかな。
-
-6
-00:00:40,070 --&gt; 00:00:48,444
-その通り。生成AIは。ユーザーの指示に基づいて。文章や画像。音楽なんかの新しいコンテンツを生成するんだ。
-
-7
-00:00:48,944 --&gt; 00:00:54,635
-まさに「ジェネレーティブAI」とも呼ばれていて。最近の技術の進歩は目覚ましいよね。
-
-8
-00:00:55,135 --&gt; 00:00:57,980
-そのAIはどうやって賢くなるのかしら。
-
-9
-00:00:58,480 --&gt; 00:01:04,404
-いい質問だね。AIが学習する方法の代表的なものに「機械学習」があるよ。
-
-10
-00:01:04,904 --&gt; 00:01:10,212
-これは。大量のデータからパターンやルールをコンピューター自身が学ぶ技術なんだ。
-
-11
-00:01:10,712 --&gt; 00:01:20,328
-機械学習の中でも特に強力なのが「ディープラーニング」。人間の脳の神経回路を模倣した「ニューラルネットワーク」っていう仕組みを使うの。
-
-12
-00:01:20,828 --&gt; 00:01:27,539
-これによって。AIが自らデータの特徴を見つけ出して。より複雑な判断ができるようになるのよ。
-
-13
-00:01:28,039 --&gt; 00:01:35,254
-へえ。AIも自分で勉強するんだね。ChatGPTとかとお話しするのも。そういうAIなの？
-
-14
-00:01:35,754 --&gt; 00:01:44,673
-そうだね。ChatGPTみたいな対話型AIの頭脳になっているのが「大規模言語モデル」。略してエルエルエムって呼ばれるものだよ。
-
-15
-00:01:45,173 --&gt; 00:01:53,453
-これは。ものすごく大量のテキストデータを学習して。人間みたいに自然な文章を作ったり。質問に答えたりできるんだ。
-
-16
-00:01:53,953 --&gt; 00:01:59,215
-このエルエルエムの基礎技術として重要なのが「トランスフォーマー」っていうモデルなんだ。
-
-17
-00:01:59,715 --&gt; 00:02:08,092
-そして。私たちが生成AIに何かをしてもらう時に入力する指示や命令文のことを「プロンプト」って言うわ。
-
-18
-00:02:08,592 --&gt; 00:02:17,086
-このプロンプトをどう書くかで。AIの出力の質が大きく変わるから。「プロンプトエンジニアリング」っていう技術も注目されてるのよ。
-
-19
-00:02:17,586 --&gt; 00:02:23,870
-プロンプトかあ。確かに。お願いの仕方で全然違うものが出てくることあるもんね。
-
-20
-00:02:24,370 --&gt; 00:02:29,993
-あと。なんか「トークン」とか「パラメータ」とかも聞いたことあるけど。あれは何なの。
-
-21
-00:02:30,493 --&gt; 00:02:40,434
-「トークン」は。AIがテキストを処理する時の最小単位のことだよ。英語だと大体1単語が1トークンだけど。日本語だと文字によって変わるんだ。
-
-22
-00:02:40,934 --&gt; 00:02:49,829
-「パラメータ」は。AIモデルの能力の高さを示す指標みたいなもの。この数が多いほど。複雑な処理ができる可能性が高いんだ。
-
-23
-00:02:50,329 --&gt; 00:02:57,017
-でも。生成AIも万能じゃないのよ。たまに「ハルシネーション」っていう現象を起こすことがあるわ。
-
-24
-00:02:57,517 --&gt; 00:02:58,673
-ハルシネーション？
-
-25
-00:02:59,173 --&gt; 00:03:09,898
-そう。幻覚ってこと。AIが事実と異なる情報やもっともらしい嘘を。さも本当かのように生成しちゃうことがあるの。だから鵜呑みは禁物よ。
-
-26
-00:03:10,398 --&gt; 00:03:16,775
-そのハルシネーションを減らす工夫の一つとして「ラグ」。検索拡張生成という技術があるよ。
-
-27
-00:03:17,275 --&gt; 00:03:26,159
-これは。AIが回答を生成する時に。外部のデータベースや最新情報を検索して。その情報を基に回答を作る仕組みなんだ。
-
-28
-00:03:26,659 --&gt; 00:03:35,340
-特定の業務や知識に特化させたい場合は。「ファインチューニング」といって。既存のモデルに独自のデータを追加学習させる方法もあるわ。
-
-29
-00:03:35,840 --&gt; 00:03:41,984
-へえ。色々工夫されてるんだね。なんだか。もっと未来みたいなAIもあるのかな。
-
-30
-00:03:42,484 --&gt; 00:03:52,192
-もちろん。例えば「マルチモーダルAI」は。テキストだけじゃなくて。画像や音声。動画みたいに複数の種類の情報を同時に扱えるAIだよ。
-
-31
-00:03:52,692 --&gt; 00:03:58,976
-写真を見せて。それについて説明させたり。逆に説明文から画像を生成したりできるんだ。
-
-32
-00:03:59,476 --&gt; 00:04:04,660
-画像生成といえば。「ギャン」。敵対的生成ネットワークっていう技術も有名ね。
-
-33
-00:04:05,160 --&gt; 00:04:13,476
-これは。画像を生成するAIと。それを見破るAIを競わせることで。本物そっくりのリアルな画像を生成できるの。
-
-34
-00:04:13,976 --&gt; 00:04:22,719
-ただ。この技術が悪用されると。「ディープフェイク」みたいな。偽の動画や音声が作られてしまう危険性もあるから注意が必要よ。
-
-35
-00:04:23,219 --&gt; 00:04:29,919
-うわあ。すごい技術だけど。ちょっと怖い気もするね。AIってこれからどうなっていくんだろう。
-
-36
-00:04:30,419 --&gt; 00:04:41,776
-AIの進化は。私たちの生活をより便利で豊かにしてくれる可能性を秘めているよ。医療診断のサポートや自動運転。災害予測なんかにも活用が期待されているんだ。
-
-37
-00:04:42,276 --&gt; 00:04:55,818
-でも。AIが社会に浸透していく上で。考えなければいけないこともたくさんあるわ。「AI倫理」や「AIガバナンス」といった。AIを公平・安全に使うためのルール作りがとても重要よ。
-
-38
-00:04:56,318 --&gt; 00:05:10,760
-AIが学習するデータに偏りがあると。AIの判断も偏ってしまう「AIバイアス」の問題とか。AIが人間の知能を超える「シンギュラリティ」がいつ来るのかとか。私たちの仕事はどうなるのかとかね。
-
-39
-00:05:11,260 --&gt; 00:05:20,363
-そっかあ。AIってただ便利なだけじゃなくて。使う側の私たちがちゃんと考えて。賢く付き合っていくことが大切なんだね。
-
-40
-00:05:20,863 --&gt; 00:05:27,367
-その通りだよソフィー。AIはあくまで道具だからね。どう活用していくかは私たち次第だ。
-
-41
-00:05:27,867 --&gt; 00:05:36,520
-今日の話で。AIについて少しはイメージが掴めたかしら。まだまだ奥が深い世界だけど。知っておくことは大事よ。
-
-42
-00:05:37,020 --&gt; 00:05:43,303
-うん。マット。花子さん。ありがとう。AIのこと。もっと知りたくなっちゃった。</code></pre>
-                        </div>
-                    </div>
-                    </div></details>
-</article>
 
 </div>
 <div id="footer">© MAT note</div>
@@ -999,6 +1121,6 @@ hljs.highlightAll();
 });
 </script>
 
-<!-- 2025-06-04 12:14 -->
+<!-- 2025-06-04 12:42 -->
 </body>
 </html>
