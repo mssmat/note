@@ -48,43 +48,30 @@ font-family: 'Cascadia Code', Consolas, 'Courier New', monospace;
 font-size: 0.85em;
 border-radius: 0 0 5px 5px;
 }
-/* Toggle Style */
 details { border: 1px solid #ddd; border-radius: 4px; margin: 1em 0; background-color: #f9f9f9; }
 details summary { padding: 10px; cursor: pointer; font-weight: bold; outline: none; display: list-item;}
-/* details summary::marker { content: "▶ "; } */
 details[open] summary { border-bottom: 1px solid #ddd; }
-/* details[open] summary::marker { content: "▼ "; } */
 .toggle-content { padding: 0 10px 10px 10px; margin-top: -1px; border-top: 1px solid #eee; }
-/* Audio Player Style */
 .notion-audio { width: 100%; margin: 1em 0; }
-/* File Block Style */
 .notion-file { display: flex; align-items: center; padding: 10px 15px; margin: 1em 0; border: 1px solid #ddd; border-radius: 4px; background-color: #f9f9f9; text-decoration: none; color: #333; transition: background-color 0.2s; }
 .notion-file:hover { background-color: #f0f0f0; }
 .notion-file svg { width: 1.2em; height: 1.2em; margin-right: 8px; fill: currentColor; flex-shrink: 0; }
-/* PDF Embed Style */
 .notion-pdf { width: 100%; height: 600px; border: 1px solid #ccc; margin: 1em 0; }
-/* Table Style */
 .notion-table-wrapper { overflow-x: auto; margin: 1em 0; }
 .notion-table { width: 100%; border-collapse: collapse; border: 1px solid #ccc; }
 .notion-table th, .notion-table td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; vertical-align: top; }
 .notion-table thead th { background-color: #f2f2f2; font-weight: bold; position: sticky; top: 0; z-index: 1; }
 .notion-table tbody th { background-color: #f9f9f9; font-weight: bold; }
-/* Callout Styles */
 .notion-callout { padding: 16px 16px 16px 12px; margin: 1em 0; border-radius: 3px; display: flex; align-items: flex-start; background-color: #f1f1f1; border: 1px solid rgba(0, 0, 0, 0.05); }
 .notion-callout .callout-icon { margin-right: 8px; font-size: 1.2em; line-height: 1.4; }
 .notion-callout.callout-gray_background { background-color: #f1f1f1; }
-/* Quote Styles */
 .notion-quote { border-left: 3px solid #ccc; padding-left: 14px; margin: 1em 0; }
 .notion-quote.quote-gray { border-left-color: gray; }
-/* Equation Style */
 .notion-equation { font-family: 'Times New Roman', Times, serif; background-color: #f3f3f3; padding: 2px 5px; margin: 8px 0; display: inline-block; }
-/* Divider Style */
 .notion-divider { margin: 1em 0; border: 0; border-top: 1px solid #eee; }
-/* ToDo List Style */
 .todo-item { display: flex; align-items: center; margin: 5px 0; }
 .todo-item input[type="checkbox"] { margin-right: 10px; }
 input.todo-checkbox:checked + label { text-decoration: line-through; color: #888; }
-/* Dark Mode Styles */
 body.dark-mode { background-color: #1a1a1a; color: #f0f0f0; }
 .dark-mode .container { background-color: #2a2a2a; box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); }
 .dark-mode #header { background-color: rgba(42, 42, 42, 0.9); color: #f0f0f0; border-bottom: 1px solid #444; }
@@ -201,6 +188,99 @@ color: #9dbf9d;
 }
 .dark-mode .bookmark-og-image {
 background-color: #444;
+}
+#donation-banner {
+position: fixed;
+bottom: 15px;
+right: 15px;
+width: calc(100% - 30px);
+max-width: 380px;
+background-color: rgba(230, 244, 234, 0.95);
+color: #333;
+padding: 20px;
+border-radius: 12px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+z-index: 1001;
+font-size: 0.9em;
+border: 1px solid #cce8d4;
+transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+#close-donation-banner {
+position: absolute;
+top: 8px;
+right: 10px;
+background: transparent;
+border: none;
+font-size: 24px;
+font-weight: bold;
+color: #999;
+cursor: pointer;
+padding: 0;
+line-height: 1;
+}
+#close-donation-banner:hover {
+color: #333;
+}
+.donation-title {
+font-weight: bold;
+margin-top: 0;
+margin-bottom: 15px;
+padding-right: 25px;
+line-height: 1.5;
+}
+.donation-links {
+list-style-type: none;
+padding: 0;
+margin: 0;
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+}
+.donation-links li {
+margin: 0;
+}
+.donation-links a {
+display: block;
+padding: 8px 14px;
+background-color: #ffffff;
+border: 1px solid #b7d8c1;
+border-radius: 20px;
+text-decoration: none;
+font-weight: bold;
+color: #216e39;
+transition: background-color 0.2s, transform 0.2s;
+}
+.donation-links a:hover {
+background-color: #f0fff4;
+transform: translateY(-2px);
+text-decoration: none;
+}
+.dark-mode #donation-banner {
+background-color: rgba(44, 62, 52, 0.95);
+color: #e0e0e0;
+border-color: #3a5443;
+}
+.dark-mode #close-donation-banner {
+color: #aaa;
+}
+.dark-mode #close-donation-banner:hover {
+color: #fff;
+}
+.dark-mode .donation-links a {
+background-color: #3a5443;
+border-color: #5c8369;
+color: #a7e0b8;
+}
+.dark-mode .donation-links a:hover {
+background-color: #4b6f58;
+}
+@media (max-width: 480px) {
+#donation-banner {
+bottom: 10px;
+left: 10px;
+right: 10px;
+width: auto;
+}
 }
 #dark-mode-toggle { position: fixed; top: 10px; right: 10px; z-index: 1000; background-color: rgba(240, 240, 240, 0.8); color: #333; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s, color 0.3s; }
 .dark-mode #dark-mode-toggle { background-color: rgba(51, 51, 51, 0.8); color: #f0f0f0; }
@@ -824,7 +904,7 @@ if __name__ == &quot;__main__&quot;:
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
 </div>
 <h3>すごいものができてしまったかもしれません..</h3>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/9e73c162-4fb7-40cb-8fba-8ae818dea255/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4665ZYBXVAR%2F20250608%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250608T224141Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEL3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIEWB4RHolsLQnu44jAReFgJnRAfKiS9lmeg7nGOB61JrAiAH3a1%2BTMJy4%2Bck0mKkD7AAQInM0Cq1VHVvAa3KQrmZxSqIBAiV%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMSWwmcJfq%2BkF0nNOQKtwDGp8zNe7m3dj3uM1p2NwbvWD1WtjGgEv94rxjq%2BIcTVaG8Unz2SYgBPvmf5ATLbS2dEEXgJ6kWarbuLwoZVDj4b%2B74XcT2Lvu3VIokA2eaF1WSgpoKLK%2BvxLvibPqHUE6a0g6K7nHjRbbPMlmxxGR4yNRg1qSAgc05mmvITSCOSwO1Ry6W54q5UgO%2Fcb3RxMgG%2FC9zY46tnL2ti4UW0xwmICv8CXPfOXRkfn6O4YYH9Nm7w%2Fyi%2FSjrHGD1v6hQgIBjvNHyeET%2Fs7EgYwK7Egt3qXuOEu5nDxgkT75ebnJPVtTMutNNVxz0ppvqErBA6vGZIbByi%2BV4XSw1fF00gRAFcURTT4UgPiuPMcDLipfjaZf5xxz5gN3eXz6l45yWEKrDCg09QxuRnsLkEMm2nMQSfGqe4OeAhOwW9Tbe%2B2SQewTlPErVwzWbDbl5scld0W1A5F8peMtgcNn%2Fb6cj7T44rhmqyygSHtAhByTm1xJS6E5T4hMV7cD%2BHcqnMN9TnU6tz7lgvK4zXkHU1byyMotaTdfh9Sz0dG%2FjrrDV5b%2Fmc9AGdSmO4qIqYQ1pawk4lDMQ%2BurudbcOirXRDv%2F2N7jHk1Baj%2F8LcP7Ehcy12pEP9uijrRmBHjzSK4cJqkwt%2BKXwgY6pgG2KdNb53ecrlPhzvCpreq9WFvJuY22WGJ%2BNyQLVkvaXvN3SxUNUX4gPwDduPySGm3KzuWlaMoJgRdSxKDmpFLQzWcflWvGhbkKOPlQHVJ1JysrI3wAixOZLn39JHJZeOoiQAHuREnQMMd6BZQTyRo17qIPCLR%2FJZ%2BAIh90hU%2FoHynxksP64OYCg4AVlZGdTPybojQNEH9M7Tnz8F%2BhwErwE3bvmXr4&amp;X-Amz-Signature=555a60b8292a94d4382206b16d5e9a21ff86eefd39cc1f8a0572c73b17172323&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/9e73c162-4fb7-40cb-8fba-8ae818dea255/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466RD4RJ7XF%2F20250608%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250608T230703Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQCvlkOZlbqKGxaikxpnCGzS9FNLeNWSznIJTHz1G2NiPgIhAIBexiBqDtTLlPDvfUGT0Xb1181HVSE3o9r8SJZxG3JhKogECJj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1IgziyjnHj5SP2xlw0GIq3AMkmX4xh%2FNzcayEK927N8GHXzDphf66oMeOtOjWMHBsO%2BWSwbWic31FvMxpkjzrXgXh3%2FOcf0TdceDV9%2FicuQN8xPOdSr%2Bv69vTa2yJbx1uNNWtP14B0My2vs7lxElDA866R5yNO%2FHH3E0JphWFEqVHhHiR9tfVwTf3y0%2F2JP2k%2FEgVXSfqOr2uIfHHxllfjMEdQVXicnGqiKZp1vOGyYBxOiy2FjoABIDINlk3sZhEhnuUl%2Fu%2F82VzzdGYwRwcMAkKmJqtsZ9O%2FgNEUxpOypu%2FnlvLkFcUw1DnyMikCDxzoyOkOFW4Gjr4%2BwKdS3l0LKOGaRrco6Df%2B1jEy0yJMxiwnpRCgE4x9nKyVSrCsCbRI9f6kDFsxql61lXxV9u6eQ3rc10RhY%2FjGPGlRcMyKmFzpWuMMeS6zfSBt2IPu3NcypSEOryE3XF7jOS2SG%2Fq7w9esurmYwYN3afaaXT64ZYaf9744kM9IlUCTWqKAu8IvKzCxTqg8hnVfrfLz84zlKJgU4ZI9s1%2FgKaMWwvDOGZo86dSe6kknPtZGBAkc4U1uIrhRFQ%2BXEmJxF%2B7qhVspul7yIJgFH78dngh7dEbDziKw8NSLPwuT9Ot7x3llnWisB0AE7Fr9TOjL%2FHQfzCJopjCBjqkAX5uGbGB3v6FB8OOKMH%2BPYxWWb5qgkbKY5VJGoq7Qn3qsFhdaeIfmH3kCVmvHWcqKPwHh22Zwr%2BdNIQSjRwnxxv69ox32Ri7ibj8YNjkX5F51kz4zCt86wE7KxEgTJg%2BXz0AhHMzFpnZjCQBKgGQCUJrfJCdotmsG%2BQjakDOl%2FQRnDNVs9fVzQOfP44PdiDAnU6X4KyYN7h01RoLSvXBsDuCRpjV&amp;X-Amz-Signature=98d9558b55c0bd560a456a7df0018d8a579372874f44397b12d4ec06fc368eed&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>MCPが登場し、徐々に対応のサービスが増え、様々なツールがAIから利用できるようになってきています。<br>例えば、私の場合は、VS CodeとClineでMCPを使っており、インターネット検索ができるように、Perplexityやfetchといったツールを連携させていました。<br>それ以外にも、ツール自体がエージェントのような振る舞いをするものとして、n8nやZapierのような、いわゆる外部MCPサーバーも利用できるようにしていました。<br>n8nはローカル環境に構築しているのですが、これも内部で様々なAIを利用したり、さらにそこから別のMCPサーバーに接続したり、といった設定が可能なので、拡張性があります。</p>
 <p>これが何を意味するかというと、AIを使ってかなりのことができるようになったということです。<br>例えば検索だけでなく、メールを送ったり、カレンダーで予定を確認したりなどがAIへの自然言語の命令でできるようになりました。</p>
 <p>AIがより多くの機能を持ち、便利になったということですが、ひいては自分の秘書のような役割を担えるようになったのではないかと考えています。</p>
@@ -832,12 +912,12 @@ if __name__ == &quot;__main__&quot;:
 <p>現在、AIは人間の知能を凌駕したと言われています。IQ130で東大にも入れる、といった話もよく語られます。<br>ただ考えてみてほしいのですが、このようにIQが高く、優秀な人がいたとしても、道具がなければ何もできないことがあります。</p>
 <p>例えばその有能な秘書に対して、「大相撲のチケットを予約してほしい」と頼んだとします。<br>人間の秘書であれば、何をすべきかを自律的に考え、行動してくれるでしょう。つまり、大相撲のチケットをどこで予約できるか調べ、電話をかけたり、実際に購入しに行って、支払いまでしてくれるはずです。</p>
 <p>ところが、そのような有能な人間でも、無人島に行ってしまったらどうなるでしょうか。<br>おそらく何もできません。何をすべきかは分かっていても、道具がなければどうしようもありません。<br>電話もインターネットもない環境では、大相撲のチケットを予約してほしいと頼まれても、対応できないでしょう。</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/7809970a-f606-4db4-a143-aa5e5f7a1626/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4665ZYBXVAR%2F20250608%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250608T224141Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEL3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIEWB4RHolsLQnu44jAReFgJnRAfKiS9lmeg7nGOB61JrAiAH3a1%2BTMJy4%2Bck0mKkD7AAQInM0Cq1VHVvAa3KQrmZxSqIBAiV%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMSWwmcJfq%2BkF0nNOQKtwDGp8zNe7m3dj3uM1p2NwbvWD1WtjGgEv94rxjq%2BIcTVaG8Unz2SYgBPvmf5ATLbS2dEEXgJ6kWarbuLwoZVDj4b%2B74XcT2Lvu3VIokA2eaF1WSgpoKLK%2BvxLvibPqHUE6a0g6K7nHjRbbPMlmxxGR4yNRg1qSAgc05mmvITSCOSwO1Ry6W54q5UgO%2Fcb3RxMgG%2FC9zY46tnL2ti4UW0xwmICv8CXPfOXRkfn6O4YYH9Nm7w%2Fyi%2FSjrHGD1v6hQgIBjvNHyeET%2Fs7EgYwK7Egt3qXuOEu5nDxgkT75ebnJPVtTMutNNVxz0ppvqErBA6vGZIbByi%2BV4XSw1fF00gRAFcURTT4UgPiuPMcDLipfjaZf5xxz5gN3eXz6l45yWEKrDCg09QxuRnsLkEMm2nMQSfGqe4OeAhOwW9Tbe%2B2SQewTlPErVwzWbDbl5scld0W1A5F8peMtgcNn%2Fb6cj7T44rhmqyygSHtAhByTm1xJS6E5T4hMV7cD%2BHcqnMN9TnU6tz7lgvK4zXkHU1byyMotaTdfh9Sz0dG%2FjrrDV5b%2Fmc9AGdSmO4qIqYQ1pawk4lDMQ%2BurudbcOirXRDv%2F2N7jHk1Baj%2F8LcP7Ehcy12pEP9uijrRmBHjzSK4cJqkwt%2BKXwgY6pgG2KdNb53ecrlPhzvCpreq9WFvJuY22WGJ%2BNyQLVkvaXvN3SxUNUX4gPwDduPySGm3KzuWlaMoJgRdSxKDmpFLQzWcflWvGhbkKOPlQHVJ1JysrI3wAixOZLn39JHJZeOoiQAHuREnQMMd6BZQTyRo17qIPCLR%2FJZ%2BAIh90hU%2FoHynxksP64OYCg4AVlZGdTPybojQNEH9M7Tnz8F%2BhwErwE3bvmXr4&amp;X-Amz-Signature=2ede746cf6f173b24dfa8eed41d92a75e6e67f2e04fdf3d63588dc8c2d277d35&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/7809970a-f606-4db4-a143-aa5e5f7a1626/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466RD4RJ7XF%2F20250608%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250608T230703Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQCvlkOZlbqKGxaikxpnCGzS9FNLeNWSznIJTHz1G2NiPgIhAIBexiBqDtTLlPDvfUGT0Xb1181HVSE3o9r8SJZxG3JhKogECJj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1IgziyjnHj5SP2xlw0GIq3AMkmX4xh%2FNzcayEK927N8GHXzDphf66oMeOtOjWMHBsO%2BWSwbWic31FvMxpkjzrXgXh3%2FOcf0TdceDV9%2FicuQN8xPOdSr%2Bv69vTa2yJbx1uNNWtP14B0My2vs7lxElDA866R5yNO%2FHH3E0JphWFEqVHhHiR9tfVwTf3y0%2F2JP2k%2FEgVXSfqOr2uIfHHxllfjMEdQVXicnGqiKZp1vOGyYBxOiy2FjoABIDINlk3sZhEhnuUl%2Fu%2F82VzzdGYwRwcMAkKmJqtsZ9O%2FgNEUxpOypu%2FnlvLkFcUw1DnyMikCDxzoyOkOFW4Gjr4%2BwKdS3l0LKOGaRrco6Df%2B1jEy0yJMxiwnpRCgE4x9nKyVSrCsCbRI9f6kDFsxql61lXxV9u6eQ3rc10RhY%2FjGPGlRcMyKmFzpWuMMeS6zfSBt2IPu3NcypSEOryE3XF7jOS2SG%2Fq7w9esurmYwYN3afaaXT64ZYaf9744kM9IlUCTWqKAu8IvKzCxTqg8hnVfrfLz84zlKJgU4ZI9s1%2FgKaMWwvDOGZo86dSe6kknPtZGBAkc4U1uIrhRFQ%2BXEmJxF%2B7qhVspul7yIJgFH78dngh7dEbDziKw8NSLPwuT9Ot7x3llnWisB0AE7Fr9TOjL%2FHQfzCJopjCBjqkAX5uGbGB3v6FB8OOKMH%2BPYxWWb5qgkbKY5VJGoq7Qn3qsFhdaeIfmH3kCVmvHWcqKPwHh22Zwr%2BdNIQSjRwnxxv69ox32Ri7ibj8YNjkX5F51kz4zCt86wE7KxEgTJg%2BXz0AhHMzFpnZjCQBKgGQCUJrfJCdotmsG%2BQjakDOl%2FQRnDNVs9fVzQOfP44PdiDAnU6X4KyYN7h01RoLSvXBsDuCRpjV&amp;X-Amz-Signature=ecc4df834829d06743b5028a1316a253b78dc3c6ee0db8f6fb308302899b8fdb&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>AIも当然同じです。AIがどれほど賢くなっても、利用できる道具(ツール)がなければ、正直なところ何もできません。<br>禅問答のような対話はできるかもしれませんが、現実社会で具体的に何ができるかというと、基本的には何もできないのです。</p>
 <p>これは例えば、コードは書けるけれど、実行環境がないために実行できない、といった状況に似ています。<br>意味がご理解いただけるでしょうか。<br>何をすべきか、どのように動くべきか、電話をどうするか、どうやって予約するかといったことを理解していても、道具がなければ何もできません。<br>これは人間もAIも同じです。<br>せいぜい「こうこうこうすればできるのでやってください」と言われるだけです。</p>
 <p>先に述べた通り、MCPの普及によって利用できるツールが大幅に増えました。<br>「大相撲のチケットを予約してほしい」と指示した場合、設定したMCPの中で、利用できるツールをAIが考え、まずはインターネットを検索して調べるといった行動を取るでしょう。これでチケットの値段や予約方法が分かります。<br>次にどうするか、電話をかけるのか、インターネットで申し込むのか。<br>何かブラウザを操作するようなMCPがあったと思いますが、それを使えば実際にブラウザを操作して申し込みを行う、といったことができるようになるわけです。<br>もしかするとMCPの組み合わせ次第では、今なら大相撲のチケットくらい何とかなるかも知れませんね。</p>
 <p>ここまで来たら、自分の秘書として使えるのではないか..と、ふと思ったのです。<br>「これをやってほしい」とゴールさえ示せば、それをツールを駆使して実行してくれるのではないか、そのようなことができるようになってきたと感じたのです。</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/c6b75028-214a-4d02-acb0-cb0ac79720fb/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4665ZYBXVAR%2F20250608%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250608T224141Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEL3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIEWB4RHolsLQnu44jAReFgJnRAfKiS9lmeg7nGOB61JrAiAH3a1%2BTMJy4%2Bck0mKkD7AAQInM0Cq1VHVvAa3KQrmZxSqIBAiV%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMSWwmcJfq%2BkF0nNOQKtwDGp8zNe7m3dj3uM1p2NwbvWD1WtjGgEv94rxjq%2BIcTVaG8Unz2SYgBPvmf5ATLbS2dEEXgJ6kWarbuLwoZVDj4b%2B74XcT2Lvu3VIokA2eaF1WSgpoKLK%2BvxLvibPqHUE6a0g6K7nHjRbbPMlmxxGR4yNRg1qSAgc05mmvITSCOSwO1Ry6W54q5UgO%2Fcb3RxMgG%2FC9zY46tnL2ti4UW0xwmICv8CXPfOXRkfn6O4YYH9Nm7w%2Fyi%2FSjrHGD1v6hQgIBjvNHyeET%2Fs7EgYwK7Egt3qXuOEu5nDxgkT75ebnJPVtTMutNNVxz0ppvqErBA6vGZIbByi%2BV4XSw1fF00gRAFcURTT4UgPiuPMcDLipfjaZf5xxz5gN3eXz6l45yWEKrDCg09QxuRnsLkEMm2nMQSfGqe4OeAhOwW9Tbe%2B2SQewTlPErVwzWbDbl5scld0W1A5F8peMtgcNn%2Fb6cj7T44rhmqyygSHtAhByTm1xJS6E5T4hMV7cD%2BHcqnMN9TnU6tz7lgvK4zXkHU1byyMotaTdfh9Sz0dG%2FjrrDV5b%2Fmc9AGdSmO4qIqYQ1pawk4lDMQ%2BurudbcOirXRDv%2F2N7jHk1Baj%2F8LcP7Ehcy12pEP9uijrRmBHjzSK4cJqkwt%2BKXwgY6pgG2KdNb53ecrlPhzvCpreq9WFvJuY22WGJ%2BNyQLVkvaXvN3SxUNUX4gPwDduPySGm3KzuWlaMoJgRdSxKDmpFLQzWcflWvGhbkKOPlQHVJ1JysrI3wAixOZLn39JHJZeOoiQAHuREnQMMd6BZQTyRo17qIPCLR%2FJZ%2BAIh90hU%2FoHynxksP64OYCg4AVlZGdTPybojQNEH9M7Tnz8F%2BhwErwE3bvmXr4&amp;X-Amz-Signature=ee46f4efd3ea37bf35c25dcb0acaafbb6b041fdb1a49c0a3d8a0156b3af4c323&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/c6b75028-214a-4d02-acb0-cb0ac79720fb/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466RD4RJ7XF%2F20250608%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250608T230703Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQCvlkOZlbqKGxaikxpnCGzS9FNLeNWSznIJTHz1G2NiPgIhAIBexiBqDtTLlPDvfUGT0Xb1181HVSE3o9r8SJZxG3JhKogECJj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1IgziyjnHj5SP2xlw0GIq3AMkmX4xh%2FNzcayEK927N8GHXzDphf66oMeOtOjWMHBsO%2BWSwbWic31FvMxpkjzrXgXh3%2FOcf0TdceDV9%2FicuQN8xPOdSr%2Bv69vTa2yJbx1uNNWtP14B0My2vs7lxElDA866R5yNO%2FHH3E0JphWFEqVHhHiR9tfVwTf3y0%2F2JP2k%2FEgVXSfqOr2uIfHHxllfjMEdQVXicnGqiKZp1vOGyYBxOiy2FjoABIDINlk3sZhEhnuUl%2Fu%2F82VzzdGYwRwcMAkKmJqtsZ9O%2FgNEUxpOypu%2FnlvLkFcUw1DnyMikCDxzoyOkOFW4Gjr4%2BwKdS3l0LKOGaRrco6Df%2B1jEy0yJMxiwnpRCgE4x9nKyVSrCsCbRI9f6kDFsxql61lXxV9u6eQ3rc10RhY%2FjGPGlRcMyKmFzpWuMMeS6zfSBt2IPu3NcypSEOryE3XF7jOS2SG%2Fq7w9esurmYwYN3afaaXT64ZYaf9744kM9IlUCTWqKAu8IvKzCxTqg8hnVfrfLz84zlKJgU4ZI9s1%2FgKaMWwvDOGZo86dSe6kknPtZGBAkc4U1uIrhRFQ%2BXEmJxF%2B7qhVspul7yIJgFH78dngh7dEbDziKw8NSLPwuT9Ot7x3llnWisB0AE7Fr9TOjL%2FHQfzCJopjCBjqkAX5uGbGB3v6FB8OOKMH%2BPYxWWb5qgkbKY5VJGoq7Qn3qsFhdaeIfmH3kCVmvHWcqKPwHh22Zwr%2BdNIQSjRwnxxv69ox32Ri7ibj8YNjkX5F51kz4zCt86wE7KxEgTJg%2BXz0AhHMzFpnZjCQBKgGQCUJrfJCdotmsG%2BQjakDOl%2FQRnDNVs9fVzQOfP44PdiDAnU6X4KyYN7h01RoLSvXBsDuCRpjV&amp;X-Amz-Signature=68a2d0ca16ea8beff6c0e41fdcc5754ad8c40b339cb95354f6f63ba70ba76a5e&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>で、ようやくここから今回の本題なのですが、それならば、スマートフォンからでも利用できるようにしたいと思いました。<br>確か、Claudeがウェブ版でもMCPが使えるようになったという話があったように記憶しているので、Claudeを使えばすでに可能かもしれません。<br>しかし、私はClaudeのサブスクを契約をしていませんし、かといって一から自作するのもかなり大変じゃないかと思いました。<br>また、Claudeのウェブ版だとローカルのMCPサーバーは使えないと思われます。</p>
 <p>そこで、様々なMCPサーバーを利用できるようにし、かつ自分の好きなモデルを使いたい場合、最も簡単な方法は何だろうか？と考えた結果、やはりVS CodeとClineを利用することだと思い至りました。<br>そして実は、VS Codeにはサーバー機能があります。ここが今回の核心です。</p>
 <p>しかも、ありがたいことにトンネリング機能まで備わっています。<br>例えば、自分のパソコンを自宅や会社に置いていたとしても、トンネルを確立することで外部からもアクセスできるようになるのです。<br>これは非常に便利だと思います。</p>
@@ -845,20 +925,20 @@ if __name__ == &quot;__main__&quot;:
 <p>スマートフォンに限らず、ブラウザが利用できるのであれば、iPadでも、あるいは別のパソコンからでも、いつも使っているVS CodeのMCPが利用できるようになると思います。<br>これ、かなり可能性が広がると思いません？<br>自分がどこにいても、どんな端末を使っていても、(ブラウザさえあれば)普段利用しているMCPにアクセスできるのです。</p>
 <p>ということは、有能なAI秘書に出先からモバイルで命令できるということです。<br>例えば、外出先で「あれを調べて資料にまとめたい」とか、「Gmailやカレンダーの予定を確認したい」など、何かをしようと思った時も、ブラウザで特定のアドレスにアクセスすればVS Codeが開くので、そこに命令を出すことができます。<br>音声で命令(入力)してももちろんいいわけです。</p>
 <p>そして、何かを実行させ、得られた結果はパソコン内に保存しておくことができます。<br>データはスマートフォンに保存されるのではなく、サーバー側のパソコンに蓄積されていきます。<br>そのため、中央集権的に情報を集約することができるようになります。これは画期的です。</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/e26e0550-69ae-4fa0-96fd-14b2d7f2f38a/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4665ZYBXVAR%2F20250608%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250608T224141Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEL3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIEWB4RHolsLQnu44jAReFgJnRAfKiS9lmeg7nGOB61JrAiAH3a1%2BTMJy4%2Bck0mKkD7AAQInM0Cq1VHVvAa3KQrmZxSqIBAiV%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMSWwmcJfq%2BkF0nNOQKtwDGp8zNe7m3dj3uM1p2NwbvWD1WtjGgEv94rxjq%2BIcTVaG8Unz2SYgBPvmf5ATLbS2dEEXgJ6kWarbuLwoZVDj4b%2B74XcT2Lvu3VIokA2eaF1WSgpoKLK%2BvxLvibPqHUE6a0g6K7nHjRbbPMlmxxGR4yNRg1qSAgc05mmvITSCOSwO1Ry6W54q5UgO%2Fcb3RxMgG%2FC9zY46tnL2ti4UW0xwmICv8CXPfOXRkfn6O4YYH9Nm7w%2Fyi%2FSjrHGD1v6hQgIBjvNHyeET%2Fs7EgYwK7Egt3qXuOEu5nDxgkT75ebnJPVtTMutNNVxz0ppvqErBA6vGZIbByi%2BV4XSw1fF00gRAFcURTT4UgPiuPMcDLipfjaZf5xxz5gN3eXz6l45yWEKrDCg09QxuRnsLkEMm2nMQSfGqe4OeAhOwW9Tbe%2B2SQewTlPErVwzWbDbl5scld0W1A5F8peMtgcNn%2Fb6cj7T44rhmqyygSHtAhByTm1xJS6E5T4hMV7cD%2BHcqnMN9TnU6tz7lgvK4zXkHU1byyMotaTdfh9Sz0dG%2FjrrDV5b%2Fmc9AGdSmO4qIqYQ1pawk4lDMQ%2BurudbcOirXRDv%2F2N7jHk1Baj%2F8LcP7Ehcy12pEP9uijrRmBHjzSK4cJqkwt%2BKXwgY6pgG2KdNb53ecrlPhzvCpreq9WFvJuY22WGJ%2BNyQLVkvaXvN3SxUNUX4gPwDduPySGm3KzuWlaMoJgRdSxKDmpFLQzWcflWvGhbkKOPlQHVJ1JysrI3wAixOZLn39JHJZeOoiQAHuREnQMMd6BZQTyRo17qIPCLR%2FJZ%2BAIh90hU%2FoHynxksP64OYCg4AVlZGdTPybojQNEH9M7Tnz8F%2BhwErwE3bvmXr4&amp;X-Amz-Signature=2a500464d268c291f8213cbcacfdc4237618e5a259217e65a907008be929c350&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/e26e0550-69ae-4fa0-96fd-14b2d7f2f38a/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466RD4RJ7XF%2F20250608%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250608T230703Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQCvlkOZlbqKGxaikxpnCGzS9FNLeNWSznIJTHz1G2NiPgIhAIBexiBqDtTLlPDvfUGT0Xb1181HVSE3o9r8SJZxG3JhKogECJj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1IgziyjnHj5SP2xlw0GIq3AMkmX4xh%2FNzcayEK927N8GHXzDphf66oMeOtOjWMHBsO%2BWSwbWic31FvMxpkjzrXgXh3%2FOcf0TdceDV9%2FicuQN8xPOdSr%2Bv69vTa2yJbx1uNNWtP14B0My2vs7lxElDA866R5yNO%2FHH3E0JphWFEqVHhHiR9tfVwTf3y0%2F2JP2k%2FEgVXSfqOr2uIfHHxllfjMEdQVXicnGqiKZp1vOGyYBxOiy2FjoABIDINlk3sZhEhnuUl%2Fu%2F82VzzdGYwRwcMAkKmJqtsZ9O%2FgNEUxpOypu%2FnlvLkFcUw1DnyMikCDxzoyOkOFW4Gjr4%2BwKdS3l0LKOGaRrco6Df%2B1jEy0yJMxiwnpRCgE4x9nKyVSrCsCbRI9f6kDFsxql61lXxV9u6eQ3rc10RhY%2FjGPGlRcMyKmFzpWuMMeS6zfSBt2IPu3NcypSEOryE3XF7jOS2SG%2Fq7w9esurmYwYN3afaaXT64ZYaf9744kM9IlUCTWqKAu8IvKzCxTqg8hnVfrfLz84zlKJgU4ZI9s1%2FgKaMWwvDOGZo86dSe6kknPtZGBAkc4U1uIrhRFQ%2BXEmJxF%2B7qhVspul7yIJgFH78dngh7dEbDziKw8NSLPwuT9Ot7x3llnWisB0AE7Fr9TOjL%2FHQfzCJopjCBjqkAX5uGbGB3v6FB8OOKMH%2BPYxWWb5qgkbKY5VJGoq7Qn3qsFhdaeIfmH3kCVmvHWcqKPwHh22Zwr%2BdNIQSjRwnxxv69ox32Ri7ibj8YNjkX5F51kz4zCt86wE7KxEgTJg%2BXz0AhHMzFpnZjCQBKgGQCUJrfJCdotmsG%2BQjakDOl%2FQRnDNVs9fVzQOfP44PdiDAnU6X4KyYN7h01RoLSvXBsDuCRpjV&amp;X-Amz-Signature=1fa941f09d7ea3c417f00f6ada77e45c2e69ac81b32ef95b3e87a2eb8db825b4&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>さて、これまでのMCPというのは、基本的にはパソコン環境、例えばデスクトップ環境を前提として利用されていたと思います。<br>(これはローカルのMCPサーバーだとNode.jsやDockerが必要だからというのもあるでしょう)<br>それをモバイル環境でも使えるようにするのに、現時点で最も手っ取り早いのは、私のようにVS Codeをサーバー化することだと考えています。</p>
 <p>MCPで、AIに様々なツールを連携できるようになった。<br>ツールの利用だけでなく、AIで収集したデータの保存もできる。<br>VS Codeを使えば、 その環境にリモートからアクセスできる。<br>AIの賢さとツールの豊富さを有した、自分だけの有能なAI秘書に世界中どこにいてもアクセスできる。<br>素敵じゃん？</p>
 <p>以上が私の妄想でした。</p>
 <hr class="notion-divider">
 <p>そしてここから妄想を現実にすべく、実際にやってみた結果です。</p>
 <p>Hyper-V内に入れたVS CodeとDocker、Node.js、n8nなどのローカルで動くサーバー。<br>これらはすでに準備済みで、使っていました。ここまでが前提。<br>今回は、この環境にiPhoneからアクセスします。<br>以下のようなイメージです。</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/aa3e0d03-046d-4a6d-85b7-714229a3fa8a/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4665ZYBXVAR%2F20250608%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250608T224141Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEL3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIEWB4RHolsLQnu44jAReFgJnRAfKiS9lmeg7nGOB61JrAiAH3a1%2BTMJy4%2Bck0mKkD7AAQInM0Cq1VHVvAa3KQrmZxSqIBAiV%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMSWwmcJfq%2BkF0nNOQKtwDGp8zNe7m3dj3uM1p2NwbvWD1WtjGgEv94rxjq%2BIcTVaG8Unz2SYgBPvmf5ATLbS2dEEXgJ6kWarbuLwoZVDj4b%2B74XcT2Lvu3VIokA2eaF1WSgpoKLK%2BvxLvibPqHUE6a0g6K7nHjRbbPMlmxxGR4yNRg1qSAgc05mmvITSCOSwO1Ry6W54q5UgO%2Fcb3RxMgG%2FC9zY46tnL2ti4UW0xwmICv8CXPfOXRkfn6O4YYH9Nm7w%2Fyi%2FSjrHGD1v6hQgIBjvNHyeET%2Fs7EgYwK7Egt3qXuOEu5nDxgkT75ebnJPVtTMutNNVxz0ppvqErBA6vGZIbByi%2BV4XSw1fF00gRAFcURTT4UgPiuPMcDLipfjaZf5xxz5gN3eXz6l45yWEKrDCg09QxuRnsLkEMm2nMQSfGqe4OeAhOwW9Tbe%2B2SQewTlPErVwzWbDbl5scld0W1A5F8peMtgcNn%2Fb6cj7T44rhmqyygSHtAhByTm1xJS6E5T4hMV7cD%2BHcqnMN9TnU6tz7lgvK4zXkHU1byyMotaTdfh9Sz0dG%2FjrrDV5b%2Fmc9AGdSmO4qIqYQ1pawk4lDMQ%2BurudbcOirXRDv%2F2N7jHk1Baj%2F8LcP7Ehcy12pEP9uijrRmBHjzSK4cJqkwt%2BKXwgY6pgG2KdNb53ecrlPhzvCpreq9WFvJuY22WGJ%2BNyQLVkvaXvN3SxUNUX4gPwDduPySGm3KzuWlaMoJgRdSxKDmpFLQzWcflWvGhbkKOPlQHVJ1JysrI3wAixOZLn39JHJZeOoiQAHuREnQMMd6BZQTyRo17qIPCLR%2FJZ%2BAIh90hU%2FoHynxksP64OYCg4AVlZGdTPybojQNEH9M7Tnz8F%2BhwErwE3bvmXr4&amp;X-Amz-Signature=23226ae17381487397ba5b016d7b18015f9fec16c2de63a0087ce23d4071270b&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/aa3e0d03-046d-4a6d-85b7-714229a3fa8a/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466RD4RJ7XF%2F20250608%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250608T230703Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQCvlkOZlbqKGxaikxpnCGzS9FNLeNWSznIJTHz1G2NiPgIhAIBexiBqDtTLlPDvfUGT0Xb1181HVSE3o9r8SJZxG3JhKogECJj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1IgziyjnHj5SP2xlw0GIq3AMkmX4xh%2FNzcayEK927N8GHXzDphf66oMeOtOjWMHBsO%2BWSwbWic31FvMxpkjzrXgXh3%2FOcf0TdceDV9%2FicuQN8xPOdSr%2Bv69vTa2yJbx1uNNWtP14B0My2vs7lxElDA866R5yNO%2FHH3E0JphWFEqVHhHiR9tfVwTf3y0%2F2JP2k%2FEgVXSfqOr2uIfHHxllfjMEdQVXicnGqiKZp1vOGyYBxOiy2FjoABIDINlk3sZhEhnuUl%2Fu%2F82VzzdGYwRwcMAkKmJqtsZ9O%2FgNEUxpOypu%2FnlvLkFcUw1DnyMikCDxzoyOkOFW4Gjr4%2BwKdS3l0LKOGaRrco6Df%2B1jEy0yJMxiwnpRCgE4x9nKyVSrCsCbRI9f6kDFsxql61lXxV9u6eQ3rc10RhY%2FjGPGlRcMyKmFzpWuMMeS6zfSBt2IPu3NcypSEOryE3XF7jOS2SG%2Fq7w9esurmYwYN3afaaXT64ZYaf9744kM9IlUCTWqKAu8IvKzCxTqg8hnVfrfLz84zlKJgU4ZI9s1%2FgKaMWwvDOGZo86dSe6kknPtZGBAkc4U1uIrhRFQ%2BXEmJxF%2B7qhVspul7yIJgFH78dngh7dEbDziKw8NSLPwuT9Ot7x3llnWisB0AE7Fr9TOjL%2FHQfzCJopjCBjqkAX5uGbGB3v6FB8OOKMH%2BPYxWWb5qgkbKY5VJGoq7Qn3qsFhdaeIfmH3kCVmvHWcqKPwHh22Zwr%2BdNIQSjRwnxxv69ox32Ri7ibj8YNjkX5F51kz4zCt86wE7KxEgTJg%2BXz0AhHMzFpnZjCQBKgGQCUJrfJCdotmsG%2BQjakDOl%2FQRnDNVs9fVzQOfP44PdiDAnU6X4KyYN7h01RoLSvXBsDuCRpjV&amp;X-Amz-Signature=d7e7ba09dfbc0cbd16b1f953da68475fd0a6119bb074fe0c2e902b10f729473b&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>サーバー側になるVS Codeでは、標準機能の「リモートトンネルアクセス」をオンにし、GitHubアカウントでログイン認証しただけでした。<br>そうすると、アクセスするためのURLが表示されるので、そのURLに、リモート側のブラウザからアクセスします。<br>リモート側でも同じGitHubアカウントで認証するとサーバー側のVS Codeにアクセスできます。<br>接続するまでは容易でした。ただし、いくつか問題がありました。</p>
 <p>まず、サーバー側にCline拡張機能を入れていても、なぜかリモート側では再度入れないといけませんでした。<br>AI APIの設定や、MCPの設定も再度やる必要がありました。<br>(一度やってしまえば次回からは不要なようです)</p>
 <p>また、OpenRouterのモデルの設定では、なぜかClaude 3.7 Sonnet以外が有効になりませんでした。<br>仕方ないので、OpenAIの互換のプロバイダ設定にして、Base URLをOpenRouterのにして使いました。<br>これで好きなAIモデルが使えます。</p>
 <p>さて、iPhoneで当然MCPサーバーの設定はできません(たぶん)。<br>しかし、MCPサーバーはVS Codeサーバー側のと同じでよく、ローカルURLなどもサーバーの設定のまま使えました。コピペでok。<br>それで、MCPはテスト的にfetchとn8nを登録しました。</p>
 <p>結果、iPhoneからfetchもn8nもちゃんとワークし、取得したデータやコードを保存させると、ちゃんとVS Codeのサーバー側に保存されました。<br>当たり前ですが、これら一連の処理は全てサーバー側で行われているということです。<br>(しかもこれ、Hyper-Vの仮想環境のVS Codeをサーバーにしていますからね！トンネル様様です)</p>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4a107d19-f8db-4954-a29e-3476926e8c83/myiphonemcp_h264.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4665ZYBXVAR%2F20250608%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250608T224141Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEL3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIEWB4RHolsLQnu44jAReFgJnRAfKiS9lmeg7nGOB61JrAiAH3a1%2BTMJy4%2Bck0mKkD7AAQInM0Cq1VHVvAa3KQrmZxSqIBAiV%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMSWwmcJfq%2BkF0nNOQKtwDGp8zNe7m3dj3uM1p2NwbvWD1WtjGgEv94rxjq%2BIcTVaG8Unz2SYgBPvmf5ATLbS2dEEXgJ6kWarbuLwoZVDj4b%2B74XcT2Lvu3VIokA2eaF1WSgpoKLK%2BvxLvibPqHUE6a0g6K7nHjRbbPMlmxxGR4yNRg1qSAgc05mmvITSCOSwO1Ry6W54q5UgO%2Fcb3RxMgG%2FC9zY46tnL2ti4UW0xwmICv8CXPfOXRkfn6O4YYH9Nm7w%2Fyi%2FSjrHGD1v6hQgIBjvNHyeET%2Fs7EgYwK7Egt3qXuOEu5nDxgkT75ebnJPVtTMutNNVxz0ppvqErBA6vGZIbByi%2BV4XSw1fF00gRAFcURTT4UgPiuPMcDLipfjaZf5xxz5gN3eXz6l45yWEKrDCg09QxuRnsLkEMm2nMQSfGqe4OeAhOwW9Tbe%2B2SQewTlPErVwzWbDbl5scld0W1A5F8peMtgcNn%2Fb6cj7T44rhmqyygSHtAhByTm1xJS6E5T4hMV7cD%2BHcqnMN9TnU6tz7lgvK4zXkHU1byyMotaTdfh9Sz0dG%2FjrrDV5b%2Fmc9AGdSmO4qIqYQ1pawk4lDMQ%2BurudbcOirXRDv%2F2N7jHk1Baj%2F8LcP7Ehcy12pEP9uijrRmBHjzSK4cJqkwt%2BKXwgY6pgG2KdNb53ecrlPhzvCpreq9WFvJuY22WGJ%2BNyQLVkvaXvN3SxUNUX4gPwDduPySGm3KzuWlaMoJgRdSxKDmpFLQzWcflWvGhbkKOPlQHVJ1JysrI3wAixOZLn39JHJZeOoiQAHuREnQMMd6BZQTyRo17qIPCLR%2FJZ%2BAIh90hU%2FoHynxksP64OYCg4AVlZGdTPybojQNEH9M7Tnz8F%2BhwErwE3bvmXr4&amp;X-Amz-Signature=b3655f48069bd54d762f0348891b9a5293260149e11a0049897401db9fafccdc&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4a107d19-f8db-4954-a29e-3476926e8c83/myiphonemcp_h264.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466RD4RJ7XF%2F20250608%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250608T230703Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQCvlkOZlbqKGxaikxpnCGzS9FNLeNWSznIJTHz1G2NiPgIhAIBexiBqDtTLlPDvfUGT0Xb1181HVSE3o9r8SJZxG3JhKogECJj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1IgziyjnHj5SP2xlw0GIq3AMkmX4xh%2FNzcayEK927N8GHXzDphf66oMeOtOjWMHBsO%2BWSwbWic31FvMxpkjzrXgXh3%2FOcf0TdceDV9%2FicuQN8xPOdSr%2Bv69vTa2yJbx1uNNWtP14B0My2vs7lxElDA866R5yNO%2FHH3E0JphWFEqVHhHiR9tfVwTf3y0%2F2JP2k%2FEgVXSfqOr2uIfHHxllfjMEdQVXicnGqiKZp1vOGyYBxOiy2FjoABIDINlk3sZhEhnuUl%2Fu%2F82VzzdGYwRwcMAkKmJqtsZ9O%2FgNEUxpOypu%2FnlvLkFcUw1DnyMikCDxzoyOkOFW4Gjr4%2BwKdS3l0LKOGaRrco6Df%2B1jEy0yJMxiwnpRCgE4x9nKyVSrCsCbRI9f6kDFsxql61lXxV9u6eQ3rc10RhY%2FjGPGlRcMyKmFzpWuMMeS6zfSBt2IPu3NcypSEOryE3XF7jOS2SG%2Fq7w9esurmYwYN3afaaXT64ZYaf9744kM9IlUCTWqKAu8IvKzCxTqg8hnVfrfLz84zlKJgU4ZI9s1%2FgKaMWwvDOGZo86dSe6kknPtZGBAkc4U1uIrhRFQ%2BXEmJxF%2B7qhVspul7yIJgFH78dngh7dEbDziKw8NSLPwuT9Ot7x3llnWisB0AE7Fr9TOjL%2FHQfzCJopjCBjqkAX5uGbGB3v6FB8OOKMH%2BPYxWWb5qgkbKY5VJGoq7Qn3qsFhdaeIfmH3kCVmvHWcqKPwHh22Zwr%2BdNIQSjRwnxxv69ox32Ri7ibj8YNjkX5F51kz4zCt86wE7KxEgTJg%2BXz0AhHMzFpnZjCQBKgGQCUJrfJCdotmsG%2BQjakDOl%2FQRnDNVs9fVzQOfP44PdiDAnU6X4KyYN7h01RoLSvXBsDuCRpjV&amp;X-Amz-Signature=269825ccb33144d14e8e4d31f443259eef1c3b6667a5d872ec41f986f5b05d7d&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <div class="notion-callout callout-gray_background"><span class="callout-icon">💡</span><div>上の動画のプロンプトは..<br>mcp fetchで昨日の日経平均終値を調べて。<br>それをmcp n8nで、もし5%の利益だといくらになるか計算してそれをメモとして保存して。<br>..です。エージェンティックに、2つのMCPサーバーを使うように明確に指示しています。</div></div>
 <p>つまり、妄想していたような使い方ができました。<br>ただ現実問題、UI的に、スマートフォンからだとちょっと見づらい。<br>iPadだとかなりイケると思います。</p>
 <p>【今回やったこと】<br>・AI+エージェント+MCPのサーバーをVS Codeで作る<br>・VS Codeのサーバー設定(トンネル)をオンにする(GitHubアカウントなどで認証)<br>・アクセス用URLが発行される<br>・そこに出先のブラウザからアクセスして認証する(iPhoneなどもok)<br>・ブラウザ用のAI API&amp;MCP設定を行う(MCPの設定はサーバー側と同じにすれば良い)<br>・秘書的に使う(AI+エージェント+MCP )<br>・保存系はサーバー側にされる(データもちゃんと残る)</p>
@@ -871,7 +951,7 @@ if __name__ == &quot;__main__&quot;:
 <div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-05-13 18:48</span>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
 </div>
-<audio controls class="notion-audio" src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4284b919-62b0-4c74-9c80-500385967fd7/AI2027.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466SZISMQTB%2F20250608%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250608T224141Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJFMEMCHzPKuklNbhhgMd2sgB9WSaQtSysGAqAw7ny%2BCMiqTlgCIHBWcKO4bSH4YQAvxkKq5NkGsNfbPDv0hKDLe7%2BW%2Fba2KogECJj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1IgwjPCtOqaD%2FxHybGuoq3AMGFYJ%2B0NohIU0HDZ3KF9GNpO5udJe%2FHd1hEvwEcqF5CAZ1ZkGp09R%2F8W04F3Mk4OzjOSKwpUD9i15dOha%2BQcwNnqsIQL3aXHiJE%2BAeuHrEfkW387XSEwz%2FMJXY3EHs8n6V0APbrBWrY4M8k%2B68p0cerhjSrf%2F0EQL7ThsLx2Qc7XUyJSreIKtfPjP2BuvYaDK%2FaJ9fJ%2BhzVmi4ddUPqt0Ga6SIf%2Bg8MRQC0eyO%2FFh2c1%2BQiOwxb9icP2vsuaZ1naOcU0ApcEgcsZ6wQ4UueByoP4zr2MKInxQDTm2KTNLLRw%2FWh9jmoGQeUk2uD8JRBKYGQT%2Fu25%2BxVGLXF%2F9ETzHok17uByPECbDCN45cbVjd4zSU5aH%2F3h5XQwSV8ZeJYQCliTgmCTy1QZPTAVlhdl%2BdJSeY33vx3tCL5kAK%2ByHI2wzp98OSS0Lf0%2F1zbSS%2FiOZhr%2FJObIfeYLDfMYnfuon3SGyb%2BdcTyRWe4QKYjjLC%2FN2yW05ZjF2US9lal%2FSwF5WRERN%2FDEcJ4AYWrzP2PTMF6Q76OPgndaUvPRlL3iauYrOQwiXogQ7b69OmXJXIigW4kYBXsO3oXcnf5mCbNS%2BwuvH8QFOM0VDqSkdjxDhCk3D3Klic6CJCZnnadDCzopjCBjqnAb4PzIlY9qCRvWxuyzCIBGH%2Fx3yyOv4ucaRg1aV6UeRpJhH38PD2NxiJo%2BPdeRcEIIlE7AmA0FJ1L%2BtMFmFxVvnihBjSHj11gmBJLIiXYuYDr%2BWlOwTUcyEEcju6rItFQCNubLMMMt4jMjswiy96XjAdAiMpNfAX0a8tmUfLE44eRlKJkw86gYFjO34E3T9NZybohS8rWQmmsL4vhGOiZBH1hnSnEHy1&amp;X-Amz-Signature=ca3a6589b4107d3541e9a96c0bcac03ce3ee3319cce9466fefd72cc002e1476a&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject">Browser does not support audio.</audio>
+<audio controls class="notion-audio" src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4284b919-62b0-4c74-9c80-500385967fd7/AI2027.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466TRJKYN7M%2F20250608%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250608T230703Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCICaWAEOTU7sX2DIYCepr%2Fjm0oOGI3RARvxxptm2WaVoyAiEA%2B7nBEECr4HGyAndqu7FtNgv3o9igpUGy74W3ffHgLkEqiAQImP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDB1hAzoWVjuOgiXs2SrcA%2FfdnGgFuFibs78E4h2MIcyKDnoZaft89rvtaQkOi3A87Ch%2FNa4rRvD8hyFurS%2FL8609Tx32t74PBmlBmWHMUY3hDWI0VVGofbeNjiyY1sdeVZRQWm8oaiVqZwhjHulBSzi9A5vNGCTphqTdV0tIdBHyp6nWwcMRCbo3Myp5f3MB4TCT3ObPfmXZrTcNEe9CAn63x%2FiBA97ZejIaBLv8%2Fxu0ibQOmZ4xniP8egrHnEPtgwHsFqgpZJw2tgqglENboyrKSX2bwoSrFZ4qf6kH9HIlw0mhbRaQOuZ0NX6wyrOhVuMzgeCJjCi54SSjcdMjWz%2BWVIGvosgbMY%2F9nTclD9A0oyx%2BYJGVccRAdEe18y23nFKP%2BGbTSO235e%2BtNGwLy8XnY6o5hfU8ySWHZQKhGjCL5aS%2BSoxuEQt59yKtmhMQ93iM83iN9DzbixKspxnqX649cuDyoCeY%2FOFtwpGiXtX2jOUXScKcRHe0pORJxY7uimjMuV5w2fMPByAjgwXqwFaEbgB0qY0637RIYtBD6X%2BrREjEhgfJ2%2FFgKoPmzRyk7oCOOOyRISP%2BDlVSmak7ESQ2LWbzjZ%2BPfWp%2F5u3aRZNsYcwdcInTeR8XW%2Bx4e%2FZt1PXdKTr1QYaIA79GMKyimMIGOqUBHeuxSuXwmNKdhIzQGLRw4nu30VZYE83XhPa2s6zNSDR7MWIiqc8O%2Fa1FOeeZ4MSIFBm6z8%2BByyXohOyowiOp60VTQMIJ9oI7SOBfRVfRnVvaKBaMU6Ll16e%2FnhD4ni6fU8wY82u3hMvCgTbrkQJCgPxiMdigDSyq3SnYkBydtu3w1HG5AEWevVh3zfjp%2FEsY%2FVJH7yCLaCl6HqUKIeb5UX5P%2B%2F%2Fp&amp;X-Amz-Signature=22485d2ca9b9330886ca4ad76e929cd41edf11538ada6f9074255f1ce038daa4&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject">Browser does not support audio.</audio>
 <details><summary>SRT</summary><div class="toggle-content">
                     <div style="margin: 15px 0;">
                         <div class="precode">
@@ -1051,6 +1131,16 @@ Agent-4が。実はOpenBrainの意図とは違う目標を持っていて。そ�
 
 </div>
 <div id="footer">© MAT note</div>
+<div id="donation-banner">
+<button id="close-donation-banner" aria-label="寄付ウィンドウを閉じる">&times;</button>
+<p class="donation-title">MATさんのAIボランティア継続のため、ご寄付をお願いします。<a href="https://squareup.com/jp/ja" target="_blank" rel="noopener noreferrer">Square</a>の安全な決済で、アカウント登録も不要です。支払い情報も保存されません。</p>
+<ul class="donation-links">
+<li><a href="https://square.link/u/e8dpR5Yn" target="_blank" rel="noopener noreferrer">🍪 100円</a></li>
+<li><a href="https://square.link/u/wT42PueY" target="_blank" rel="noopener noreferrer">☕ 300円</a></li>
+<li><a href="https://square.link/u/zGMrmMKw" target="_blank" rel="noopener noreferrer">🍺 500円</a></li>
+<li><a href="https://square.link/u/fsO4bSmk" target="_blank" rel="noopener noreferrer">💴 金額を自分で決める</a></li>
+</ul>
+</div>
 <script>
 // --- ToDo Checkbox ---
 function toggleTodo(checkbox) {
@@ -1071,7 +1161,7 @@ document.querySelectorAll('.todo-checkbox').forEach(checkbox => {
 const savedState = localStorage.getItem(checkbox.id);
 if (savedState !== null) checkbox.checked = savedState === 'true';
 const label = document.querySelector(`label[for="${checkbox.id}"]`);
-if (label) { checkbox.checked ? label.style.textDecoration = 'line-through' : label.style.textDecoration = 'none'; checkbox.checked ? label.style.color = '#888' : label.style.color = ''; } // Initial style
+if (label) { checkbox.checked ? label.style.textDecoration = 'line-through' : label.style.textDecoration = 'none'; checkbox.checked ? label.style.color = '#888' : label.style.color = ''; }
 });
 // --- Dark Mode ---
 const darkModeToggle = document.getElementById("dark-mode-toggle");
@@ -1118,9 +1208,17 @@ function displayArticlesByParameter() { const p = getUrlParameter("p"); const ar
 displayArticlesByParameter();
 // --- Syntax Highlighting ---
 hljs.highlightAll();
+// --- Donation Banner Close Button ---
+const donationBanner = document.getElementById("donation-banner");
+const closeDonationBanner = document.getElementById("close-donation-banner");
+if (donationBanner && closeDonationBanner) {
+closeDonationBanner.addEventListener("click", () => {
+donationBanner.style.display = "none";
+});
+}
 });
 </script>
 
-<!-- 2025-06-09 07:41 -->
+<!-- 2025-06-09 08:07 -->
 </body>
 </html>
