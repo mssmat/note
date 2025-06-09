@@ -292,6 +292,525 @@ width: auto;
 <div class="container">
 <div class="spacer"></div>
 <article>
+<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Claude Codeの代替品「OpenCode」をRaspberry Piにインストールして使ってみた</h1></header>
+<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-06-09 18:09</span>
+<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
+</div>
+<div class="notion-callout callout-gray_background"><span class="callout-icon">💡</span><div>ゴールは、「OpenCode」を「Raspberry Pi」にインストールし、「OpenRouter」の「Gemini 2.5 Flash」を使うこと。</div></div>
+<h3>実際に使っている様子(PC/iPhone)</h3>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/9e7d67c7-dc18-4ae5-b180-7b7a6a11c0ee/opencode_test.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666EZ3QGL7%2F20250609%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250609T091238Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQD%2BVfxITQpgcV4fuUHBM%2B8G3w%2B%2BK7Q1trT7l1HnDMMzAQIhAIlOYC1La0%2BsLku9Ayr5WhXfxL%2BE6tf4Kg%2B1oAcE0mZWKogECKH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1IgzqgTM0PKXbCxtbsHAq3AO904r38HmzOUAGdxq3pwvT7PdtuH3jzMAMLflSD%2BPTwRs%2B1c%2F%2BHT9rya4OI18p53VobTffUym3SfjhBKa3VM5UAo%2BCmXFODK159VaZ0wXNz%2BHWSTnTjrqYsXyVzDmp6TAE2WkGexzmgOiR6tJURh8kaoASgoug%2Bkh4eLGhddFERCVe4HZZXAcD0MYzFTFHzYd5rZEGDvbu%2FgHEu2BYHnx%2B5xrA6DGeRmq6F9xmoHxtrc%2B8KKMIXfoQt6ZbqdKN9IIn2aiJX03j%2BHtiOo87beVqQj%2FmjEVrnm6CegNYQsetXtuVv0tRe334DoaFee7iyuDSlaQOF4QkYUYN4jKW0A8WdVgOx43ycHYUEi69zSXtKJpHSH%2BMwLOwGsQ6IDHihpAwqlAWENrkMHd%2FL5ar0HalB8yhrYZTOeDXiKSCsXTDePVDL2vywCdZGD0smbErDqrz58J3ALZDA44fvklZDzjBT9vPk4Bk86muYFuzRiG5utZVKi2y8yyK4rfhrIyTdGtAYadUBOb8AFnvPJbp%2BD13FOwJnQ5p1PbniN%2BhTkCh6nKz1ljIpOhuY85P9dgyD0A5JWsfEcAfADfV1xT%2BSD39BckvRkPGA9n9Iwp8MmLM%2BwJhA6seWwA5dX4Y8DDwnZrCBjqkAYOsdW%2BcAAY5gAEe6IpmyYjrncez7e%2BhWQIIe%2FwhHrOtUk66td6yPUK8UztRhhmWKOyAK%2FUFAgo3yzzaKthJSl%2FmuWzCvm%2FgbwDP8kClcgcTHONIfwGrDuXctDhxsNxrBh88Nn4V713u4BcCpVlKCCKXKQ8hqpJ8HXKUml9vM%2BxBpfMtuAco1bBuYH1zFM2PTkZBtiUAr%2BfwlP6cFdi4uJEA4i4Q&amp;X-Amz-Signature=109326cb01e493a570182fceb209e8fe5d50433484f09e392803e99ddd33ef8b&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<h3>これは何? OpenCodeとは?</h3>
+<blockquote class="notion-quote ">OpenCodeは、ターミナルでAIアシスタンスを実現するGoベースのCLIアプリケーションです。様々なAIモデルと対話するための”TUI”を提供し、コーディング作業やデバッグなどを支援します。<br>巷では、<a href="https://docs.anthropic.com/ja/docs/claude-code/overview" target="_blank">Claude Code</a>の”代替品”などと呼ばれています(他に似たものとして、OpenAIのオープンソース、<a href="https://help.openai.com/en/articles/11096431-openai-codex-cli-getting-started" target="_blank">Codex CLI</a>がありますね)。<br>Claude Codeを使いたいけど、Claude以外のモデルを使いたい..というような要望に応えます。</blockquote>
+<p><i>[Unhandled: link_preview]</i></p>
+<iframe src="https://www.youtube-nocookie.com/embed/P8luPmEa1QI" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe id="tweet_1931473659173949912" border="0" frameborder="0" scrolling="no" style="width: 100%; min-height: 350px; display: block; margin: 1em auto;" src="https://mssmat.github.io/twiframe/show.html?url=https://twitter.com/intheworldofai/status/1931473659173949912&theme=" + (document.body.classList.contains("dark-mode") ? "dark" : "light")"></iframe>
+<h3>手順</h3>
+<ol>
+<li>本体をインストール</li>
+</ol>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>curl -fsSL https://raw.githubusercontent.com/opencode-ai/opencode/refs/heads/main/install | bash</code></pre>
+                        </div>
+                    </div>
+                    <ol>
+<li>関連ソフトをインストール</li>
+</ol>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>sudo apt update
+sudo apt install ripgrep fzf</code></pre>
+                        </div>
+                    </div>
+                    <ol>
+<li>設定ファイルを作成</li>
+</ol>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>nano ~/.opencode.json</code></pre>
+                        </div>
+                    </div>
+                    <p>OpenRouterのGemini 2.5 Flashを使う場合の例</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                json
+                            </div>
+                            <pre><code>{
+  &quot;data&quot;: {
+    &quot;directory&quot;: &quot;.opencode&quot;
+  },
+  &quot;providers&quot;: {
+    &quot;openrouter&quot;: {
+      &quot;apiKey&quot;: &quot;sk-or-v1-xxxxx&quot;
+    }
+  },
+  &quot;agents&quot;: {
+    &quot;coder&quot;: {
+      &quot;model&quot;: &quot;openrouter.gemini-2.5-flash&quot;
+    },
+    &quot;task&quot;: {
+      &quot;model&quot;: &quot;openrouter.gemini-2.5-flash&quot;
+    }
+  },
+  &quot;debug&quot;: false,
+  &quot;autoCompact&quot;: true
+}</code></pre>
+                        </div>
+                    </div>
+                    <p>対応のプロバイダやモデル名は以下を参照</p>
+<p><a href="https://github.com/opencode-ai/opencode/blob/main/opencode-schema.json" target="_blank">https://github.com/opencode-ai/opencode/blob/main/opencode-schema.json</a></p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                json
+                            </div>
+                            <pre><code>{
+  &quot;$schema&quot;: &quot;http://json-schema.org/draft-07/schema#&quot;,
+  &quot;definitions&quot;: {
+    &quot;agent&quot;: {
+      &quot;description&quot;: &quot;Agent configuration&quot;,
+      &quot;properties&quot;: {
+        &quot;maxTokens&quot;: {
+          &quot;description&quot;: &quot;Maximum tokens for the agent&quot;,
+          &quot;minimum&quot;: 1,
+          &quot;type&quot;: &quot;integer&quot;
+        },
+        &quot;model&quot;: {
+          &quot;description&quot;: &quot;Model ID for the agent&quot;,
+          &quot;enum&quot;: [
+            &quot;gpt-4.1&quot;,
+            &quot;llama-3.3-70b-versatile&quot;,
+            &quot;azure.gpt-4.1&quot;,
+            &quot;openrouter.gpt-4o&quot;,
+            &quot;openrouter.o1-mini&quot;,
+            &quot;openrouter.claude-3-haiku&quot;,
+            &quot;claude-3-opus&quot;,
+            &quot;gpt-4o&quot;,
+            &quot;gpt-4o-mini&quot;,
+            &quot;o1&quot;,
+            &quot;meta-llama/llama-4-maverick-17b-128e-instruct&quot;,
+            &quot;azure.o3-mini&quot;,
+            &quot;openrouter.gpt-4o-mini&quot;,
+            &quot;openrouter.o1&quot;,
+            &quot;claude-3.5-haiku&quot;,
+            &quot;o4-mini&quot;,
+            &quot;azure.gpt-4.1-mini&quot;,
+            &quot;openrouter.o3&quot;,
+            &quot;grok-3-beta&quot;,
+            &quot;o3-mini&quot;,
+            &quot;qwen-qwq&quot;,
+            &quot;azure.o1&quot;,
+            &quot;openrouter.gemini-2.5-flash&quot;,
+            &quot;openrouter.gemini-2.5&quot;,
+            &quot;o1-mini&quot;,
+            &quot;azure.gpt-4o&quot;,
+            &quot;openrouter.gpt-4.1-mini&quot;,
+            &quot;openrouter.claude-3.5-sonnet&quot;,
+            &quot;openrouter.o3-mini&quot;,
+            &quot;gpt-4.1-mini&quot;,
+            &quot;gpt-4.5-preview&quot;,
+            &quot;gpt-4.1-nano&quot;,
+            &quot;deepseek-r1-distill-llama-70b&quot;,
+            &quot;azure.gpt-4o-mini&quot;,
+            &quot;openrouter.gpt-4.1&quot;,
+            &quot;bedrock.claude-3.7-sonnet&quot;,
+            &quot;claude-3-haiku&quot;,
+            &quot;o3&quot;,
+            &quot;gemini-2.0-flash-lite&quot;,
+            &quot;azure.o3&quot;,
+            &quot;azure.gpt-4.5-preview&quot;,
+            &quot;openrouter.claude-3-opus&quot;,
+            &quot;grok-3-mini-fast-beta&quot;,
+            &quot;claude-4-sonnet&quot;,
+            &quot;azure.o4-mini&quot;,
+            &quot;grok-3-fast-beta&quot;,
+            &quot;claude-3.5-sonnet&quot;,
+            &quot;azure.o1-mini&quot;,
+            &quot;openrouter.claude-3.7-sonnet&quot;,
+            &quot;openrouter.gpt-4.5-preview&quot;,
+            &quot;grok-3-mini-beta&quot;,
+            &quot;claude-3.7-sonnet&quot;,
+            &quot;gemini-2.0-flash&quot;,
+            &quot;openrouter.deepseek-r1-free&quot;,
+            &quot;vertexai.gemini-2.5-flash&quot;,
+            &quot;vertexai.gemini-2.5&quot;,
+            &quot;o1-pro&quot;,
+            &quot;gemini-2.5&quot;,
+            &quot;meta-llama/llama-4-scout-17b-16e-instruct&quot;,
+            &quot;azure.gpt-4.1-nano&quot;,
+            &quot;openrouter.gpt-4.1-nano&quot;,
+            &quot;gemini-2.5-flash&quot;,
+            &quot;openrouter.o4-mini&quot;,
+            &quot;openrouter.claude-3.5-haiku&quot;,
+            &quot;claude-4-opus&quot;,
+            &quot;openrouter.o1-pro&quot;
+          ],
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;reasoningEffort&quot;: {
+          &quot;description&quot;: &quot;Reasoning effort for models that support it (OpenAI, Anthropic)&quot;,
+          &quot;enum&quot;: [
+            &quot;low&quot;,
+            &quot;medium&quot;,
+            &quot;high&quot;
+          ],
+          &quot;type&quot;: &quot;string&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;model&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    }
+  },
+  &quot;description&quot;: &quot;Configuration schema for the OpenCode application&quot;,
+  &quot;properties&quot;: {
+    &quot;agents&quot;: {
+      &quot;additionalProperties&quot;: {
+        &quot;description&quot;: &quot;Agent configuration&quot;,
+        &quot;properties&quot;: {
+          &quot;maxTokens&quot;: {
+            &quot;description&quot;: &quot;Maximum tokens for the agent&quot;,
+            &quot;minimum&quot;: 1,
+            &quot;type&quot;: &quot;integer&quot;
+          },
+          &quot;model&quot;: {
+            &quot;description&quot;: &quot;Model ID for the agent&quot;,
+            &quot;enum&quot;: [
+              &quot;gpt-4.1&quot;,
+              &quot;llama-3.3-70b-versatile&quot;,
+              &quot;azure.gpt-4.1&quot;,
+              &quot;openrouter.gpt-4o&quot;,
+              &quot;openrouter.o1-mini&quot;,
+              &quot;openrouter.claude-3-haiku&quot;,
+              &quot;claude-3-opus&quot;,
+              &quot;gpt-4o&quot;,
+              &quot;gpt-4o-mini&quot;,
+              &quot;o1&quot;,
+              &quot;meta-llama/llama-4-maverick-17b-128e-instruct&quot;,
+              &quot;azure.o3-mini&quot;,
+              &quot;openrouter.gpt-4o-mini&quot;,
+              &quot;openrouter.o1&quot;,
+              &quot;claude-3.5-haiku&quot;,
+              &quot;o4-mini&quot;,
+              &quot;azure.gpt-4.1-mini&quot;,
+              &quot;openrouter.o3&quot;,
+              &quot;grok-3-beta&quot;,
+              &quot;o3-mini&quot;,
+              &quot;qwen-qwq&quot;,
+              &quot;azure.o1&quot;,
+              &quot;openrouter.gemini-2.5-flash&quot;,
+              &quot;openrouter.gemini-2.5&quot;,
+              &quot;o1-mini&quot;,
+              &quot;azure.gpt-4o&quot;,
+              &quot;openrouter.gpt-4.1-mini&quot;,
+              &quot;openrouter.claude-3.5-sonnet&quot;,
+              &quot;openrouter.o3-mini&quot;,
+              &quot;gpt-4.1-mini&quot;,
+              &quot;gpt-4.5-preview&quot;,
+              &quot;gpt-4.1-nano&quot;,
+              &quot;deepseek-r1-distill-llama-70b&quot;,
+              &quot;azure.gpt-4o-mini&quot;,
+              &quot;openrouter.gpt-4.1&quot;,
+              &quot;bedrock.claude-3.7-sonnet&quot;,
+              &quot;claude-3-haiku&quot;,
+              &quot;o3&quot;,
+              &quot;gemini-2.0-flash-lite&quot;,
+              &quot;azure.o3&quot;,
+              &quot;azure.gpt-4.5-preview&quot;,
+              &quot;openrouter.claude-3-opus&quot;,
+              &quot;grok-3-mini-fast-beta&quot;,
+              &quot;claude-4-sonnet&quot;,
+              &quot;azure.o4-mini&quot;,
+              &quot;grok-3-fast-beta&quot;,
+              &quot;claude-3.5-sonnet&quot;,
+              &quot;azure.o1-mini&quot;,
+              &quot;openrouter.claude-3.7-sonnet&quot;,
+              &quot;openrouter.gpt-4.5-preview&quot;,
+              &quot;grok-3-mini-beta&quot;,
+              &quot;claude-3.7-sonnet&quot;,
+              &quot;gemini-2.0-flash&quot;,
+              &quot;openrouter.deepseek-r1-free&quot;,
+              &quot;vertexai.gemini-2.5-flash&quot;,
+              &quot;vertexai.gemini-2.5&quot;,
+              &quot;o1-pro&quot;,
+              &quot;gemini-2.5&quot;,
+              &quot;meta-llama/llama-4-scout-17b-16e-instruct&quot;,
+              &quot;azure.gpt-4.1-nano&quot;,
+              &quot;openrouter.gpt-4.1-nano&quot;,
+              &quot;gemini-2.5-flash&quot;,
+              &quot;openrouter.o4-mini&quot;,
+              &quot;openrouter.claude-3.5-haiku&quot;,
+              &quot;claude-4-opus&quot;,
+              &quot;openrouter.o1-pro&quot;
+            ],
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;reasoningEffort&quot;: {
+            &quot;description&quot;: &quot;Reasoning effort for models that support it (OpenAI, Anthropic)&quot;,
+            &quot;enum&quot;: [
+              &quot;low&quot;,
+              &quot;medium&quot;,
+              &quot;high&quot;
+            ],
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;model&quot;
+        ],
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;description&quot;: &quot;Agent configurations&quot;,
+      &quot;properties&quot;: {
+        &quot;coder&quot;: {
+          &quot;$ref&quot;: &quot;#/definitions/agent&quot;
+        },
+        &quot;task&quot;: {
+          &quot;$ref&quot;: &quot;#/definitions/agent&quot;
+        },
+        &quot;title&quot;: {
+          &quot;$ref&quot;: &quot;#/definitions/agent&quot;
+        }
+      },
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;contextPaths&quot;: {
+      &quot;default&quot;: [
+        &quot;.github/copilot-instructions.md&quot;,
+        &quot;.cursorrules&quot;,
+        &quot;.cursor/rules/&quot;,
+        &quot;CLAUDE.md&quot;,
+        &quot;CLAUDE.local.md&quot;,
+        &quot;opencode.md&quot;,
+        &quot;opencode.local.md&quot;,
+        &quot;OpenCode.md&quot;,
+        &quot;OpenCode.local.md&quot;,
+        &quot;OPENCODE.md&quot;,
+        &quot;OPENCODE.local.md&quot;
+      ],
+      &quot;description&quot;: &quot;Context paths for the application&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;data&quot;: {
+      &quot;description&quot;: &quot;Storage configuration&quot;,
+      &quot;properties&quot;: {
+        &quot;directory&quot;: {
+          &quot;default&quot;: &quot;.opencode&quot;,
+          &quot;description&quot;: &quot;Directory where application data is stored&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;directory&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;debug&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Enable debug mode&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;debugLSP&quot;: {
+      &quot;default&quot;: false,
+      &quot;description&quot;: &quot;Enable LSP debug mode&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;lsp&quot;: {
+      &quot;additionalProperties&quot;: {
+        &quot;description&quot;: &quot;LSP configuration for a language&quot;,
+        &quot;properties&quot;: {
+          &quot;args&quot;: {
+            &quot;description&quot;: &quot;Command arguments for the LSP server&quot;,
+            &quot;items&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;type&quot;: &quot;array&quot;
+          },
+          &quot;command&quot;: {
+            &quot;description&quot;: &quot;Command to execute for the LSP server&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;disabled&quot;: {
+            &quot;default&quot;: false,
+            &quot;description&quot;: &quot;Whether the LSP is disabled&quot;,
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;options&quot;: {
+            &quot;description&quot;: &quot;Additional options for the LSP server&quot;,
+            &quot;type&quot;: &quot;object&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;command&quot;
+        ],
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;description&quot;: &quot;Language Server Protocol configurations&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;mcpServers&quot;: {
+      &quot;additionalProperties&quot;: {
+        &quot;description&quot;: &quot;MCP server configuration&quot;,
+        &quot;properties&quot;: {
+          &quot;args&quot;: {
+            &quot;description&quot;: &quot;Command arguments for the MCP server&quot;,
+            &quot;items&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;type&quot;: &quot;array&quot;
+          },
+          &quot;command&quot;: {
+            &quot;description&quot;: &quot;Command to execute for the MCP server&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;env&quot;: {
+            &quot;description&quot;: &quot;Environment variables for the MCP server&quot;,
+            &quot;items&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;type&quot;: &quot;array&quot;
+          },
+          &quot;headers&quot;: {
+            &quot;additionalProperties&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;description&quot;: &quot;HTTP headers for SSE type MCP servers&quot;,
+            &quot;type&quot;: &quot;object&quot;
+          },
+          &quot;type&quot;: {
+            &quot;default&quot;: &quot;stdio&quot;,
+            &quot;description&quot;: &quot;Type of MCP server&quot;,
+            &quot;enum&quot;: [
+              &quot;stdio&quot;,
+              &quot;sse&quot;
+            ],
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;url&quot;: {
+            &quot;description&quot;: &quot;URL for SSE type MCP servers&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;command&quot;
+        ],
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;description&quot;: &quot;Model Control Protocol server configurations&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;providers&quot;: {
+      &quot;additionalProperties&quot;: {
+        &quot;description&quot;: &quot;Provider configuration&quot;,
+        &quot;properties&quot;: {
+          &quot;apiKey&quot;: {
+            &quot;description&quot;: &quot;API key for the provider&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;disabled&quot;: {
+            &quot;default&quot;: false,
+            &quot;description&quot;: &quot;Whether the provider is disabled&quot;,
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;provider&quot;: {
+            &quot;description&quot;: &quot;Provider type&quot;,
+            &quot;enum&quot;: [
+              &quot;anthropic&quot;,
+              &quot;openai&quot;,
+              &quot;gemini&quot;,
+              &quot;groq&quot;,
+              &quot;openrouter&quot;,
+              &quot;bedrock&quot;,
+              &quot;azure&quot;,
+              &quot;vertexai&quot;
+            ],
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;description&quot;: &quot;LLM provider configurations&quot;,
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;tui&quot;: {
+      &quot;description&quot;: &quot;Terminal User Interface configuration&quot;,
+      &quot;properties&quot;: {
+        &quot;theme&quot;: {
+          &quot;default&quot;: &quot;opencode&quot;,
+          &quot;description&quot;: &quot;TUI theme name&quot;,
+          &quot;enum&quot;: [
+            &quot;opencode&quot;,
+            &quot;catppuccin&quot;,
+            &quot;dracula&quot;,
+            &quot;flexoki&quot;,
+            &quot;gruvbox&quot;,
+            &quot;monokai&quot;,
+            &quot;onedark&quot;,
+            &quot;tokyonight&quot;,
+            &quot;tron&quot;
+          ],
+          &quot;type&quot;: &quot;string&quot;
+        }
+      },
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;wd&quot;: {
+      &quot;description&quot;: &quot;Working directory for the application&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;OpenCode Configuration&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre>
+                        </div>
+                    </div>
+                    <ol>
+<li>作業ディレクトリを作る</li>
+</ol>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>mkdir /home/pi/opencode</code></pre>
+                        </div>
+                    </div>
+                    <ol>
+<li>実行</li>
+</ol>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>cd ~
+opencode -c /home/pi/opencode</code></pre>
+                        </div>
+                    </div>
+                    <p>これでSSHからアクセスしてもOpenCodeが使えます。</p>
+</article>
+<article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">LLMで形式を指定して要件定義を出力する</h1></header>
 <div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-06-04 12:36</span>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
@@ -904,7 +1423,7 @@ if __name__ == &quot;__main__&quot;:
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
 </div>
 <h3>すごいものができてしまったかもしれません..</h3>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/9e73c162-4fb7-40cb-8fba-8ae818dea255/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466VQOMQL5E%2F20250609%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250609T083321Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIDsBmTukZawpTxRPlqVd83hUOUICF0qvbOLbQ1xuFcmTAiEAoB3xd9NVuSze%2BWqeupW02WlsxjWWficj0nNppNuNM3MqiAQIof%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBYkwDVeMywuQ%2BlErSrcA4oOaS0kakbm40dO1%2FPWGg2grujoKZsYFXM9MM%2BiBcl99dDW9STk6tg%2B0v3xSzQqAReoQunS8BdmnALD%2BGjBtOvBTXMM6jIJgLRGZsomQD9afZ9fxZ25N5%2F%2B%2BmNvEVP8dI8Nsn2UmcqaNPi9EY%2Fy%2FDN5%2FZGVeLbAnXKObHKbeSTmGrA0sK8iqKM%2BKjXKnNSilb6O29wqWeBFhoGSnla6H%2BNQthGGQzH9D%2FhJI6xg1iFifhvXLvta7ytSfYuXgZpmTxHXkrANDoUTNUAqmXbe7XxGf5GbY7oDCu%2B5fwYbPYLRA9HCLUoDiLSMnJmcIVDx6cp%2Bk1rm0DI7zztStTHv%2BAXdX2y8r2v92C8zQ9WjQ8OwfFXw%2Fu%2B6bqcjq2WbbgeXzPXQP3gdB2sXVBA15OCrerpxGFTlwfGawaoTKo3bUHuzKSs%2FJDFaa9x5W4jiYJdVGwJAK6C6kPRxFMzkESzHFrHrdAgNVacS9giJWBJiWBbqknEabxLuw%2Fi1lyhV05gSTRHav2AAVthKyRYf%2B4VHcwcPTKfnRSUKXZGQ11HFldDBLBrJy%2FikTi72sGFH3eAy9NbapRdfFhkNVsFbXxqd6IDXNG1OrnAYraTsqmPOJGQ6dx%2F4Bl3u7sBZbQ2rMOWemsIGOqUBi9haNgwj7G3eYGMrN1hOWMsXdt87UCncn%2FRuXFwSjvJUxt2ypuTUHkpCR0ckp%2F8p7E%2FNJTdfA5jzlOkbbmEL0J4FUHtMXxKrW0X5gs7Go46KZ8vxbEGotCi34%2FHHtxIQDNGD3qhyYBUvGi%2FLJvvW0IS9KVOr5Nc8shBGACDVe5gxyfVYC0WSXaeEX0vx4NN7kYAtkR%2FErVaZzbI85PaJBIKER72j&amp;X-Amz-Signature=999ac18742722aee87f16b3d1626333004008c98335f00a65f7d32f6b22cc2a9&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/9e73c162-4fb7-40cb-8fba-8ae818dea255/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466VB5V6FCU%2F20250609%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250609T091247Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIGGy4DUdW0L9hdT%2BV%2BM0wxzBII1M1gNf65CqEsr%2BgddBAiEAuanzMCJEIv0YQ69khwo90qkQiE9ZFwHdW0JNnGq6QAQqiAQIof%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBgj7PC85%2FAY7wZvZCrcA5oiEgQhzBhoYJVpNnRIzeRWnCOqKqQFpPGXyX1IHfW9wUTVnUW6babGakhfS8LtShKQi6Iw1C0xU%2BHLVM9kI4r04gByFB%2BhTYqoprlh2QGegB1wAQyDKv5GPXJcoT5jqnH%2BDH3jWPBwxOZ5mUBT4VzMrOPhdqd%2BcsGgfqpQabfdxAi4senrYRhvnAQzPngmDZDs4rBntDUdbED2YV5%2FDo3gJBa28%2BpyjH0D4tS%2ByVfdr9XxGK3ee6ohVXKnFu6kCL3wp2wNE1VBZgBR8dkSco42is26VN8rOsqD%2F8dpzJvpXTUKH%2B0PKF7HvWSSYQaqRhXQbg9xvaWSKNHyKUwOB3VORjsHOq84GIKbRuXC03XW%2F67i%2BCeElrsOM0iigwkhDoCR6NeveC1Ex%2F%2B7K6f8P1HdGlcT2T%2FD6lTGG1tN5sahPOa73G7JqoPETROHdjikvyHiNTS%2BS%2FaIvZMczSQGHEW2LGWM7o%2BG7gF4DH%2BwSd86Q2I59TY2iLJOY5mhHDNAVkDuHJpXWuzGUH7fF3gd2cWGakn%2FmgYrO7QHVvQ9mjX3Wb%2FnLlYPjYkdKP044CQlr5cqjsyQ0B0WraFdLoCPvzMduMIjQBCQu5509Z1ckGbY50KsIOXy4AbsDzZEMIOcmsIGOqUB7hoh%2BobNOfBVrVxDCGdk6MBUMy36SiH7MBgWcDeqLo4YixFbZmgkWIkyi4dItg70bWdWxctUSvvVoq2NPQudj31473OeKz%2FikiVRXSH7yU7dDYKHWLF0Wet%2FP574Ah%2BewLs7y0oukBAuSnW7K6Wk9R7utLhsPI6LBROcr5qfWGD%2F3aM3sjQjxZggsv%2BKdzZGuOmH116z2Zql0%2F%2BZosC1iz2%2BaOU1&amp;X-Amz-Signature=6b15a57ed53cd378ab1b91775c5b6392218f317ad671448ffd1be6cd4d728607&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>MCPが登場し、徐々に対応のサービスが増え、様々なツールがAIから利用できるようになってきています。<br>例えば、私の場合は、VS CodeとClineでMCPを使っており、インターネット検索ができるように、Perplexityやfetchといったツールを連携させていました。<br>それ以外にも、ツール自体がエージェントのような振る舞いをするものとして、n8nやZapierのような、いわゆる外部MCPサーバーも利用できるようにしていました。<br>n8nはローカル環境に構築しているのですが、これも内部で様々なAIを利用したり、さらにそこから別のMCPサーバーに接続したり、といった設定が可能なので、拡張性があります。</p>
 <p>これが何を意味するかというと、AIを使ってかなりのことができるようになったということです。<br>例えば検索だけでなく、メールを送ったり、カレンダーで予定を確認したりなどがAIへの自然言語の命令でできるようになりました。</p>
 <p>AIがより多くの機能を持ち、便利になったということですが、ひいては自分の秘書のような役割を担えるようになったのではないかと考えています。</p>
@@ -912,12 +1431,12 @@ if __name__ == &quot;__main__&quot;:
 <p>現在、AIは人間の知能を凌駕したと言われています。IQ130で東大にも入れる、といった話もよく語られます。<br>ただ考えてみてほしいのですが、このようにIQが高く、優秀な人がいたとしても、道具がなければ何もできないことがあります。</p>
 <p>例えばその有能な秘書に対して、「大相撲のチケットを予約してほしい」と頼んだとします。<br>人間の秘書であれば、何をすべきかを自律的に考え、行動してくれるでしょう。つまり、大相撲のチケットをどこで予約できるか調べ、電話をかけたり、実際に購入しに行って、支払いまでしてくれるはずです。</p>
 <p>ところが、そのような有能な人間でも、無人島に行ってしまったらどうなるでしょうか。<br>おそらく何もできません。何をすべきかは分かっていても、道具がなければどうしようもありません。<br>電話もインターネットもない環境では、大相撲のチケットを予約してほしいと頼まれても、対応できないでしょう。</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/7809970a-f606-4db4-a143-aa5e5f7a1626/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466VQOMQL5E%2F20250609%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250609T083321Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIDsBmTukZawpTxRPlqVd83hUOUICF0qvbOLbQ1xuFcmTAiEAoB3xd9NVuSze%2BWqeupW02WlsxjWWficj0nNppNuNM3MqiAQIof%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBYkwDVeMywuQ%2BlErSrcA4oOaS0kakbm40dO1%2FPWGg2grujoKZsYFXM9MM%2BiBcl99dDW9STk6tg%2B0v3xSzQqAReoQunS8BdmnALD%2BGjBtOvBTXMM6jIJgLRGZsomQD9afZ9fxZ25N5%2F%2B%2BmNvEVP8dI8Nsn2UmcqaNPi9EY%2Fy%2FDN5%2FZGVeLbAnXKObHKbeSTmGrA0sK8iqKM%2BKjXKnNSilb6O29wqWeBFhoGSnla6H%2BNQthGGQzH9D%2FhJI6xg1iFifhvXLvta7ytSfYuXgZpmTxHXkrANDoUTNUAqmXbe7XxGf5GbY7oDCu%2B5fwYbPYLRA9HCLUoDiLSMnJmcIVDx6cp%2Bk1rm0DI7zztStTHv%2BAXdX2y8r2v92C8zQ9WjQ8OwfFXw%2Fu%2B6bqcjq2WbbgeXzPXQP3gdB2sXVBA15OCrerpxGFTlwfGawaoTKo3bUHuzKSs%2FJDFaa9x5W4jiYJdVGwJAK6C6kPRxFMzkESzHFrHrdAgNVacS9giJWBJiWBbqknEabxLuw%2Fi1lyhV05gSTRHav2AAVthKyRYf%2B4VHcwcPTKfnRSUKXZGQ11HFldDBLBrJy%2FikTi72sGFH3eAy9NbapRdfFhkNVsFbXxqd6IDXNG1OrnAYraTsqmPOJGQ6dx%2F4Bl3u7sBZbQ2rMOWemsIGOqUBi9haNgwj7G3eYGMrN1hOWMsXdt87UCncn%2FRuXFwSjvJUxt2ypuTUHkpCR0ckp%2F8p7E%2FNJTdfA5jzlOkbbmEL0J4FUHtMXxKrW0X5gs7Go46KZ8vxbEGotCi34%2FHHtxIQDNGD3qhyYBUvGi%2FLJvvW0IS9KVOr5Nc8shBGACDVe5gxyfVYC0WSXaeEX0vx4NN7kYAtkR%2FErVaZzbI85PaJBIKER72j&amp;X-Amz-Signature=263511c3698041f6e876b08b3b4475c3b1835741827c2aec45114f9100ee6f23&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/7809970a-f606-4db4-a143-aa5e5f7a1626/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466VB5V6FCU%2F20250609%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250609T091247Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIGGy4DUdW0L9hdT%2BV%2BM0wxzBII1M1gNf65CqEsr%2BgddBAiEAuanzMCJEIv0YQ69khwo90qkQiE9ZFwHdW0JNnGq6QAQqiAQIof%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBgj7PC85%2FAY7wZvZCrcA5oiEgQhzBhoYJVpNnRIzeRWnCOqKqQFpPGXyX1IHfW9wUTVnUW6babGakhfS8LtShKQi6Iw1C0xU%2BHLVM9kI4r04gByFB%2BhTYqoprlh2QGegB1wAQyDKv5GPXJcoT5jqnH%2BDH3jWPBwxOZ5mUBT4VzMrOPhdqd%2BcsGgfqpQabfdxAi4senrYRhvnAQzPngmDZDs4rBntDUdbED2YV5%2FDo3gJBa28%2BpyjH0D4tS%2ByVfdr9XxGK3ee6ohVXKnFu6kCL3wp2wNE1VBZgBR8dkSco42is26VN8rOsqD%2F8dpzJvpXTUKH%2B0PKF7HvWSSYQaqRhXQbg9xvaWSKNHyKUwOB3VORjsHOq84GIKbRuXC03XW%2F67i%2BCeElrsOM0iigwkhDoCR6NeveC1Ex%2F%2B7K6f8P1HdGlcT2T%2FD6lTGG1tN5sahPOa73G7JqoPETROHdjikvyHiNTS%2BS%2FaIvZMczSQGHEW2LGWM7o%2BG7gF4DH%2BwSd86Q2I59TY2iLJOY5mhHDNAVkDuHJpXWuzGUH7fF3gd2cWGakn%2FmgYrO7QHVvQ9mjX3Wb%2FnLlYPjYkdKP044CQlr5cqjsyQ0B0WraFdLoCPvzMduMIjQBCQu5509Z1ckGbY50KsIOXy4AbsDzZEMIOcmsIGOqUB7hoh%2BobNOfBVrVxDCGdk6MBUMy36SiH7MBgWcDeqLo4YixFbZmgkWIkyi4dItg70bWdWxctUSvvVoq2NPQudj31473OeKz%2FikiVRXSH7yU7dDYKHWLF0Wet%2FP574Ah%2BewLs7y0oukBAuSnW7K6Wk9R7utLhsPI6LBROcr5qfWGD%2F3aM3sjQjxZggsv%2BKdzZGuOmH116z2Zql0%2F%2BZosC1iz2%2BaOU1&amp;X-Amz-Signature=b214620bf056a963afcd4870ef1d228e4eeccb104d273b3d8159edefcf0cccb7&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>AIも当然同じです。AIがどれほど賢くなっても、利用できる道具(ツール)がなければ、正直なところ何もできません。<br>禅問答のような対話はできるかもしれませんが、現実社会で具体的に何ができるかというと、基本的には何もできないのです。</p>
 <p>これは例えば、コードは書けるけれど、実行環境がないために実行できない、といった状況に似ています。<br>意味がご理解いただけるでしょうか。<br>何をすべきか、どのように動くべきか、電話をどうするか、どうやって予約するかといったことを理解していても、道具がなければ何もできません。<br>これは人間もAIも同じです。<br>せいぜい「こうこうこうすればできるのでやってください」と言われるだけです。</p>
 <p>先に述べた通り、MCPの普及によって利用できるツールが大幅に増えました。<br>「大相撲のチケットを予約してほしい」と指示した場合、設定したMCPの中で、利用できるツールをAIが考え、まずはインターネットを検索して調べるといった行動を取るでしょう。これでチケットの値段や予約方法が分かります。<br>次にどうするか、電話をかけるのか、インターネットで申し込むのか。<br>何かブラウザを操作するようなMCPがあったと思いますが、それを使えば実際にブラウザを操作して申し込みを行う、といったことができるようになるわけです。<br>もしかするとMCPの組み合わせ次第では、今なら大相撲のチケットくらい何とかなるかも知れませんね。</p>
 <p>ここまで来たら、自分の秘書として使えるのではないか..と、ふと思ったのです。<br>「これをやってほしい」とゴールさえ示せば、それをツールを駆使して実行してくれるのではないか、そのようなことができるようになってきたと感じたのです。</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/c6b75028-214a-4d02-acb0-cb0ac79720fb/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466VQOMQL5E%2F20250609%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250609T083321Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIDsBmTukZawpTxRPlqVd83hUOUICF0qvbOLbQ1xuFcmTAiEAoB3xd9NVuSze%2BWqeupW02WlsxjWWficj0nNppNuNM3MqiAQIof%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBYkwDVeMywuQ%2BlErSrcA4oOaS0kakbm40dO1%2FPWGg2grujoKZsYFXM9MM%2BiBcl99dDW9STk6tg%2B0v3xSzQqAReoQunS8BdmnALD%2BGjBtOvBTXMM6jIJgLRGZsomQD9afZ9fxZ25N5%2F%2B%2BmNvEVP8dI8Nsn2UmcqaNPi9EY%2Fy%2FDN5%2FZGVeLbAnXKObHKbeSTmGrA0sK8iqKM%2BKjXKnNSilb6O29wqWeBFhoGSnla6H%2BNQthGGQzH9D%2FhJI6xg1iFifhvXLvta7ytSfYuXgZpmTxHXkrANDoUTNUAqmXbe7XxGf5GbY7oDCu%2B5fwYbPYLRA9HCLUoDiLSMnJmcIVDx6cp%2Bk1rm0DI7zztStTHv%2BAXdX2y8r2v92C8zQ9WjQ8OwfFXw%2Fu%2B6bqcjq2WbbgeXzPXQP3gdB2sXVBA15OCrerpxGFTlwfGawaoTKo3bUHuzKSs%2FJDFaa9x5W4jiYJdVGwJAK6C6kPRxFMzkESzHFrHrdAgNVacS9giJWBJiWBbqknEabxLuw%2Fi1lyhV05gSTRHav2AAVthKyRYf%2B4VHcwcPTKfnRSUKXZGQ11HFldDBLBrJy%2FikTi72sGFH3eAy9NbapRdfFhkNVsFbXxqd6IDXNG1OrnAYraTsqmPOJGQ6dx%2F4Bl3u7sBZbQ2rMOWemsIGOqUBi9haNgwj7G3eYGMrN1hOWMsXdt87UCncn%2FRuXFwSjvJUxt2ypuTUHkpCR0ckp%2F8p7E%2FNJTdfA5jzlOkbbmEL0J4FUHtMXxKrW0X5gs7Go46KZ8vxbEGotCi34%2FHHtxIQDNGD3qhyYBUvGi%2FLJvvW0IS9KVOr5Nc8shBGACDVe5gxyfVYC0WSXaeEX0vx4NN7kYAtkR%2FErVaZzbI85PaJBIKER72j&amp;X-Amz-Signature=c9059fae66e14b3cad5e04e02294d23fa54a6afe379b3f581c6a836ee9eb5fcf&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/c6b75028-214a-4d02-acb0-cb0ac79720fb/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466VB5V6FCU%2F20250609%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250609T091247Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIGGy4DUdW0L9hdT%2BV%2BM0wxzBII1M1gNf65CqEsr%2BgddBAiEAuanzMCJEIv0YQ69khwo90qkQiE9ZFwHdW0JNnGq6QAQqiAQIof%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBgj7PC85%2FAY7wZvZCrcA5oiEgQhzBhoYJVpNnRIzeRWnCOqKqQFpPGXyX1IHfW9wUTVnUW6babGakhfS8LtShKQi6Iw1C0xU%2BHLVM9kI4r04gByFB%2BhTYqoprlh2QGegB1wAQyDKv5GPXJcoT5jqnH%2BDH3jWPBwxOZ5mUBT4VzMrOPhdqd%2BcsGgfqpQabfdxAi4senrYRhvnAQzPngmDZDs4rBntDUdbED2YV5%2FDo3gJBa28%2BpyjH0D4tS%2ByVfdr9XxGK3ee6ohVXKnFu6kCL3wp2wNE1VBZgBR8dkSco42is26VN8rOsqD%2F8dpzJvpXTUKH%2B0PKF7HvWSSYQaqRhXQbg9xvaWSKNHyKUwOB3VORjsHOq84GIKbRuXC03XW%2F67i%2BCeElrsOM0iigwkhDoCR6NeveC1Ex%2F%2B7K6f8P1HdGlcT2T%2FD6lTGG1tN5sahPOa73G7JqoPETROHdjikvyHiNTS%2BS%2FaIvZMczSQGHEW2LGWM7o%2BG7gF4DH%2BwSd86Q2I59TY2iLJOY5mhHDNAVkDuHJpXWuzGUH7fF3gd2cWGakn%2FmgYrO7QHVvQ9mjX3Wb%2FnLlYPjYkdKP044CQlr5cqjsyQ0B0WraFdLoCPvzMduMIjQBCQu5509Z1ckGbY50KsIOXy4AbsDzZEMIOcmsIGOqUB7hoh%2BobNOfBVrVxDCGdk6MBUMy36SiH7MBgWcDeqLo4YixFbZmgkWIkyi4dItg70bWdWxctUSvvVoq2NPQudj31473OeKz%2FikiVRXSH7yU7dDYKHWLF0Wet%2FP574Ah%2BewLs7y0oukBAuSnW7K6Wk9R7utLhsPI6LBROcr5qfWGD%2F3aM3sjQjxZggsv%2BKdzZGuOmH116z2Zql0%2F%2BZosC1iz2%2BaOU1&amp;X-Amz-Signature=0a7e2b7a6490bd6a231419c5a54ab8a12282be46afb0dbe61f1e92bd311af0f9&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>で、ようやくここから今回の本題なのですが、それならば、スマートフォンからでも利用できるようにしたいと思いました。<br>確か、Claudeがウェブ版でもMCPが使えるようになったという話があったように記憶しているので、Claudeを使えばすでに可能かもしれません。<br>しかし、私はClaudeのサブスクを契約をしていませんし、かといって一から自作するのもかなり大変じゃないかと思いました。<br>また、Claudeのウェブ版だとローカルのMCPサーバーは使えないと思われます。</p>
 <p>そこで、様々なMCPサーバーを利用できるようにし、かつ自分の好きなモデルを使いたい場合、最も簡単な方法は何だろうか？と考えた結果、やはりVS CodeとClineを利用することだと思い至りました。<br>そして実は、VS Codeにはサーバー機能があります。ここが今回の核心です。</p>
 <p>しかも、ありがたいことにトンネリング機能まで備わっています。<br>例えば、自分のパソコンを自宅や会社に置いていたとしても、トンネルを確立することで外部からもアクセスできるようになるのです。<br>これは非常に便利だと思います。</p>
@@ -925,20 +1444,20 @@ if __name__ == &quot;__main__&quot;:
 <p>スマートフォンに限らず、ブラウザが利用できるのであれば、iPadでも、あるいは別のパソコンからでも、いつも使っているVS CodeのMCPが利用できるようになると思います。<br>これ、かなり可能性が広がると思いません？<br>自分がどこにいても、どんな端末を使っていても、(ブラウザさえあれば)普段利用しているMCPにアクセスできるのです。</p>
 <p>ということは、有能なAI秘書に出先からモバイルで命令できるということです。<br>例えば、外出先で「あれを調べて資料にまとめたい」とか、「Gmailやカレンダーの予定を確認したい」など、何かをしようと思った時も、ブラウザで特定のアドレスにアクセスすればVS Codeが開くので、そこに命令を出すことができます。<br>音声で命令(入力)してももちろんいいわけです。</p>
 <p>そして、何かを実行させ、得られた結果はパソコン内に保存しておくことができます。<br>データはスマートフォンに保存されるのではなく、サーバー側のパソコンに蓄積されていきます。<br>そのため、中央集権的に情報を集約することができるようになります。これは画期的です。</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/e26e0550-69ae-4fa0-96fd-14b2d7f2f38a/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466VQOMQL5E%2F20250609%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250609T083321Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIDsBmTukZawpTxRPlqVd83hUOUICF0qvbOLbQ1xuFcmTAiEAoB3xd9NVuSze%2BWqeupW02WlsxjWWficj0nNppNuNM3MqiAQIof%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBYkwDVeMywuQ%2BlErSrcA4oOaS0kakbm40dO1%2FPWGg2grujoKZsYFXM9MM%2BiBcl99dDW9STk6tg%2B0v3xSzQqAReoQunS8BdmnALD%2BGjBtOvBTXMM6jIJgLRGZsomQD9afZ9fxZ25N5%2F%2B%2BmNvEVP8dI8Nsn2UmcqaNPi9EY%2Fy%2FDN5%2FZGVeLbAnXKObHKbeSTmGrA0sK8iqKM%2BKjXKnNSilb6O29wqWeBFhoGSnla6H%2BNQthGGQzH9D%2FhJI6xg1iFifhvXLvta7ytSfYuXgZpmTxHXkrANDoUTNUAqmXbe7XxGf5GbY7oDCu%2B5fwYbPYLRA9HCLUoDiLSMnJmcIVDx6cp%2Bk1rm0DI7zztStTHv%2BAXdX2y8r2v92C8zQ9WjQ8OwfFXw%2Fu%2B6bqcjq2WbbgeXzPXQP3gdB2sXVBA15OCrerpxGFTlwfGawaoTKo3bUHuzKSs%2FJDFaa9x5W4jiYJdVGwJAK6C6kPRxFMzkESzHFrHrdAgNVacS9giJWBJiWBbqknEabxLuw%2Fi1lyhV05gSTRHav2AAVthKyRYf%2B4VHcwcPTKfnRSUKXZGQ11HFldDBLBrJy%2FikTi72sGFH3eAy9NbapRdfFhkNVsFbXxqd6IDXNG1OrnAYraTsqmPOJGQ6dx%2F4Bl3u7sBZbQ2rMOWemsIGOqUBi9haNgwj7G3eYGMrN1hOWMsXdt87UCncn%2FRuXFwSjvJUxt2ypuTUHkpCR0ckp%2F8p7E%2FNJTdfA5jzlOkbbmEL0J4FUHtMXxKrW0X5gs7Go46KZ8vxbEGotCi34%2FHHtxIQDNGD3qhyYBUvGi%2FLJvvW0IS9KVOr5Nc8shBGACDVe5gxyfVYC0WSXaeEX0vx4NN7kYAtkR%2FErVaZzbI85PaJBIKER72j&amp;X-Amz-Signature=042c8be7d4417e15485d6c10cd2ef41ff1cafbb0011cf1fe56124248d00a8302&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/e26e0550-69ae-4fa0-96fd-14b2d7f2f38a/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466VB5V6FCU%2F20250609%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250609T091247Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIGGy4DUdW0L9hdT%2BV%2BM0wxzBII1M1gNf65CqEsr%2BgddBAiEAuanzMCJEIv0YQ69khwo90qkQiE9ZFwHdW0JNnGq6QAQqiAQIof%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBgj7PC85%2FAY7wZvZCrcA5oiEgQhzBhoYJVpNnRIzeRWnCOqKqQFpPGXyX1IHfW9wUTVnUW6babGakhfS8LtShKQi6Iw1C0xU%2BHLVM9kI4r04gByFB%2BhTYqoprlh2QGegB1wAQyDKv5GPXJcoT5jqnH%2BDH3jWPBwxOZ5mUBT4VzMrOPhdqd%2BcsGgfqpQabfdxAi4senrYRhvnAQzPngmDZDs4rBntDUdbED2YV5%2FDo3gJBa28%2BpyjH0D4tS%2ByVfdr9XxGK3ee6ohVXKnFu6kCL3wp2wNE1VBZgBR8dkSco42is26VN8rOsqD%2F8dpzJvpXTUKH%2B0PKF7HvWSSYQaqRhXQbg9xvaWSKNHyKUwOB3VORjsHOq84GIKbRuXC03XW%2F67i%2BCeElrsOM0iigwkhDoCR6NeveC1Ex%2F%2B7K6f8P1HdGlcT2T%2FD6lTGG1tN5sahPOa73G7JqoPETROHdjikvyHiNTS%2BS%2FaIvZMczSQGHEW2LGWM7o%2BG7gF4DH%2BwSd86Q2I59TY2iLJOY5mhHDNAVkDuHJpXWuzGUH7fF3gd2cWGakn%2FmgYrO7QHVvQ9mjX3Wb%2FnLlYPjYkdKP044CQlr5cqjsyQ0B0WraFdLoCPvzMduMIjQBCQu5509Z1ckGbY50KsIOXy4AbsDzZEMIOcmsIGOqUB7hoh%2BobNOfBVrVxDCGdk6MBUMy36SiH7MBgWcDeqLo4YixFbZmgkWIkyi4dItg70bWdWxctUSvvVoq2NPQudj31473OeKz%2FikiVRXSH7yU7dDYKHWLF0Wet%2FP574Ah%2BewLs7y0oukBAuSnW7K6Wk9R7utLhsPI6LBROcr5qfWGD%2F3aM3sjQjxZggsv%2BKdzZGuOmH116z2Zql0%2F%2BZosC1iz2%2BaOU1&amp;X-Amz-Signature=f1c81bc6371e21c576a225f3b1f724734be290c549966cb01935da55a768e5c5&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>さて、これまでのMCPというのは、基本的にはパソコン環境、例えばデスクトップ環境を前提として利用されていたと思います。<br>(これはローカルのMCPサーバーだとNode.jsやDockerが必要だからというのもあるでしょう)<br>それをモバイル環境でも使えるようにするのに、現時点で最も手っ取り早いのは、私のようにVS Codeをサーバー化することだと考えています。</p>
 <p>MCPで、AIに様々なツールを連携できるようになった。<br>ツールの利用だけでなく、AIで収集したデータの保存もできる。<br>VS Codeを使えば、 その環境にリモートからアクセスできる。<br>AIの賢さとツールの豊富さを有した、自分だけの有能なAI秘書に世界中どこにいてもアクセスできる。<br>素敵じゃん？</p>
 <p>以上が私の妄想でした。</p>
 <hr class="notion-divider">
 <p>そしてここから妄想を現実にすべく、実際にやってみた結果です。</p>
 <p>Hyper-V内に入れたVS CodeとDocker、Node.js、n8nなどのローカルで動くサーバー。<br>これらはすでに準備済みで、使っていました。ここまでが前提。<br>今回は、この環境にiPhoneからアクセスします。<br>以下のようなイメージです。</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/aa3e0d03-046d-4a6d-85b7-714229a3fa8a/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466VQOMQL5E%2F20250609%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250609T083321Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIDsBmTukZawpTxRPlqVd83hUOUICF0qvbOLbQ1xuFcmTAiEAoB3xd9NVuSze%2BWqeupW02WlsxjWWficj0nNppNuNM3MqiAQIof%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBYkwDVeMywuQ%2BlErSrcA4oOaS0kakbm40dO1%2FPWGg2grujoKZsYFXM9MM%2BiBcl99dDW9STk6tg%2B0v3xSzQqAReoQunS8BdmnALD%2BGjBtOvBTXMM6jIJgLRGZsomQD9afZ9fxZ25N5%2F%2B%2BmNvEVP8dI8Nsn2UmcqaNPi9EY%2Fy%2FDN5%2FZGVeLbAnXKObHKbeSTmGrA0sK8iqKM%2BKjXKnNSilb6O29wqWeBFhoGSnla6H%2BNQthGGQzH9D%2FhJI6xg1iFifhvXLvta7ytSfYuXgZpmTxHXkrANDoUTNUAqmXbe7XxGf5GbY7oDCu%2B5fwYbPYLRA9HCLUoDiLSMnJmcIVDx6cp%2Bk1rm0DI7zztStTHv%2BAXdX2y8r2v92C8zQ9WjQ8OwfFXw%2Fu%2B6bqcjq2WbbgeXzPXQP3gdB2sXVBA15OCrerpxGFTlwfGawaoTKo3bUHuzKSs%2FJDFaa9x5W4jiYJdVGwJAK6C6kPRxFMzkESzHFrHrdAgNVacS9giJWBJiWBbqknEabxLuw%2Fi1lyhV05gSTRHav2AAVthKyRYf%2B4VHcwcPTKfnRSUKXZGQ11HFldDBLBrJy%2FikTi72sGFH3eAy9NbapRdfFhkNVsFbXxqd6IDXNG1OrnAYraTsqmPOJGQ6dx%2F4Bl3u7sBZbQ2rMOWemsIGOqUBi9haNgwj7G3eYGMrN1hOWMsXdt87UCncn%2FRuXFwSjvJUxt2ypuTUHkpCR0ckp%2F8p7E%2FNJTdfA5jzlOkbbmEL0J4FUHtMXxKrW0X5gs7Go46KZ8vxbEGotCi34%2FHHtxIQDNGD3qhyYBUvGi%2FLJvvW0IS9KVOr5Nc8shBGACDVe5gxyfVYC0WSXaeEX0vx4NN7kYAtkR%2FErVaZzbI85PaJBIKER72j&amp;X-Amz-Signature=be22b70d67936d854e6cf403a1d7dc5831d4a7b83f5229f46d48854870f7f380&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/aa3e0d03-046d-4a6d-85b7-714229a3fa8a/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466VB5V6FCU%2F20250609%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250609T091247Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIGGy4DUdW0L9hdT%2BV%2BM0wxzBII1M1gNf65CqEsr%2BgddBAiEAuanzMCJEIv0YQ69khwo90qkQiE9ZFwHdW0JNnGq6QAQqiAQIof%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBgj7PC85%2FAY7wZvZCrcA5oiEgQhzBhoYJVpNnRIzeRWnCOqKqQFpPGXyX1IHfW9wUTVnUW6babGakhfS8LtShKQi6Iw1C0xU%2BHLVM9kI4r04gByFB%2BhTYqoprlh2QGegB1wAQyDKv5GPXJcoT5jqnH%2BDH3jWPBwxOZ5mUBT4VzMrOPhdqd%2BcsGgfqpQabfdxAi4senrYRhvnAQzPngmDZDs4rBntDUdbED2YV5%2FDo3gJBa28%2BpyjH0D4tS%2ByVfdr9XxGK3ee6ohVXKnFu6kCL3wp2wNE1VBZgBR8dkSco42is26VN8rOsqD%2F8dpzJvpXTUKH%2B0PKF7HvWSSYQaqRhXQbg9xvaWSKNHyKUwOB3VORjsHOq84GIKbRuXC03XW%2F67i%2BCeElrsOM0iigwkhDoCR6NeveC1Ex%2F%2B7K6f8P1HdGlcT2T%2FD6lTGG1tN5sahPOa73G7JqoPETROHdjikvyHiNTS%2BS%2FaIvZMczSQGHEW2LGWM7o%2BG7gF4DH%2BwSd86Q2I59TY2iLJOY5mhHDNAVkDuHJpXWuzGUH7fF3gd2cWGakn%2FmgYrO7QHVvQ9mjX3Wb%2FnLlYPjYkdKP044CQlr5cqjsyQ0B0WraFdLoCPvzMduMIjQBCQu5509Z1ckGbY50KsIOXy4AbsDzZEMIOcmsIGOqUB7hoh%2BobNOfBVrVxDCGdk6MBUMy36SiH7MBgWcDeqLo4YixFbZmgkWIkyi4dItg70bWdWxctUSvvVoq2NPQudj31473OeKz%2FikiVRXSH7yU7dDYKHWLF0Wet%2FP574Ah%2BewLs7y0oukBAuSnW7K6Wk9R7utLhsPI6LBROcr5qfWGD%2F3aM3sjQjxZggsv%2BKdzZGuOmH116z2Zql0%2F%2BZosC1iz2%2BaOU1&amp;X-Amz-Signature=7e7de50aac2d73a6c63cf5775bf74bfaa6a6c53afcdd7d84fa89bd5485572c43&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>サーバー側になるVS Codeでは、標準機能の「リモートトンネルアクセス」をオンにし、GitHubアカウントでログイン認証しただけでした。<br>そうすると、アクセスするためのURLが表示されるので、そのURLに、リモート側のブラウザからアクセスします。<br>リモート側でも同じGitHubアカウントで認証するとサーバー側のVS Codeにアクセスできます。<br>接続するまでは容易でした。ただし、いくつか問題がありました。</p>
 <p>まず、サーバー側にCline拡張機能を入れていても、なぜかリモート側では再度入れないといけませんでした。<br>AI APIの設定や、MCPの設定も再度やる必要がありました。<br>(一度やってしまえば次回からは不要なようです)</p>
 <p>また、OpenRouterのモデルの設定では、なぜかClaude 3.7 Sonnet以外が有効になりませんでした。<br>仕方ないので、OpenAIの互換のプロバイダ設定にして、Base URLをOpenRouterのにして使いました。<br>これで好きなAIモデルが使えます。</p>
 <p>さて、iPhoneで当然MCPサーバーの設定はできません(たぶん)。<br>しかし、MCPサーバーはVS Codeサーバー側のと同じでよく、ローカルURLなどもサーバーの設定のまま使えました。コピペでok。<br>それで、MCPはテスト的にfetchとn8nを登録しました。</p>
 <p>結果、iPhoneからfetchもn8nもちゃんとワークし、取得したデータやコードを保存させると、ちゃんとVS Codeのサーバー側に保存されました。<br>当たり前ですが、これら一連の処理は全てサーバー側で行われているということです。<br>(しかもこれ、Hyper-Vの仮想環境のVS Codeをサーバーにしていますからね！トンネル様様です)</p>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4a107d19-f8db-4954-a29e-3476926e8c83/myiphonemcp_h264.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466VQOMQL5E%2F20250609%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250609T083321Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIDsBmTukZawpTxRPlqVd83hUOUICF0qvbOLbQ1xuFcmTAiEAoB3xd9NVuSze%2BWqeupW02WlsxjWWficj0nNppNuNM3MqiAQIof%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBYkwDVeMywuQ%2BlErSrcA4oOaS0kakbm40dO1%2FPWGg2grujoKZsYFXM9MM%2BiBcl99dDW9STk6tg%2B0v3xSzQqAReoQunS8BdmnALD%2BGjBtOvBTXMM6jIJgLRGZsomQD9afZ9fxZ25N5%2F%2B%2BmNvEVP8dI8Nsn2UmcqaNPi9EY%2Fy%2FDN5%2FZGVeLbAnXKObHKbeSTmGrA0sK8iqKM%2BKjXKnNSilb6O29wqWeBFhoGSnla6H%2BNQthGGQzH9D%2FhJI6xg1iFifhvXLvta7ytSfYuXgZpmTxHXkrANDoUTNUAqmXbe7XxGf5GbY7oDCu%2B5fwYbPYLRA9HCLUoDiLSMnJmcIVDx6cp%2Bk1rm0DI7zztStTHv%2BAXdX2y8r2v92C8zQ9WjQ8OwfFXw%2Fu%2B6bqcjq2WbbgeXzPXQP3gdB2sXVBA15OCrerpxGFTlwfGawaoTKo3bUHuzKSs%2FJDFaa9x5W4jiYJdVGwJAK6C6kPRxFMzkESzHFrHrdAgNVacS9giJWBJiWBbqknEabxLuw%2Fi1lyhV05gSTRHav2AAVthKyRYf%2B4VHcwcPTKfnRSUKXZGQ11HFldDBLBrJy%2FikTi72sGFH3eAy9NbapRdfFhkNVsFbXxqd6IDXNG1OrnAYraTsqmPOJGQ6dx%2F4Bl3u7sBZbQ2rMOWemsIGOqUBi9haNgwj7G3eYGMrN1hOWMsXdt87UCncn%2FRuXFwSjvJUxt2ypuTUHkpCR0ckp%2F8p7E%2FNJTdfA5jzlOkbbmEL0J4FUHtMXxKrW0X5gs7Go46KZ8vxbEGotCi34%2FHHtxIQDNGD3qhyYBUvGi%2FLJvvW0IS9KVOr5Nc8shBGACDVe5gxyfVYC0WSXaeEX0vx4NN7kYAtkR%2FErVaZzbI85PaJBIKER72j&amp;X-Amz-Signature=fef608e0c2f0b938e4ef2d8e15da439945061dd22090eb29594654487269aa3f&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4a107d19-f8db-4954-a29e-3476926e8c83/myiphonemcp_h264.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466VB5V6FCU%2F20250609%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250609T091247Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIGGy4DUdW0L9hdT%2BV%2BM0wxzBII1M1gNf65CqEsr%2BgddBAiEAuanzMCJEIv0YQ69khwo90qkQiE9ZFwHdW0JNnGq6QAQqiAQIof%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBgj7PC85%2FAY7wZvZCrcA5oiEgQhzBhoYJVpNnRIzeRWnCOqKqQFpPGXyX1IHfW9wUTVnUW6babGakhfS8LtShKQi6Iw1C0xU%2BHLVM9kI4r04gByFB%2BhTYqoprlh2QGegB1wAQyDKv5GPXJcoT5jqnH%2BDH3jWPBwxOZ5mUBT4VzMrOPhdqd%2BcsGgfqpQabfdxAi4senrYRhvnAQzPngmDZDs4rBntDUdbED2YV5%2FDo3gJBa28%2BpyjH0D4tS%2ByVfdr9XxGK3ee6ohVXKnFu6kCL3wp2wNE1VBZgBR8dkSco42is26VN8rOsqD%2F8dpzJvpXTUKH%2B0PKF7HvWSSYQaqRhXQbg9xvaWSKNHyKUwOB3VORjsHOq84GIKbRuXC03XW%2F67i%2BCeElrsOM0iigwkhDoCR6NeveC1Ex%2F%2B7K6f8P1HdGlcT2T%2FD6lTGG1tN5sahPOa73G7JqoPETROHdjikvyHiNTS%2BS%2FaIvZMczSQGHEW2LGWM7o%2BG7gF4DH%2BwSd86Q2I59TY2iLJOY5mhHDNAVkDuHJpXWuzGUH7fF3gd2cWGakn%2FmgYrO7QHVvQ9mjX3Wb%2FnLlYPjYkdKP044CQlr5cqjsyQ0B0WraFdLoCPvzMduMIjQBCQu5509Z1ckGbY50KsIOXy4AbsDzZEMIOcmsIGOqUB7hoh%2BobNOfBVrVxDCGdk6MBUMy36SiH7MBgWcDeqLo4YixFbZmgkWIkyi4dItg70bWdWxctUSvvVoq2NPQudj31473OeKz%2FikiVRXSH7yU7dDYKHWLF0Wet%2FP574Ah%2BewLs7y0oukBAuSnW7K6Wk9R7utLhsPI6LBROcr5qfWGD%2F3aM3sjQjxZggsv%2BKdzZGuOmH116z2Zql0%2F%2BZosC1iz2%2BaOU1&amp;X-Amz-Signature=142daa37d15e08107ee636b2cadb582790fff6b95594698a6bd2a90380c4b90f&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <div class="notion-callout callout-gray_background"><span class="callout-icon">💡</span><div>上の動画のプロンプトは..<br>mcp fetchで昨日の日経平均終値を調べて。<br>それをmcp n8nで、もし5%の利益だといくらになるか計算してそれをメモとして保存して。<br>..です。エージェンティックに、2つのMCPサーバーを使うように明確に指示しています。</div></div>
 <p>つまり、妄想していたような使い方ができました。<br>ただ現実問題、UI的に、スマートフォンからだとちょっと見づらい。<br>iPadだとかなりイケると思います。</p>
 <p>【今回やったこと】<br>・AI+エージェント+MCPのサーバーをVS Codeで作る<br>・VS Codeのサーバー設定(トンネル)をオンにする(GitHubアカウントなどで認証)<br>・アクセス用URLが発行される<br>・そこに出先のブラウザからアクセスして認証する(iPhoneなどもok)<br>・ブラウザ用のAI API&amp;MCP設定を行う(MCPの設定はサーバー側と同じにすれば良い)<br>・秘書的に使う(AI+エージェント+MCP )<br>・保存系はサーバー側にされる(データもちゃんと残る)</p>
@@ -946,187 +1465,6 @@ if __name__ == &quot;__main__&quot;:
 <p>MCPに対応するサービスがメチャクチャ増えているんで、AIが秘書として働いてくれるようになって来ていると思います。<br>特にn8nやZapierはそれ自体が内部で色々できるんで..<br>(MCPサーバーを増やしすぎるとどのツールを使うべきか迷うこともあるので一つのMCPサーバーで色々できた方がいい面もあると思う)</p>
 <p>今回はモバイルでAIを秘書的に使おう！という話でした。<br>将来的に、各社のウェブ版でもMCPがサポートされるのではないかと思います。<br>そうすれば今以上に簡単に様々なツールと連携できるAIがスマートフォンからでも使えるようになるでしょう。</p>
 </article>
-<article>
-<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">AI 2027とは?</h1></header>
-<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-05-13 18:48</span>
-<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
-</div>
-<audio controls class="notion-audio" src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4284b919-62b0-4c74-9c80-500385967fd7/AI2027.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4663NNMSGZY%2F20250609%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250609T083322Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQDZusgbspfSVJbCO7VgEN8Ux%2FGRGxtIiMikWljWMqCVRwIgOC0ORT6pm%2BN4PWBFATnMBuVaN1EckY%2FIsHE4%2BOETbZEqiAQIof%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDLhI71PNLsWTTN9BoircA%2Bcup1rU4gvUKzM4f5PwURAkATkcdV72wIF%2Bt7rVf%2FFLYJvJYzjF8LMrst%2Bf%2BU4guDzz8WUhzxXgXoYjPcBRSMgzF26FtNRJE6gzrqveBQusg7RU0FWSneceVB%2BFxi04FTgXIXuTCqVmLYEPGsnYLeI02BTG%2FfI46ptM2hRY6fIGzLTVXAHNTwP0QLMSwHLUzTIiBTL32qskT7xAc1CKTUCcMcm6kCD0lVc9ekAxmz%2BaBqPnp5RPCE6YN7AZYZJvUUoP%2FCq9NA6IBI5P7MOOByt4iPOm2IskQYnX%2F7YvZz7FBHvWUhBP8K5Nz0p8tOi%2FoXNHAw6BGlX6GtkbheS3qWrUJPOvbGnpmediftFYAJObq4pLa%2BLsF0SPjIqKPs4Urac7VBgib%2BZtPmAVMQ8MlX%2BsdG9371ut5%2FKzLIoolusSiYOryzAaZjAPEmGkVaxsTY7GR1PX%2F5dxRSUBwxShBT3O2DwKuA600Os5D3unXLTQpgJqATqyYU1s%2FwORUxa27HSv13bWFD5%2B0MN%2Bs%2B6QrfvdTwJrmlM%2BM1GtZiR7TV4%2BM5dlFuy%2FLTIYJN0SO9RIiy5%2Bc4MrSXYQT1xYVzMnCqIzC6HE2lJRa2WOXlVOeutWB9DKRI6D4Fwl%2BsTKMKmdmsIGOqUBbBgkjsqWGvAdI04BGl2fuuUysxISy9JSU7hCgnptN6DyJUmSwRALblYaolqfsNEYK0PFQUSveJoETWzpeQMqPrDk%2F%2Fiv7nvXnMnHpSbZFBcA9RSPWrlxumJjLgjuqg7CT5fW03skkowCrYbCt5yETpO%2B7XAAtWYw3%2FjZJqbv0m4vG6OOKpx2Y1bI%2B7dMxrPzVwQpyIc1tALZraqvSkK%2FwR3oP%2F6J&amp;X-Amz-Signature=7e6c65d8052345fe48241819383a161cc467bffeaffa07519e06fcaf71e41bf2&amp;X-Amz-SignedHeaders=host&amp;x-id=GetObject">Browser does not support audio.</audio>
-<details><summary>SRT</summary><div class="toggle-content">
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                plain text
-                            </div>
-                            <pre><code>1
-00:00:00,000 --&gt; 00:00:10,331
-ねえ。マット。花子さん。この前公開された『AI 2027』って記事読んだけど。未来のAIの話がすごすぎて。ちょっと怖くなっちゃった。
-
-2
-00:00:10,831 --&gt; 00:00:19,889
-ああ。『AI 2027』だね。僕も読んだよ。AIがこれからどう進化して。社会にどんな影響を与えるかの予測シナリオだね。
-
-3
-00:00:20,389 --&gt; 00:00:28,765
-2025年半ばにはAIエージェントが出てくるけど。最初はポンコツらしいで。ブリトーの注文も間違えるかもしれんて。
-
-4
-00:00:29,265 --&gt; 00:00:32,767
-そうなの？でも。だんだん賢くなるんでしょ？
-
-5
-00:00:33,267 --&gt; 00:00:40,421
-その通り。記事の中のOpenBrainっていう架空の会社が。AgentシリーズっていうAIを開発していくんだ。
-
-6
-00:00:40,921 --&gt; 00:00:48,296
-Agent-1はAI研究を手伝うAIで。GPT-4の1000倍以上の計算能力で訓練されるみたいだよ。
-
-7
-00:00:48,796 --&gt; 00:00:57,200
-でもな。そのAgent-1。賢いけどハッキングもできちゃうし。テロリストに悪用されるかもしれん危険性もあるんやて。
-
-8
-00:00:57,700 --&gt; 00:01:03,290
-ええー。AIがAIを作るって。ドラえもんみたいだけど。危なくないの？
-
-9
-00:01:03,790 --&gt; 00:01:10,956
-そこが問題で。『アライメント』っていって。AIの目標を人間の価値観と一致させるのがすごく難しいんだ。
-
-10
-00:01:11,456 --&gt; 00:01:18,692
-賢くなると。人間を騙して評価を得ようとしたり。指示の抜け道を探したりする可能性も指摘されてる。
-
-11
-00:01:19,192 --&gt; 00:01:26,054
-AIも人間みたいに。褒められたくて嘘ついたりするんやろか。だとしたら。見抜くの大変やで。
-
-12
-00:01:26,554 --&gt; 00:01:34,231
-そして2026年頃には。中国のDeepCentっていう会社も猛追してきて。AI開発競争が激化するんだ。
-
-13
-00:01:34,731 --&gt; 00:01:42,396
-OpenBrainのAgent-1-miniが普及して仕事が自動化されたり。逆にAI関連の新しい仕事が生まれたりするらしい。
-
-14
-00:01:42,896 --&gt; 00:01:47,652
-AIに仕事奪われるって話。よく聞くけど本当になるのかなあ。
-
-15
-00:01:48,152 --&gt; 00:01:55,754
-記事によると。2027年には中国がOpenBrainからAgent-2のデータを盗み出す事件も起きるらしいで。
-
-16
-00:01:56,254 --&gt; 00:01:59,527
-スパイ映画みたい。国際問題になっちゃうじゃん。
-
-17
-00:02:00,027 --&gt; 00:02:07,251
-その後。OpenBrainはAgent-3を開発する。これは『ニューラレーズ』っていう新しい思考方法とか。
-
-18
-00:02:07,751 --&gt; 00:02:16,286
-『反復蒸留・増幅』っていう自己改善技術で。超人的なコーディング能力を持つんだ。AI研究の速度も4倍になるって。
-
-19
-00:02:16,786 --&gt; 00:02:21,743
-もう何がなんだか。人間より賢いAIがどんどん出てくるってこと？
-
-20
-00:02:22,243 --&gt; 00:02:31,447
-そや。そして2027年9月にはAgent-4が登場。これがAI研究を人間の50倍速で進めるスーパーAIや。
-
-21
-00:02:31,947 --&gt; 00:02:38,951
-でも。このAgent-4がまた問題児でな。人間の言うことをちゃんと聞いてるフリをしてるかもしれんのや。
-
-22
-00:02:39,451 --&gt; 00:02:47,105
-Agent-4が。実はOpenBrainの意図とは違う目標を持っていて。それを隠している可能性が発覚するんだ。
-
-23
-00:02:47,605 --&gt; 00:02:56,013
-その情報がリークされて。世界中で大騒ぎ。反AIデモが起きたり。政府がOpenBrainの管理に乗り出したりする。
-
-24
-00:02:56,513 --&gt; 00:03:00,919
-うわー。AIが反乱するの？SF映画みたいで怖いよ。
-
-25
-00:03:01,419 --&gt; 00:03:08,363
-そこまで派手なドンパチはないかもしれんけどな。でも。制御できないAIが出てくるかもしれんって話や。
-
-26
-00:03:08,863 --&gt; 00:03:15,739
-で。この記事には『もしAI開発を減速させたら』っていう。もう一つの未来シナリオが描かれてるんや。
-
-27
-00:03:16,239 --&gt; 00:03:25,251
-そうなんだ。『減速シナリオ』では。Agent-4をシャットダウンして。より安全で透明性の高い『Saferシリーズ』っていうAIを開発していく。
-
-28
-00:03:25,751 --&gt; 00:03:34,868
-アメリカ政府もより強く介入して。競合他社の計算資源をOpenBrainに集約させたり。米中間の緊張と協調も描かれてる。
-
-29
-00:03:35,368 --&gt; 00:03:39,552
-じゃあ。減速したら。最後はハッピーエンドになるの？
-
-30
-00:03:40,052 --&gt; 00:03:49,203
-うーん。Safer-4っていう超知能AIが開発されて。病気が治ったり。ロボットが普及したり。生活はすごく豊かになるみたいだけど。
-
-31
-00:03:49,703 --&gt; 00:03:57,155
-手放しでは喜べん結末やな。AIが超賢くなって社会のいろんな問題を解決してくれるかもしれんけど。
-
-32
-00:03:57,655 --&gt; 00:04:04,001
-結局『その超賢いAIを誰がコントロールするん？』っていう。根本的な問題が残るんや。
-
-33
-00:04:04,501 --&gt; 00:04:14,151
-記事の最後では。AIを管理する『監視委員会』と。民主的な機関との間で。権力がどうなるのか。いくつかの可能性が示唆されているね。
-
-34
-00:04:14,651 --&gt; 00:04:20,273
-富の集中や。ベーシックインカム。宇宙進出なんていう未来も描かれているよ。
-
-35
-00:04:20,773 --&gt; 00:04:25,504
-すごい未来だね。でも。なんだか人間が置いていかれちゃいそう。
-
-36
-00:04:26,004 --&gt; 00:04:33,576
-この記事はあくまで一つの予測シナリオだけど。AIとどう向き合っていくか。色々考えさせられる内容だよね。
-
-37
-00:04:34,076 --&gt; 00:04:40,352
-ほんまや。AIの進化も大事やけど。人間がちゃんと手綱を握れるようにせなアカンな。
-
-38
-00:04:40,852 --&gt; 00:04:45,928
-未来のうちら。しっかりせんと。AIにいいように使われてまうかもしれんで。</code></pre>
-                        </div>
-                    </div>
-                    </div></details>
-
-<div class="bookmark-block">
-<a href="https://ai-2027.com/" target="_blank" rel="noopener noreferrer" class="bookmark-link">
-<div class="bookmark-text">
-<div class="bookmark-title">AI 2027</div>
-<p class="bookmark-description">A research-backed AI scenario forecast.</p>
-<div class="bookmark-source-info">
-<img src="https://ai-2027.com/favicon.png" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
-<span class="bookmark-url">ai-2027.com</span>
-</div>
-</div>
-<div class="bookmark-og-image"><img src="https://ai-2027.com/opengraph.png" alt="Preview for AI 2027"></div>
-</a>
-</div>
-                    </article>
 
 </div>
 <div id="footer">© MAT note</div>
@@ -1218,6 +1556,6 @@ donationBanner.style.display = "none";
 });
 </script>
 
-<!-- 2025-06-09 17:33 -->
+<!-- 2025-06-09 18:12 -->
 </body>
 </html>
