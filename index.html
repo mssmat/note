@@ -1,17 +1,20 @@
 
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>MAT note</title>
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000080'/%3E%3Cpath d='M30 95 L30 40 L50 40 L50 95 M70 95 L70 40 L50 40 M50 40 L50 10 M30 40 Q40 30 50 40 Q60 30 70 40' stroke='%23FFD700' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M30 95 L30 40 L50 40 L50 95 M70 95 L70 40 L50 40 M50 40 L50 10 M30 40 Q40 30 50 40 Q60 30 70 40' stroke='%23808080' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Noto+Sans+HK:wght@400;700&family=Noto+Sans+Thai:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
 <style>
 * { box-sizing: border-box; }
 body { font-size: 16px; font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, "Noto Sans", "Noto Sans HK", "Noto Sans SC", "Noto Sans KR", "Noto Sans Thai", "Noto Sans JP", sans-serif; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; line-height: 1.7; color: #333; margin: 0; padding: 0; background-color: #f7f7f7; overflow-wrap: break-word; }
@@ -320,7 +323,7 @@ width: auto;
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">Notion</span>
 </div>
 <p>おっ！ SVG表示もイケるや～ん！<br>これは表現力が上がる..👍</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/a67d01bf-53b7-465b-8958-c177335e4d61/svgtest.svg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667SL32VOZ%2F20250618%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250618T055724Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJ7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCICpJBCy4sa2PmNWr65wPMRWstMAETc0GIrZQOV0%2B56WdAiEAh8915wOdXiMwlbmk0uLCe6ltEx%2Bi03id%2Bz3oIAvxaJMqiAQIh%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDHFItJSify2N%2Fzr6ZyrcA4uC8d09RC%2F7G2EcFFudKFh54xA5vRhK4Ns6PDSdEbZ%2Brh%2FTUCEHk0hO25AsuM6q6t%2Bx%2Fhk%2Fu6xkRbWhIc1IoZlpuS%2FchVl7BCTx1vJ7h3FUtFFR%2BCxA4gsKP20PHamD%2BdAhm0TunLxVUN%2B1OUITqsA%2B7bpLkcf5mXbAT27bKJAihDDMlsoRxyHIHMHSlqRjOBzrNtN3HUQCS5iOUXNENKjZoiIYeTdh58IF5tlz3hixD2uqD%2BATsFS1dbllHM87ZNyAzBH7QfgFQhxbFTSOS2BT%2FSAVJbx0utvtNWdNy7T8nnVlQ8Jn6kdia0khif7bT3vk1rdeCHt%2BSdBEJgmzLVBUyAJQdcwIJUt2nB2gQZBE3VbNc%2FerUHWNvOd0iMdgX6kKV0Fg5o3ojlchXT4DmSoBAZ59Hfr1jP6v5EoS4hbi54rh5T1lIZdjQNUsQJLjaXczpzTfXhZ2pGgm%2B1jKGGJsUgHlsJgZrW7YUuQrwyxy%2B%2BqMrZWJR9JRLCLgsVAm1XQT7x223fD9zL4gU%2B%2Fi1W%2FQ%2BXDnBc%2FXNpirPhPz5TR1uyOFieuPsqTOCpTOfKcjMMEl1Xh47qpgAzmOeiDf1sx6M8%2FHzv2u4Ltu3L12QssRvwvvDtFOlBEME82vMI2jycIGOqUBisnHbOpVAZBQf4tfxawceVUIyBlb7V3PiacRT5Ksp5DUWpvhDBi7FC2cwxUTrkVfoqw%2B5rSof7k2oRsxJgm2dsqwBzte6Loj%2F9VNkGVyp%2BbXED%2FcLylXO8NS%2BlMuRNUjp78YGpFgHoaaR0609VpfC9gD2wuIvnQxetNvi629%2F0qd944ZQaqUs36kTt48z%2BAxzDl%2FD4TrS9qN3Tx%2B2WwjXI%2FzV7R1&amp;X-Amz-Signature=d6bb88904047aeca5f2ec1a9f72d1892f0268c7bdba7354d1d05f4597ee96b00&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/a67d01bf-53b7-465b-8958-c177335e4d61/svgtest.svg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB46672CPIDEX%2F20250618%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250618T062237Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJ7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIEkN0Rhf34ek7d3MwttLXPI7cm59HTVVOgeK52VL2fnBAiAkA30CpuFv7yRRBfijEMthSG77fnkkdFfZdk8I3x%2FAFyqIBAiH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMkt05bySFO4DPBSO3KtwDfSUrNZ7eTdOz79X4AiejDCYRlQc3QfGgylYdvyK2q5z5Cl9jhwEDfnbQ2KAajTMzRTOjhcgaenXPkuXfV6GR5k3Gx%2FcYOQ6%2Fs5Rntz2kHP%2FvHuRT9fikw11YmozHOfhJwJ9JYKupVLTd4k03uA%2FE58igzIGrzpYUMWUEdw8aThUEB6IEmR02UqtCaeRm1wSWcJg4uO9YwiKzsua1hJ1QEaC69ehLc5teQcuXx9vkPCwNYw4zAU9Ab%2F1XLluH94Ahzs2a1%2Fh5Qmbf1LtBvtCwGlPCv3YwY%2FCmeo8YvXlbOBzEtU3f4HuwI6T31jgm%2FCysDVlT3zCKtd2QhTF4fxyEkye7xtv1xijrJR7Ifs7HRHsq8%2Be163pdphoBgMxoBgnWL2vSkQ5KeGvifOarsX3dWfAxgGvVSvApn18EIcjZs1AB3LcqpBAqqQYoKI8ctd%2FqXvF5F1hdkS1aVXbGCm6pvW35pIryd0FD0dZO3qN4teG7sqC8czgZ7fHmUEuNKfuf0p1AUqEPsL5HfDwg4q%2BqBe%2Bg8CAXzXNICLxnvd3zBcBUMdnF39vWaKATpGRaQw8F8H0fZlbYd6ihaxGNWDfN%2BgImZUjiercM9ekKdSTQIAwzLF5t0XGpTZUrL0Iwl6PJwgY6pgGfikhnoVE6F8Ry05cpbSNE3X1XUHb1nRtuwP%2FF%2FgPd1G1oBAQTZh5y0ajfuKcD1wmIRPJElrClsCavPjOv9IbqZ%2FoEfzUe%2FdRSCrvNbDzoh3hpbfyzw6w6ogEC1Qj8jN0KFcRD99y2yzA5b9XCPXJb3jgvUtN1eSilw5xDnGwz7xkdkR2VfZOEUcnc9PsOMw0f%2FaJ%2B%2F18q1gvriTcxQjl24qdF%2B7AE&amp;X-Amz-Signature=2fd7bd17ddaf393ff94f1b62a4b7537f37b846c529d0d46aad71677baddf4b67&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
 </article>
 <article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Claude Codeの代替品「OpenCode」をRaspberry Piにインストールして使ってみた</h1></header>
@@ -329,7 +332,7 @@ width: auto;
 </div>
 <div class="notion-callout callout-gray_background"><span class="callout-icon">💡</span><div>ゴールは、「OpenCode」を「Raspberry Pi」にインストールし、「OpenRouter」の「Gemini 2.5 Flash」を使うこと。</div></div>
 <h3>実際に使っている様子(PC/iPhone)</h3>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/9e7d67c7-dc18-4ae5-b180-7b7a6a11c0ee/opencode_test.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667BIYSOSS%2F20250618%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250618T055725Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJ7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIBLRr0mtzBMy8IgaL7c1W4i1j1hQ%2BlJxhNe%2F3aB6boHHAiEAmf5Xt01PYbXq2RqXbYG96xBr9G5DLkR3HXD%2FGnFucfAqiAQIh%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDCrGL9FY2EmVdi8b4SrcA6pPjqr6%2BZXR3XLizjRaVduHBsTPYbtiV97rLTE23DmGkmrEYsqer82tpNdVQ5veqqKKjLZT29QxCwAwBLBBEMvXdPnUoIVZQdUr5DPWE4Z5XjTyoVp9pqjod3RqW4LaQ57uiqcxcFmjtLVZ6dNEy%2FdeOMarZTFBl11L3iG6snIMhRXj696qpCu9TBo%2FaY56028fbEtYhKgYxGVle2kbUH9IOGGHpAN99yebUBI8rCfyCUbspX0QW1Xr7AwydUNT7C4uc9fNiF1ShcYtJmeGKJh5W0xbAvL5LwnJT%2Fh%2BYHthWVmZree2A6K6bYKmug%2FWS7aJ1CtiM%2F0vp3Dti16cpir70wjM5ZGxLGSGwPXmDT3Yi6HK32fLTxnTYgrA1tHqLs1FOZof1OIkpF0qLVmHTCuI3lsa21cm02RQ2TQNKkjocTHE3Ni%2Bzsujw%2Bvm1v4E5rbhGLXfA25Bh8RrHxWhC6zYm2TsebJIFOxoDCvickgqmo%2Bv%2Bp%2Bz6B%2FIRq9e%2BE1p%2BfRwIfsS3flSxg74NadULNxUnO3XyGOy85jhBWjZviK9oWpG2pTFPZnq1Vcvaqz1jxOJWtrw3T0maxhheO2jvlcHOz%2BcxmsgKEDlHeXE%2B9SvuUB9VnECrSjX%2Bpo7MI6jycIGOqUBxT17S4T6V2ufmFWW4Yt7TYTCHT%2FnSAtTmRaux0rphx57Bnjxg%2B2H6uU20l4VdxlxWAUAvpD5BcT0NQ4wOVNGWnf08OSjDaSHEQE26fuiOOAukeDVGJvS5dl3%2BiCjBiFu1dbaiT7VgJ9WeL8gp6fzUaa6GYjqeeI0oNLCXpQHhuliQcjwwW%2BfZkHgwAR2lOGTQ1B3L7yfxU9ugN5wwq4FGycpjSsp&amp;X-Amz-Signature=19b9bdd150e73365452578793ee45a36719294193e9fe42de28d9d67454cb774&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/9e7d67c7-dc18-4ae5-b180-7b7a6a11c0ee/opencode_test.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466XQ4FSDRY%2F20250618%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250618T062237Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJ7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCJfWnFjjtf%2BQbYrzOJGvSkQbaHwWG2vue69Ok%2FH2%2F%2FzQIgTwT7ERvL7xhPYSZjOHQ%2Brd36byMR1z4ggLCC9a4cTHEqiAQIh%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDEgeO8qLXCSknOVCyyrcA1%2FOw7CYK5H9zDu4X7GwJi9vX%2FeK%2FEJhgCDcfVMPR1bbEF3eZlRbWDyem3u%2FOUF99RYVTHVeYYfmEMmIKwi%2Fy7rgsMMKwBamlC1s5bFkP3gqlxHOvJ76k9warTEno6MDqUY45T1wAhNkQx5ihExQ0LFGO11PFMaV4%2F2lFGjdkzPb1hbTXDyTkWKszGk0cGGihA4AZFwrqNbS2mjCfeu3K5ruUxX8cdbrCkj6YEbxAOr%2FJYxQhpbQamSRqOgDzT6tZCduj0K2lbvGzBFsIHewi2FJlZM4umBG36HBa3194NHo5Lfh8mCrJQfoZhG5TyTpqMZaJu5k5k1KyJpxvnMfpUmyfPIW37s1L%2FnQcuP%2BWre9mHJjFqD0yjvdfBCHF4PI9%2FhpLScT6YHnwRuU6C0f3i4n0GzJ2a4UwBEW8ld%2FomUvuwZMB1prlGyS4wBHLH2uPIeBQC4rHjmvoRpT5uOi2Lbqw58VXDcQHOkf0GQ%2B0QTIJvgpOCwMU%2BJskB39K1e2LLLoqrfH889sirX1O5o52gMFV0NxJCwztC4iQXwP3wSqGrG%2FFsnDQziBhSjQDDVBrfell%2FnZDn5Rvt4COs4z2vndy%2FqwCukslTyM%2FVjAQnyjM8B80QEH22wYHU45MLajycIGOqUBSUALj1P3ANQalETr9IHcXdjek2zLiY%2Fy%2FeABMUp6XoL7%2Fox3h%2FtC8ivcYJdYFVZXJ0ZSA5bzWZCtCe6sEw6o0Q6XVXxft3H%2FOD5RVez4%2B0ZwYaA%2Bx2ZuW6B9wV83KESlmFs7MeUtEUh1EHzahxzpAxkANmFC8XNrcPxXKNakdwO3i6aXMQAHye5Vrc63Ux%2BgsuNf2ExKx9oolAhlSEeKyD9sghor&amp;X-Amz-Signature=6cb225263ab2529015f71e23853674cd16888fc2f813bf74a3c4d24d5a4b7c20&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <h3>これは何? OpenCodeとは?</h3>
 <blockquote class="notion-quote ">OpenCodeは、ターミナルでAIアシスタンスを実現するGoベースのCLIアプリケーションです。様々なAIモデルと対話するための”TUI”を提供し、コーディング作業やデバッグなどを支援します。<br>巷では、<a href="https://docs.anthropic.com/ja/docs/claude-code/overview" target="_blank">Claude Code</a>の”代替品”などと呼ばれています(他に似たものとして、OpenAIのオープンソース、<a href="https://help.openai.com/en/articles/11096431-openai-codex-cli-getting-started" target="_blank">Codex CLI</a>がありますね)。<br>Claude Codeを使いたいけど、Claude以外のモデルを使いたい..というような要望に応えます。</blockquote>
 
@@ -1498,6 +1501,7 @@ label.style.color = '';
 }
 }
 document.addEventListener('DOMContentLoaded', function() {
+// --- ToDo Checkbox ---
 document.querySelectorAll('.todo-checkbox').forEach(checkbox => {
 const savedState = localStorage.getItem(checkbox.id);
 if (savedState !== null) checkbox.checked = savedState === 'true';
@@ -1582,9 +1586,22 @@ headerElement.addEventListener("mouseenter", () => { isMouseOver = true; });
 headerElement.addEventListener("mouseleave", () => { isMouseOver = false; });
 requestAnimationFrame(updateFilter);
 }
+// --- KaTeX Math Rendering ---
+const mathElements = document.querySelectorAll(".notion-equation span");
+mathElements.forEach(el => {
+try {
+if (typeof katex !== 'undefined') {
+katex.render(el.textContent, el, {
+throwOnError: false
+});
+}
+} catch (e) {
+el.textContent = `Error rendering formula: ${el.textContent}`;
+}
+});
 });
 </script>
 
-<!-- 2025-06-18 14:57 -->
+<!-- 2025-06-18 15:22 -->
 </body>
 </html>
