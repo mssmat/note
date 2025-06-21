@@ -351,6 +351,8 @@ width: auto;
 <iframe id="tweet_1933561254481666466" border="0" frameborder="0" scrolling="no" style="width: 100%; min-height: 350px; display: block; margin: 1em auto;" src="https://mssmat.github.io/twiframe/show.html?url=https://twitter.com/thdxr/status/1933561254481666466&theme=" + (document.body.classList.contains("dark-mode") ? "dark" : "light")"></iframe>
 <p>Go版のOpenCodeを入れている場合、競合するかも知れないので削除しておいた方がよいかも知れません。</p>
 <p>いつものようにRaspberry Piでやったので共有します。</p>
+<h3>実際に使っている様子(iPhone)</h3>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/0022bac0-c08f-4b4d-978a-480867b4e35a/1750479471607173.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667EFKEFJI%2F20250621%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250621T042639Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCID1DMAMl6eQv1VNK4SfWH7npVrDYmITuD%2FVMOROXRDT3AiEA6mA1OeBXSbNBbkD2%2BCKLf8ul%2FTvmnJOOgkRQx8QWt%2F4qiAQIy%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDHOpVvefO835bTiSBSrcA%2FYVDuxi7aNN%2Fqb1R%2BWiLnXQIoQhn5VZxsC6sO2uXwTH9aJyWKUzIxd8JUOQMYqUIM9N5LP50hRDwGLo2fa7eNrpp%2Fn8VNMSR2%2BDJghQV0c6LV7HMbw9GLOVqAfORWvdP%2BnuP5OkvKCYwDI75PZn0db5iQTS%2FDU4ApdZV54uKU19en6dY3hI4%2B9W3R4dg4%2B43%2FwKvu2NKH2PypUsxe4uShm4LQ5AKHiCYrURkvUBpS0cHr0wQCFzKVwSOyqmAlyf%2F43fDd%2BsmSVIPiwiF3eUMLEwvgf7A0icn0CFWWIoIskFVF7RYdy23cIXZuLQvqocaOkagN42zqWjYofR3t%2FL5ttjVeXLAQLGC3Tvoh%2B%2Fbo6t9iM0FP2ABE3K3oEWBBb7LyM%2BGxxjpzOhTvvy3BGZszY3d6aZaLuQNJTRsDavMMi%2F8mfqUg37l10NlixumShJP1aJe5%2Fp7wosh9UZukZD6WNV7kTdEWZILMoQYYK6mVP6kxYkZPRpsGsmt%2BN68HB2%2BNoHzFxIdKO6bscP3oBrpvfWaxkNRd343BHmibWwwHQoB44nszzwQ3%2B7PNhC6fiSPCwI3iAnkoE1ys5t1bmxmM77WT6LozAwW3GrxX956gjwgopO5hrnzXmpvdBBMKOv2MIGOqUBSRQ0pZSH4nw3pd4CGgZ0PW4u5V9SV5%2B2AtcGk%2Blh9il%2Bwk9SdYoK4p6m6FOpAONAjTmBrbXGsetZxr0puCrZWf%2FndRy4C5zAk9H1r9hHO0ahLkwDR43lENyVdS1wuNhtb9VOXpHPq668PwEq8MHPt7KPPhGRTTYKt8AQ%2FKZ2FdgpWzkbYWySy4P5mjz8UvB49gkUHMoR2SouehBURQeuv54iayXq&amp;X-Amz-Signature=8dd76fca70d1204f8b71dc0ea92f23846d4f4f3076ddbb8489124c372d71be1a&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <h3><strong>GoベースのOpenCodeのアンインストール</strong></h3>
 <ul>
 <li>インストールの場所を確認</li>
@@ -415,22 +417,192 @@ width: auto;
                     <h3><strong>TypeScriptベースのopencodeの新規インストール</strong></h3>
 <ul>
 <li>本来このコマンドだが、今現在<a href="https://github.com/sst/opencode/releases" target="_blank">最新のアセット</a>にLinux arm用のファイルがなくダウンロードできなかった(v0.1.115)</li>
+</ul>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>curl -fsSL https://opencode.ai/install | bash</code></pre>
+                        </div>
+                    </div>
+                    <ul>
 <li>そのため一つ古いバージョンのファイルを手動でインストールする</li>
 <li>ダウンロード</li>
+</ul>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>wget &quot;https://github.com/sst/opencode/releases/download/v0.1.114/opencode-linux-arm64.zip&quot;</code></pre>
+                        </div>
+                    </div>
+                    <ul>
 <li>解凍</li>
+</ul>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>unzip opencode-linux-arm64.zip</code></pre>
+                        </div>
+                    </div>
+                    <ul>
 <li>設置場所の作成</li>
+</ul>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>mkdir -p $HOME/.opencode/bin</code></pre>
+                        </div>
+                    </div>
+                    <ul>
 <li>実行ファイルの移動</li>
+</ul>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>mv opencode $HOME/.opencode/bin/</code></pre>
+                        </div>
+                    </div>
+                    <ul>
 <li>設定を追記</li>
+</ul>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>echo &#x27;export PATH=&quot;$HOME/.opencode/bin:$PATH&quot;&#x27; &gt;&gt; ~/.bashrc</code></pre>
+                        </div>
+                    </div>
+                    <ul>
 <li>OpenRouther APIキーの保存</li>
+</ul>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>echo &#x27;export OPENROUTER_API_KEY=&quot;ここにOpenRouterのAPIキー&quot;&#x27; &gt;&gt; ~/.bashrc</code></pre>
+                        </div>
+                    </div>
+                    <ul>
 <li>保存したくない場合</li>
+</ul>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>export OPENROUTER_API_KEY=&quot;ここにOpenRouterのAPIキー&quot;</code></pre>
+                        </div>
+                    </div>
+                    <ul>
 <li>設定を再読み込み</li>
+</ul>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>source ~/.bashrc</code></pre>
+                        </div>
+                    </div>
+                    <ul>
 <li>設定ファイル用のディレクトリを作成する</li>
+</ul>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>mkdir -p ~/.config/opencode</code></pre>
+                        </div>
+                    </div>
+                    <ul>
 <li>設定ファイルを編集</li>
+</ul>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>nano ~/.config/opencode/config.json</code></pre>
+                        </div>
+                    </div>
+                    <ul>
 <li>JSON(OpenRouterのGemini 2.5 Flashを使う場合)</li>
+</ul>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                json
+                            </div>
+                            <pre><code>{
+  &quot;$schema&quot;: &quot;https://opencode.ai/config.json&quot;,
+  &quot;theme&quot;: &quot;opencode&quot;,
+  &quot;autoupdate&quot;: true,
+  &quot;provider&quot;: {
+    &quot;openrouter&quot;: {
+      &quot;npm&quot;: &quot;@openrouter/ai-sdk-provider&quot;,
+      &quot;name&quot;: &quot;OpenRouter&quot;,
+      &quot;options&quot;: {},
+      &quot;models&quot;: {
+        &quot;google/gemini-2.5-flash&quot;: {
+          &quot;name&quot;: &quot;Gemini 2.5 Flash&quot;
+        }
+      }
+    }
+  },
+  &quot;model&quot;: &quot;openrouter/google/gemini-2.5-flash&quot;
+}</code></pre>
+                        </div>
+                    </div>
+                    <ul>
 <li>作業用ディレクトリを作成する</li>
+</ul>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>mkdir ~/opencode</code></pre>
+                        </div>
+                    </div>
+                    <ul>
 <li>実行</li>
 </ul>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4926a595-46ed-43fd-b187-57fa8e5665ab/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466U6XVAVR5%2F20250621%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250621T035903Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQCmVnvqcgHWvZg1ERfnTSyaC7no1CaGqn8tXPbhK79cAQIhAOqBvyhkVTcx51vjabCxtQDhaPyZelPrnlqJdsK9YrbFKogECMz%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1Igwv4lVdYOfM8bCiSCoq3AOrTyatWzW8Ue9uva3lpacrnWTbxd0ei2fZXoy2f53b8ZCOsnfkohQMUtFDyrwKwskJrp1hLDnA5DRqAo1E0aQqJ8y5DwquwpGPGx9OgXwxDSV2X%2FyYEjACRlfMhkwTNc%2FYvNAMzvEbJKx3uC22JkjqeLXk%2FGYquMOVdkOox6l0Z220IZn7nNssxVW0jjyuRQ2dcOEP5VApVhXqVC4uxmza2EA2DhAw5i%2B0I65fEjhxDvnEQgnZ26dKBL3hLKaLVpQQElZR7Usk7oZGI0xa5EW3uY9whygZg8rSiaBIXrMKg4n%2BVa%2FSNSexo4aUlXI7eppGLbrz6MgkqgJW8sb%2FKucTSCqCT7Ds%2FP912er6nxbECZVsLQRF0beCHP287nJab7xmVWwbxltAgO3lqUxOWJDSp%2FybLo9Rtd2meM62dFwcpWWFT8E4RdtnyiVm40acQBMlXtaWY0kCZ7rm3ZuUT4vOxzOb17PtuE1Yw7rRTRKvJF8dq7N6%2FdlIRa32s0Sb0f5Wj4pJgUbO1H5C5JmCysquGZP%2FM9N9KueyBfKhRo8PeE%2FJiCfCrBB1VRdKoo5A2DNM1XgDzoQkaXmosTM7Y4fzC5c%2BguOn8A8KG6uhILEqTQdFUY3kRFX%2B6Z%2Fs2DDZr9jCBjqkARRG6kg%2BWq%2B2MLSXbvEnHsCU95tDvCsXgz0YmVHntsIJ86tw3swnq9BpGJg7HwOobLEQsyVrmV5BEpyoNfQ28%2F3dwl0D6tlweyaY1eEqjEN9O3JOqcRoLH%2BxOnrVfdtzZsCWvnXVkKI4WEmCMxrvyLDkB6H%2BCpBOoR5PFGmt6cYAGeC8oxximPcmSrSKMUxxoiWzWpo6UV%2BeCKY3E8nIP%2BDG3DQm&amp;X-Amz-Signature=be44f343acd79d329df5d3f96dfa168ba60dc7a778d45787fc71d0902f84abd3&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>cd ./opencode
+opencode</code></pre>
+                        </div>
+                    </div>
+                    <img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4926a595-46ed-43fd-b187-57fa8e5665ab/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667EFKEFJI%2F20250621%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250621T042639Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCID1DMAMl6eQv1VNK4SfWH7npVrDYmITuD%2FVMOROXRDT3AiEA6mA1OeBXSbNBbkD2%2BCKLf8ul%2FTvmnJOOgkRQx8QWt%2F4qiAQIy%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDHOpVvefO835bTiSBSrcA%2FYVDuxi7aNN%2Fqb1R%2BWiLnXQIoQhn5VZxsC6sO2uXwTH9aJyWKUzIxd8JUOQMYqUIM9N5LP50hRDwGLo2fa7eNrpp%2Fn8VNMSR2%2BDJghQV0c6LV7HMbw9GLOVqAfORWvdP%2BnuP5OkvKCYwDI75PZn0db5iQTS%2FDU4ApdZV54uKU19en6dY3hI4%2B9W3R4dg4%2B43%2FwKvu2NKH2PypUsxe4uShm4LQ5AKHiCYrURkvUBpS0cHr0wQCFzKVwSOyqmAlyf%2F43fDd%2BsmSVIPiwiF3eUMLEwvgf7A0icn0CFWWIoIskFVF7RYdy23cIXZuLQvqocaOkagN42zqWjYofR3t%2FL5ttjVeXLAQLGC3Tvoh%2B%2Fbo6t9iM0FP2ABE3K3oEWBBb7LyM%2BGxxjpzOhTvvy3BGZszY3d6aZaLuQNJTRsDavMMi%2F8mfqUg37l10NlixumShJP1aJe5%2Fp7wosh9UZukZD6WNV7kTdEWZILMoQYYK6mVP6kxYkZPRpsGsmt%2BN68HB2%2BNoHzFxIdKO6bscP3oBrpvfWaxkNRd343BHmibWwwHQoB44nszzwQ3%2B7PNhC6fiSPCwI3iAnkoE1ys5t1bmxmM77WT6LozAwW3GrxX956gjwgopO5hrnzXmpvdBBMKOv2MIGOqUBSRQ0pZSH4nw3pd4CGgZ0PW4u5V9SV5%2B2AtcGk%2Blh9il%2Bwk9SdYoK4p6m6FOpAONAjTmBrbXGsetZxr0puCrZWf%2FndRy4C5zAk9H1r9hHO0ahLkwDR43lENyVdS1wuNhtb9VOXpHPq668PwEq8MHPt7KPPhGRTTYKt8AQ%2FKZ2FdgpWzkbYWySy4P5mjz8UvB49gkUHMoR2SouehBURQeuv54iayXq&amp;X-Amz-Signature=6bf1a968654c150dadad97aa65ec739f8fb82a598693c67b5f357b8032710989&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
 </article>
 <article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">🧑‍🎓数式対応</h1></header>
@@ -448,7 +620,7 @@ width: auto;
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">Notion</span>
 </div>
 <p>おっ！ SVG表示もイケるや～ん！<br>これは表現力が上がる..👍</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/a67d01bf-53b7-465b-8958-c177335e4d61/svgtest.svg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466XK7ERBQ3%2F20250621%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250621T035904Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIDmTud5gRtqIuckuTei81%2BjxE0WxMpgZAszX2zu0tsUTAiEAnQ42p%2F1mR1JqJTcWj5FAvmyOCVACbv9Ld6AaNXwfXjwqiAQIzP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBsTgL9txknnYYnzOircA54vlwlcDktncsbJMTtsr6eOMQmLfIdAWL6NJfx0smhzgPKr1vTwkhOYyGeY1Hsa4i7RtVUAJZ0AZiz4Ge0IqmbWQMdaiuSF8Z%2FLzsxHqf4U5xaRPA2wYNA%2FEDW0EfWTimVmPClLpGMO8OWXKq6R3M%2F4OGneXuQ1ZIKNeZEcEpytOYY2rW57KPDbCtsJchodilbgkKMzDPh3OFUkHyrMrb%2Fvgi1J70lAyfttGsQy0xyp4%2FWwqJwyRd4p%2B6IyAC50cOAvsxjhPmX0OWSNidBWWeTNNmNrH8COFqC%2F%2F6FhogHbRAqJWJA1zZ4FBEdvbHDO7yCwYQ4ieKbyGPS%2FKgaCPbRnEDxgNhPFN7E70WfvYUNQIOXSoyjAdRgnbr2c81K2C%2FLiX3u73YqHp9o2Z%2Fb4jVJe8uA2Mi6PqrQHZe0Z6VjUkazHL8pPIspvezYQlvWZPR%2BpPOgglV%2FghtanWg0uFLpduRiCr1nYzjpl%2BRcUiIfLKfF2NQQgypFRQtBNPcwz6KJgIi9I0MB6BBZuzq6TjMIDcvn%2FvRiMjcn1ny1AUx%2Fgsc33ESgdazcUPjR27749a%2FKbsuoR83sFyhgEc2uvWgjOd0ohHc98CPtDw9txMaPCWAePDBNydklflHITMJmw2MIGOqUB9WcOKwRdgh9UAUMqBk0t9ZGxqynXEKJdZ%2F9XQtiC7jpBFjwAEUuy%2F4jfE%2Fcq5Tply54Wu4vL0R1%2FSQtY8wdo4BRq1k1plc3U1mxQfud7317yLCcl%2BT4MfXmc%2FzJAPyl1U0LRwm80NP%2FKToU9MiOPj%2FBVQUc5Q57siR5k2iXLmw076H3BS8WCWtmxVkoqX%2Bv4MGbX6R776ORNqT7n8bZ0bIpzIDix&amp;X-Amz-Signature=a1bb6187de7f7fe4db20c115ae0464d9110924f6dff441d99de71e4fdbc8bd2d&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/a67d01bf-53b7-465b-8958-c177335e4d61/svgtest.svg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466VVFOLQFM%2F20250621%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250621T042640Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCS0Hyyyg9U9YlBlvLBVwRiWJG0zMxtyM4Pt1krMk%2BbqgIgeRZcVXGpPhtpLP888FAYqbV4Z0I0bGO18deLBDDLapMqiAQIzP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBadMLcT%2BjJbazF0USrcAwVwvMd%2B58SykggvQfxCkww%2Ba0fYPZkZgtroGfICUnBtlzviexWx%2BkMdbRoYouJUQqpwDxcSEtHeV1hxTBOHapz9AOUt3SDiM1O8uSz0G9AhbuSoNecsvopRsxQFqqItCI2T6fcZDv5ynt6trcjvn0dTq%2BEIAh9EoCjcw8Do%2BXwvKXWkPzTFZMGRlmmzhvrT2ZusaH2%2BB4CoLekJ0Jij69pfj6m%2Fob3ry%2FhzkhoBj16WGmTLSskukQq6Btc7bDwYHrR31T%2B2dnhpjkQdu9LOUyOel1dcdnrIr%2BYDoGG2Lj3UjV9r%2B76tIUU4A4qvpeaZgYakpr6k0FLVw3iMCpw4jYGrOI1B878ayN4TDSRtrSQ77lbBKd2WzFCa2t8T5fsVEnONANhPurzk1kneFxL%2FrBSB03s1ehUrBRiZcZUuRhFal7c8efGrIfhtcbqHR7UHyuDbuFmOYA%2B7N1VAVIMbplp9GZzLBGnjC84gjP6gAKfJCszcGW1xTU1TjsC6D7I7McO%2BFt%2FyQvsjXx1NhkpWoG0BPq54qUsPZN6zBRWZ49f8x7T9%2Bj4iMD5xj%2FZhRFZS8GsfCd6kLQQMmyyiiyWoq%2BrzdcOKLzf0NzwTZZGc7BfyfoepYao3vhyurcSbMPyv2MIGOqUB5QogXCsjnvC%2FtUkbcyqzl345JPJig1Pj6nbgy6nDx95oXJgUTANEvJ%2B5Q5y6n3zQJyMUTmwmxNkojfcy8%2BGN%2Bu3hlF7BlPsT2RpDUYenOkfj9OsXC9lg6Ym42p8t1d6QvjmgGiiD8v5Yb60ucePHAOL7gDZNWmqRpYaGbWYNE6%2FzaIZ0okJSLMOCbgcBJBFI2heQo7Db7SvrnSifM2p194zSbvQh&amp;X-Amz-Signature=6fdc1571c9b9588fd390cbd62880f2f2a288a4f19dd3d7cbe1beb97e52cb9d4a&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
 </article>
 <article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Claude Codeの代替品「OpenCode」をRaspberry Piにインストールして使ってみた</h1></header>
@@ -457,7 +629,7 @@ width: auto;
 </div>
 <div class="notion-callout callout-gray_background"><span class="callout-icon">💡</span><div>ゴールは、「OpenCode」を「Raspberry Pi」にインストールし、「OpenRouter」の「Gemini 2.5 Flash」を使うこと。</div></div>
 <h3>実際に使っている様子(PC/iPhone)</h3>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/9e7d67c7-dc18-4ae5-b180-7b7a6a11c0ee/opencode_test.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466UHL3KELK%2F20250621%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250621T035904Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIA1ix98oSykC2PNix0ufu2%2F5ev1UmJDOLCpwakAIzfCwAiANdejYCaMnNo%2B6DOBu6zOrLso9YyjlSrft4XfYLa5DACqIBAjM%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIM%2FraqSC1%2FOZIasqqZKtwDOe9%2BHGBgjMcob0cjTq%2F2ZleaouZiyXob9WdyPvEhUXtj3pVmKg%2FloD%2F3jbl3Pswlrr4kCmEFOW%2Bbgl0lbBfuPGCrfYxuRwFSoxFeF3AYGTmJ5ZhJ25btN%2Fi%2BjTBQCieouBEPT3f1u3KTFN%2B4jjuSP3lJxhlZ2RI4IjyjHwKEubGYweaKRTOtOX5gj%2F0QgNyfP8jjAOIVwFWJW0EO2HLGBfKyTfmFrsvjJKzVBow0BQQ2KhhyisoLdv4VoLIMziQSg4kM9VL5cV1N5Vme4eLvESa98fbVgzULxKpp3jzfW1whEvkXlEPLLzFR2qzDGgIzpI%2BAsqs%2F1ZjKizXkKPC%2FiueI5VSHX5LpHyM8vH85rDnKM%2F8RPjQee8JRNdwcFdjxcvRtpuvJcsoNC7t%2FPjb5TGwmpDOej7SS6Lzd%2BTkE%2BxrOTnQqkQCAr2PWTDTPAUTSk8vALeS1Immd4UEhr91t4uHYmW1nQE3%2FF7IekVHDDvtcNdWq1HURgItcDcp9qxsn7OKpTbAe0aHzbHbbRL1C%2FajZyOBtFqjQCdG9uvyNanyRjYD4g4q2MxFme3%2B3z7fHEwBlWqnyoQ18vr4DzYHEVTtkbuYHfe4oI3bWCMDJvgctI6S3tYBe7PKOWrEwkrDYwgY6pgHoF%2FxVQhw8rq5tAV8wVpBaRx%2FqnNoux09ANe0NRPmlCelnXyN%2BTsoHKYmLPIAE36hcwNxinjSPz8k7ERMQEtMGGzoTDNc8I84EVrKBEZICyyFW38vX%2FgaV33o1JJz0KfAasFYC5A4Ozg3LVvmtut%2FOvW6I2l2ZcM7J3NQ%2ByEfE0p8gTNxaSItkzO2YcVCpshbWczQG5GlXPdTBC1iej7psq2KwM49H&amp;X-Amz-Signature=138ea639f157ff9fa936c842d39a2d8461af8170218472becee0f301bb1bf64a&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/9e7d67c7-dc18-4ae5-b180-7b7a6a11c0ee/opencode_test.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4664P6RFRKM%2F20250621%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250621T042640Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIADCam9UzLn0KOOY%2F4NYp5aqo123mcBfDHBf7sQAprWeAiEAiLYBasfjItngLuDUl8UVklcFzgroZ2w%2BRUNl7l5Z4AAqiAQIzP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDAISIr2Sygwg1odPYSrcAyAJgLGTLKp02mkR2WoFEu08YrxJMwpcfrJ20pSwTmRrV9d46%2F3ck7wyZCOcJOzbhJcDIIhSMouGShboZB6MPaCtks2c8PrbHkVwLsy8MJd%2FjjKlz9ux4xvYRte1UdwURIEvigmLCBiTAsdsD8MlxMgs%2BRROIUjzm%2Bp6fZGhJ2JUST2%2BuWkm6TrwkhD4A0wcX7Vri4wfMy7ocOWdytAILpmQHt6SCwNYAVecMRD0nouCN2Nf4FiDIkNwl930mvoMScRtuVpgX0Q%2BCFnI4K1Sd7A8s0%2BcmCiMU5Wg5xAh8hd6vgBzJnK2rj%2BVpqOif%2BFq52EiUQAZ5JF%2FoUsIua%2FD63%2Bj4iXs0mXKNh3Ev4RDODLdeFZ%2Fr5Pj9%2FYxEDWUdsPeOv7PpvC8D39WZm%2FF4YLQ0aSDUJwl5x9vI4mSnltvNlIoc4zyf20965s0K50sho2AONkc9tXdDj3RALiYNvFfVDFFY6ALaDmljSpNkKokEw0osso21xHctO%2FSkV8%2BbqP3fnwVD%2FxCw0GFm7IrZPQ9uf%2F6vR5ipHfr8DkCqAPKUgJuTTN3EUwN2wx%2BcccdQeQwGTtYwryjtEOWKvJt%2BmCWzi2Cp2naoSsOxSyfBv%2BLkD%2FZ%2Bvfdfnd62rRogKTzMO2v2MIGOqUBSHCADetilkCu2VXRVyvpGe7GJQfMu%2F6oj6nEqjxPfITfYg0k%2FYDKnCjdllwRpko%2BIMqeX0e3sjtcHEy45BDhrCsg6LloOSFtT8HaBoead7R5%2F63eJ609Jfwu3cBcwwlhL6ZLLGrrMU6jup2JDw1bD%2Fthg8TVFrQRBvUfi20YmfB1bT626FeE3AGugX1T8MAkywFjnsnL0y4xrCGJltp2ZuM9eVlk&amp;X-Amz-Signature=7ee400cb6fc19c547c2b8ecebf26c27d2abd59d317f8c8703100e179878fa1c4&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <h3>これは何? OpenCodeとは?</h3>
 <blockquote class="notion-quote ">OpenCodeは、ターミナルでAIアシスタンスを実現するGoベースのCLIアプリケーションです。様々なAIモデルと対話するための”TUI”を提供し、コーディング作業やデバッグなどを支援します。<br>巷では、<a href="https://docs.anthropic.com/ja/docs/claude-code/overview" target="_blank">Claude Code</a>の”代替品”などと呼ばれています(他に似たものとして、OpenAIのオープンソース、<a href="https://help.openai.com/en/articles/11096431-openai-codex-cli-getting-started" target="_blank">Codex CLI</a>がありますね)。<br>Claude Codeを使いたいけど、Claude以外のモデルを使いたい..というような要望に応えます。</blockquote>
 
@@ -471,7 +643,7 @@ width: auto;
 <span class="bookmark-url">github.com</span>
 </div>
 </div>
-<div class="bookmark-og-image"><img src="https://opengraph.githubassets.com/04ad5a8aaa8387957d2e1f397f0d39d929fd77a0ae7dc56abe8fd23d1ae86c99/opencode-ai/opencode" alt="Preview for GitHub - opencode-ai/opencode: A powerful AI coding agent. Built for the terminal."></div>
+<div class="bookmark-og-image"><img src="https://opengraph.githubassets.com/8a8599df9bfd424890857dd00052493cc6b3d46a8624ddd0ed5c33a72e25e483/opencode-ai/opencode" alt="Preview for GitHub - opencode-ai/opencode: A powerful AI coding agent. Built for the terminal."></div>
 </a>
 </div>
                     <iframe src="https://www.youtube-nocookie.com/embed/P8luPmEa1QI" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
@@ -1423,6 +1595,6 @@ el.textContent = `Error rendering formula: ${el.textContent}`;
 });
 </script>
 
-<!-- 2025-06-21 12:59 -->
+<!-- 2025-06-21 13:26 -->
 </body>
 </html>
