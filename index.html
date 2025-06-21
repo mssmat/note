@@ -354,12 +354,65 @@ width: auto;
 <h3><strong>GoベースのOpenCodeのアンインストール</strong></h3>
 <ul>
 <li>インストールの場所を確認</li>
+</ul>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>which opencode</code></pre>
+                        </div>
+                    </div>
+                    <ul>
 <li>アンインストール</li>
+</ul>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>sudo rm /home/pi/.opencode/bin/opencode</code></pre>
+                        </div>
+                    </div>
+                    <ul>
 <li>設定ファイルを削除</li>
+</ul>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>rm -rf ~/.config/opencode</code></pre>
+                        </div>
+                    </div>
+                    <ul>
 <li>モデルとAPIキー設定を削除</li>
+</ul>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>rm ~/.opencode.json</code></pre>
+                        </div>
+                    </div>
+                    <ul>
 <li>他に関連ファイルがないか確認しあれば削除する</li>
 </ul>
-<h3><strong>TypeScriptベースのopencodeの新規インストール</strong></h3>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>sudo find / -iname &quot;*opencode*&quot; 2&gt;/dev/null</code></pre>
+                        </div>
+                    </div>
+                    <h3><strong>TypeScriptベースのopencodeの新規インストール</strong></h3>
 <ul>
 <li>本来このコマンドだが、今現在<a href="https://github.com/sst/opencode/releases" target="_blank">最新のアセット</a>にLinux arm用のファイルがなくダウンロードできなかった(v0.1.115)</li>
 <li>そのため一つ古いバージョンのファイルを手動でインストールする</li>
@@ -377,7 +430,7 @@ width: auto;
 <li>作業用ディレクトリを作成する</li>
 <li>実行</li>
 </ul>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4926a595-46ed-43fd-b187-57fa8e5665ab/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466ZRXG3A44%2F20250621%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250621T030852Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIELpnCOuusuKBPkVwvlySC%2F%2FXOLLZybOOejumyE0bkntAiEAtjXNVQKWBddI7FYlbdBDpeXTqX6kN0ZJg4am%2BfWqNsYqiAQIy%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDJQ10T3EvD91%2FGLglyrcA7I1DnEu%2BJOwGGDvjZfNiH3%2F%2FU1aUpi6TqS85j2NRKcfygq8h1U7nTI0W5NYqC3u7UfS397UjwdqW2U%2BRYyIDcUkRb6h8VsOHWx%2FYgutZuLBuHhpXuB9nAZ%2BMsLUxTCM6ASO0IXzk%2BUQxcm6EUlCxwm%2B0VySOHvCQu9GHp6dkR1lBNYI2RxgPaJLbP7bRXRItuC4uuGY5tvCD9Pg5dT1%2FuG2lnM%2FC577udECjUvm9zfnZ94L4cUAsSsEcXWnMR2M0UwXRKCPEQTgMYBWIS9nzPNPJKugUtDCu2auohO99lGEhA5MX35LNhA7T4IyOzZ83vSNhj5ARPVtS4%2FAjanYYBws9xetTEMw308hVsP%2FDSD5MNVY7pm1KTVMcTWFNzi09Dq2w52lDrMyjw%2Bm%2Fi%2FKt49G%2FOvlm0He38ekf62wtwMJbd3kXtS3laqGoiHxi3Bj0d1CJqyaajcj%2Fzcqppt7AH6J3JCKN0eWXPJ1a8fTrzcvnA4SXvhoj0Sm5tKzrSAgD%2Be3nVVqJGNZRkcBAYSLRSWWYNePyhV179YOtD424OhtLSj6YAcLyGfmqH5XJYxJ4IxBEhdqw7LETTbEu0Mhw2zWG3z%2BRabyR%2BicNAu4wDabuqw9e9D5lHdCEDRfMLSv2MIGOqUB0dMEA9GYRxBcnHjIXbm1lwMF9Oe1TCQ%2F2OuPpDv%2Bt9obE3ViT%2FXuHNw8miDuC46iI5ZIQR0Agny%2BNuHnwTr3GIk%2BhipZu9pNpIb2%2Bk6vKuoQmlz9cC5Mu56TQqLor27hHLXyuibCPh8nFczeTogq89HQdbzKaYB6X8A0yRt8jCjMtwO9rnLsyyd1Ufwt%2FU8CHLmMrzOFlJwVK5Ft8m4bsxtLurP5&amp;X-Amz-Signature=fd345eb839070b3d374dd94052d3e2d0e9efbfdba52e34ca50cd821ea6b63225&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4926a595-46ed-43fd-b187-57fa8e5665ab/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466U6XVAVR5%2F20250621%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250621T035903Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQCmVnvqcgHWvZg1ERfnTSyaC7no1CaGqn8tXPbhK79cAQIhAOqBvyhkVTcx51vjabCxtQDhaPyZelPrnlqJdsK9YrbFKogECMz%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1Igwv4lVdYOfM8bCiSCoq3AOrTyatWzW8Ue9uva3lpacrnWTbxd0ei2fZXoy2f53b8ZCOsnfkohQMUtFDyrwKwskJrp1hLDnA5DRqAo1E0aQqJ8y5DwquwpGPGx9OgXwxDSV2X%2FyYEjACRlfMhkwTNc%2FYvNAMzvEbJKx3uC22JkjqeLXk%2FGYquMOVdkOox6l0Z220IZn7nNssxVW0jjyuRQ2dcOEP5VApVhXqVC4uxmza2EA2DhAw5i%2B0I65fEjhxDvnEQgnZ26dKBL3hLKaLVpQQElZR7Usk7oZGI0xa5EW3uY9whygZg8rSiaBIXrMKg4n%2BVa%2FSNSexo4aUlXI7eppGLbrz6MgkqgJW8sb%2FKucTSCqCT7Ds%2FP912er6nxbECZVsLQRF0beCHP287nJab7xmVWwbxltAgO3lqUxOWJDSp%2FybLo9Rtd2meM62dFwcpWWFT8E4RdtnyiVm40acQBMlXtaWY0kCZ7rm3ZuUT4vOxzOb17PtuE1Yw7rRTRKvJF8dq7N6%2FdlIRa32s0Sb0f5Wj4pJgUbO1H5C5JmCysquGZP%2FM9N9KueyBfKhRo8PeE%2FJiCfCrBB1VRdKoo5A2DNM1XgDzoQkaXmosTM7Y4fzC5c%2BguOn8A8KG6uhILEqTQdFUY3kRFX%2B6Z%2Fs2DDZr9jCBjqkARRG6kg%2BWq%2B2MLSXbvEnHsCU95tDvCsXgz0YmVHntsIJ86tw3swnq9BpGJg7HwOobLEQsyVrmV5BEpyoNfQ28%2F3dwl0D6tlweyaY1eEqjEN9O3JOqcRoLH%2BxOnrVfdtzZsCWvnXVkKI4WEmCMxrvyLDkB6H%2BCpBOoR5PFGmt6cYAGeC8oxximPcmSrSKMUxxoiWzWpo6UV%2BeCKY3E8nIP%2BDG3DQm&amp;X-Amz-Signature=be44f343acd79d329df5d3f96dfa168ba60dc7a778d45787fc71d0902f84abd3&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
 </article>
 <article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">🧑‍🎓数式対応</h1></header>
@@ -395,7 +448,7 @@ width: auto;
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">Notion</span>
 </div>
 <p>おっ！ SVG表示もイケるや～ん！<br>これは表現力が上がる..👍</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/a67d01bf-53b7-465b-8958-c177335e4d61/svgtest.svg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466YLJLVZPX%2F20250621%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250621T030853Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIE5c7WbxIYWB3Jm5OkSjlVxtaqte%2BPaxsQrmz1MYIQjUAiEAqarpGiHLOoo8P2Jak78O07081Phukrh8pXhjBYZ%2BfhcqiAQIy%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDOfZWtY988gZt3J5bSrcA2p1eF1Hz%2Bq%2BIEhTOGsUif%2F3n6GckI%2BQJyEMWXGFXEbgmJYWmf4heCgri9CC7XosBVrbWpqEiozY3OzaETdsZF0mHBf50Qynp3QZR8YYpyPIBSAcMwzSiUoH7Sv749W0ZnasWFzv9vYOWI%2FmKsTak%2FtSOiV1LsxJjYw9zjR9DlGwm%2FHPNCrnc2XENd63OaiaZZIthcMhFlOmn%2FktgMJYQBdQ5Wm1c4E0FmPakcxQY3%2BkLNmKByb6dDVHJbRtviJzZrBOQq%2BnMlmmcRVHP0o852w0v%2FvVkJJ1Wm%2BRgBF1SmWCJtioSu4o7nMHUBWn7p%2BSbKVrE8f%2BJmUbEl5vt2nHtSAAZxXfGA8b6qULEDTeq0PlRsftcLdAcvLR7GQQ%2BW4YPPxQJNhTi0Cn3cMV3Vb2RztuxpnyxdKVVFiD2PLuLzskOlAB%2FGY%2B%2BL4IDVQWRvYDBKJyQNoaqpLioc35WqOYHGSQcSv5VFrsvmq8BygM9ERQRWYoGRbRjw2UidM%2F%2Fxnr5gPGr9nUt3lw8jpjwEJNK1Ni5Y61ixKmvCKzF5E4jaropFjCIezUeXwiPcAyWcajfqF64AstGLj0VEGEhG%2FZVqaS9%2FeIUeAExZlrCLZuEJ9I5Wg5%2F3y1WNb%2FrCVcMNav2MIGOqUBUXa%2Bfci%2BcVyx6OWVTX4nZTFrRFdz5Eq%2B7BweruzNw%2B%2Bs365b6t8%2B4LCJs7fbrwSugiGUn5ON9EY3ISQM%2BuLH5VDSzyKvmhxUeNvtIeDg9g8JPzd1LbXMkHbUe%2Fm5WKVyKPO5TsLl7yxaNvK4OYGNTvXjuzaHg5mMiiCgpyReVKhigpHkD9pIQQijA0DfBXMbsbw2ssCHlx%2Ft9KW5I6a9SyCyBy9L&amp;X-Amz-Signature=389de3e145d0c5b87442d633a868958271f1d7e2ff210048a78c9526e7ba766c&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/a67d01bf-53b7-465b-8958-c177335e4d61/svgtest.svg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466XK7ERBQ3%2F20250621%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250621T035904Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIDmTud5gRtqIuckuTei81%2BjxE0WxMpgZAszX2zu0tsUTAiEAnQ42p%2F1mR1JqJTcWj5FAvmyOCVACbv9Ld6AaNXwfXjwqiAQIzP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBsTgL9txknnYYnzOircA54vlwlcDktncsbJMTtsr6eOMQmLfIdAWL6NJfx0smhzgPKr1vTwkhOYyGeY1Hsa4i7RtVUAJZ0AZiz4Ge0IqmbWQMdaiuSF8Z%2FLzsxHqf4U5xaRPA2wYNA%2FEDW0EfWTimVmPClLpGMO8OWXKq6R3M%2F4OGneXuQ1ZIKNeZEcEpytOYY2rW57KPDbCtsJchodilbgkKMzDPh3OFUkHyrMrb%2Fvgi1J70lAyfttGsQy0xyp4%2FWwqJwyRd4p%2B6IyAC50cOAvsxjhPmX0OWSNidBWWeTNNmNrH8COFqC%2F%2F6FhogHbRAqJWJA1zZ4FBEdvbHDO7yCwYQ4ieKbyGPS%2FKgaCPbRnEDxgNhPFN7E70WfvYUNQIOXSoyjAdRgnbr2c81K2C%2FLiX3u73YqHp9o2Z%2Fb4jVJe8uA2Mi6PqrQHZe0Z6VjUkazHL8pPIspvezYQlvWZPR%2BpPOgglV%2FghtanWg0uFLpduRiCr1nYzjpl%2BRcUiIfLKfF2NQQgypFRQtBNPcwz6KJgIi9I0MB6BBZuzq6TjMIDcvn%2FvRiMjcn1ny1AUx%2Fgsc33ESgdazcUPjR27749a%2FKbsuoR83sFyhgEc2uvWgjOd0ohHc98CPtDw9txMaPCWAePDBNydklflHITMJmw2MIGOqUB9WcOKwRdgh9UAUMqBk0t9ZGxqynXEKJdZ%2F9XQtiC7jpBFjwAEUuy%2F4jfE%2Fcq5Tply54Wu4vL0R1%2FSQtY8wdo4BRq1k1plc3U1mxQfud7317yLCcl%2BT4MfXmc%2FzJAPyl1U0LRwm80NP%2FKToU9MiOPj%2FBVQUc5Q57siR5k2iXLmw076H3BS8WCWtmxVkoqX%2Bv4MGbX6R776ORNqT7n8bZ0bIpzIDix&amp;X-Amz-Signature=a1bb6187de7f7fe4db20c115ae0464d9110924f6dff441d99de71e4fdbc8bd2d&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
 </article>
 <article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Claude Codeの代替品「OpenCode」をRaspberry Piにインストールして使ってみた</h1></header>
@@ -404,7 +457,7 @@ width: auto;
 </div>
 <div class="notion-callout callout-gray_background"><span class="callout-icon">💡</span><div>ゴールは、「OpenCode」を「Raspberry Pi」にインストールし、「OpenRouter」の「Gemini 2.5 Flash」を使うこと。</div></div>
 <h3>実際に使っている様子(PC/iPhone)</h3>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/9e7d67c7-dc18-4ae5-b180-7b7a6a11c0ee/opencode_test.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4663GBDCBML%2F20250621%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250621T030853Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIGPgYN2pwbKP8ZI0nJE1mypgk7gLX6nh3KNa8CpJfL1HAiEA9BE0kplmtrNTfqAk20GfkklCB6iIJIX46nTXrSs6FvYqiAQIzP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDL6AehF9ynf5Z4wqkircA3jrnpd8PbTWRsSN1KkmqyolQcE%2BxNeOSN3MSYtuHZkwFxEOCtXhXOPtoALMqJLOC6QGkMqJPtskQwQQUV7SeXHYeEnTktWAfuG80trbVVNmXYVBl9yGNaV1UX52ZR%2FEBiveSC%2Br1fwkpwttKOCwi2GGyqACCbnGb5HoPcbjXGdcV4zjTq3EJLD83K8KvtQbAXVg9z2YIMWNZyiWUpWvMLtyekRsscxDGpwx170%2Fz2Um1d2nJnQvjkH7saEbIeMYLbTw%2Byzb6CKDEOhTmKOWGafOuirPnjhxbOjMiS3J5VATBmIoGDR1mL1Fi58aP6njZVfKzpHxbG7%2FboUu6FxdThjaZV1rz3ZKq8MEShO0Bhnv61wbE1Q5Qw9RhE%2Bk9xOXSLXpr57Ll2SqifAK3X6cSHoMuGv0X8w%2FvfD1OoFCFKupNdD0ijhxbtDyKFD4Dx4UUp%2BUdFeoWq1wCsf9%2BbRqoa88KihOeHrxDhmNSbbCgg%2BQScjNDPr9fvuLuwnKv4%2Bg2mzQUszLyPMW9DzZZu2w7e0zYDsHlScvR6yiwTSKYEvWCAS%2BpnHgNdA%2B4zPPhamqvJ0%2F%2BwYx14zWXIh%2FhfPYelF9PrVPOfRfCB4IeB9OSPypbypS%2Bqt%2F%2BrqNkTD%2FMMuv2MIGOqUBT6HNEYShylVqJkn%2FHnolnJbZ1minveT0NW1mBtceaZ%2F9Kp1yEoVDorXO8UzIT%2FUrx69MLKh77gMsUSkCWSCkLxfTCjPLalpUk4lnJYQQUcoZJvUmKYPP%2FDx7FYgx4GW74GkizRPrCw9wX%2BxRAVvq5B4DOrfJHxVIB0CHxde7HOgpgcJcIQs9SKrURCZbZMTLsX6GV4gggzYQInjEki65HZvIlskx&amp;X-Amz-Signature=29db1d22bc88dcd8bf7d2781e92043d97c0439d3c26597009b382095c040a82b&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/9e7d67c7-dc18-4ae5-b180-7b7a6a11c0ee/opencode_test.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466UHL3KELK%2F20250621%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250621T035904Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIA1ix98oSykC2PNix0ufu2%2F5ev1UmJDOLCpwakAIzfCwAiANdejYCaMnNo%2B6DOBu6zOrLso9YyjlSrft4XfYLa5DACqIBAjM%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIM%2FraqSC1%2FOZIasqqZKtwDOe9%2BHGBgjMcob0cjTq%2F2ZleaouZiyXob9WdyPvEhUXtj3pVmKg%2FloD%2F3jbl3Pswlrr4kCmEFOW%2Bbgl0lbBfuPGCrfYxuRwFSoxFeF3AYGTmJ5ZhJ25btN%2Fi%2BjTBQCieouBEPT3f1u3KTFN%2B4jjuSP3lJxhlZ2RI4IjyjHwKEubGYweaKRTOtOX5gj%2F0QgNyfP8jjAOIVwFWJW0EO2HLGBfKyTfmFrsvjJKzVBow0BQQ2KhhyisoLdv4VoLIMziQSg4kM9VL5cV1N5Vme4eLvESa98fbVgzULxKpp3jzfW1whEvkXlEPLLzFR2qzDGgIzpI%2BAsqs%2F1ZjKizXkKPC%2FiueI5VSHX5LpHyM8vH85rDnKM%2F8RPjQee8JRNdwcFdjxcvRtpuvJcsoNC7t%2FPjb5TGwmpDOej7SS6Lzd%2BTkE%2BxrOTnQqkQCAr2PWTDTPAUTSk8vALeS1Immd4UEhr91t4uHYmW1nQE3%2FF7IekVHDDvtcNdWq1HURgItcDcp9qxsn7OKpTbAe0aHzbHbbRL1C%2FajZyOBtFqjQCdG9uvyNanyRjYD4g4q2MxFme3%2B3z7fHEwBlWqnyoQ18vr4DzYHEVTtkbuYHfe4oI3bWCMDJvgctI6S3tYBe7PKOWrEwkrDYwgY6pgHoF%2FxVQhw8rq5tAV8wVpBaRx%2FqnNoux09ANe0NRPmlCelnXyN%2BTsoHKYmLPIAE36hcwNxinjSPz8k7ERMQEtMGGzoTDNc8I84EVrKBEZICyyFW38vX%2FgaV33o1JJz0KfAasFYC5A4Ozg3LVvmtut%2FOvW6I2l2ZcM7J3NQ%2ByEfE0p8gTNxaSItkzO2YcVCpshbWczQG5GlXPdTBC1iej7psq2KwM49H&amp;X-Amz-Signature=138ea639f157ff9fa936c842d39a2d8461af8170218472becee0f301bb1bf64a&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <h3>これは何? OpenCodeとは?</h3>
 <blockquote class="notion-quote ">OpenCodeは、ターミナルでAIアシスタンスを実現するGoベースのCLIアプリケーションです。様々なAIモデルと対話するための”TUI”を提供し、コーディング作業やデバッグなどを支援します。<br>巷では、<a href="https://docs.anthropic.com/ja/docs/claude-code/overview" target="_blank">Claude Code</a>の”代替品”などと呼ばれています(他に似たものとして、OpenAIのオープンソース、<a href="https://help.openai.com/en/articles/11096431-openai-codex-cli-getting-started" target="_blank">Codex CLI</a>がありますね)。<br>Claude Codeを使いたいけど、Claude以外のモデルを使いたい..というような要望に応えます。</blockquote>
 
@@ -418,7 +471,7 @@ width: auto;
 <span class="bookmark-url">github.com</span>
 </div>
 </div>
-<div class="bookmark-og-image"><img src="https://opengraph.githubassets.com/9e53c6e979d592d3e3b81603bfeff18ff4501c6524801fe962014dfc22adea55/opencode-ai/opencode" alt="Preview for GitHub - opencode-ai/opencode: A powerful AI coding agent. Built for the terminal."></div>
+<div class="bookmark-og-image"><img src="https://opengraph.githubassets.com/04ad5a8aaa8387957d2e1f397f0d39d929fd77a0ae7dc56abe8fd23d1ae86c99/opencode-ai/opencode" alt="Preview for GitHub - opencode-ai/opencode: A powerful AI coding agent. Built for the terminal."></div>
 </a>
 </div>
                     <iframe src="https://www.youtube-nocookie.com/embed/P8luPmEa1QI" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
@@ -1370,6 +1423,6 @@ el.textContent = `Error rendering formula: ${el.textContent}`;
 });
 </script>
 
-<!-- 2025-06-21 12:08 -->
+<!-- 2025-06-21 12:59 -->
 </body>
 </html>
