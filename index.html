@@ -94,6 +94,7 @@ details[open] summary { border-bottom: 1px solid #ddd; }
 .todo-item { display: flex; align-items: center; margin: 5px 0; }
 .todo-item input[type="checkbox"] { margin-right: 10px; }
 input.todo-checkbox:checked + label { text-decoration: line-through; color: #888; }
+.notion-children-container { margin-left: 1.5em; }
 body.dark-mode { background-color: #1a1a1a; color: #f0f0f0; }
 .dark-mode .container { background-color: #2a2a2a; box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); }
 .dark-mode #header {
@@ -326,6 +327,122 @@ width: auto;
 <div class="container">
 <div class="spacer"></div>
 <article>
+<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">aaa</h1></header>
+<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-06-26 17:07</span>
+<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
+</div>
+<h2>Gemini CLIをRaspberry Piにインストールして使う方法</h2>
+
+<div class="bookmark-block">
+<a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<div class="bookmark-text">
+<div class="bookmark-title">GitHub - google-gemini/gemini-cli: An open-source AI agent that brings the power of Gemini directly into your terminal.</div>
+<p class="bookmark-description">An open-source AI agent that brings the power of Gemini directly into your...</p>
+<div class="bookmark-source-info">
+<img src="https://github.githubassets.com/favicons/favicon.svg" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+<span class="bookmark-url">github.com</span>
+</div>
+</div>
+<div class="bookmark-og-image"><img src="https://opengraph.githubassets.com/eba2e68217a7f553ce822bfb7f977f1f677e8917551fff0795325bbc92d02cc1/google-gemini/gemini-cli" alt="Preview for GitHub - google-gemini/gemini-cli: An open-source AI agent that brings the power of Gemini directly into your terminal."></div>
+</a>
+</div>
+                    <h3>ゴール</h3>
+<p>iPhoneから自宅のRaspberry PiにSSHで接続して使う</p>
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/1a807f30-1f9b-4709-9fdb-60c6f28639a6/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4664M7EMCMV%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T080744Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEGAaCXVzLXdlc3QtMiJIMEYCIQCLPJUgv5ZzDGmNoORCXNe%2FJnjvCHq1lLtjGa8vdzu3ugIhALGNtSS3yxgTVxfwpKkRQqvUYYDd9q4CI3IXLEvLbsNTKv8DCFgQABoMNjM3NDIzMTgzODA1IgzRpOWjITf1Ie6nhIYq3AMaoUvg9cOuETGCHmBACvo20koH81z7yl0k7ZPhCXfEYQBaXnuR%2BubsaIzspzmpKBpL63SQzl0rVq%2FbsEt9Ku5g1zMk1gAB%2FFqH75n9TnxdwjZk46Wt1TdLuKS1Wh1rpzvygbOe5Rx0u%2F4MWcsoENHXfi90C5mXyEabGQ9SkMB5FulDnpLl%2BH2KuQEGrncifpBh4OgUkGEXrwefWtz00O8%2Fh96oEW6mEyx%2B4TqucYmZAqqN75NTqpg%2Bwriu4kjgMz1Z28L7Y1Hd134rxa%2BAQodsCqckzFerdlUPKAkOfs7m3dYl%2FRmyeh1u6%2Fn8WJLE8rP83pppk%2F7SxCOrySM165CfeizoZxu7LwfDtgvS2rFO0O8Po5JDeodX2uQ6b3YL6GirkOYowMBSV6dtTZj2NVJVYLb22b5IhgAjzO94k1yKowJ71DJuUIXIioq%2F16QalqUC4u7cZG5j%2BzGNtRPruRmrIQyk4E5kRaa1%2FxUmUiL%2BgREWQ4nJfZ2yquHRXAup8EtEFPI95HTCyTkwsBwWuPZ3t4i3cJ0azMxIGDKSSXaeCwaiiFyQroynfZ4QgJ3w4H5tN6HXDRBzmDgyT%2FkSlexgFv1VwU7AmppTc3qopHLeMw2vVnVzxxkJkWPTOTD66fPCBjqkAfGlpoT43phvm4lB9o9thVXExIpEFuxl1W7ja3Yy9KZHE7p2%2FdtzxdGOtKCl2Puzp5ifBjWI5Kvmz7RJMtsKj4AmdqmR2AyNu5%2BY8s%2BAiEVkn59j1YXDv6fWPrN156B0FG0GgTjMX%2FuK%2Bsyb4rmmlUac1p9HBXfceGwrYB%2Fw00DGwbKB9PuKP420wnlvk5A7rXV8KiAiyOgOtfSZoz3zEfkoA7uk&amp;X-Amz-Signature=58d617f2db37cec54a9e6e0f6d05e6fc87e3bbc486ceb925ec116d07ceb7d01e&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
+<h3>インストール</h3>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code># 大前提としてNode.jsとnpmがインストールされていること
+sudo npm install -g @google/gemini-cligemini</code></pre>
+                        </div>
+                    </div>
+                    <h3>立ち上げ</h3>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>gemini</code></pre>
+                        </div>
+                    </div>
+                    <h3>認証</h3>
+
+<div class="bookmark-block">
+<a href="https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/authentication.md" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<div class="bookmark-text">
+<div class="bookmark-title">gemini-cli/docs/cli/authentication.md at main · google-gemini/gemini-cli · GitHub</div>
+<p class="bookmark-description">An open-source AI agent that brings the power of Gemini directly into your...</p>
+<div class="bookmark-source-info">
+<img src="https://github.githubassets.com/favicons/favicon.svg" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+<span class="bookmark-url">github.com</span>
+</div>
+</div>
+<div class="bookmark-og-image"><img src="https://opengraph.githubassets.com/7ab16ebc714b7d20613b12f84a74f535e6714fefea32010608bf5b49f9bc4e9c/google-gemini/gemini-cli" alt="Preview for gemini-cli/docs/cli/authentication.md at main · google-gemini/gemini-cli · GitHub"></div>
+</a>
+</div>
+                    <p>認証はGemini CLIを立ち上げた状態で、以下のコマンドで行う(初回はすぐに認証を求められる)</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>/auth</code></pre>
+                        </div>
+                    </div>
+                    <p>「Login with Google」を選択するのが一般的で、ブラウザが立ち上がり、そこでGoogleの個人アカウントで認証すると使えるようになる<br>基本的に初回のみ認証が必要で、一度認証すれば、SSHなどを使って、他の端末からも利用できる</p>
+<p>SSHで接続して使う様子</p>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/3da9c167-ef18-44ec-adc9-961d2d934372/geminiclitest.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4664M7EMCMV%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T080744Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEGAaCXVzLXdlc3QtMiJIMEYCIQCLPJUgv5ZzDGmNoORCXNe%2FJnjvCHq1lLtjGa8vdzu3ugIhALGNtSS3yxgTVxfwpKkRQqvUYYDd9q4CI3IXLEvLbsNTKv8DCFgQABoMNjM3NDIzMTgzODA1IgzRpOWjITf1Ie6nhIYq3AMaoUvg9cOuETGCHmBACvo20koH81z7yl0k7ZPhCXfEYQBaXnuR%2BubsaIzspzmpKBpL63SQzl0rVq%2FbsEt9Ku5g1zMk1gAB%2FFqH75n9TnxdwjZk46Wt1TdLuKS1Wh1rpzvygbOe5Rx0u%2F4MWcsoENHXfi90C5mXyEabGQ9SkMB5FulDnpLl%2BH2KuQEGrncifpBh4OgUkGEXrwefWtz00O8%2Fh96oEW6mEyx%2B4TqucYmZAqqN75NTqpg%2Bwriu4kjgMz1Z28L7Y1Hd134rxa%2BAQodsCqckzFerdlUPKAkOfs7m3dYl%2FRmyeh1u6%2Fn8WJLE8rP83pppk%2F7SxCOrySM165CfeizoZxu7LwfDtgvS2rFO0O8Po5JDeodX2uQ6b3YL6GirkOYowMBSV6dtTZj2NVJVYLb22b5IhgAjzO94k1yKowJ71DJuUIXIioq%2F16QalqUC4u7cZG5j%2BzGNtRPruRmrIQyk4E5kRaa1%2FxUmUiL%2BgREWQ4nJfZ2yquHRXAup8EtEFPI95HTCyTkwsBwWuPZ3t4i3cJ0azMxIGDKSSXaeCwaiiFyQroynfZ4QgJ3w4H5tN6HXDRBzmDgyT%2FkSlexgFv1VwU7AmppTc3qopHLeMw2vVnVzxxkJkWPTOTD66fPCBjqkAfGlpoT43phvm4lB9o9thVXExIpEFuxl1W7ja3Yy9KZHE7p2%2FdtzxdGOtKCl2Puzp5ifBjWI5Kvmz7RJMtsKj4AmdqmR2AyNu5%2BY8s%2BAiEVkn59j1YXDv6fWPrN156B0FG0GgTjMX%2FuK%2Bsyb4rmmlUac1p9HBXfceGwrYB%2Fw00DGwbKB9PuKP420wnlvk5A7rXV8KiAiyOgOtfSZoz3zEfkoA7uk&amp;X-Amz-Signature=c3f8cbcdca9bc33914875a192d39a1aaeb6f7be17de6a4d00cccfe9600e53d09&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<h3>料金</h3>
+
+<div class="bookmark-block">
+<a href="https://blog.google/technology/developers/introducing-gemini-cli-open-source-ai-agent/" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<div class="bookmark-text">
+<div class="bookmark-title">Google announces Gemini CLI: your open-source AI agent</div>
+<p class="bookmark-description">Free and open source, Gemini CLI brings Gemini directly into developers’...</p>
+<div class="bookmark-source-info">
+<img src="https://blog.google/favicon.ico" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+<span class="bookmark-url">blog.google</span>
+</div>
+</div>
+<div class="bookmark-og-image"><img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_CLI_Hero_Final.width-1300.png" alt="Preview for Google announces Gemini CLI: your open-source AI agent"></div>
+</a>
+</div>
+                    <p>Gemini CLIの無料枠は以下の通り(超過後もAPIキーの利用などで使えるらしい)</p>
+<blockquote class="notion-quote ">Gemini CLI offers the industry&#x27;s largest usage allowance at 60 model requests per minute and 1,000 model requests per day at no charge</blockquote>
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/86e3feec-2896-4151-8d24-d6ad0e10e094/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4664M7EMCMV%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T080744Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEGAaCXVzLXdlc3QtMiJIMEYCIQCLPJUgv5ZzDGmNoORCXNe%2FJnjvCHq1lLtjGa8vdzu3ugIhALGNtSS3yxgTVxfwpKkRQqvUYYDd9q4CI3IXLEvLbsNTKv8DCFgQABoMNjM3NDIzMTgzODA1IgzRpOWjITf1Ie6nhIYq3AMaoUvg9cOuETGCHmBACvo20koH81z7yl0k7ZPhCXfEYQBaXnuR%2BubsaIzspzmpKBpL63SQzl0rVq%2FbsEt9Ku5g1zMk1gAB%2FFqH75n9TnxdwjZk46Wt1TdLuKS1Wh1rpzvygbOe5Rx0u%2F4MWcsoENHXfi90C5mXyEabGQ9SkMB5FulDnpLl%2BH2KuQEGrncifpBh4OgUkGEXrwefWtz00O8%2Fh96oEW6mEyx%2B4TqucYmZAqqN75NTqpg%2Bwriu4kjgMz1Z28L7Y1Hd134rxa%2BAQodsCqckzFerdlUPKAkOfs7m3dYl%2FRmyeh1u6%2Fn8WJLE8rP83pppk%2F7SxCOrySM165CfeizoZxu7LwfDtgvS2rFO0O8Po5JDeodX2uQ6b3YL6GirkOYowMBSV6dtTZj2NVJVYLb22b5IhgAjzO94k1yKowJ71DJuUIXIioq%2F16QalqUC4u7cZG5j%2BzGNtRPruRmrIQyk4E5kRaa1%2FxUmUiL%2BgREWQ4nJfZ2yquHRXAup8EtEFPI95HTCyTkwsBwWuPZ3t4i3cJ0azMxIGDKSSXaeCwaiiFyQroynfZ4QgJ3w4H5tN6HXDRBzmDgyT%2FkSlexgFv1VwU7AmppTc3qopHLeMw2vVnVzxxkJkWPTOTD66fPCBjqkAfGlpoT43phvm4lB9o9thVXExIpEFuxl1W7ja3Yy9KZHE7p2%2FdtzxdGOtKCl2Puzp5ifBjWI5Kvmz7RJMtsKj4AmdqmR2AyNu5%2BY8s%2BAiEVkn59j1YXDv6fWPrN156B0FG0GgTjMX%2FuK%2Bsyb4rmmlUac1p9HBXfceGwrYB%2Fw00DGwbKB9PuKP420wnlvk5A7rXV8KiAiyOgOtfSZoz3zEfkoA7uk&amp;X-Amz-Signature=bb70ff9b802ff0c1b6db75a8cc7c68d2040c042d7161d40ab89be43a1d003eed&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
+<h3>認証を削除</h3>
+<p>恐らく以下に認証後に生成・更新される各種ファイルが入っている</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>ls /home/pi/.gemini
+# oauth_creds.json  settings.json  tmp  user_id</code></pre>
+                        </div>
+                    </div>
+                    <p>これらのうち「oauth_creds.json / settings.json / user_id」を削除すれば初期化され、再度認証が必要となるようだ</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>cd /home/pi/.gemini
+sudo rm oauth_creds.json
+sudo rm settings.json
+sudo rm user_id</code></pre>
+                        </div>
+                    </div>
+                    </article>
+<article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">お米がないならオートミールを食べればいいじゃない</h1></header>
 <div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-06-24 12:12</span>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">Life</span>
@@ -345,14 +462,14 @@ width: auto;
 <div class="bookmark-og-image"><img src="https://tk.ismcdn.jp/mwimgs/7/1/1200w/img_71c1430bdbeae5e59392462a0f1dac1d315213.jpg" alt="Preview for 「事実上の票の買収ではないか」との声も…。石破政権「2万円ばら撒き」公約が現役世代を完全に舐めているワケ | 不安な時代、不機嫌な人々 | 東洋経済オンライン"></div>
 </a>
 </div>
-                    <iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/2ef077d3-7883-48dc-b33e-126fed2377ec/shigeru_video.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB46636XYYRW2%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T072142Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEF4aCXVzLXdlc3QtMiJGMEQCIA2kCenR7habPhTLhTJomiMUVbDdqpvUAtCVjT%2B5ZlxsAiAM56HTgriWEB53761wc8xhh5FWE01NR9Bcj%2F9j58VcYyr%2FAwhWEAAaDDYzNzQyMzE4MzgwNSIMcJOQUCczojzBNvFSKtwDt6MzTbTfUyiTToVhOfSeWtyyJ3sxz66Fot0csWahuAnnoVFxogSTeKQLnTvrs1SlUP16pL0ogvPRfmlVTmSOhbVvmDtuaUmmrQrOhkPO3R233hEdGBNN7I%2ByhOY3nTyXY6RahB%2Bw1puYceV9IV7P5LJ3JsJjP2qd6dRt3bC0nxNmpew49Tk7WD1MpNie2%2FrFPy4Y3fIt0Pa%2FtoUp8wvI%2B7V%2BuwfQplEUHTBgzQKezxoWDKXBTv69g5jbBotdD7CRkmjvW3YtQCzsJRxiqYUnmRanKZhI85jrB5emIEVEuVx4IbeUf5WuNPQ8DmX6e7mJ66n%2FfCyldJdG7b4ZIdca6xp15%2FUmVBTgpacQIF9OpNU8a1ClUxS9tGRB3N5xcjavZJ8qOjc3mfSrXEZAfWVLXAFzA4tO6qXnL9ePtdPjbTCRzmxGJT0EQsOxZovaUFKUKvIGS8h8ipWRa8ipVxxnH8uA63hFNYxw%2F75ZNc8%2FwMi7vl33OScpSWusD6F6pdrhz3EzjEccCKe8ijHtdczFewU%2FOR6lRKvFr7ZDPrE0ImlnAcwD1f7I5aKKa8CU%2FIv7FyapBOO9AcYgMaIBN1G7gpQIc03s7gIXwtMrb0tedBgT%2BZHYId%2BqssFq4QQwjrLzwgY6pgGb6hkZiTaylRKsEBEt9g7xUKoBJMZMaoV%2FqrzNymXlSFPk6023fsjfHD%2FymXIj9ItFgqbhV%2ByNk0lnXIBGcDPCB7I8k1bpXx4GbemJv8LhRJNhg8uhSsRfx4QXJQ581C3k5EEiQYZO%2BjVwy81q42ja9eu4XWcI6Z6TnztCNGj13gHsnJ5c%2FCvmw8YF1wNjfOJEhapxLMz%2BOkSfr9LD2ns8qVwG%2B5Fs&amp;X-Amz-Signature=cca1e2078b7db94359ad0653bf5e7737ef5e63e203667608904e0dd705447cee&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+                    <iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/2ef077d3-7883-48dc-b33e-126fed2377ec/shigeru_video.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466XMWMHIIS%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T080744Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEGAaCXVzLXdlc3QtMiJHMEUCIQDu64ncnDefJb9e2EWhXhaYe88AWxjmlPxQ92CbQA0o%2FQIgTDOmoHrefQjQnpQTYAICz4ujXCwdhGsVtyP2iObBSGwq%2FwMIWBAAGgw2Mzc0MjMxODM4MDUiDPTmEKanY7E4udv4MircAyxmRFDuIgQKXaGES0eom1PbOH2oBZvzQ9%2BJOhQmHTH0w3rWakprsQnewrI2oOYKjexo5RCtb25zY8BPaWgpvnsTFYBPjnonDY3EkAhI94wDQJS3uqEzxBwvTPrJRiCY05jdOa9%2F%2F7IpIM63QwJV01S7DAzTIIoi1LWfqr0ATdBB6k1C%2F%2BsWWoCCAXlhvSKNXEwIAWdesL65ZBvrgvufcUCbIW9g1WxW1Txw5VToXYN02bdSnOcN8afgyY3h3PupKvXZE8wNxU7oxoWMQpiP88uAQd8YU117krU%2FP%2BnPy3uUUIDKI108c3boWo0zIdsVFIjpJ0kL2Eb1uL4ovYTMl8bke1CFlxq7k40xTeFRL4eI8hcq5O0MOBjj8HPthrb1n%2BmLR8eGIcq7V9Yi%2Fz%2B8gvPVmk2wWyrHbClT%2BD4X679gb2MoqkZdwU4V70S8Tc7k8mZanfusWujKY%2FoN8xnFRUi9pplI0Kd8TFASAX4mFZr%2Bb9WtWfgBaFrvtt3x6mYD%2Flyf4Y6yZ%2Bsg60oKW9UGzc4%2B%2FQPL7tNdXMJqBNdXTzSTIYs5qtK0BoP5HhfmV%2F3W90z1Bb5s8s%2FreTDpT%2BpjsqxEkYnxXTwY4uPJYZ%2FSSR23pbQkVcDzg1Noi5REMP7p88IGOqUB8jxNFhfh%2BQ1WwXcGF%2FkphmYn1BqFv19bM3TVGL%2FAbslIyndEKbBNuVueXXy%2FS%2BEK9fPvVd2M%2BOUTCf1mFJeglO6CCZ1OGieQRpMctuJDj1atmoNc2XYOqucV0fCy5datqdEoZP9g%2FBt7yGCdPTWqDZ1XwZZlgvLy1V2qI7q1O5zvHTrbaMn8gXnDCYS5Gx53MAWYYlTnhodDIDzppodoMlm9A7Np&amp;X-Amz-Signature=a7ab1c607950c3e9f4e606395eaa16df29fc7caa26799b2a067cb2b46aa46e20&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 </article>
 <article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">🤔【TypeScriptベース】opencodeを試してみた</h1></header>
 <div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-06-21 10:11</span>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI, GitHub</span>
 </div>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/2389fce3-5b09-45ac-bef9-a78576bd232e/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4662NZ3YQ3G%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T072142Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEF4aCXVzLXdlc3QtMiJHMEUCIHW0lPcMMwe%2BwUysn8SZbvoox09zLa7qbFHLVQM%2F5gI9AiEAv7zpM8BI1aA%2BytvKWrgw3dZXirWSGCRFIXDJ2gUf2%2BEq%2FwMIVxAAGgw2Mzc0MjMxODM4MDUiDN1ReaMIlParA9mbayrcA5kCBxnvn81uxtYTPI%2BACIJ4pXOhs1WEcsksubftRQrvRNlOHBHnRKIhDXfeBL3Ng2dy3O5Rd%2FN2p8nNN7tH5T2Utc20F1qqkJ447%2Fvnm4G7FiIo3B2e0iuv6M3OWFD%2B9M548%2Bz34Jx8VMNeo3qIwzBMICCuBWVZa0EiYvTgyp9D9L%2Fwsb1mt0N88mXbLWTp%2FFRsRCalF8WtDA5PsxNLXoUeivKcx1u7NZ7Eoler9uRVGkCds%2Fe%2Bxg9vJXqyLnNdWIXlG3mjdhAWJ5ogVwpq0natGI4ATSY7WuDAW%2BwY0MpuljhoIAluaGpElXGtkwqS7lrh%2BXMtHqb%2BziTgxN1vfP2kX6miUvNXNVx2RWq92QGVdGEQwVdvgIuLILFw5OqX5Y8EZld9jBsJiUJ%2FNUQOMnB%2BNtnL9f7mgl8ujqMighAHz61fToWZLPCj38xJIZWa%2Be6DBuJj5Up0RiaDERHRtKkAYLmHo451CoKOWoceeW3z4sOCIHKrvjNkR8D%2F1G5USGNF5h5ntoNhWBZAY6OzKrjgUyGZtC7kzq05hvQ7KGzP6zwRCTDCO0IHnrzY3ZfS4fJjPaJT2Yms15ILgPW86ETW03XBx8BSP7HXN252ZyDPlPMlJXJuijNNdb7kMKm%2B88IGOqUBRtoHwhYyimXljdUbgdT%2F9mmvR3pDkAWAuCzjagH%2BTonT9AN%2B7Ut9Pno1J%2FqC69WpyzAvMiHrMZQaqikdWL0HoCYbEodK4rj6TxkVPso6iD7e0OaKAvepLqPJCLQgP9L1RJvju9a7Xk8xcOABwcGaaY%2Fys9nov%2BediPLOnqr17%2BOPJbpl4BoQmnxyiIFLbzF7Nt%2BrxPUd0L1W7UdiLV79sjBXeVM1&amp;X-Amz-Signature=f361b71b6aa6185b270b98765cc4c6c5bdb241efb5839d6f7613e60fb1cddb58&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/2389fce3-5b09-45ac-bef9-a78576bd232e/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666PPLVXXG%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T080744Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEGAaCXVzLXdlc3QtMiJIMEYCIQDk0%2FCw2NnUKiy%2FpcBEVVssvfn9UAbmrSDD3Nar05%2FyswIhAMEaL5zhmjLLBoV%2FK5ZrFIVcryTk5V8yocyYZoSl14rnKv8DCFgQABoMNjM3NDIzMTgzODA1IgzHdEbuTU%2BsJIpNkIQq3AP5YX9%2Bl6t5RE5Wv2%2BlnLmb%2Bn4xFT7cv0nLwNcvdn0Eat49JSCY4d1MZH2u6ksQKyif0qMalSwxLXFWcjBBh5gdNhGSOQuF4ezGsJsheFV1gzMVR3MmXPpV2rD%2Fl7FTFAmZG0xplFn0u%2BnlAasxX1p80DuT0V2n39tBTTyvh2enBrEC%2BZHBCOr1trFiYEAjAy9L5z%2BQWXi9wuds9UG77EwproVb1rwWglHWNtQwuvnhCs1dTGrZftNuaV%2FjPfNY12AyJB4to5yoj2C3GFUL5Gc21eJd%2B%2F%2FO%2FlqTrsecvs50uoA2ro1zR6LmYXeYXgQxMGXT7qPZb5vQNIu%2FdKlgLCZi%2FBshwtvBJ3wHH0s1hxJL%2BwKp8XOQOLmS%2FFKXD9fs5sbJ7nkYIE262OLX%2FyxTyBs6DlWDK8FkwLZ7aNPiux%2FU4h%2F8UEzDMTBwEw1UjmXVtqqpfFk1G5zPWnM037%2BBvmgSzT%2Bb2djycYeNOp%2BhZcEPvUsyZwm90GnxjgZ1O2wZRqEzjQcaYJcpiMDdZ8kZmBYJH2w2XVTerakoLfJML%2FD0%2BswVvPCEvwOTMjB23F4NHvf4c7sCT6rl5ZrbUDcDKfxTrEu6v8IDctfKXCwU9PkJaS2f%2FGmaVCELHjiOUzDG6vPCBjqkAbXl88g6gjTFVAL6BYTEdWoDt8UXSaNeP9jRCDobhy3IVzuJ0%2BKOKNO62D%2FIhbCgUzdn2wu5bQnJbtWEJ6Q8EBh7M2C7q6PxGxjkBEkCoDR2RTrSE0MpmaKVUW2kMHEuorCOb2jr9u9xaK8vzQQphLJX%2BWk%2FbG08O5QEf4ELkTef1P64yfKKPqOfze3cALiJA7wM%2B4TZ3stPvK1g8LYU9OAFq3en&amp;X-Amz-Signature=897ac77619232395b19b95e4adb96fd3822d82ee605d575d76303717d06831c6&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>先日Claude Codeの代替品として<a href="https://github.com/opencode-ai/opencode" target="_blank">OpenCode</a>という”TUI”コーディングツールを紹介しましたが、現在Xではもう1つの<a href="https://opencode.ai/" target="_blank">opencode</a>が話題になっています。<br>こちらはClaude ProやMaxプランに対応しているそうで、それで話題になっているみたいですね。<br>このopencodeはTypeScript版だそうです。</p>
 <iframe id="tweet_1935801226362302730" border="0" frameborder="0" scrolling="no" style="width: 100%; min-height: 350px; display: block; margin: 1em auto;" src="https://mssmat.github.io/twiframe/show.html?url=https://twitter.com/thdxr/status/1935801226362302730&theme=" + (document.body.classList.contains("dark-mode") ? "dark" : "light")"></iframe>
 
@@ -375,7 +492,7 @@ width: auto;
 <p>Go版のOpenCodeを入れている場合、競合するかも知れないので削除しておいた方がよいかも知れません。</p>
 <p>いつものようにRaspberry Piでやったので共有します。</p>
 <h3>実際に使っている様子(iPhone)</h3>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/0022bac0-c08f-4b4d-978a-480867b4e35a/1750479471607173.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4662NZ3YQ3G%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T072142Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEF4aCXVzLXdlc3QtMiJHMEUCIHW0lPcMMwe%2BwUysn8SZbvoox09zLa7qbFHLVQM%2F5gI9AiEAv7zpM8BI1aA%2BytvKWrgw3dZXirWSGCRFIXDJ2gUf2%2BEq%2FwMIVxAAGgw2Mzc0MjMxODM4MDUiDN1ReaMIlParA9mbayrcA5kCBxnvn81uxtYTPI%2BACIJ4pXOhs1WEcsksubftRQrvRNlOHBHnRKIhDXfeBL3Ng2dy3O5Rd%2FN2p8nNN7tH5T2Utc20F1qqkJ447%2Fvnm4G7FiIo3B2e0iuv6M3OWFD%2B9M548%2Bz34Jx8VMNeo3qIwzBMICCuBWVZa0EiYvTgyp9D9L%2Fwsb1mt0N88mXbLWTp%2FFRsRCalF8WtDA5PsxNLXoUeivKcx1u7NZ7Eoler9uRVGkCds%2Fe%2Bxg9vJXqyLnNdWIXlG3mjdhAWJ5ogVwpq0natGI4ATSY7WuDAW%2BwY0MpuljhoIAluaGpElXGtkwqS7lrh%2BXMtHqb%2BziTgxN1vfP2kX6miUvNXNVx2RWq92QGVdGEQwVdvgIuLILFw5OqX5Y8EZld9jBsJiUJ%2FNUQOMnB%2BNtnL9f7mgl8ujqMighAHz61fToWZLPCj38xJIZWa%2Be6DBuJj5Up0RiaDERHRtKkAYLmHo451CoKOWoceeW3z4sOCIHKrvjNkR8D%2F1G5USGNF5h5ntoNhWBZAY6OzKrjgUyGZtC7kzq05hvQ7KGzP6zwRCTDCO0IHnrzY3ZfS4fJjPaJT2Yms15ILgPW86ETW03XBx8BSP7HXN252ZyDPlPMlJXJuijNNdb7kMKm%2B88IGOqUBRtoHwhYyimXljdUbgdT%2F9mmvR3pDkAWAuCzjagH%2BTonT9AN%2B7Ut9Pno1J%2FqC69WpyzAvMiHrMZQaqikdWL0HoCYbEodK4rj6TxkVPso6iD7e0OaKAvepLqPJCLQgP9L1RJvju9a7Xk8xcOABwcGaaY%2Fys9nov%2BediPLOnqr17%2BOPJbpl4BoQmnxyiIFLbzF7Nt%2BrxPUd0L1W7UdiLV79sjBXeVM1&amp;X-Amz-Signature=64386d654ab6331b2a589b1736b94b78c27080e83593e3f20f92476b3563ba62&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/0022bac0-c08f-4b4d-978a-480867b4e35a/1750479471607173.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666PPLVXXG%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T080744Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEGAaCXVzLXdlc3QtMiJIMEYCIQDk0%2FCw2NnUKiy%2FpcBEVVssvfn9UAbmrSDD3Nar05%2FyswIhAMEaL5zhmjLLBoV%2FK5ZrFIVcryTk5V8yocyYZoSl14rnKv8DCFgQABoMNjM3NDIzMTgzODA1IgzHdEbuTU%2BsJIpNkIQq3AP5YX9%2Bl6t5RE5Wv2%2BlnLmb%2Bn4xFT7cv0nLwNcvdn0Eat49JSCY4d1MZH2u6ksQKyif0qMalSwxLXFWcjBBh5gdNhGSOQuF4ezGsJsheFV1gzMVR3MmXPpV2rD%2Fl7FTFAmZG0xplFn0u%2BnlAasxX1p80DuT0V2n39tBTTyvh2enBrEC%2BZHBCOr1trFiYEAjAy9L5z%2BQWXi9wuds9UG77EwproVb1rwWglHWNtQwuvnhCs1dTGrZftNuaV%2FjPfNY12AyJB4to5yoj2C3GFUL5Gc21eJd%2B%2F%2FO%2FlqTrsecvs50uoA2ro1zR6LmYXeYXgQxMGXT7qPZb5vQNIu%2FdKlgLCZi%2FBshwtvBJ3wHH0s1hxJL%2BwKp8XOQOLmS%2FFKXD9fs5sbJ7nkYIE262OLX%2FyxTyBs6DlWDK8FkwLZ7aNPiux%2FU4h%2F8UEzDMTBwEw1UjmXVtqqpfFk1G5zPWnM037%2BBvmgSzT%2Bb2djycYeNOp%2BhZcEPvUsyZwm90GnxjgZ1O2wZRqEzjQcaYJcpiMDdZ8kZmBYJH2w2XVTerakoLfJML%2FD0%2BswVvPCEvwOTMjB23F4NHvf4c7sCT6rl5ZrbUDcDKfxTrEu6v8IDctfKXCwU9PkJaS2f%2FGmaVCELHjiOUzDG6vPCBjqkAbXl88g6gjTFVAL6BYTEdWoDt8UXSaNeP9jRCDobhy3IVzuJ0%2BKOKNO62D%2FIhbCgUzdn2wu5bQnJbtWEJ6Q8EBh7M2C7q6PxGxjkBEkCoDR2RTrSE0MpmaKVUW2kMHEuorCOb2jr9u9xaK8vzQQphLJX%2BWk%2FbG08O5QEf4ELkTef1P64yfKKPqOfze3cALiJA7wM%2B4TZ3stPvK1g8LYU9OAFq3en&amp;X-Amz-Signature=6cefa501f7a6616c0175eeb918b8b74ec9a24007943f2c4c39295a9c4b692297&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <h3><strong>GoベースのOpenCodeのアンインストール</strong></h3>
 <ul>
 <li>インストールの場所を確認</li>
@@ -625,7 +742,7 @@ width: auto;
 opencode</code></pre>
                         </div>
                     </div>
-                    <img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4926a595-46ed-43fd-b187-57fa8e5665ab/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4662NZ3YQ3G%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T072142Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEF4aCXVzLXdlc3QtMiJHMEUCIHW0lPcMMwe%2BwUysn8SZbvoox09zLa7qbFHLVQM%2F5gI9AiEAv7zpM8BI1aA%2BytvKWrgw3dZXirWSGCRFIXDJ2gUf2%2BEq%2FwMIVxAAGgw2Mzc0MjMxODM4MDUiDN1ReaMIlParA9mbayrcA5kCBxnvn81uxtYTPI%2BACIJ4pXOhs1WEcsksubftRQrvRNlOHBHnRKIhDXfeBL3Ng2dy3O5Rd%2FN2p8nNN7tH5T2Utc20F1qqkJ447%2Fvnm4G7FiIo3B2e0iuv6M3OWFD%2B9M548%2Bz34Jx8VMNeo3qIwzBMICCuBWVZa0EiYvTgyp9D9L%2Fwsb1mt0N88mXbLWTp%2FFRsRCalF8WtDA5PsxNLXoUeivKcx1u7NZ7Eoler9uRVGkCds%2Fe%2Bxg9vJXqyLnNdWIXlG3mjdhAWJ5ogVwpq0natGI4ATSY7WuDAW%2BwY0MpuljhoIAluaGpElXGtkwqS7lrh%2BXMtHqb%2BziTgxN1vfP2kX6miUvNXNVx2RWq92QGVdGEQwVdvgIuLILFw5OqX5Y8EZld9jBsJiUJ%2FNUQOMnB%2BNtnL9f7mgl8ujqMighAHz61fToWZLPCj38xJIZWa%2Be6DBuJj5Up0RiaDERHRtKkAYLmHo451CoKOWoceeW3z4sOCIHKrvjNkR8D%2F1G5USGNF5h5ntoNhWBZAY6OzKrjgUyGZtC7kzq05hvQ7KGzP6zwRCTDCO0IHnrzY3ZfS4fJjPaJT2Yms15ILgPW86ETW03XBx8BSP7HXN252ZyDPlPMlJXJuijNNdb7kMKm%2B88IGOqUBRtoHwhYyimXljdUbgdT%2F9mmvR3pDkAWAuCzjagH%2BTonT9AN%2B7Ut9Pno1J%2FqC69WpyzAvMiHrMZQaqikdWL0HoCYbEodK4rj6TxkVPso6iD7e0OaKAvepLqPJCLQgP9L1RJvju9a7Xk8xcOABwcGaaY%2Fys9nov%2BediPLOnqr17%2BOPJbpl4BoQmnxyiIFLbzF7Nt%2BrxPUd0L1W7UdiLV79sjBXeVM1&amp;X-Amz-Signature=68bb2a6341a95b19879f481f6e65fb64bb5d380f46d55328b4a47df250ab5662&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
+                    <img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4926a595-46ed-43fd-b187-57fa8e5665ab/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666PPLVXXG%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T080744Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEGAaCXVzLXdlc3QtMiJIMEYCIQDk0%2FCw2NnUKiy%2FpcBEVVssvfn9UAbmrSDD3Nar05%2FyswIhAMEaL5zhmjLLBoV%2FK5ZrFIVcryTk5V8yocyYZoSl14rnKv8DCFgQABoMNjM3NDIzMTgzODA1IgzHdEbuTU%2BsJIpNkIQq3AP5YX9%2Bl6t5RE5Wv2%2BlnLmb%2Bn4xFT7cv0nLwNcvdn0Eat49JSCY4d1MZH2u6ksQKyif0qMalSwxLXFWcjBBh5gdNhGSOQuF4ezGsJsheFV1gzMVR3MmXPpV2rD%2Fl7FTFAmZG0xplFn0u%2BnlAasxX1p80DuT0V2n39tBTTyvh2enBrEC%2BZHBCOr1trFiYEAjAy9L5z%2BQWXi9wuds9UG77EwproVb1rwWglHWNtQwuvnhCs1dTGrZftNuaV%2FjPfNY12AyJB4to5yoj2C3GFUL5Gc21eJd%2B%2F%2FO%2FlqTrsecvs50uoA2ro1zR6LmYXeYXgQxMGXT7qPZb5vQNIu%2FdKlgLCZi%2FBshwtvBJ3wHH0s1hxJL%2BwKp8XOQOLmS%2FFKXD9fs5sbJ7nkYIE262OLX%2FyxTyBs6DlWDK8FkwLZ7aNPiux%2FU4h%2F8UEzDMTBwEw1UjmXVtqqpfFk1G5zPWnM037%2BBvmgSzT%2Bb2djycYeNOp%2BhZcEPvUsyZwm90GnxjgZ1O2wZRqEzjQcaYJcpiMDdZ8kZmBYJH2w2XVTerakoLfJML%2FD0%2BswVvPCEvwOTMjB23F4NHvf4c7sCT6rl5ZrbUDcDKfxTrEu6v8IDctfKXCwU9PkJaS2f%2FGmaVCELHjiOUzDG6vPCBjqkAbXl88g6gjTFVAL6BYTEdWoDt8UXSaNeP9jRCDobhy3IVzuJ0%2BKOKNO62D%2FIhbCgUzdn2wu5bQnJbtWEJ6Q8EBh7M2C7q6PxGxjkBEkCoDR2RTrSE0MpmaKVUW2kMHEuorCOb2jr9u9xaK8vzQQphLJX%2BWk%2FbG08O5QEf4ELkTef1P64yfKKPqOfze3cALiJA7wM%2B4TZ3stPvK1g8LYU9OAFq3en&amp;X-Amz-Signature=3d8920f97e49646c1dbb47129ae9f9a132e0235f096ca3fe6e1113ca251a7589&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
 </article>
 <article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">🧑‍🎓数式対応</h1></header>
@@ -643,538 +760,7 @@ opencode</code></pre>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">Notion</span>
 </div>
 <p>おっ！ SVG表示もイケるや～ん！<br>これは表現力が上がる..👍</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/a67d01bf-53b7-465b-8958-c177335e4d61/svgtest.svg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666ZJZ3X65%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T072143Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEF8aCXVzLXdlc3QtMiJGMEQCIDs4UmTiEZjhVEfP9L1ir55XDIUXTtMZNDyKWrZJ6WGyAiBUE2%2BHPIONqQzs4T09qiWQ7dICnPtT2cdKzVe4iR9Z%2Byr%2FAwhYEAAaDDYzNzQyMzE4MzgwNSIMAgx2kj8QjfRhYX8OKtwDHT%2BBEk5lfLc0xl%2FcLBAMMBSzeua8nO1ubG0K09mZAlqlV41oF7zR%2FXP5oBSAlpPkByfhzeLdr%2BvS0Z4YDE0spNsVq7sWHy0vgvQVEp3PYWoiold7BPEA7sh%2FHS9%2BwHZdohgx6lCv3zlaOI4lpsEWQudcMxwoNKrEfzMOC0U36molMOozrcA6ZPdxBU50fSCLQIG1AfGlif4Dqa6ibdDUYGVscaApGgS5jctUlk0%2BmSrmRvxpICJ09F5vqat%2FvIEcbbaPuGZtCKmnPbyH7%2FimXqQEHnbMRTFXnUMyZJiv%2BJsm6diPLJbbjEE0DXpAbpuFG%2B7Uaz%2FHQhSV3a1Y9YpttInV4Ms3RGuU8nHaBisZky30RLEPe0C%2FBmEdkGSKfKL%2BMarWTIYv2CRbK3F1ILQOKDzmA2%2Fh8P6qd%2FmwDCI5pOjFGi%2BoWIHQHijTG80norcQrZqw0zyFX3jT6ED6Xud%2BJUcnN2pCMIqJLvhH44%2F0xpp%2FjqMErn5OXa%2FVFd0DsDCAcbWQZwNSYxVPtek2wcfZY4ySVD4E%2B%2B%2F4ZyHZjm7va3g3BtXUQ7U91e2q86IKf7ePNPql2TtVuFhPrE%2Ff9Nn5M2isPfNc1PJVB45%2FBdmiEvmmvfNEFPQrWrEFvIUwp9jzwgY6pgHpUAYkLQKqOhoBOkR6ERCn9W%2FCsZn5pM7BUe2ANpXwqhFU0sGfyLl0HIqSsBk7hxMDiRpm3XFXIYulPW4GiygI7BLXMnRgwi6pseBaUy%2F%2BcsMi06AGvchHUSknPFULNPQBqay%2Bya7cgHNdb7oie6mIRR1J4O3dCCMU%2BDNFnyXc29pXEdxpWBRjFlwbQvAn78K9IegZe5LLGnjbmyZ6RzPjQ7dV9Brr&amp;X-Amz-Signature=d9eb7eb89632ac28189346ca08e7c09b91935270481cd96b06ef22421070c331&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
-</article>
-<article>
-<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Claude Codeの代替品「OpenCode」をRaspberry Piにインストールして使ってみた</h1></header>
-<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-06-09 18:43</span>
-<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI, GitHub</span>
-</div>
-<div class="notion-callout callout-gray_background"><span class="callout-icon">💡</span><div>ゴールは、「OpenCode」を「Raspberry Pi」にインストールし、「OpenRouter」の「Gemini 2.5 Flash」を使うこと。</div></div>
-<h3>実際に使っている様子(PC/iPhone)</h3>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/9e7d67c7-dc18-4ae5-b180-7b7a6a11c0ee/opencode_test.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4662PA3TW6S%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T072144Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEGAaCXVzLXdlc3QtMiJGMEQCIHPVBGo4TBNvyR6JfQqR4%2BsLx03P3NGLpgcrmz8C4PHtAiB%2F7WMG3INLndfXtTh2kF8Zl07IisQUesWF%2B5baSLiRSir%2FAwhYEAAaDDYzNzQyMzE4MzgwNSIMbVr7zEsaJOKJ8q5CKtwDuIkp6agGGXQ83QpBbPpC%2F9rme8383gXMwCJ3lAng6%2Fvtyn5wBcpMyq%2B59%2FXJc6pE5MIwcYGZeIMbgGhzv29bq6AExRmgd1opXBFQR%2F%2BtOw9NkuHQno3vUaov6JEUb1vqu0KmLYzgMOtuUsPxvHkYaXmcoUCRTwl3eXigKObl5S4U1R7KtiLRhNDdMpQXqpXr3IYwaXCKfTQyazmgjj0pkWT6tvg1AuBZzj0EGXPXKw49MfMPwfZptFJo%2FOCJ4KKjOqgh%2BGPHd0OJ1fBE%2FwuqjeyXW4dTE8OM1eDqcYN9DYhNX0YIkqLUY0omuDYv8a8qwLAnrHdi5D48GimnZpf%2B5Il1lHyAvSdD3gN0mqg7i9IclOaydOz%2FErLEoeiFj%2FC8uaNltRinEaZqddzyrj%2F%2FxN0tJPPvlQ%2FAMoGxx22tKZGg0TVithhpQwyNR92tAN%2Fn2NsboXDLEOE9YUnmhDuN%2Bu6puY4dTbWyut5hBcRlIdLEsLJB2JkLxybkI5vtjXH2MoCKesDA3u3xDoCA1fcshE5edWAxGL310r3WIu753cM041VBSEOPgihl7ezSA4Sujp25z8J4j8FpveoS6%2BN%2FVTF4DsIwSYdxWvd%2FC47SUjLC4%2B4uwO7g%2FcEpCVowgunzwgY6pgE%2Boa%2FqX86kiXU%2BzXpzZAZSLnsQOQgrtOmO%2F4UFPFo8evTxOHcYgENKHsItX8QyfCGQ6TKe1vGRxnta4TKv4HBJ0%2FEO%2FBaNn2aJLdIl3i86j7nf1Kd5P%2BHKy50yYHHrhIUXeyoz8VidcO7tWXpgYXSvTdVDDPin6IhFMRUn%2F5jlTSjaEqsehwh%2F4HO1wtB2k4a7uI0xCta5Xoj8nCqrSWkaIVqQFPED&amp;X-Amz-Signature=da772ba9f693f44b0167fd31ee48b740bfc627f6b629bb857cafca492a7f78b4&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-<h3>これは何? OpenCodeとは?</h3>
-<blockquote class="notion-quote ">OpenCodeは、ターミナルでAIアシスタンスを実現するGoベースのCLIアプリケーションです。様々なAIモデルと対話するための”TUI”を提供し、コーディング作業やデバッグなどを支援します。<br>巷では、<a href="https://docs.anthropic.com/ja/docs/claude-code/overview" target="_blank">Claude Code</a>の”代替品”などと呼ばれています(他に似たものとして、OpenAIのオープンソース、<a href="https://help.openai.com/en/articles/11096431-openai-codex-cli-getting-started" target="_blank">Codex CLI</a>がありますね)。<br>Claude Codeを使いたいけど、Claude以外のモデルを使いたい..というような要望に応えます。</blockquote>
-
-<div class="bookmark-block">
-<a href="https://github.com/opencode-ai/opencode" target="_blank" rel="noopener noreferrer" class="bookmark-link">
-<div class="bookmark-text">
-<div class="bookmark-title">GitHub - opencode-ai/opencode: A powerful AI coding agent. Built for the terminal.</div>
-<p class="bookmark-description">A powerful AI coding agent. Built for the terminal. - opencode-ai/opencode</p>
-<div class="bookmark-source-info">
-<img src="https://github.githubassets.com/favicons/favicon.svg" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
-<span class="bookmark-url">github.com</span>
-</div>
-</div>
-<div class="bookmark-og-image"><img src="https://opengraph.githubassets.com/f49cfd1a52b4652beac02a8e55ce414433b4c5b3b74bbf6316d10e0fdcf36578/opencode-ai/opencode" alt="Preview for GitHub - opencode-ai/opencode: A powerful AI coding agent. Built for the terminal."></div>
-</a>
-</div>
-                    <iframe src="https://www.youtube-nocookie.com/embed/P8luPmEa1QI" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-<iframe id="tweet_1931473659173949912" border="0" frameborder="0" scrolling="no" style="width: 100%; min-height: 350px; display: block; margin: 1em auto;" src="https://mssmat.github.io/twiframe/show.html?url=https://twitter.com/intheworldofai/status/1931473659173949912&theme=" + (document.body.classList.contains("dark-mode") ? "dark" : "light")"></iframe>
-<h3>手順</h3>
-<ul>
-<li>本体をインストール</li>
-</ul>
-
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                bash
-                            </div>
-                            <pre><code>curl -fsSL https://raw.githubusercontent.com/opencode-ai/opencode/refs/heads/main/install | bash</code></pre>
-                        </div>
-                    </div>
-                    <ul>
-<li>関連ソフトをインストール</li>
-</ul>
-
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                bash
-                            </div>
-                            <pre><code>sudo apt update
-sudo apt install ripgrep fzf</code></pre>
-                        </div>
-                    </div>
-                    <ul>
-<li>設定ファイルを作成</li>
-</ul>
-
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                bash
-                            </div>
-                            <pre><code>nano ~/.opencode.json</code></pre>
-                        </div>
-                    </div>
-                    <p>OpenRouterのGemini 2.5 Flashを使う場合の例</p>
-
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                json
-                            </div>
-                            <pre><code>{
-  &quot;data&quot;: {
-    &quot;directory&quot;: &quot;.opencode&quot;
-  },
-  &quot;providers&quot;: {
-    &quot;openrouter&quot;: {
-      &quot;apiKey&quot;: &quot;sk-or-v1-xxxxx&quot;
-    }
-  },
-  &quot;agents&quot;: {
-    &quot;coder&quot;: {
-      &quot;model&quot;: &quot;openrouter.gemini-2.5-flash&quot;
-    },
-    &quot;task&quot;: {
-      &quot;model&quot;: &quot;openrouter.gemini-2.5-flash&quot;
-    }
-  },
-  &quot;debug&quot;: false,
-  &quot;autoCompact&quot;: true
-}</code></pre>
-                        </div>
-                    </div>
-                    <details><summary>対応のプロバイダやモデル名は<a href="https://github.com/opencode-ai/opencode/blob/main/opencode-schema.json" target="_blank">こちら</a>を参照</summary><div class="toggle-content">
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                json
-                            </div>
-                            <pre><code>{
-  &quot;$schema&quot;: &quot;http://json-schema.org/draft-07/schema#&quot;,
-  &quot;definitions&quot;: {
-    &quot;agent&quot;: {
-      &quot;description&quot;: &quot;Agent configuration&quot;,
-      &quot;properties&quot;: {
-        &quot;maxTokens&quot;: {
-          &quot;description&quot;: &quot;Maximum tokens for the agent&quot;,
-          &quot;minimum&quot;: 1,
-          &quot;type&quot;: &quot;integer&quot;
-        },
-        &quot;model&quot;: {
-          &quot;description&quot;: &quot;Model ID for the agent&quot;,
-          &quot;enum&quot;: [
-            &quot;gpt-4.1&quot;,
-            &quot;llama-3.3-70b-versatile&quot;,
-            &quot;azure.gpt-4.1&quot;,
-            &quot;openrouter.gpt-4o&quot;,
-            &quot;openrouter.o1-mini&quot;,
-            &quot;openrouter.claude-3-haiku&quot;,
-            &quot;claude-3-opus&quot;,
-            &quot;gpt-4o&quot;,
-            &quot;gpt-4o-mini&quot;,
-            &quot;o1&quot;,
-            &quot;meta-llama/llama-4-maverick-17b-128e-instruct&quot;,
-            &quot;azure.o3-mini&quot;,
-            &quot;openrouter.gpt-4o-mini&quot;,
-            &quot;openrouter.o1&quot;,
-            &quot;claude-3.5-haiku&quot;,
-            &quot;o4-mini&quot;,
-            &quot;azure.gpt-4.1-mini&quot;,
-            &quot;openrouter.o3&quot;,
-            &quot;grok-3-beta&quot;,
-            &quot;o3-mini&quot;,
-            &quot;qwen-qwq&quot;,
-            &quot;azure.o1&quot;,
-            &quot;openrouter.gemini-2.5-flash&quot;,
-            &quot;openrouter.gemini-2.5&quot;,
-            &quot;o1-mini&quot;,
-            &quot;azure.gpt-4o&quot;,
-            &quot;openrouter.gpt-4.1-mini&quot;,
-            &quot;openrouter.claude-3.5-sonnet&quot;,
-            &quot;openrouter.o3-mini&quot;,
-            &quot;gpt-4.1-mini&quot;,
-            &quot;gpt-4.5-preview&quot;,
-            &quot;gpt-4.1-nano&quot;,
-            &quot;deepseek-r1-distill-llama-70b&quot;,
-            &quot;azure.gpt-4o-mini&quot;,
-            &quot;openrouter.gpt-4.1&quot;,
-            &quot;bedrock.claude-3.7-sonnet&quot;,
-            &quot;claude-3-haiku&quot;,
-            &quot;o3&quot;,
-            &quot;gemini-2.0-flash-lite&quot;,
-            &quot;azure.o3&quot;,
-            &quot;azure.gpt-4.5-preview&quot;,
-            &quot;openrouter.claude-3-opus&quot;,
-            &quot;grok-3-mini-fast-beta&quot;,
-            &quot;claude-4-sonnet&quot;,
-            &quot;azure.o4-mini&quot;,
-            &quot;grok-3-fast-beta&quot;,
-            &quot;claude-3.5-sonnet&quot;,
-            &quot;azure.o1-mini&quot;,
-            &quot;openrouter.claude-3.7-sonnet&quot;,
-            &quot;openrouter.gpt-4.5-preview&quot;,
-            &quot;grok-3-mini-beta&quot;,
-            &quot;claude-3.7-sonnet&quot;,
-            &quot;gemini-2.0-flash&quot;,
-            &quot;openrouter.deepseek-r1-free&quot;,
-            &quot;vertexai.gemini-2.5-flash&quot;,
-            &quot;vertexai.gemini-2.5&quot;,
-            &quot;o1-pro&quot;,
-            &quot;gemini-2.5&quot;,
-            &quot;meta-llama/llama-4-scout-17b-16e-instruct&quot;,
-            &quot;azure.gpt-4.1-nano&quot;,
-            &quot;openrouter.gpt-4.1-nano&quot;,
-            &quot;gemini-2.5-flash&quot;,
-            &quot;openrouter.o4-mini&quot;,
-            &quot;openrouter.claude-3.5-haiku&quot;,
-            &quot;claude-4-opus&quot;,
-            &quot;openrouter.o1-pro&quot;
-          ],
-          &quot;type&quot;: &quot;string&quot;
-        },
-        &quot;reasoningEffort&quot;: {
-          &quot;description&quot;: &quot;Reasoning effort for models that support it (OpenAI, Anthropic)&quot;,
-          &quot;enum&quot;: [
-            &quot;low&quot;,
-            &quot;medium&quot;,
-            &quot;high&quot;
-          ],
-          &quot;type&quot;: &quot;string&quot;
-        }
-      },
-      &quot;required&quot;: [
-        &quot;model&quot;
-      ],
-      &quot;type&quot;: &quot;object&quot;
-    }
-  },
-  &quot;description&quot;: &quot;Configuration schema for the OpenCode application&quot;,
-  &quot;properties&quot;: {
-    &quot;agents&quot;: {
-      &quot;additionalProperties&quot;: {
-        &quot;description&quot;: &quot;Agent configuration&quot;,
-        &quot;properties&quot;: {
-          &quot;maxTokens&quot;: {
-            &quot;description&quot;: &quot;Maximum tokens for the agent&quot;,
-            &quot;minimum&quot;: 1,
-            &quot;type&quot;: &quot;integer&quot;
-          },
-          &quot;model&quot;: {
-            &quot;description&quot;: &quot;Model ID for the agent&quot;,
-            &quot;enum&quot;: [
-              &quot;gpt-4.1&quot;,
-              &quot;llama-3.3-70b-versatile&quot;,
-              &quot;azure.gpt-4.1&quot;,
-              &quot;openrouter.gpt-4o&quot;,
-              &quot;openrouter.o1-mini&quot;,
-              &quot;openrouter.claude-3-haiku&quot;,
-              &quot;claude-3-opus&quot;,
-              &quot;gpt-4o&quot;,
-              &quot;gpt-4o-mini&quot;,
-              &quot;o1&quot;,
-              &quot;meta-llama/llama-4-maverick-17b-128e-instruct&quot;,
-              &quot;azure.o3-mini&quot;,
-              &quot;openrouter.gpt-4o-mini&quot;,
-              &quot;openrouter.o1&quot;,
-              &quot;claude-3.5-haiku&quot;,
-              &quot;o4-mini&quot;,
-              &quot;azure.gpt-4.1-mini&quot;,
-              &quot;openrouter.o3&quot;,
-              &quot;grok-3-beta&quot;,
-              &quot;o3-mini&quot;,
-              &quot;qwen-qwq&quot;,
-              &quot;azure.o1&quot;,
-              &quot;openrouter.gemini-2.5-flash&quot;,
-              &quot;openrouter.gemini-2.5&quot;,
-              &quot;o1-mini&quot;,
-              &quot;azure.gpt-4o&quot;,
-              &quot;openrouter.gpt-4.1-mini&quot;,
-              &quot;openrouter.claude-3.5-sonnet&quot;,
-              &quot;openrouter.o3-mini&quot;,
-              &quot;gpt-4.1-mini&quot;,
-              &quot;gpt-4.5-preview&quot;,
-              &quot;gpt-4.1-nano&quot;,
-              &quot;deepseek-r1-distill-llama-70b&quot;,
-              &quot;azure.gpt-4o-mini&quot;,
-              &quot;openrouter.gpt-4.1&quot;,
-              &quot;bedrock.claude-3.7-sonnet&quot;,
-              &quot;claude-3-haiku&quot;,
-              &quot;o3&quot;,
-              &quot;gemini-2.0-flash-lite&quot;,
-              &quot;azure.o3&quot;,
-              &quot;azure.gpt-4.5-preview&quot;,
-              &quot;openrouter.claude-3-opus&quot;,
-              &quot;grok-3-mini-fast-beta&quot;,
-              &quot;claude-4-sonnet&quot;,
-              &quot;azure.o4-mini&quot;,
-              &quot;grok-3-fast-beta&quot;,
-              &quot;claude-3.5-sonnet&quot;,
-              &quot;azure.o1-mini&quot;,
-              &quot;openrouter.claude-3.7-sonnet&quot;,
-              &quot;openrouter.gpt-4.5-preview&quot;,
-              &quot;grok-3-mini-beta&quot;,
-              &quot;claude-3.7-sonnet&quot;,
-              &quot;gemini-2.0-flash&quot;,
-              &quot;openrouter.deepseek-r1-free&quot;,
-              &quot;vertexai.gemini-2.5-flash&quot;,
-              &quot;vertexai.gemini-2.5&quot;,
-              &quot;o1-pro&quot;,
-              &quot;gemini-2.5&quot;,
-              &quot;meta-llama/llama-4-scout-17b-16e-instruct&quot;,
-              &quot;azure.gpt-4.1-nano&quot;,
-              &quot;openrouter.gpt-4.1-nano&quot;,
-              &quot;gemini-2.5-flash&quot;,
-              &quot;openrouter.o4-mini&quot;,
-              &quot;openrouter.claude-3.5-haiku&quot;,
-              &quot;claude-4-opus&quot;,
-              &quot;openrouter.o1-pro&quot;
-            ],
-            &quot;type&quot;: &quot;string&quot;
-          },
-          &quot;reasoningEffort&quot;: {
-            &quot;description&quot;: &quot;Reasoning effort for models that support it (OpenAI, Anthropic)&quot;,
-            &quot;enum&quot;: [
-              &quot;low&quot;,
-              &quot;medium&quot;,
-              &quot;high&quot;
-            ],
-            &quot;type&quot;: &quot;string&quot;
-          }
-        },
-        &quot;required&quot;: [
-          &quot;model&quot;
-        ],
-        &quot;type&quot;: &quot;object&quot;
-      },
-      &quot;description&quot;: &quot;Agent configurations&quot;,
-      &quot;properties&quot;: {
-        &quot;coder&quot;: {
-          &quot;$ref&quot;: &quot;#/definitions/agent&quot;
-        },
-        &quot;task&quot;: {
-          &quot;$ref&quot;: &quot;#/definitions/agent&quot;
-        },
-        &quot;title&quot;: {
-          &quot;$ref&quot;: &quot;#/definitions/agent&quot;
-        }
-      },
-      &quot;type&quot;: &quot;object&quot;
-    },
-    &quot;contextPaths&quot;: {
-      &quot;default&quot;: [
-        &quot;.github/copilot-instructions.md&quot;,
-        &quot;.cursorrules&quot;,
-        &quot;.cursor/rules/&quot;,
-        &quot;CLAUDE.md&quot;,
-        &quot;CLAUDE.local.md&quot;,
-        &quot;opencode.md&quot;,
-        &quot;opencode.local.md&quot;,
-        &quot;OpenCode.md&quot;,
-        &quot;OpenCode.local.md&quot;,
-        &quot;OPENCODE.md&quot;,
-        &quot;OPENCODE.local.md&quot;
-      ],
-      &quot;description&quot;: &quot;Context paths for the application&quot;,
-      &quot;items&quot;: {
-        &quot;type&quot;: &quot;string&quot;
-      },
-      &quot;type&quot;: &quot;array&quot;
-    },
-    &quot;data&quot;: {
-      &quot;description&quot;: &quot;Storage configuration&quot;,
-      &quot;properties&quot;: {
-        &quot;directory&quot;: {
-          &quot;default&quot;: &quot;.opencode&quot;,
-          &quot;description&quot;: &quot;Directory where application data is stored&quot;,
-          &quot;type&quot;: &quot;string&quot;
-        }
-      },
-      &quot;required&quot;: [
-        &quot;directory&quot;
-      ],
-      &quot;type&quot;: &quot;object&quot;
-    },
-    &quot;debug&quot;: {
-      &quot;default&quot;: false,
-      &quot;description&quot;: &quot;Enable debug mode&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;debugLSP&quot;: {
-      &quot;default&quot;: false,
-      &quot;description&quot;: &quot;Enable LSP debug mode&quot;,
-      &quot;type&quot;: &quot;boolean&quot;
-    },
-    &quot;lsp&quot;: {
-      &quot;additionalProperties&quot;: {
-        &quot;description&quot;: &quot;LSP configuration for a language&quot;,
-        &quot;properties&quot;: {
-          &quot;args&quot;: {
-            &quot;description&quot;: &quot;Command arguments for the LSP server&quot;,
-            &quot;items&quot;: {
-              &quot;type&quot;: &quot;string&quot;
-            },
-            &quot;type&quot;: &quot;array&quot;
-          },
-          &quot;command&quot;: {
-            &quot;description&quot;: &quot;Command to execute for the LSP server&quot;,
-            &quot;type&quot;: &quot;string&quot;
-          },
-          &quot;disabled&quot;: {
-            &quot;default&quot;: false,
-            &quot;description&quot;: &quot;Whether the LSP is disabled&quot;,
-            &quot;type&quot;: &quot;boolean&quot;
-          },
-          &quot;options&quot;: {
-            &quot;description&quot;: &quot;Additional options for the LSP server&quot;,
-            &quot;type&quot;: &quot;object&quot;
-          }
-        },
-        &quot;required&quot;: [
-          &quot;command&quot;
-        ],
-        &quot;type&quot;: &quot;object&quot;
-      },
-      &quot;description&quot;: &quot;Language Server Protocol configurations&quot;,
-      &quot;type&quot;: &quot;object&quot;
-    },
-    &quot;mcpServers&quot;: {
-      &quot;additionalProperties&quot;: {
-        &quot;description&quot;: &quot;MCP server configuration&quot;,
-        &quot;properties&quot;: {
-          &quot;args&quot;: {
-            &quot;description&quot;: &quot;Command arguments for the MCP server&quot;,
-            &quot;items&quot;: {
-              &quot;type&quot;: &quot;string&quot;
-            },
-            &quot;type&quot;: &quot;array&quot;
-          },
-          &quot;command&quot;: {
-            &quot;description&quot;: &quot;Command to execute for the MCP server&quot;,
-            &quot;type&quot;: &quot;string&quot;
-          },
-          &quot;env&quot;: {
-            &quot;description&quot;: &quot;Environment variables for the MCP server&quot;,
-            &quot;items&quot;: {
-              &quot;type&quot;: &quot;string&quot;
-            },
-            &quot;type&quot;: &quot;array&quot;
-          },
-          &quot;headers&quot;: {
-            &quot;additionalProperties&quot;: {
-              &quot;type&quot;: &quot;string&quot;
-            },
-            &quot;description&quot;: &quot;HTTP headers for SSE type MCP servers&quot;,
-            &quot;type&quot;: &quot;object&quot;
-          },
-          &quot;type&quot;: {
-            &quot;default&quot;: &quot;stdio&quot;,
-            &quot;description&quot;: &quot;Type of MCP server&quot;,
-            &quot;enum&quot;: [
-              &quot;stdio&quot;,
-              &quot;sse&quot;
-            ],
-            &quot;type&quot;: &quot;string&quot;
-          },
-          &quot;url&quot;: {
-            &quot;description&quot;: &quot;URL for SSE type MCP servers&quot;,
-            &quot;type&quot;: &quot;string&quot;
-          }
-        },
-        &quot;required&quot;: [
-          &quot;command&quot;
-        ],
-        &quot;type&quot;: &quot;object&quot;
-      },
-      &quot;description&quot;: &quot;Model Control Protocol server configurations&quot;,
-      &quot;type&quot;: &quot;object&quot;
-    },
-    &quot;providers&quot;: {
-      &quot;additionalProperties&quot;: {
-        &quot;description&quot;: &quot;Provider configuration&quot;,
-        &quot;properties&quot;: {
-          &quot;apiKey&quot;: {
-            &quot;description&quot;: &quot;API key for the provider&quot;,
-            &quot;type&quot;: &quot;string&quot;
-          },
-          &quot;disabled&quot;: {
-            &quot;default&quot;: false,
-            &quot;description&quot;: &quot;Whether the provider is disabled&quot;,
-            &quot;type&quot;: &quot;boolean&quot;
-          },
-          &quot;provider&quot;: {
-            &quot;description&quot;: &quot;Provider type&quot;,
-            &quot;enum&quot;: [
-              &quot;anthropic&quot;,
-              &quot;openai&quot;,
-              &quot;gemini&quot;,
-              &quot;groq&quot;,
-              &quot;openrouter&quot;,
-              &quot;bedrock&quot;,
-              &quot;azure&quot;,
-              &quot;vertexai&quot;
-            ],
-            &quot;type&quot;: &quot;string&quot;
-          }
-        },
-        &quot;type&quot;: &quot;object&quot;
-      },
-      &quot;description&quot;: &quot;LLM provider configurations&quot;,
-      &quot;type&quot;: &quot;object&quot;
-    },
-    &quot;tui&quot;: {
-      &quot;description&quot;: &quot;Terminal User Interface configuration&quot;,
-      &quot;properties&quot;: {
-        &quot;theme&quot;: {
-          &quot;default&quot;: &quot;opencode&quot;,
-          &quot;description&quot;: &quot;TUI theme name&quot;,
-          &quot;enum&quot;: [
-            &quot;opencode&quot;,
-            &quot;catppuccin&quot;,
-            &quot;dracula&quot;,
-            &quot;flexoki&quot;,
-            &quot;gruvbox&quot;,
-            &quot;monokai&quot;,
-            &quot;onedark&quot;,
-            &quot;tokyonight&quot;,
-            &quot;tron&quot;
-          ],
-          &quot;type&quot;: &quot;string&quot;
-        }
-      },
-      &quot;type&quot;: &quot;object&quot;
-    },
-    &quot;wd&quot;: {
-      &quot;description&quot;: &quot;Working directory for the application&quot;,
-      &quot;type&quot;: &quot;string&quot;
-    }
-  },
-  &quot;title&quot;: &quot;OpenCode Configuration&quot;,
-  &quot;type&quot;: &quot;object&quot;
-}</code></pre>
-                        </div>
-                    </div>
-                    </div></details>
-<ul>
-<li>作業ディレクトリを作る</li>
-</ul>
-
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                bash
-                            </div>
-                            <pre><code>mkdir /home/pi/opencode</code></pre>
-                        </div>
-                    </div>
-                    <ul>
-<li>実行</li>
-</ul>
-
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                bash
-                            </div>
-                            <pre><code>cd ~
-opencode -c /home/pi/opencode</code></pre>
-                        </div>
-                    </div>
-                    <p>これでPCやiPhoneなどからSSHでアクセスしてもOpenCodeが使えます。</p>
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/a67d01bf-53b7-465b-8958-c177335e4d61/svgtest.svg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466WQ5IVGWY%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T080745Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEGAaCXVzLXdlc3QtMiJHMEUCIQCMA2DIODh6fHsq0Txx9%2FTIqUgcLAGwgIGQRC7XY%2BO1NQIgHsA2BWwquIi2V8MkgYJUa3jIBYsNXHsXlULOBAJla1cq%2FwMIWBAAGgw2Mzc0MjMxODM4MDUiDFvWj09LAg0DmGhD0yrcA2xmE5iex%2Bw25eKgVXmi41EYhNGx9T6VS8bX7dIkp%2Boj6VngY0USDEol5mBCDkmf7Gajff%2FA7m2xnoRQrp97D4o0MElahgeEcPg1tnd1Jt0xZtI4qWs9xIV97pHsE%2F%2BVQVC0waYMdkBSXpyYcsWWobHiP6FdVF%2FvCby4taVZglnmkZj5nEJVxGv3LrejZZDyeZT0VglD63Of8C697ahtvIj4EQiajEDWJxZPHt1YQB23IOLDX7mnmNSBRDwr18Sno3%2Fzy8w3omWViS5mZYwQ0iZzhD6qGIMuAtLoJaLL2jjHybPxT3dsQHO1GlGGViLf8W1EARiU7m%2BxkDHgXD1mG3yaC0eBo0JMvo4O92%2FrIC0YayH9kWPy6AUsUVIPZhqSHBGAk2QhMNqQ5MyV1rUBYhkQDNYGnYttoJkh1IwMGZQ4t9yxU675qnGfRZMDw6ZMjUOV9KAXbGLU%2F%2Bmc%2BVDnVCEBheQ31kfIqDpTMHXnMWnVCJRPGPAlOZsVhmBaSWHe%2BUwauzjjnXDtiT0hoVZmFCOWlvAvsr35%2BRBDGUzq4Daw4H3UZWH079lMfIp4lIzxriDQbeNTALadMMDZ2M8EioW4ueUV8CFcarE0FFz%2FldJ5oSp5R6E3%2BtqfgD2gML%2Fq88IGOqUBb3cxbNb4HTpIfXElesvIxmRT0qFLc5LQFDeh1YcExNDgk4cXsM5tK%2FWBfdeEquxO0nr7gmOARKnil4VJL55vt%2BoeqVjwWkXAetgNYitNCWkydjuDdBo4fYbyODuT%2BEK5%2FhR4k3UkWgUsFhwLQr%2B0FoykOpu8TTrO2L1QLga7Pg8D0YsYnlOy7XrSC0UVDIo8Bw94wu%2FVT1HNVijdcCF0taq3aQvT&amp;X-Amz-Signature=0b1e8520b806c4b7524cb7445d99e6f872e7572fd0463e052d33b7a3bdb9ea0d&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
 </article>
 
 </div>
@@ -1312,6 +898,6 @@ el.textContent = `Error rendering formula: ${el.textContent}`;
 });
 </script>
 
-<!-- 2025-06-26 16:21 -->
+<!-- 2025-06-26 17:07 -->
 </body>
 </html>
