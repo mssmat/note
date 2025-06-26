@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>MAT note</title>
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000080'/%3E%3Cpath d='M30 95 L30 40 L50 40 L50 95 M70 95 L70 40 L50 40 M50 40 L50 10 M30 40 Q40 30 50 40 Q60 30 70 40' stroke='%23FFD700' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M30 95 L30 40 L50 40 L50 95 M70 95 L70 40 L50 40 M50 40 L50 10 M30 40 Q40 30 50 40 Q60 30 70 40' stroke='%23808080' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -361,61 +361,19 @@ width: auto;
                     <h2>概要</h2>
 <p><code>OpenCut</code>は、人気の動画編集アプリ<code>**CapCut**</code>のオープンソース版代替を目指す、無料の動画編集ツールです。<br>現在の主な利用形態は、自身のPC（ローカル環境）に開発環境をセットアップし、Webブラウザ経由で操作するものとなります。</p>
 <ul>
-<li><strong>特徴</strong>:<ul>
-<li>無料で利用できるオープンソースプロジェクト</li>
-<li>自身のPCにセットアップし、Webブラウザ (<code>localhost</code>) で操作</li>
-<li>インストールと実行には <code>git</code> と <code>npm</code> の知識が必要</li>
-<li>開発初期段階であり、今後の機能追加や改善が期待される</li>
-</ul>
-</li>
+<li><strong>特徴</strong>:</li>
 </ul>
 <h2>1\. インストール (セットアップ)</h2>
 <p><code>OpenCut</code>を自分のPCで起動し、ブラウザで使えるようにするまでの手順です。</p>
 <ol>
 <li><strong>ソースコードをダウンロード</strong>
-ターミナルを開き、任意の場所に<code>OpenCut</code>のソースコードをダウンロード（クローン）します。
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                shell
-                            </div>
-                            <pre><code>git clone &lt;https://github.com/OpenCut-app/OpenCut.git&gt;</code></pre>
-                        </div>
-                    </div>
-                    </li>
+ターミナルを開き、任意の場所に<code>OpenCut</code>のソースコードをダウンロード（クローン）します。</li>
 <li><strong>プロジェクトフォルダへ移動</strong>
-ダウンロードしたフォルダの中にある、Webアプリケーション用のディレクトリに移動します。
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                shell
-                            </div>
-                            <pre><code>cd OpenCut/apps/web</code></pre>
-                        </div>
-                    </div>
-                    </li>
+ダウンロードしたフォルダの中にある、Webアプリケーション用のディレクトリに移動します。</li>
 <li><strong>依存関係をインストール</strong>
-プロジェクトの実行に必要なプログラム（依存関係）をインストールします。
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                shell
-                            </div>
-                            <pre><code>npm install</code></pre>
-                        </div>
-                    </div>
-                    </li>
+プロジェクトの実行に必要なプログラム（依存関係）をインストールします。</li>
 <li><strong>開発サーバーを起動</strong>
-ローカルサーバーを起動します。
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                shell
-                            </div>
-                            <pre><code>npm run dev</code></pre>
-                        </div>
-                    </div>
-                    </li>
+ローカルサーバーを起動します。</li>
 <li><strong>ブラウザでアクセス</strong>
 ターミナルに<code>ready in ...</code>と表示されたら、Webブラウザを開き、以下のアドレスにアクセスします。
 <code>http://localhost:3000</code></li>
@@ -424,39 +382,10 @@ width: auto;
 <p>プロジェクトを最新の状態に更新する手順です。</p>
 <ol>
 <li><strong>プロジェクトフォルダへ移動</strong>
-ターミナルで、<code>OpenCut/apps/web</code> ディレクトリにいることを確認してください。
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                shell
-                            </div>
-                            <pre><code># 例
-cd path/to/your/OpenCut/apps/web</code></pre>
-                        </div>
-                    </div>
-                    </li>
-<li><strong>ソースコードを最新化</strong><code>git</code>コマンドで、GitHub上の最新のソースコードを取得します。
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                shell
-                            </div>
-                            <pre><code>git pull</code></pre>
-                        </div>
-                    </div>
-                    </li>
+ターミナルで、<code>OpenCut/apps/web</code> ディレクトリにいることを確認してください。</li>
+<li><strong>ソースコードを最新化</strong><code>git</code>コマンドで、GitHub上の最新のソースコードを取得します。</li>
 <li><strong>依存関係を更新</strong>
-ソースコードの変更に合わせて、必要なプログラムを更新します。
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                shell
-                            </div>
-                            <pre><code>npm install</code></pre>
-                        </div>
-                    </div>
-                    <p>完了後、再度 <code>npm run dev</code> で起動すれば、最新版の<code>OpenCut</code>を利用できます。</p>
-</li>
+ソースコードの変更に合わせて、必要なプログラムを更新します。</li>
 </ol>
 <h2>3\. アンインストール (削除)</h2>
 <p>PCから<code>OpenCut</code>を完全に削除する手順です。</p>
@@ -486,14 +415,14 @@ cd path/to/your/OpenCut/apps/web</code></pre>
 <div class="bookmark-og-image"><img src="https://tk.ismcdn.jp/mwimgs/7/1/1200w/img_71c1430bdbeae5e59392462a0f1dac1d315213.jpg" alt="Preview for 「事実上の票の買収ではないか」との声も…。石破政権「2万円ばら撒き」公約が現役世代を完全に舐めているワケ | 不安な時代、不機嫌な人々 | 東洋経済オンライン"></div>
 </a>
 </div>
-                    <iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/2ef077d3-7883-48dc-b33e-126fed2377ec/shigeru_video.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466SEKMH6QD%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T043552Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFwaCXVzLXdlc3QtMiJHMEUCIHTeCHYIJx0uzZJjm0bb7BJek7jslD2cBzw6DKgYXjyXAiEA12X%2BO5tBZTtEE6I0b81mkNq9BWM2gReMTOON%2FTvBu3Uq%2FwMIVRAAGgw2Mzc0MjMxODM4MDUiDN4PPEZPEdWfheqtFSrcA51svLaAQBZCkdTWFF4bBg0z%2Fpex00bU%2F1a06%2BiEkiFun1z02Tyt%2BrGbiUrygqzMCWvaq0gYKLNY752AnJRzs7qtzoypQ8OtHU8q2apm%2FM16aOzdv4FOp%2FfijpSvVieVsrm9qN1f%2F01AxroB9T7IZ4RtYv6OcyZhVrqv0OQNvhfd%2B1Y9kvIDcgL0IuBxIIiV3k8TODtLc8HrObYwFmHKwIkE%2F7WXernf%2FZXoPztcf92B1ww5NLeLltioPcLmRJyts7%2FwtsDm1cFYvFXhaXWcD5BFGuFwMoIJKnTW9pQGHS4pcFF50CFuDmjfZqTnsWDEjudcZlL46sGclcd9w6aPl%2FcOYZfJTdX4BAhaT013x7dPOAoypfOSoa%2BATf%2FzLSxYziCJleBREB%2BWn1P5UVuln%2BhN1F62uFpewvU2FGPXexepTxYesYmNlBR9yqRvud2DMrz1f2E7hrfxkvl1wt8oL153ua2CBMLXrYE4RAUh0TYvaWh8WQmOEHIHgPewov%2FLLj3U9eIA4N33cRMhHDgqXNBePgYt29XubGuVID4EGEY5nb4r8RdifCsY%2BFQVBVrQ6oa5Xzr8NqJLmW3OHSwqMQxt6T8ODabbjcG0mMbUQp0LnCn4gsU8DViK4%2FqlMOKI88IGOqUBILsILMxGWlcfHjZHahzhrvLMC2WtKldjIhQ5sVjNCR8m44LXRTuQMTJKk9Yim295im96Gu6FUPUHO34xZXeisYgkjlnLb8Qz8dFH4Mo4%2FzEpPZWyoMbOjdDdNdwfX15VaYM4rd6crzNJ1hXyqXyXNFmrwsAGG01162yOVy2kgfZJw6IXMiIyi8LJTmOMSJqsqBvzgV%2FP%2Bwb8hrk%2BKtSaZcHMytTx&amp;X-Amz-Signature=487229542fe264cb1fd0a93cacdf56d887f8995faac488c9b7c92f3a9d0af5fa&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+                    <iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/2ef077d3-7883-48dc-b33e-126fed2377ec/shigeru_video.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466WGPYI6GK%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T043801Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFwaCXVzLXdlc3QtMiJHMEUCIQDgCA4hFry85GAg25slv8Y47Zc%2B%2Ba08nB6j6Wk2KOBiPQIgdYXIN2LjSFf5WY4NUoRvR2BZlYi%2F81juap0q1kFC1E0q%2FwMIVRAAGgw2Mzc0MjMxODM4MDUiDOw8H70S5B%2Bi6WGt%2BSrcAw5o8sYj1KzTuZWtiyQQLdOsXD9Ft5PzoEcKic5O5OB1BwEE8nLkODXVjmM7CXu9kRfmIQfenszQSfJIVnq6H9ns2WGoNHUAcK6TYbIhBVMklnylgnWf15ICuv%2FvM%2F3fmj2HM2pTe4pAlcV5hXMU8aM3%2FEPMRg2gupRNbLcsFfQIrRxTN8k9Aop%2FM%2BSR9FnjEKumQrkuPHFE2kbp5qcXmQB%2BQnqHPqt2Ka5iKQYx54cx7N%2BfGZGr2tZXBG%2BIb6qOoUiuufI1DiZBJEcmH9jMt9mbOrGVBUg01Fq7s7drG9OfuzVkySBOReN9NEDDlZC1ODymZl9jlFo4NqblbpiWTKXp%2B5EOQSovaQ9p%2FA5KQaH3WkxlWhJL7O1EI%2FS5LXFy1tc8ptVyAA77kdnNi0jtD%2FyL8%2B0OAiywsJpY%2F5TvoYkSCMe%2B%2FVBUknOPzXnum8GNwRwANpDCsIydOSEnZPp%2BAa5jOpAYGwZNhPKnGLS%2B%2Bz8lkCL3ncz9UeFWHbUp0kmljk2GWsOxWoWOAraXgW0IME5dUlaGKp%2BqmdhVoHwQvc0kZaZyzGMm%2BDMePPVAsnlAep9p8TNIF0ZbFXJaXThRzdL%2B4%2BUw25%2F%2Bt7pQgftkO3mdB5QuirJT24HlcO%2BeMPWI88IGOqUBmUBaJejgAeMc9DMRCbk8SMkNb3EBK5ZYTjFo3JCvqR0fHaAB9oJ3Gai%2F0HZ1ZFzf%2BbTxlWdNO3x2RX5PkR%2BUHdQTenhQE7PBK46v7GtxGIEryeQ6x28uXp9L7Hr2CCoqLx7aDF9k8TqEAiNhGg9IjIw5kbmHGF%2B2EAR4bH%2BSJaeogmq%2BIUpFjLqBcJkxaXd%2B0iDlOr7kgGw0d%2B0R6CnIVyn0t8fO&amp;X-Amz-Signature=5c3bf48325eb390b4dcbc8b826df15847610db1f33c3dc6341ab1993e9db15c6&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 </article>
 <article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">🤔【TypeScriptベース】opencodeを試してみた</h1></header>
 <div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-06-21 10:11</span>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI, GitHub</span>
 </div>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/2389fce3-5b09-45ac-bef9-a78576bd232e/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466ZQTS53RV%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T043552Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFwaCXVzLXdlc3QtMiJHMEUCIQDbL2UqG%2FWzHZkS%2FkOBcRXvHWPlqVsqp002%2BWSGKBm%2FMQIgZRWSJMVLQhGY%2FdOz5b%2F7XSx3qFq0F6kRYyQVdI7br0Aq%2FwMIVRAAGgw2Mzc0MjMxODM4MDUiDKug68cmVOsZXmnmNSrcA9vhMWGnLEnKIDJbOXF%2B1ediO6U636QzwEkM6nr7VBuF3hUd55so4nwgFsMGDUWm%2F%2F%2FSrzzfef4AZCzmoJukch%2FINX8r8oVwHmbPVMBqFncBeEu3ectjdYm%2BaT0otZq0Sx81wF8qjh5%2FawyUIYvu2XY5QV491VMonyKgW1eDg0iEaXT69VCd5j%2BVw8Yx6gHmHp2OaRK%2BxD73u7jozxduZbcM%2BMfDZuhOj4qOWrfgRa%2BnrxUBDRM0L0Z%2B0e%2BU5d%2F%2FTdYDCKakx%2FYbbz7R714e6wQ3x1r1%2BI4EjM5sdgapgtBEhMqMSxqgf2VssFcKr7fzsOz%2B%2FIgpFRiXq2yDVSgk1jK0sH3NzS10PX%2BmUG08dRtwnzfuYeoH0x%2Bm8Y3GByVJ93W3xafVE2wJfbERAZnP82is6mr5m0MtxPXhfLW96ZWWSfJB958bDHYXmNbmCXXr7NnC4ajo8BtzhALsT48mgN4iV%2BpctYBCNckVqn1KMjpCs2v8VCVd6bCDctjLHoQwchxIhxjipYbYZPPj3XJimFMrRH1QeDpgMgB%2B2uxZjXRI%2F%2BIIDohfELbqUTXkxP2xJNg63M9%2Bu2wYXCmR1N1qi2daP4W3LGkDgJrUOt3IesvOEGifLbtbGdhgDXB4MK2J88IGOqUBQqF3lEZrb4XNQth9DtOewEX0k0mTZPCmYpTSFqkyBMOIYVKjVuH1MtymFRHrhoOkgLf1%2B5WYqzXYFskSQznk12RJraQ8bGo2I%2F2p8gRVa6%2F6p0F9Fx6m8YNut2kvG%2BhsIfT%2F3kWZzuydTk5mTjfQ2wQiuhJV9PirGqAYjNTjWp8OOW1kP6Voi1TiVUwmMAwInHDC%2BisdUV5xevpZblXy3ktc3fac&amp;X-Amz-Signature=8e0e9505dc49ecfa147667cc3bbcf740203a4d4a9beca12a2272a813fc849060&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/2389fce3-5b09-45ac-bef9-a78576bd232e/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466423GZPXK%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T043802Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFwaCXVzLXdlc3QtMiJHMEUCIQDFHdnGAFsT3xRYEGd7jEaTVcjcbTR51xVG%2BeODTiqGiAIgevECJwIIw0kxUY9pA0LM%2Fr5g3IaoAB8wlycGKj5FtM8q%2FwMIVRAAGgw2Mzc0MjMxODM4MDUiDH8fBhjqVf6JVCktUircAydKmHTxR5mugdwN28ugWxGttllgq6a90EXUU9u4677Jlaciywk%2By%2FOMH6y9T9m4F%2B%2FAiJUTimZgek2usDM0%2FULEOGgQK7S7UYKGU7T3O6770662vHnZL0YkRgl7yRyfnVgFqwoZbx9iyrzUTynIUVMmrmNeRKM%2FIm%2FqS7aL3SCDQiKvp81KDH9REE6BAL32nl5GKywtcC%2FfuaZoiAaKRGyUY3tsl0r3rX%2F%2F2qboQzSFVERwm66Bo1233L91Agpscjl5eZFSQH8gfmg6sQX7futjmBdZLhZDDHYKea%2BZtB5QMswIWSlIhffmep78WqeVzZHQnJPAI%2BDqnA2BWjqXeWF9Xy%2BnI21ZvAoqEtQwlnM%2BnlukT%2BRM9jZiAoT3OP5%2FjHEhmprYWnBnC00fM3Gk0wFQPDvDMfQdjI7PHsZ0vbOMV%2FAVfb%2FhS8Fs2MlqGMgazRuehUvDeW1TrITN70%2FXRFdG2ufQs2KTR4jAvM27vPgwG65KyC%2BN9cYa7t%2B2YvQJWGnzvnfz075eVyRu2H24X69FU6YWENhXztv%2BaPkvzoMS4ouhDUpQa46LDcVqZhZYeFX%2B83cCf7klxJeZnhIJ0Bf81tJyWOMyLoif3zYc77I6p3SiEpn%2BTJ2kVeOKMMaJ88IGOqUBTmdJuUDHANhGOI%2B2Z6oV0ai9brkWaTuaJzAersoohlD%2F14ng0IlDxMDxJ0gx%2BZaJQZ3aIRVltfqzBeHFAOfIpa9kF1yXeD3rah4yx8%2BKXYdDR5xRhJ1LXfwm8nhTf5dmjrmYLgkFW%2FS1JW670Yuv0UHhrD6rA7Npz9buqB%2FXkJeRpQx3lchmzH4lVh4reAconXiB7ZUeoXNlx2F%2BfrDd%2BC4xUl4X&amp;X-Amz-Signature=c33f7864bda08abbdfb1968f07c1484ea9a928b78ea08b5273f96f05c8f105b9&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
 <p>先日Claude Codeの代替品として<a href="https://github.com/opencode-ai/opencode" target="_blank">OpenCode</a>という”TUI”コーディングツールを紹介しましたが、現在Xではもう1つの<a href="https://opencode.ai/" target="_blank">opencode</a>が話題になっています。<br>こちらはClaude ProやMaxプランに対応しているそうで、それで話題になっているみたいですね。<br>このopencodeはTypeScript版だそうです。</p>
 <iframe id="tweet_1935801226362302730" border="0" frameborder="0" scrolling="no" style="width: 100%; min-height: 350px; display: block; margin: 1em auto;" src="https://mssmat.github.io/twiframe/show.html?url=https://twitter.com/thdxr/status/1935801226362302730&theme=" + (document.body.classList.contains("dark-mode") ? "dark" : "light")"></iframe>
 
@@ -516,7 +445,7 @@ cd path/to/your/OpenCut/apps/web</code></pre>
 <p>Go版のOpenCodeを入れている場合、競合するかも知れないので削除しておいた方がよいかも知れません。</p>
 <p>いつものようにRaspberry Piでやったので共有します。</p>
 <h3>実際に使っている様子(iPhone)</h3>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/0022bac0-c08f-4b4d-978a-480867b4e35a/1750479471607173.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466ZQTS53RV%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T043552Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFwaCXVzLXdlc3QtMiJHMEUCIQDbL2UqG%2FWzHZkS%2FkOBcRXvHWPlqVsqp002%2BWSGKBm%2FMQIgZRWSJMVLQhGY%2FdOz5b%2F7XSx3qFq0F6kRYyQVdI7br0Aq%2FwMIVRAAGgw2Mzc0MjMxODM4MDUiDKug68cmVOsZXmnmNSrcA9vhMWGnLEnKIDJbOXF%2B1ediO6U636QzwEkM6nr7VBuF3hUd55so4nwgFsMGDUWm%2F%2F%2FSrzzfef4AZCzmoJukch%2FINX8r8oVwHmbPVMBqFncBeEu3ectjdYm%2BaT0otZq0Sx81wF8qjh5%2FawyUIYvu2XY5QV491VMonyKgW1eDg0iEaXT69VCd5j%2BVw8Yx6gHmHp2OaRK%2BxD73u7jozxduZbcM%2BMfDZuhOj4qOWrfgRa%2BnrxUBDRM0L0Z%2B0e%2BU5d%2F%2FTdYDCKakx%2FYbbz7R714e6wQ3x1r1%2BI4EjM5sdgapgtBEhMqMSxqgf2VssFcKr7fzsOz%2B%2FIgpFRiXq2yDVSgk1jK0sH3NzS10PX%2BmUG08dRtwnzfuYeoH0x%2Bm8Y3GByVJ93W3xafVE2wJfbERAZnP82is6mr5m0MtxPXhfLW96ZWWSfJB958bDHYXmNbmCXXr7NnC4ajo8BtzhALsT48mgN4iV%2BpctYBCNckVqn1KMjpCs2v8VCVd6bCDctjLHoQwchxIhxjipYbYZPPj3XJimFMrRH1QeDpgMgB%2B2uxZjXRI%2F%2BIIDohfELbqUTXkxP2xJNg63M9%2Bu2wYXCmR1N1qi2daP4W3LGkDgJrUOt3IesvOEGifLbtbGdhgDXB4MK2J88IGOqUBQqF3lEZrb4XNQth9DtOewEX0k0mTZPCmYpTSFqkyBMOIYVKjVuH1MtymFRHrhoOkgLf1%2B5WYqzXYFskSQznk12RJraQ8bGo2I%2F2p8gRVa6%2F6p0F9Fx6m8YNut2kvG%2BhsIfT%2F3kWZzuydTk5mTjfQ2wQiuhJV9PirGqAYjNTjWp8OOW1kP6Voi1TiVUwmMAwInHDC%2BisdUV5xevpZblXy3ktc3fac&amp;X-Amz-Signature=8231090ba04cc3b6f714fe0187a228e0a32b54b2a9aafae28909b182b4e3bbd8&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/0022bac0-c08f-4b4d-978a-480867b4e35a/1750479471607173.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466423GZPXK%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T043802Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFwaCXVzLXdlc3QtMiJHMEUCIQDFHdnGAFsT3xRYEGd7jEaTVcjcbTR51xVG%2BeODTiqGiAIgevECJwIIw0kxUY9pA0LM%2Fr5g3IaoAB8wlycGKj5FtM8q%2FwMIVRAAGgw2Mzc0MjMxODM4MDUiDH8fBhjqVf6JVCktUircAydKmHTxR5mugdwN28ugWxGttllgq6a90EXUU9u4677Jlaciywk%2By%2FOMH6y9T9m4F%2B%2FAiJUTimZgek2usDM0%2FULEOGgQK7S7UYKGU7T3O6770662vHnZL0YkRgl7yRyfnVgFqwoZbx9iyrzUTynIUVMmrmNeRKM%2FIm%2FqS7aL3SCDQiKvp81KDH9REE6BAL32nl5GKywtcC%2FfuaZoiAaKRGyUY3tsl0r3rX%2F%2F2qboQzSFVERwm66Bo1233L91Agpscjl5eZFSQH8gfmg6sQX7futjmBdZLhZDDHYKea%2BZtB5QMswIWSlIhffmep78WqeVzZHQnJPAI%2BDqnA2BWjqXeWF9Xy%2BnI21ZvAoqEtQwlnM%2BnlukT%2BRM9jZiAoT3OP5%2FjHEhmprYWnBnC00fM3Gk0wFQPDvDMfQdjI7PHsZ0vbOMV%2FAVfb%2FhS8Fs2MlqGMgazRuehUvDeW1TrITN70%2FXRFdG2ufQs2KTR4jAvM27vPgwG65KyC%2BN9cYa7t%2B2YvQJWGnzvnfz075eVyRu2H24X69FU6YWENhXztv%2BaPkvzoMS4ouhDUpQa46LDcVqZhZYeFX%2B83cCf7klxJeZnhIJ0Bf81tJyWOMyLoif3zYc77I6p3SiEpn%2BTJ2kVeOKMMaJ88IGOqUBTmdJuUDHANhGOI%2B2Z6oV0ai9brkWaTuaJzAersoohlD%2F14ng0IlDxMDxJ0gx%2BZaJQZ3aIRVltfqzBeHFAOfIpa9kF1yXeD3rah4yx8%2BKXYdDR5xRhJ1LXfwm8nhTf5dmjrmYLgkFW%2FS1JW670Yuv0UHhrD6rA7Npz9buqB%2FXkJeRpQx3lchmzH4lVh4reAconXiB7ZUeoXNlx2F%2BfrDd%2BC4xUl4X&amp;X-Amz-Signature=56a0e0e4d566c9b90ae8ff13c304d9a9c97eef442a7f7c78a071a8d5e1f744ad&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <h3><strong>GoベースのOpenCodeのアンインストール</strong></h3>
 <ul>
 <li>インストールの場所を確認</li>
@@ -766,7 +695,7 @@ cd path/to/your/OpenCut/apps/web</code></pre>
 opencode</code></pre>
                         </div>
                     </div>
-                    <img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4926a595-46ed-43fd-b187-57fa8e5665ab/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466ZQTS53RV%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T043552Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFwaCXVzLXdlc3QtMiJHMEUCIQDbL2UqG%2FWzHZkS%2FkOBcRXvHWPlqVsqp002%2BWSGKBm%2FMQIgZRWSJMVLQhGY%2FdOz5b%2F7XSx3qFq0F6kRYyQVdI7br0Aq%2FwMIVRAAGgw2Mzc0MjMxODM4MDUiDKug68cmVOsZXmnmNSrcA9vhMWGnLEnKIDJbOXF%2B1ediO6U636QzwEkM6nr7VBuF3hUd55so4nwgFsMGDUWm%2F%2F%2FSrzzfef4AZCzmoJukch%2FINX8r8oVwHmbPVMBqFncBeEu3ectjdYm%2BaT0otZq0Sx81wF8qjh5%2FawyUIYvu2XY5QV491VMonyKgW1eDg0iEaXT69VCd5j%2BVw8Yx6gHmHp2OaRK%2BxD73u7jozxduZbcM%2BMfDZuhOj4qOWrfgRa%2BnrxUBDRM0L0Z%2B0e%2BU5d%2F%2FTdYDCKakx%2FYbbz7R714e6wQ3x1r1%2BI4EjM5sdgapgtBEhMqMSxqgf2VssFcKr7fzsOz%2B%2FIgpFRiXq2yDVSgk1jK0sH3NzS10PX%2BmUG08dRtwnzfuYeoH0x%2Bm8Y3GByVJ93W3xafVE2wJfbERAZnP82is6mr5m0MtxPXhfLW96ZWWSfJB958bDHYXmNbmCXXr7NnC4ajo8BtzhALsT48mgN4iV%2BpctYBCNckVqn1KMjpCs2v8VCVd6bCDctjLHoQwchxIhxjipYbYZPPj3XJimFMrRH1QeDpgMgB%2B2uxZjXRI%2F%2BIIDohfELbqUTXkxP2xJNg63M9%2Bu2wYXCmR1N1qi2daP4W3LGkDgJrUOt3IesvOEGifLbtbGdhgDXB4MK2J88IGOqUBQqF3lEZrb4XNQth9DtOewEX0k0mTZPCmYpTSFqkyBMOIYVKjVuH1MtymFRHrhoOkgLf1%2B5WYqzXYFskSQznk12RJraQ8bGo2I%2F2p8gRVa6%2F6p0F9Fx6m8YNut2kvG%2BhsIfT%2F3kWZzuydTk5mTjfQ2wQiuhJV9PirGqAYjNTjWp8OOW1kP6Voi1TiVUwmMAwInHDC%2BisdUV5xevpZblXy3ktc3fac&amp;X-Amz-Signature=53a2010b109dfb0990d826ddf0bfb925df0623a22da9ee1c66949f6bd39033d7&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
+                    <img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/4926a595-46ed-43fd-b187-57fa8e5665ab/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466423GZPXK%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T043802Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFwaCXVzLXdlc3QtMiJHMEUCIQDFHdnGAFsT3xRYEGd7jEaTVcjcbTR51xVG%2BeODTiqGiAIgevECJwIIw0kxUY9pA0LM%2Fr5g3IaoAB8wlycGKj5FtM8q%2FwMIVRAAGgw2Mzc0MjMxODM4MDUiDH8fBhjqVf6JVCktUircAydKmHTxR5mugdwN28ugWxGttllgq6a90EXUU9u4677Jlaciywk%2By%2FOMH6y9T9m4F%2B%2FAiJUTimZgek2usDM0%2FULEOGgQK7S7UYKGU7T3O6770662vHnZL0YkRgl7yRyfnVgFqwoZbx9iyrzUTynIUVMmrmNeRKM%2FIm%2FqS7aL3SCDQiKvp81KDH9REE6BAL32nl5GKywtcC%2FfuaZoiAaKRGyUY3tsl0r3rX%2F%2F2qboQzSFVERwm66Bo1233L91Agpscjl5eZFSQH8gfmg6sQX7futjmBdZLhZDDHYKea%2BZtB5QMswIWSlIhffmep78WqeVzZHQnJPAI%2BDqnA2BWjqXeWF9Xy%2BnI21ZvAoqEtQwlnM%2BnlukT%2BRM9jZiAoT3OP5%2FjHEhmprYWnBnC00fM3Gk0wFQPDvDMfQdjI7PHsZ0vbOMV%2FAVfb%2FhS8Fs2MlqGMgazRuehUvDeW1TrITN70%2FXRFdG2ufQs2KTR4jAvM27vPgwG65KyC%2BN9cYa7t%2B2YvQJWGnzvnfz075eVyRu2H24X69FU6YWENhXztv%2BaPkvzoMS4ouhDUpQa46LDcVqZhZYeFX%2B83cCf7klxJeZnhIJ0Bf81tJyWOMyLoif3zYc77I6p3SiEpn%2BTJ2kVeOKMMaJ88IGOqUBTmdJuUDHANhGOI%2B2Z6oV0ai9brkWaTuaJzAersoohlD%2F14ng0IlDxMDxJ0gx%2BZaJQZ3aIRVltfqzBeHFAOfIpa9kF1yXeD3rah4yx8%2BKXYdDR5xRhJ1LXfwm8nhTf5dmjrmYLgkFW%2FS1JW670Yuv0UHhrD6rA7Npz9buqB%2FXkJeRpQx3lchmzH4lVh4reAconXiB7ZUeoXNlx2F%2BfrDd%2BC4xUl4X&amp;X-Amz-Signature=aa0807b566051cdf03403a711e145883f333214d0fb2c368c8ecc6aab667b50e&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
 </article>
 <article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">🧑‍🎓数式対応</h1></header>
@@ -784,7 +713,7 @@ opencode</code></pre>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">Notion</span>
 </div>
 <p>おっ！ SVG表示もイケるや～ん！<br>これは表現力が上がる..👍</p>
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/a67d01bf-53b7-465b-8958-c177335e4d61/svgtest.svg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466ZW3BVMXQ%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T043554Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFwaCXVzLXdlc3QtMiJGMEQCIDJBs%2FFZR%2BxVKxALfVBNN9yl3Bhv2LLkLyEctI1Z44lDAiBYfQS74X53M9Zsq0NZUGlbKrcBimbE9Ad5ySeGOIt4gSr%2FAwhVEAAaDDYzNzQyMzE4MzgwNSIMjcnhEWFDvk2L1uK4KtwD2J6Fku41RhnNHyqOLRBPMfHNg7CQGcMrkmimmv4v9ghFtm5mpYs0izRGDJ96IpaKuNN5TkgaRRXhCz7W0zQ%2Ba6pYRvVTaWWR2dFwafOjgV%2FeDFQ1%2Bx2zmvcN6ba4hVLYzTSdxNGt%2BtmQnDnqSlWcR51CiV9j2JNk%2FI%2F796FqVwmgOZIabqAGrlya1Xc1secOP7maAlCfrw3wrNQDMCmP91%2F8teDrcuby7TsvhxwqX8mrO5RE11LmfralIbnAV2sryiiz%2Bu9owIEsxP8M66mz3j1KpPnquIfQfdWQiyLRPeenmgs5HF79b9ZY0HzWFtX8Ojovw4Jxz6hoQxziRtS1OXxeAA3r8IfgLoAQDEQuVY3e5mUAYX4sDyQbhRshWecjoGlUy8PDRTz1%2By5SdQeqEZZfViTTr8DE5k%2FLhZjy8VWKLSTGiupbAEZ6RrCxAmA0ieQZtkwV7MTTMwxehKiuLfbcn3oqO%2BIfsagQtCWbOP9CMgONuc3FrbURFic92VgILs1VP%2FPl3qWVFCvbChC8jMDIf7k%2BmwUHlcEgs%2F8ApCR6eo8eR0cq6070NqAo19hhp6bGvQcSPZG0BLz%2BQBaH5GGbjYMJa1wwhOkmNaIJVeVVG6xk4bNwPtl9MGYwkYnzwgY6pgEHjDcth2HXMuHtetCn4fKA91%2FDLaYwZ2pPszoa8L4%2BrwJKmMLJ9ncKUJ3ssrq8XMCKvzZMAjMaDllTKTlTxbzQzn8AtQS%2FeGbM29h58dPDoU0MXMGfVoWworbpzOa1Td6a%2BEjyG3oJJG84CYexNW6CrXXhD92LTGzSoMqCq4%2BHyn%2F1DWszCTtQLbhjV3jT%2BhbzIDtu0dBBfwjyRMJPdSQfgdEKjc%2FB&amp;X-Amz-Signature=14948f6297cb7ed7e64876653463c8ef5ca7cdfcee2e4ca2adf62a07c837e142&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/a67d01bf-53b7-465b-8958-c177335e4d61/svgtest.svg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466RWEIXIZD%2F20250626%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250626T043802Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFwaCXVzLXdlc3QtMiJGMEQCID3AxuT%2Bkcu40VS1nlgkNtPcGUrcyNlgG1yHlOW%2FoiUuAiAg8cp%2Fs%2F2Y60Lx9vqfW6NSp2gyHutn%2FB8SwXXBh%2BwChyr%2FAwhVEAAaDDYzNzQyMzE4MzgwNSIMk5KTI7NzPO%2BlrHcQKtwDfcu7dekDNYInBk%2Fzd4NWczAQ4CHwxxSHy%2B9uw79u8ApkEqAdUNU3H9uwGfy2DWv%2Blk5urQSFwNDBYEvSkTm8VctmZR5wBF5Ywoim1PxB3P2QPoXdOBrHFiNMna9IQkbuPc7DmG4j96P2%2BmF7QZwqlDzaxvIvriGhlALqq6zGeZnFDcbBqOgn9geWKHKpvtbKxFdHpjBZrzCdA%2BsWtmjEi2CifOE%2BckYQAk56mmM2osro2%2B6ziKR50Sb5tTat954tikE1TFOk0Uvnmi7LtdqOZy4uiHYCl13Upbp7obwEwdPd9KXI8q4vlUY0Ove9DuAsiZq069q91r2fpaNgToKzjudUB0d02oEbQDyS5DW78P4%2FjimXOL6x4WIPB5z3FOhX6hx57renNisKw6tkldCTL34tn42zrW39VPICxLC1nJBPTr0%2F%2FwzMgvTl0Aqai6WpPx%2FEFPise2LjWDgcL61vBBOZwmMxRVlIYMWiBwC8alkYXyOecF3pOaSPnACXChnh%2BrdBL18YMXQq8sruytV4U2R6V01GXYJR0ZiwLVbgOYWiLLbuEya45feapNSgKkswvBwtAfeiBw4XkcExsnI8%2BfNtMVYcS8miDnDL4zHk1UVwJngV%2BDk3t6%2F3nhEwz4nzwgY6pgEXQV4PDDeKfzNnYmm0Qh0wHOxhVr%2BBvroEWLiO9XB%2BgWhEXgAmJrrV%2Fl3OOJvIw4av1OADUe2c9o94o027OPZ4%2BBwN00yqVTGXlsfrcKsD8G0nUbevpISgGU5RmcampB2%2BKiTuVn3Re4hD6X5Ub8m7r47ZDwG%2BrJSnC2iNwE5frZwO%2FYhl86%2FR4jlERghUhmsYvXX3n5kiyNt%2F5%2BGFVRGaNsSFDF86&amp;X-Amz-Signature=a9f0157ebf4a2b06c152b8131396fdba419c5ccd9be96936b77db943750b02ee&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Image loaded from Notion">
 </article>
 
 </div>
@@ -922,6 +851,6 @@ el.textContent = `Error rendering formula: ${el.textContent}`;
 });
 </script>
 
-<!-- 2025-06-26 13:35 -->
+<!-- 2025-06-26 13:38 -->
 </body>
 </html>
