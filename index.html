@@ -345,125 +345,167 @@ width: auto;
 <div class="container">
 <div class="spacer"></div>
 <article>
-<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Notionでnote風のブログを作ってみた</h1></header>
-<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-03-24 21:53</span>
-<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">GitHub, Notion</span>
+<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">【Claude Code Router】Raspberry PiでClaude CodeをOpenRouterのAPIで使う</h1></header>
+<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-07-16 18:20</span>
+<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI, Raspberry Pi</span>
 </div>
-<h1>みんな大好きNotionをヘッドレスCMS的に使ったnote風のブログを作った</h1>
-<div><div class="todo-item"><input type="checkbox" id="todo_1c1d9f25-4f6d-8083-85af-c38e0eff0bf8_5404" class="todo-checkbox"  onclick="toggleTodo(this)"><label for="todo_1c1d9f25-4f6d-8083-85af-c38e0eff0bf8_5404">MATのブログ、爆誕〜?!</label></div></div>
-<p>書くのは<a href="https://www.notion.so/" target="_blank">Notion</a>で。<br>ホスティングは<a href="https://docs.github.com/ja/pages/getting-started-with-github-pages/creating-a-github-pages-site" target="_blank">GitHub</a>で。<br>一応どちらも無料。有料プランもあるけど。</p>
-<p>APIでNotionの記事をブロックごとにゲッツ。<br>それを静的なHTMLに変換しコミット、APIでGitHubにプッシュ。</p>
-<p>実は自宅サーバーでやっていましたが、色々と考えることがあり、GitHubに移行しました。<br>独自ドメインも使えるらしい。</p>
-<p>何よりNotionで書けるのがラク。管理もラク。<br>画像貼ったり、動画貼ったり、ツイート貼ったり。<br>思いついたらすぐ書ける。スマホからも更新できる。</p>
-<p>弱点は、Notionで保存し、AWSにホスティングする、払い出された画像などの署名付きURLの有効期間が1時間なこと。<br>つまりデプロイして1時間が経つと無効になるので画像などが表示されなくなります。<br>対策は、1時間経つ前に再度同じ手順でデプロイすればいいだけです。これは自動化できますね。</p>
-<p>同じようなことをしている人を探すと、実は結構います。<br><a href="https://super.so/" target="_blank">Super.so</a>とか<a href="https://wraptas.com/" target="_blank">ペライチ(Wraptas)</a>とか、色々な有料サービスもあります。</p>
-</article>
-<article>
-<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">画像や動画</h1></header>
-<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-03-24 22:32</span>
-<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">Notion</span>
+<p>今回はClaude CodeでOpenRouter APIを使い、自分の好きなAIモデルを利用する方法。<br>ClaudeのMaxプランに入らず、かと言ってClaudeのAPIを使うわけでもなく、Claude Codeを使ったVibe Codingを格安で楽しめるかも。<br>そのために、オープンソース(MITライセンス)のClaude Code Routerを使います。</p>
+<h3>Claude Code Routerって何?</h3>
+<blockquote class="notion-quote ">Claude Code Routerは、Anthropicが開発したエージェントコーディング用のコマンドラインツールであるClaude Codeの拡張機能です。<br>ユーザーは様々なAIモデルにリクエストを送信できるため、選択の柔軟性が向上します。</blockquote>
+
+<div class="bookmark-block">
+<a href="https://claudecoderouter.com/" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<div class="bookmark-text">
+<div class="bookmark-title">https://claudecoderouter.com/</div>
+
+<div class="bookmark-source-info">
+
+<span class="bookmark-url">claudecoderouter.com</span>
 </div>
-<p>画像や動画などを直接Notionに保存した場合、クラウドの保存先のURLの有効期限は1時間。<br>時間が過ぎると画像が表示されなくなります。</p>
-<p>これを防ぐには、ちょくちょく更新してURLを更新する必要があります。</p>
-<p>Notionだと画像を貼るのもラクなので便利です。</p>
-<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/630c2648-1ca6-4544-b409-2b4bbb8c5a03/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466UCUZUN37%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T100356Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHwaCXVzLXdlc3QtMiJHMEUCIApwcWHJnvxdPThEkvLLVAgdC18tnghXk4QxzDs320HTAiEAsMURhyB8c%2B26%2Fc7CzQ5UdqEGYrPENjb3qHEA6cCUCfAq%2FwMIJRAAGgw2Mzc0MjMxODM4MDUiDELqdBo38xMnZnB2ByrcA6OZIIaYo0NbArZQYLqfJiCy7i9BcBR5u3G0ZtXQNxnhN7gbro5xhPV26eBqYErwx99PC%2FAu2v%2FgWuKt3dCIyRTj9IIUMuO7A%2FFeHxeTWMqU%2BJJRANAeg62kTxWX1g7d2gvCpRWdvxk0J%2FSi5%2FDrJOHlT8dwwt%2FU2QaAKH1VUg3VGHDGnE2Opw%2F%2FRtIQxsGvLMpraMv1bEb35IbeSKvthFU2HQqQunB0daJ7gGM%2BgOcsQkQ%2FBRVhpxF298ibXFbDYKxaagGNum8lgTXGP%2BhpOCu9zEFyicyMZXkBDVvJevn2WwNXgRe4CbB2BELEnyUZqVhkR2eIjFaM2nvPuzvxBM%2B9zVqSi3dYpfjqEdnAIJkcrEV%2BkIXhR2xV%2Ff%2FcBRp4MIEdUlGtZUjO2yg86k27ygfWYa%2FZwkFxe%2BnfShcFYfkgIulkIPooWMDM9WwS3RvA5s7s1wMso1aTpAe02K1kTDWems2Zda5V5mqA0SHSVwkC4ZOy3yii%2FMsm%2F%2BKblLXNpxZwWR7W%2FQvwy5oI3dKEwfvTkZsBDA130D%2BwZ2wJCe35eaLVGGjUZNBN%2F96lBDXa0ZfouCOBXcdkLDYvzycPKZic1XKZDqbVGU%2FWAEC5Jir4ne8ysiZ7pafT9OZ1MIPVrMcGOqUBWUmj2JSHzsmFgHNq2KUFizlJ5G2cl68OlVVAu3MT9681i2%2BveqFijzHCaX3obv6RY9ZZW0oOuFpDVyo%2F%2BcwRPRtUZUnu2QdQzYGmzWuU5Rd7WPFrbmMWujTFmmuOjWRaOGb6mfxBAY3OFFjEFNwSQbRZD8L%2FS7F2gUcWfzfrCTW7PdlidJmoCFhXDuSvfHsC1LPE9J3%2BsQW2BZRN%2FyYLfwXut%2FnB&amp;X-Amz-Signature=0ee0d13dec7cffcd35c909c338da2d3e241246824e990392b1e37b87c2e78d1d&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
-<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/65103eb5-0fa0-4468-956d-806769f9201c/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466UCUZUN37%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T100356Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHwaCXVzLXdlc3QtMiJHMEUCIApwcWHJnvxdPThEkvLLVAgdC18tnghXk4QxzDs320HTAiEAsMURhyB8c%2B26%2Fc7CzQ5UdqEGYrPENjb3qHEA6cCUCfAq%2FwMIJRAAGgw2Mzc0MjMxODM4MDUiDELqdBo38xMnZnB2ByrcA6OZIIaYo0NbArZQYLqfJiCy7i9BcBR5u3G0ZtXQNxnhN7gbro5xhPV26eBqYErwx99PC%2FAu2v%2FgWuKt3dCIyRTj9IIUMuO7A%2FFeHxeTWMqU%2BJJRANAeg62kTxWX1g7d2gvCpRWdvxk0J%2FSi5%2FDrJOHlT8dwwt%2FU2QaAKH1VUg3VGHDGnE2Opw%2F%2FRtIQxsGvLMpraMv1bEb35IbeSKvthFU2HQqQunB0daJ7gGM%2BgOcsQkQ%2FBRVhpxF298ibXFbDYKxaagGNum8lgTXGP%2BhpOCu9zEFyicyMZXkBDVvJevn2WwNXgRe4CbB2BELEnyUZqVhkR2eIjFaM2nvPuzvxBM%2B9zVqSi3dYpfjqEdnAIJkcrEV%2BkIXhR2xV%2Ff%2FcBRp4MIEdUlGtZUjO2yg86k27ygfWYa%2FZwkFxe%2BnfShcFYfkgIulkIPooWMDM9WwS3RvA5s7s1wMso1aTpAe02K1kTDWems2Zda5V5mqA0SHSVwkC4ZOy3yii%2FMsm%2F%2BKblLXNpxZwWR7W%2FQvwy5oI3dKEwfvTkZsBDA130D%2BwZ2wJCe35eaLVGGjUZNBN%2F96lBDXa0ZfouCOBXcdkLDYvzycPKZic1XKZDqbVGU%2FWAEC5Jir4ne8ysiZ7pafT9OZ1MIPVrMcGOqUBWUmj2JSHzsmFgHNq2KUFizlJ5G2cl68OlVVAu3MT9681i2%2BveqFijzHCaX3obv6RY9ZZW0oOuFpDVyo%2F%2BcwRPRtUZUnu2QdQzYGmzWuU5Rd7WPFrbmMWujTFmmuOjWRaOGb6mfxBAY3OFFjEFNwSQbRZD8L%2FS7F2gUcWfzfrCTW7PdlidJmoCFhXDuSvfHsC1LPE9J3%2BsQW2BZRN%2FyYLfwXut%2FnB&amp;X-Amz-Signature=df6b666a978cf60a502e1d64127ad513f72442d36f4d483027bcb7f992d354a2&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
-<p>動画も保存できる。</p>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/b652eb08-843e-490b-9ae4-6cf4c099f6cb/homepage-hero.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466UCUZUN37%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T100356Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHwaCXVzLXdlc3QtMiJHMEUCIApwcWHJnvxdPThEkvLLVAgdC18tnghXk4QxzDs320HTAiEAsMURhyB8c%2B26%2Fc7CzQ5UdqEGYrPENjb3qHEA6cCUCfAq%2FwMIJRAAGgw2Mzc0MjMxODM4MDUiDELqdBo38xMnZnB2ByrcA6OZIIaYo0NbArZQYLqfJiCy7i9BcBR5u3G0ZtXQNxnhN7gbro5xhPV26eBqYErwx99PC%2FAu2v%2FgWuKt3dCIyRTj9IIUMuO7A%2FFeHxeTWMqU%2BJJRANAeg62kTxWX1g7d2gvCpRWdvxk0J%2FSi5%2FDrJOHlT8dwwt%2FU2QaAKH1VUg3VGHDGnE2Opw%2F%2FRtIQxsGvLMpraMv1bEb35IbeSKvthFU2HQqQunB0daJ7gGM%2BgOcsQkQ%2FBRVhpxF298ibXFbDYKxaagGNum8lgTXGP%2BhpOCu9zEFyicyMZXkBDVvJevn2WwNXgRe4CbB2BELEnyUZqVhkR2eIjFaM2nvPuzvxBM%2B9zVqSi3dYpfjqEdnAIJkcrEV%2BkIXhR2xV%2Ff%2FcBRp4MIEdUlGtZUjO2yg86k27ygfWYa%2FZwkFxe%2BnfShcFYfkgIulkIPooWMDM9WwS3RvA5s7s1wMso1aTpAe02K1kTDWems2Zda5V5mqA0SHSVwkC4ZOy3yii%2FMsm%2F%2BKblLXNpxZwWR7W%2FQvwy5oI3dKEwfvTkZsBDA130D%2BwZ2wJCe35eaLVGGjUZNBN%2F96lBDXa0ZfouCOBXcdkLDYvzycPKZic1XKZDqbVGU%2FWAEC5Jir4ne8ysiZ7pafT9OZ1MIPVrMcGOqUBWUmj2JSHzsmFgHNq2KUFizlJ5G2cl68OlVVAu3MT9681i2%2BveqFijzHCaX3obv6RY9ZZW0oOuFpDVyo%2F%2BcwRPRtUZUnu2QdQzYGmzWuU5Rd7WPFrbmMWujTFmmuOjWRaOGb6mfxBAY3OFFjEFNwSQbRZD8L%2FS7F2gUcWfzfrCTW7PdlidJmoCFhXDuSvfHsC1LPE9J3%2BsQW2BZRN%2FyYLfwXut%2FnB&amp;X-Amz-Signature=a37db4c56422bc29448a274890fddb4c0e33493829266cfe1a9218085a249231&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-</article>
-<article>
-<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">こんなカンジで..</h1></header>
-<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-03-24 21:59</span>
-<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">Twitter, YouTube</span>
 </div>
-<p>こんな感じで、TwitteやYouTube動画を貼り付けることも可能!</p>
-<iframe id="tweet_1903949490954133979" border="0" frameborder="0" scrolling="no" style="width: 100%; min-height: 350px; display: block; margin: 1em auto;" src="https://mssmat.github.io/twiframe/show.html?url=https://twitter.com/pop_ikeda/status/1903949490954133979&theme=" + (document.body.classList.contains("dark-mode") ? "dark" : "light")"></iframe>
-<iframe src="https://www.youtube-nocookie.com/embed/nXWlW4L6Z_U" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-</article>
-<article>
-<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">コードも書ける</h1></header>
-<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-03-24 22:07</span>
-<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI, Python</span>
+
+</a>
 </div>
-<p>コードを書くことも。</p>
+                    
+<div class="bookmark-block">
+<a href="https://github.com/musistudio/claude-code-router" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<div class="bookmark-text">
+<div class="bookmark-title">GitHub - musistudio/claude-code-router: Use Claude Code as the foundation for coding infrastructure, allowing you to decide how to interact with the model while enjoying updates from Anthropic.</div>
+<p class="bookmark-description">Use Claude Code as the foundation for coding infrastructure, allowing you to...</p>
+<div class="bookmark-source-info">
+<img src="https://github.githubassets.com/favicons/favicon.svg" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+<span class="bookmark-url">github.com</span>
+</div>
+</div>
+<div class="bookmark-og-image"><img src="https://opengraph.githubassets.com/aded832cf36c50bcef546b72a469042d4c12ca36b6ea216d4112cfb1272b18dd/musistudio/claude-code-router" alt="Preview for GitHub - musistudio/claude-code-router: Use Claude Code as the foundation for coding infrastructure, allowing you to decide how to interact with the model while enjoying updates from Anthropic."></div>
+</a>
+</div>
+                    <iframe id="tweet_1939858296271434181" border="0" frameborder="0" scrolling="no" style="width: 100%; min-height: 350px; display: block; margin: 1em auto;" src="https://mssmat.github.io/twiframe/show.html?url=https://twitter.com/Aki_AI_torisetu/status/1939858296271434181&theme=" + (document.body.classList.contains("dark-mode") ? "dark" : "light")"></iframe>
+<h3>インストール</h3>
+<p>大前提としてNode.jsとnpmがインストールされていること</p>
+<p>まずClaude Code自体をインストールする</p>
 
                     <div style="margin: 15px 0;">
                         <div class="precode">
                             <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                javascript
+                                bash
                             </div>
-                            <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;ja&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
-    &lt;title&gt;Prime Numbers&lt;/title&gt;
-    &lt;script src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;
-    &lt;style&gt;
-        body {
-            background-color: #1a1a1a;
-            color: #e2e8f0;
-        }
-        .prime-container {
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-        }
-        .prime-number {
-            font-size: 1.2rem;
-            transition: color 1s;
-        }
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body class=&quot;flex items-center justify-center min-h-screen&quot;&gt;
-    &lt;div class=&quot;prime-container&quot; id=&quot;prime-container&quot;&gt;&lt;/div&gt;
-    &lt;script&gt;
-        function isPrime(num) {
-            if (num &lt;= 1) return false;
-            if (num &lt;= 3) return true;
-            if (num % 2 === 0 || num % 3 === 0) return false;
-            for (let i = 5; i * i &lt;= num; i += 6) {
-                if (num % i === 0 || num % (i + 2) === 0) return false;
-            }
-            return true;
-        }
+                            <pre><code>sudo npm install -g @anthropic-ai/claude-code</code></pre>
+                        </div>
+                    </div>
+                    <p>次にClaude Code Routerをインストール</p>
 
-        let currentNumber = 2;
-        function displayNextPrime() {
-            while (!isPrime(currentNumber)) {
-                currentNumber++;
-            }
-            const primeContainer = document.getElementById(&#x27;prime-container&#x27;);
-            primeContainer.innerHTML = &#x27;&#x27;;
-            const primeElement = document.createElement(&#x27;div&#x27;);
-            primeElement.className = &#x27;prime-number&#x27;;
-            primeElement.textContent = currentNumber;
-            primeContainer.appendChild(primeElement);
-            let opacity = 0.2;
-            const interval = setInterval(() =&gt; {
-                opacity += 0.1;
-                primeElement.style.color = `rgba(226, 232, 240, ${opacity})`;
-                if (opacity &gt;= 1) {
-                    clearInterval(interval);
-                    setTimeout(() =&gt; {
-                        let fadeOutInterval = setInterval(() =&gt; {
-                            opacity -= 0.1;
-                            primeElement.style.color = `rgba(226, 232, 240, ${opacity})`;
-                            if (opacity &lt;= 0.2) {
-                                clearInterval(fadeOutInterval);
-                                currentNumber++;
-                                setTimeout(displayNextPrime, 1000);
-                            }
-                        }, 100);
-                    }, 1000);
-                }
-            }, 100);
-        }
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>sudo npm install -g @musistudio/claude-code-router</code></pre>
+                        </div>
+                    </div>
+                    <h3>設定</h3>
+<p>以下のように設定する(例: OpenRouter/Google/Gemini 2.5 Flashの場合)</p>
 
-        displayNextPrime();
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>sudo nano /root/.claude-code-router/config.json</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                json
+                            </div>
+                            <pre><code>{
+  &quot;Providers&quot;: [
+    {
+      &quot;name&quot;: &quot;openrouter&quot;,
+      &quot;api_base_url&quot;: &quot;https://openrouter.ai/api/v1/chat/completions&quot;,
+      &quot;api_key&quot;: &quot;ここにOpenRouter APIキー&quot;,
+      &quot;models&quot;: [
+        &quot;google/gemini-2.5-flash&quot;
+      ]
+    }
+  ],
+  &quot;Router&quot;: {
+    &quot;default&quot;: &quot;openrouter,google/gemini-2.5-flash&quot;,
+    &quot;background&quot;: &quot;openrouter,google/gemini-2.5-flash&quot;,
+    &quot;think&quot;: &quot;openrouter,google/gemini-2.5-flash&quot;,
+    &quot;longContext&quot;: &quot;openrouter,google/gemini-2.5-flash&quot;
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    <h3>起動</h3>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>sudo ccr code</code></pre>
+                        </div>
+                    </div>
+                    <div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/6ec19958-0fee-49f4-9ced-9f37bee2483d/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667NHAMLTF%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T101205Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEH0aCXVzLXdlc3QtMiJIMEYCIQD3acXG2swzfW8iQ4jaJCAd2n5Me23vfeXfcRAkxYVlIAIhAKt9Ug2pcQE3DH27ZMYeexTgWu1%2FGcmyYPJbx%2FaDxBAdKv8DCCUQABoMNjM3NDIzMTgzODA1IgzUsE1EvZtIvcCv6AQq3AMyuk9T3BDsGnqfCd5N%2FxRbt68WJLv4s2%2BSYevw7Y4oeQgo3nKy%2Bjv7H6CVqL0sZRKvBFzfc4ijZbJVNRiqLmBiOiQYubanxiZZb1cpSJync%2BO9EecX0yzIeW6IWdn%2BBjlPQkWlz4y1HUHLR29aXx%2BoG8%2B5AvDRwP%2BC43NMnnR4PMFZryUEE%2BFhzMQLkp1By1RYHKD9bX5tWJz1Nrn7D6A1PnFcboQ7F9qiYQ55XLonuLUWIAJh5LlJc0ovLhyaiAEKtalDJVaH0BVM099vIAMmiyAfWHxHTdr4R52lcHGUOL5vA0BP53ttyiLpxOrEZLYzHWrRmIYSaD1Hju9M7YhT9nOPi3Ya2G4K2mIs55ZLLnhQntJz0XB9BDeEcwKtS89jkIGgEMKppfdWeEHkQCzZJtoNeth44XnWCoq0Xc%2Bb0InIxyx4qn1jVNDYgV71E4DcweoBKPKBAfuMmOfHtBFS0tDoLLNkWdaSU%2FZ%2BeqQjJpbTV7SS6%2BqDwelzpjZsuWl%2B1sgRs43ChyK%2FQ%2BXejtS%2FOSmjNS6dVaBs1jiaBK7Hpn0vU4Ssx%2Bov%2F7BbVIF3yRvCRBReBjGT%2Bv4FAqSsgEqX32eriOB%2B%2FMdBYDwpLB4CugIUSeQvx%2FnvHxpPqjCY2azHBjqkAWd0jYvNsMnt5YFrO0eGNITEtKQZHob83PwPQRfiZ5REGGnRQFFUH9sL7syvDC803iRfXMlLo20J1msjDCwC%2BTFPSTQGPv5wI6FzRDaIrXgW75lKk8QVumQoDPcBxz9xH2%2FRjuOCSl%2Brxrr83fOUFMhNZH81Xy%2FCZuVgHqDmr1c84%2BnPbNBYypCWtYT280K%2FUUYkacLyEzRGm68nQgzfMVHga3%2Fj&amp;X-Amz-Signature=b2f522246a716537d11d96cc5df3e6ad2254b87538e0c4c159ce76aa2c78c3a8&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/e352f37f-b850-46e7-a8dd-ef28b3e02b69/IMG_4416.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667NHAMLTF%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T101205Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEH0aCXVzLXdlc3QtMiJIMEYCIQD3acXG2swzfW8iQ4jaJCAd2n5Me23vfeXfcRAkxYVlIAIhAKt9Ug2pcQE3DH27ZMYeexTgWu1%2FGcmyYPJbx%2FaDxBAdKv8DCCUQABoMNjM3NDIzMTgzODA1IgzUsE1EvZtIvcCv6AQq3AMyuk9T3BDsGnqfCd5N%2FxRbt68WJLv4s2%2BSYevw7Y4oeQgo3nKy%2Bjv7H6CVqL0sZRKvBFzfc4ijZbJVNRiqLmBiOiQYubanxiZZb1cpSJync%2BO9EecX0yzIeW6IWdn%2BBjlPQkWlz4y1HUHLR29aXx%2BoG8%2B5AvDRwP%2BC43NMnnR4PMFZryUEE%2BFhzMQLkp1By1RYHKD9bX5tWJz1Nrn7D6A1PnFcboQ7F9qiYQ55XLonuLUWIAJh5LlJc0ovLhyaiAEKtalDJVaH0BVM099vIAMmiyAfWHxHTdr4R52lcHGUOL5vA0BP53ttyiLpxOrEZLYzHWrRmIYSaD1Hju9M7YhT9nOPi3Ya2G4K2mIs55ZLLnhQntJz0XB9BDeEcwKtS89jkIGgEMKppfdWeEHkQCzZJtoNeth44XnWCoq0Xc%2Bb0InIxyx4qn1jVNDYgV71E4DcweoBKPKBAfuMmOfHtBFS0tDoLLNkWdaSU%2FZ%2BeqQjJpbTV7SS6%2BqDwelzpjZsuWl%2B1sgRs43ChyK%2FQ%2BXejtS%2FOSmjNS6dVaBs1jiaBK7Hpn0vU4Ssx%2Bov%2F7BbVIF3yRvCRBReBjGT%2Bv4FAqSsgEqX32eriOB%2B%2FMdBYDwpLB4CugIUSeQvx%2FnvHxpPqjCY2azHBjqkAWd0jYvNsMnt5YFrO0eGNITEtKQZHob83PwPQRfiZ5REGGnRQFFUH9sL7syvDC803iRfXMlLo20J1msjDCwC%2BTFPSTQGPv5wI6FzRDaIrXgW75lKk8QVumQoDPcBxz9xH2%2FRjuOCSl%2Brxrr83fOUFMhNZH81Xy%2FCZuVgHqDmr1c84%2BnPbNBYypCWtYT280K%2FUUYkacLyEzRGm68nQgzfMVHga3%2Fj&amp;X-Amz-Signature=1da2ca7f378db88843b2b2c1bf13d53fe07d5696d1938bdd6da268e3662b5ec5&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<h3>アップデート</h3>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>sudo npm update -g @anthropic-ai/claude-code
+sudo npm update -g @musistudio/claude-code-router</code></pre>
+                        </div>
+                    </div>
+                    <h3>アンインストール</h3>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>sudo rm /root/.claude-code-router/config.json
+sudo npm uninstall -g @anthropic-ai/claude-code
+sudo npm uninstall -g @musistudio/claude-code-router</code></pre>
+                        </div>
+                    </div>
+                    <h3>参考</h3>
+
+<div class="bookmark-block">
+<a href="https://zenn.dev/kou029w/articles/claude-code-router" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<div class="bookmark-text">
+<div class="bookmark-title">Claude APIを使わず無料でClaude Codeを使う方法</div>
+
+<div class="bookmark-source-info">
+<img src="https://static.zenn.studio/images/icon.png" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+<span class="bookmark-url">zenn.dev</span>
+</div>
+</div>
+<div class="bookmark-og-image"><img src="https://res.cloudinary.com/zenn/image/upload/s--kFGckqvG--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:Claude%2520API%25E3%2582%2592%25E4%25BD%25BF%25E3%2582%258F%25E3%2581%259A%25E7%2584%25A1%25E6%2596%2599%25E3%2581%25A7Claude%2520Code%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%25E6%2596%25B9%25E6%25B3%2595%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:Kohei%2520Watanabe%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL3plbm4tdXNlci11cGxvYWQvYXZhdGFyL2RiOTg2MzRmOGEuanBlZw==%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png?_a=BACAGSGT" alt="Preview for Claude APIを使わず無料でClaude Codeを使う方法"></div>
+</a>
+</div>
+                    </article>
+<article>
+<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">YouTubeの字幕を取得してAIで処理する</h1></header>
+<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-07-03 22:33</span>
+<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
+</div>
+<p>実行テスト。</p>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/f57e3d93-1f9f-439a-8bc6-a2f4b42b80cb/1751549194309890.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4664EFRWZPM%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T101207Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEH0aCXVzLXdlc3QtMiJHMEUCIE3Ix%2BQOILgHwXgH6rDl6%2BSSYlpjuo9hg74BV3GChYJfAiEAmG%2BwpdVYt4LhroF4z8bC3RDEZv0vz4GyzcDCyBAVfqsq%2FwMIJhAAGgw2Mzc0MjMxODM4MDUiDDVQRwrc8k0irb1sWircA%2BYBLbekcshsfdAfomgyq8kVu58PJsUgJEuWo78ChdYYCg9XBxI6wUXS%2FJ%2BdJx5dZVEuFzzCqU3gzMUm4eMbgplw2DVUdBiJdAJhC2NwfzjEY%2Fw9Gb0jO9IDB8s%2BPwN%2FwYfIQE0sEcvTQV7bTRkPonzEcFLK9U992njkODlFYuKeU%2Bm%2BknPLZgAZaguzgxicQ2EFXrVY5DkLMZBz3iO0fNuSwjt82c%2FzKAwY32UJ7t7epIV7hhc5ww12hCIDBd9ao7eavc8dErXT7Ydg1WfMyIaZSzFQA5NuOyZe1vdZu0ASplYynoWGeqP0Tgq%2FiDyDkRQtuWfAwjdIIHGnnS73pY%2B8MzBTKI7KGsUSYgNi5MRXiBlSEeBkgEffmmjeJTf91adzq5S81ltyxK4d60rxsi4tYpo8gvvTuF02QGqIj0PwkjtsxSrN43OM7oa4xkLadm%2F4GdtsEntBAzyJPHv8t5V9Oal1zwtSTLQobzxZ3yqc4FB3sllyNUjALrtdP5nG%2FNpkjelceKSbEp%2Fd8ALoaG7SpuU8unKfJGmVx30RVCFX6xaSxu2Ls72y2W4DTLUOgYS9Tdmv4yNan6khuECJv8f%2F4FE4CIirPGHiwLtjAdQbjL%2FtjBAVrcCubWHjMLLerMcGOqUBLyxyiY4gu4akyoVYk4vzciGJmJBFqrW9kkOa1unTD6HOMbV5s53%2FYXNFZR%2BO5kTI3PWgc4xGzd7VSUlwj3IkxTNcnYfD6Ni81V%2BOlAtTft5utvpedGcpyEsck9oIkw1Q8HuHgX09%2Bno9xlPOc7n6R99aeT5lUzmqUX2qS2lHvd40Xvn%2BSo7xNbTx7wDgv1kMQyZeDN2zjRc8hT143Epn7xiNCiaj&amp;X-Amz-Signature=affa8ecb0370e9056fac585f4a087659b7fe45c4a27ef98192131a44a7a5d419&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<p>YouTube動画の字幕を取得して、AIにまとめさせるコードの例。<br>Pythonです。必要なライブラリは事前にインストールしてください。<br>OpenAIのAPIを使います。<a href="https://platform.openai.com/api-keys" target="_blank">APIキーを取得</a>してください。</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>pip install -U openai youtube-transcript-api</code></pre>
                         </div>
                     </div>
                     
@@ -472,111 +514,527 @@ width: auto;
                             <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
                                 python
                             </div>
-                            <pre><code>import time
+                            <pre><code>import re
+from openai import OpenAI
+from youtube_transcript_api import YouTubeTranscriptApi
 
-def is_prime(n):
-    if n &lt; 2:
-        return False
-    for i in range(2, int(n ** 0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
+OPENAI_API_KEY = &quot;Your OpenAI API Key Here&quot;
+OPENAI_MODEL = &quot;gpt-4.1-mini&quot;
 
-def prime_generator():
-    num = 2
+def extract_video_id(url):
+    import re
+    match = re.search(r&#x27;(?:v=|\/)([0-9A-Za-z_-]{11}).*&#x27;, url)
+    if match:
+        return match.group(1)
+    return None
+
+def get_transcript(video_id):
+    try:
+        transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+        auto_transcript = None
+        for transcript in transcript_list:
+            if transcript.is_generated:
+                auto_transcript = transcript
+                break
+        if auto_transcript:
+            lang_code = auto_transcript.language_code
+            print(f&quot;自動生成字幕の言語コード: {lang_code}&quot;)
+            return YouTubeTranscriptApi.get_transcript(video_id, languages=[lang_code])
+        else:
+            print(&quot;自動生成字幕が見つかりませんでした&quot;)
+            return None
+    except Exception as e:
+        print(f&quot;エラーが発生しました: {str(e)}&quot;)
+        return None
+
+def fetch_YT(youtube_url):
+    try:
+        pattern = r&quot;(?:https?://)?(?:www\.|m\.)?(?:youtube\.com|youtu\.be)/.*&quot;
+        if re.match(pattern, youtube_url):
+            video_id = extract_video_id(youtube_url)
+            print(f&quot;Video ID: {video_id}&quot;)
+            content = get_transcript(video_id)
+            if content:
+                print(&quot;字幕を取得しました&quot;)
+                return content
+            else:
+                return None
+        else:
+            return None
+    except Exception as e:
+        print(f&quot;エラーが発生しました: {str(e)}&quot;)
+        return None
+
+def post_AI(transcript):
+    client = OpenAI(api_key=OPENAI_API_KEY)
+    try:
+        response = client.chat.completions.create(
+            model=OPENAI_MODEL,
+            messages=[
+                {
+                    &quot;role&quot;: &quot;user&quot;,
+                    &quot;content&quot;: f&quot;以下はYouTube動画の音声の文字起こし文です。言葉としておかしい箇所は前後で判断してください。この内容をまとめて、日本語で、markdown形式で出力してください。\n\n---\n{transcript}\n---&quot;
+                }
+            ],
+            temperature=0.3
+        )
+        summary = response.choices[0].message.content
+        print(summary)
+    except Exception as e:
+        print(f&quot;エラーが発生しました: {str(e)}&quot;)
+
+def main():
     while True:
-        if is_prime(num):
-            yield num
-        num += 1
-
-def display_primes():
-    for prime in prime_generator():
-        print(prime)
-        time.sleep(1)
+        try:
+            print(&quot;\nYouTubeのURLを入力してください:&quot;)
+            input_url = input(&quot;URL &gt;&gt; &quot;).strip()
+            if not input_url:
+                continue
+            transcript = fetch_YT(input_url)
+            if transcript:
+                print(&quot;AI処理中..\n&quot;)
+                post_AI(transcript)
+            else:
+                print(&quot;失敗しました&quot;)
+        except Exception as e:
+            print(f&quot;エラーが発生しました: {str(e)}&quot;)
 
 if __name__ == &quot;__main__&quot;:
-    display_primes()</code></pre>
+    main()</code></pre>
                         </div>
                     </div>
                     </article>
 <article>
-<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">色々なブロックを試してみる</h1></header>
-<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-03-27 18:54</span>
-<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">Notion</span>
+<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">OpenAI Responses APIの履歴を削除する</h1></header>
+<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-07-02 19:49</span>
+<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
 </div>
-<h2>Notionの色んなブロックを試してみる</h2>
-<h1>H1</h1>
-<h2>H2</h2>
-<h3>H3</h3>
-<ul>
-<li>箇条書き1</li>
-<li>箇条書き2</li>
-</ul>
-<ol>
-<li>番号リスト1</li>
-<li>番号リスト2</li>
-</ol>
-<div><div class="todo-item"><input type="checkbox" id="todo_1c3d9f25-4f6d-80fc-8b8f-f609232a6bec_5663" class="todo-checkbox" checked onclick="toggleTodo(this)"><label for="todo_1c3d9f25-4f6d-80fc-8b8f-f609232a6bec_5663">ToDoチェックボックスチェックアリ✅</label></div></div>
-<div><div class="todo-item"><input type="checkbox" id="todo_1c3d9f25-4f6d-8015-a7d8-d511f0d78c45_6707" class="todo-checkbox"  onclick="toggleTodo(this)"><label for="todo_1c3d9f25-4f6d-8015-a7d8-d511f0d78c45_6707">ToDoチェックボックスチェックナシ</label></div></div>
-<div class="notion-table-wrapper"><table class="notion-table">
-<tbody><tr><td>表</td><td>2</td></tr>
-<tr><td>3</td><td>4</td></tr>
-<tr><td>5</td><td>6</td></tr>
-</tbody></table></div>
-<hr class="notion-divider">
-<p>↑区切り線↑</p>
-<p>同一ブロック内での改行。<br>これは<br>同じ<br>ブロック内で<br>改行しています。</p>
-<p>中国語: 您好专家转发专业骨头不错可乐气水</p>
-<p>絵文字: 😐😎</p>
-<p><a href="https://0click.nezihiko.com/" target="_blank">テキストのリンク</a>埋め込み</p>
-<p>ブックマーク。</p>
+<h2>Responses API</h2>
+<p>2025年になって、OpenAIが突如として推して来た「<a href="https://platform.openai.com/docs/guides/responses-vs-chat-completions" target="_blank">Responses API</a>」。<br>最近では新しいツールやMCPなどの利用はResponses APIに限られるため、OpenAIのAPIを使う場合には半強制な状況。<br>これまでの「Chat Completions API」と違う流儀で、他社APIとも互換性が失われ、非常に使いにくくなった。</p>
+<p>Responses APIは、これまでと異なり、会話の履歴を入れずとも、「会話のid」を与えれば、過去の会話履歴が参照される。<br>かと言って、<a href="https://community.openai.com/t/responses-api-vs-completions-no-token-savings/1295425" target="_blank">トークンが節約されるわけではない</a>。</p>
+<p>そして、Responses APIにおいてこのidの発行と履歴の保存はデフォルトでオンになっている。<br>つまり、最初の会話で必ずidが発行され、履歴が保存される。<br>以下に例を示す。</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>curl https://api.openai.com/v1/responses \
+  -H &quot;Content-Type: application/json&quot; \
+  -H &quot;Authorization: Bearer $OPENAI_API_KEY&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;o4-mini&quot;,
+    &quot;input&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;日本一の山は?&quot;}],
+  }&#x27;</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                json
+                            </div>
+                            <pre><code>{
+  &quot;id&quot;: &quot;resp_xxxxx&quot;,
+  &quot;object&quot;: &quot;response&quot;,
+  &quot;created_at&quot;: 1751000000,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;background&quot;: false,
+  &quot;error&quot;: null,
+  &quot;incomplete_details&quot;: null,
+  &quot;instructions&quot;: null,
+  &quot;max_output_tokens&quot;: null,
+  &quot;max_tool_calls&quot;: null,
+  &quot;model&quot;: &quot;o4-mini-2025-04-16&quot;,
+  &quot;output&quot;: [
+    {
+      &quot;id&quot;: &quot;rs_xxxxx&quot;,
+      &quot;type&quot;: &quot;reasoning&quot;,
+      &quot;summary&quot;: []
+    },
+    {
+      &quot;id&quot;: &quot;msg_xxxxx&quot;,
+      &quot;type&quot;: &quot;message&quot;,
+      &quot;status&quot;: &quot;completed&quot;,
+      &quot;content&quot;: [
+        {
+          &quot;type&quot;: &quot;output_text&quot;,
+          &quot;annotations&quot;: [],
+          &quot;logprobs&quot;: [],
+          &quot;text&quot;: &quot;\u65e5\u672c\u4e00\u306e\u5c71\u306f\u5bcc\u58eb\u5c71\u3067\u3059\u3002  \n\u6a19\u9ad8\u306f3,776\u30e1\u30fc\u30c8\u30eb\u3067\u3001\u5c71\u68a8\u770c\u3068\u9759\u5ca1\u770c\u306e\u5883\u306b\u4f4d\u7f6e\u3057\u3066\u3044\u307e\u3059\u3002\u65e5\u672c\u306e\u8c61\u5fb4\u3068\u3055\u308c\u3001\u53e4\u304f\u304b\u3089\u4fe1\u4ef0\u3084\u82b8\u8853\u306e\u984c\u6750\u306b\u3082\u306a\u3063\u3066\u304d\u307e\u3057\u305f\u3002&quot;
+        }
+      ],
+      &quot;role&quot;: &quot;assistant&quot;
+    }
+  ],
+  &quot;parallel_tool_calls&quot;: true,
+  &quot;previous_response_id&quot;: null,
+  &quot;reasoning&quot;: {
+    &quot;effort&quot;: &quot;medium&quot;,
+    &quot;summary&quot;: null
+  },
+  &quot;service_tier&quot;: &quot;default&quot;,
+  &quot;store&quot;: true,
+  &quot;temperature&quot;: 1.0,
+  &quot;text&quot;: {
+    &quot;format&quot;: {
+      &quot;type&quot;: &quot;text&quot;
+    }
+  },
+  &quot;tool_choice&quot;: &quot;auto&quot;,
+  &quot;tools&quot;: [],
+  &quot;top_logprobs&quot;: 0,
+  &quot;top_p&quot;: 1.0,
+  &quot;truncation&quot;: &quot;disabled&quot;,
+  &quot;usage&quot;: {
+    &quot;input_tokens&quot;: 12,
+    &quot;input_tokens_details&quot;: {
+      &quot;cached_tokens&quot;: 0
+    },
+    &quot;output_tokens&quot;: 322,
+    &quot;output_tokens_details&quot;: {
+      &quot;reasoning_tokens&quot;: 256
+    },
+    &quot;total_tokens&quot;: 334
+  },
+  &quot;user&quot;: null,
+  &quot;metadata&quot;: {}
+}</code></pre>
+                        </div>
+                    </div>
+                    <p>このレスポンスの「resp_xxxxx」が会話のidである。<br>APIとしての利便性が向上したと思いきや、実はOpenAIのサーバーにこの履歴が半永久的に残るのだ。<br>これまでの履歴が残っていないか、以下からぜひ確認してみてほしい。</p>
 
 <div class="bookmark-block">
-<a href="https://alpacat.com/posts/solution-to-image-url-expiration" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<a href="https://platform.openai.com/logs?api=responses" target="_blank" rel="noopener noreferrer" class="bookmark-link">
 <div class="bookmark-text">
-<div class="bookmark-title">Notion API 画像URLの期限切れ対策を3つ紹介する - アルパカログ</div>
-<p class="bookmark-description">Notion APIのように外部で期限付きで発行された画像URL(S3 signed URL)とHTMLのキャッシュは相性が悪く、...</p>
+<div class="bookmark-title">https://platform.openai.com/logs?api=responses</div>
+
 <div class="bookmark-source-info">
-<img src="https://alpacat.com/favicon.png" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
-<span class="bookmark-url">alpacat.com</span>
+
+<span class="bookmark-url">platform.openai.com</span>
 </div>
 </div>
-<div class="bookmark-og-image"><img src="https://alpacat.com/og-images/user-default.png" alt="Preview for Notion API 画像URLの期限切れ対策を3つ紹介する - アルパカログ"></div>
+
 </a>
 </div>
-                    
+                    <p>履歴は「<a href="https://platform.openai.com/docs/guides/your-data" target="_blank">30日で消える</a>」と解釈できるような説明書きがあるが、実際には消えない(少なくともすでに数ヶ月経つが消えていない)。<br>これは人によっては気分が悪いだろう。</p>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/271a37c2-736d-417c-85e5-dd8c963443f9/resjponsesapilogs.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466TYA5ADJE%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T101207Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEIL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQCEojkLP85YQdiusddo3LOepEOvF2DLI8gc6PpVBUXbJgIhAPt1kZJWhmAbTP5uSUbIDxwrfWei6IiyRTzhMpbLhPNpKv8DCCsQABoMNjM3NDIzMTgzODA1Igxrv1h1SdmxLty8UgUq3AM7XLm9Wlrdzb4WuVLcj7VhoM8HkBczDc2DSpuZe3CgHG5tR2%2FTznXr7eGanaBgmSSzvbOqKKuC6gCukkbIp0z4PNy6n%2F00b1QcchQ59nwfMJqPpdCthIpaCNkhuesqEESrTG28Ipgclt9CjojHClK8qoNwUXxjjU892bal7vf1u5J8fZJyMPoyhOyM0OKENQnc7r6buvh99fbEkoYey9Vk5tSIwGcQrCp%2FNARv7z9pzYa%2BTWZS5W034EOj2TcFuWvvpCDuIT1Za%2Bis%2BukXTrpfo1ddQ1fU6rIfI7IobiL0I3kTWWddezTvtbemHkQ%2FOKzcMe223wLlOltEBwX9zlXOThxgIi5rzIHpIxDcds2C1ZB1D3wiMHe3UVd%2FS7IVmRejIZmKGcUIaYtURTdIH%2BI1HxPqSPYb8K%2BKftJoSlrw%2F%2BGGz2s4xz%2Fay7SPaYmanM9lVZqUICcJnzZdXOFD5F3jPRxwUZVKPgaKCXFbOQrbpBymAq3D5wHo9jrepA0IfjMye4B%2FpA%2BxaJ1zcrsEhCIuTFcsAvOlS49CnMFpFssG7wJUPPl%2BeO8G6Fj6ZNfR%2Bvb2AWIhMRBfPflzkd9kyTYssDZ03SN0iAlnWehKWC0eTCvANAUpxR7W6RNmHTC8963HBjqkAQF%2B%2FFHVVBbVDSSkxPhRaPw8Y204sj3bwyXaPg69nLHjErEN7m%2FucVbI6xfB9JbXsQhXaz%2BnJfIFa00%2FtRppLxNvbN7DYv%2BM7oKQjvcoqRXy0u%2Fd1mHxNy7c%2BWEVvfMD%2F%2BVAxDDplwS71za8g7b%2BDMYEBuHzrj5%2FzbZaS6DXJajzhdok1WQ33auSTlpNRQ9pTsaXC%2BMAUeM%2FDv8PmFNEKf6x%2By96&amp;X-Amz-Signature=cf0b1a18cb5e61994080b2122afe4c2181d0b6e25a2a88b8181e3cd75647c72b&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<h2>履歴を保存しない</h2>
+<p>もし履歴を残したくなければ、APIを呼び出す際に「store」のオプションを「false」にする必要がある。<br>このように明示的にオフにすれば履歴は保存されない(idは発行されるようだ)。<br>以下に例を示す。</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>curl https://api.openai.com/v1/responses \
+  -H &quot;Content-Type: application/json&quot; \
+  -H &quot;Authorization: Bearer $OPENAI_API_KEY&quot; \
+  -d &#x27;{
+    &quot;model&quot;: &quot;o4-mini&quot;,
+    &quot;input&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;日本一の山は?&quot;}],
+    &quot;store&quot;: false
+  }&#x27;</code></pre>
+                        </div>
+                    </div>
+                    <p>そうすると過去の履歴が参照できないため、そのままでは連続する会話が出来ないが、それはこれまで通りの流儀で、過去の会話履歴を毎回全て入力すればいい。<br>上述のように入力のトークン数も変わらない。</p>
+<h2>履歴を消す</h2>
+<p>次に、履歴を消したい場合だが、これが非常に面倒くさい。<br>OpenAIのコンソール画面では、履歴(Logs)の閲覧はできるが、削除はできないため非常にもどかしい。<br>それでも消す方法は一応あり、まず履歴からidを確認し、そのidを指定してAPIを叩いて消す。<br>以下にコード例を示す。</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                python
+                            </div>
+                            <pre><code>import os
+import httpx
+
+# OPENAI APIキー
+API_KEY = &quot;sk-abc&quot;
+
+# 削除したいIDを配列で指定
+ids_to_delete = [
+    &quot;resp_xxx&quot;,
+    &quot;resp_yyy&quot;,
+    &quot;resp_zzz&quot;
+]
+
+def delete_openai_response(response_id: str) -&gt; dict:
+    url = f&quot;https://api.openai.com/v1/responses/{response_id}&quot;
+    headers = {
+        &quot;Authorization&quot;: f&quot;Bearer {API_KEY}&quot;,
+        &quot;Content-Type&quot;: &quot;application/json&quot;,
+    }
+
+    with httpx.Client(timeout=30) as client:
+        response = client.delete(url, headers=headers)
+        response.raise_for_status()
+
+    return response.json()
+
+print(&quot;削除処理を開始します。\n&quot;)
+
+for an_id in ids_to_delete:
+    try:
+        print(f&quot;id: {an_id} の削除を試みます。&quot;)
+        response = delete_openai_response(an_id)
+        print(f&quot; &gt; 応答: {response}&quot;)
+        if response.get(&quot;deleted&quot;):
+            print(f&quot; &gt; 結果: ✅ 正常に削除されました。&quot;)
+        else:
+            print(f&quot; &gt; 結果: ❓ 削除されませんでした。&quot;)
+    except Exception as e:
+        print(f&quot; &gt; エラー: {an_id} の処理中に予期せぬエラーが発生しました。\n{e}&quot;)
+        print(&quot; &gt; 次のIDの処理へ進みます。&quot;)
+    finally:
+        print(&quot;-&quot; * 20)
+
+print(&quot;\nすべての処理が完了しました。&quot;)
+input(&quot;Enterキーを押して終了します。&quot;)</code></pre>
+                        </div>
+                    </div>
+                    <blockquote class="notion-quote ">参考</blockquote>
+
 <div class="bookmark-block">
-<a href="https://blog.35d.jp/2021-10-08-notion-api-image-expire-date" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<a href="https://community.openai.com/t/https-platform-openai-com-logs-are-not-being-deleted-after-30-days/1252776" target="_blank" rel="noopener noreferrer" class="bookmark-link">
 <div class="bookmark-text">
-<div class="bookmark-title">Notion API でブログを構築するときの画像の Expire Date 問題を解決したい → 解決した | 35D BLOG</div>
-<p class="bookmark-description">Notion にアップロードした画像は裏側では S3 にアップロードされる仕組みになってるっぽく、この画像を Notion API で取得すると Expire...</p>
+<div class="bookmark-title">Https://platform.openai.com/logs are not being deleted after 30 days - API - OpenAI Developer Community</div>
+<p class="bookmark-description">Hello, 
+My team uses https://platform.openai.com/ and for privacy/security...</p>
 <div class="bookmark-source-info">
-<img src="https://blog.35d.jp/img/favicon.png" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
-<span class="bookmark-url">blog.35d.jp</span>
+<img src="https://us1.discourse-cdn.com/openai1/optimized/4X/0/9/e/09e6028ae29015201ba12d4ade0ec72250797f89_2_32x32.svg" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+<span class="bookmark-url">community.openai.com</span>
 </div>
 </div>
-<div class="bookmark-og-image"><img src="https://blog.35d.jp/og-image.png" alt="Preview for Notion API でブログを構築するときの画像の Expire Date 問題を解決したい → 解決した | 35D BLOG"></div>
+<div class="bookmark-og-image"><img src="https://us1.discourse-cdn.com/openai1/original/4X/0/4/c/04c8546833f0824a49d21f50e2b08dd44bfd3d05.png" alt="Preview for Https://platform.openai.com/logs are not being deleted after 30 days - API - OpenAI Developer Community"></div>
 </a>
 </div>
-                    <div class="notion-callout callout-gray_background"><span class="callout-icon">💡</span><div>これはコールアウト。<br>コールアウトも表示可能。</div></div>
-<blockquote class="notion-quote ">これは引用。<br>引用も使えます。</blockquote>
-<div class="notion-table-wrapper"><table class="notion-table">
-<tbody><tr><td>表もいけます</td><td>Most interest in</td><td>Age</td></tr>
-<tr><td>Chris</td><td>HTML tables</td><td>22</td></tr>
-<tr><td>Dennis</td><td>Web accessibility</td><td>45</td></tr>
-<tr><td>Sarah</td><td>JavaScript frameworks</td><td>29</td></tr>
-<tr><td>Karen</td><td>Web performance</td><td>36</td></tr>
-<tr><td>Average age</td><td></td><td><strong>33</strong></td></tr>
-</tbody></table></div>
-<div class="notion-table-wrapper"><table class="notion-table">
-<tbody><tr><td>こちらも</td><td>列-A</td></tr>
-<tr><td>行-1</td><td>A-1</td></tr>
-<tr><td>行-2</td><td>A-2</td></tr>
-<tr><td>行-3</td><td>A-3</td></tr>
-</tbody></table></div>
-<p>ファイルを保存してみる。</p>
-<a href="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/b2d5728a-dd71-4fc2-a1f1-4ac52900240a/20240419004-1.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466S7MVAGMY%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T100358Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEH0aCXVzLXdlc3QtMiJIMEYCIQD6N3PuP7ObApoU2iXw15eZmDu3aE60QXz1QToA71kgmAIhAOYER4tZN%2FKEqk%2Fp9i0yqD8HvvTFsFuy3dfwk9%2Fd6zcRKv8DCCUQABoMNjM3NDIzMTgzODA1IgzdygysrMbdbq0%2B%2B60q3AOf%2Bo5XH2G7Q5JJ9vUDQZtqKZ%2F%2BS6cJvHqucQB9kqH%2BX8%2F8vUfDW%2BCdAGGuIVZYDVv5EFBk%2BDASS43VABoNUmOR%2BL7qCcETeF6dulw19T%2F4eDX9%2B3oZfrw8cM4lExt%2FNYO1QuReg1NhrWYVwB0V5Juik36Sc0JfGG30VCx%2FWgJvNZRs7HtTw%2BYW0AaC%2BedrXRCn0y8yPzSkCuQuHwssjFnDndXr%2BL7uMMlkropsjY3AyUIRURtgmlEfs6veVyB2uct7I5iLzarYoW%2Bb%2Fg35Ox8Mx2z3QJR6FEbPBZ1O26dzq53Nxo7Dqa%2B2JYwNuUCifWi4JqHxBqn5dujl34MOCuyuAShKqs9XII9Rn%2FghqWUuVX8lthhg%2FFTij%2BjhjMK%2BAjRd9X%2Fo0QDx4ubSByhID87qLBbyYHZ3h0h7pFot%2BYC9dTS5COKLCpxkRy5mque%2FDhxE4AajCc85ZODGm%2F%2BJpbu2gFnJfMfSawUpfx3S%2BHj7oA5DEIB%2F8HUoiWB2R7jSfD5xiXh7aKh%2FOofcDnU2%2BcAr%2BNtan177kAl0e0H%2FnD2KEi4jfK%2FJzKJeEwyTOTlTkgLf4k0VLb0HzvTcEK9bcHh8i8cypIJTlJ08x3MJwicIDvhhJtBeCKUbEpqEgzCa2azHBjqkAfkSsC8ZhHc%2FBm%2FCPNTY7ik2h14b6LMhA7EWeEJ3CGHQZg31YFCl3cUPS%2FHCGYNVSIgWs3xKqQ2bGYLfmoy6u0I1ES74YNY6l%2B0VdSlK%2BvIYshOsbODpslk9ziSlRaA3mHqJGcLJEy%2BkAby8AVBC0IiHipGDLK0voPNzayjcHVBN1hycScUYGqVMWe2Il%2FswBnQ0JpBZCw1AprOcBf8rgZ6fcNKr&amp;X-Amz-Signature=bd6128ad1261e124995cbd2ca4bdf6507c48a491096d87138ac57b786b63d564&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" target="_blank" download="20240419004-1.pdf" class="notion-file"><svg viewBox="0 0 24 24"><path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2ZM18 20H6V4H13V9H18V20Z M12 19L8 15H11V11H13V15H16L12 19Z"></path></svg>20240419004-1.pdf</a>
+                    <p>ただしこの方法は、会話idを1つ1つ確認する必要があり、手間がかかる(全idを取得するような方法はどうやらなさそう)。</p>
+<h2>結論</h2>
+<p>履歴の保存はオフにすることが推奨される。<br>そしてなるべくならResponses APIは使わない。</p>
 </article>
+<article>
+<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Raspberry PiにSSHで接続する</h1></header>
+<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-06-27 20:11</span>
+<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">Raspberry Pi</span>
+</div>
+<h3>はじめに</h3>
+<p>ここではRaspberry Piの初期設定を行い、SSHで外部端末から接続するまでの手順を書きます。<br>前提は、ディスプレイ、キーボード、マウスがない場合です。<br>つまり、Raspberry Piの本体を買って、USBケーブルと電源、SDカードと、設定するPCがあるだけの状態を想定しています。</p>
+<div class="notion-callout callout-gray_background"><span class="callout-icon">💡</span><div>【警告】この情報を利用したことによって生じた損害について、私は一切の責任を負いません。全て自己責任で行ってください。</div></div>
+<h3>OSインストール</h3>
+<p>まず、Raspberry PiのOSを用意します。色んなOSが使えるのですが、基本的には「Raspberry Pi OS」というのを使います。<br>以前に比べて簡単になり、WindowsやMacなどで最新のOSをダウンロードしてそのままSDカードにインストールできるようになりました。<br>以下からお使いのOS用のソフト「Raspberry Pi Imager」をダウンロードします。</p>
+
+<div class="bookmark-block">
+<a href="https://www.raspberrypi.com/software/" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<div class="bookmark-text">
+<div class="bookmark-title">https://www.raspberrypi.com/software/</div>
+
+<div class="bookmark-source-info">
+
+<span class="bookmark-url">www.raspberrypi.com</span>
+</div>
+</div>
+
+</a>
+</div>
+                    <p>PCでダウンロードしたソフトを立ち上げ、「デバイス」「OS」「ストレージ」を選択し、OSをSDカードにインストールします。<br>デバイスは手元のRaspberry Piを選びます。OSはRaspberry Pi OS (64-bit)を選べばいいでしょう。ストレージはインストールするSDカードを選びます。</p>
+<p>「次へ」を押すと以下のような画面が出ます。</p>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/731ec803-9eab-4bf7-b73e-20e4e77fac09/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666ISA5QYQ%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T101208Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHwaCXVzLXdlc3QtMiJGMEQCIAdLRoVQOhkmDt4DtXY6kr4%2FxZhZA%2B3tLPR%2FAKmJooOUAiAR79XXnuKG1ZJfUjsm61y7pP0YVMmnAoJQhQZUs9JpjCr%2FAwglEAAaDDYzNzQyMzE4MzgwNSIMIMrfWBFklondoJ%2BBKtwDkb9O%2FvlVbJBKlQaCoKDOFVPzELfKNrmXmpzg3h38Lxen%2FfcsAJuE2z%2FtswNgU7FGoWtYYbt%2BhVYD4K5pg6B4k1qRDw4lRaUMu6TjFKSfQ1%2Bz8HhIsQ4U5Vu7diM88RBWxaAuSnO5On6Kic8CRM2Xe562Gl65hU9NeUkwGqQWO0D6CJE%2F0vtxkzyNdLXEndnlu23azLTEFpAr0AzdUnItbo6PkEz760duM%2BTWMRyclEyZlIHVQNpZYHciiaWpQy6CiPYl8Ur2YC3yDT9H4Kz5C3ZuGXE4XFV%2F%2FZ4DoRFyjGiR4P248JIuGk2rBfuELVfiV8OXlAjeIHzQW7FPab8twos8xiBbPvY8E8CDLj74Dzx4FYb%2F%2FiJg%2FLp72o3%2Bg8GtLh3EXuo4rRZroWp6xYX9RzoUfyRKEZqd1O3J7erm0UFBEDaz1qJTb09StwJXqNG3gMfamYa797uu1AzXWSg0Vp1xSwojEl3ZU1KZTy8u2YAZBdz0Yc4e5Nu%2BGjKTEqWZZ6RWMsg9b6qgzMu05sUSGa8M7CAXF%2FH%2F4PsnLjlr1W55wQi44jkwQQ%2BVvM%2Bw%2FfF4nOIlIV7KKHGUpAlyR%2BObuUkixCv9LOfE8979KYdK07hXeJ%2FygirlEGN8h68wyNesxwY6pgEybjk9Tj8fZItkttXtnGH7x0m2b%2BZ6Y8gRbkszd8Ntv%2BmLR%2FXN6r1lmx%2FVt3EYoYNAhD%2F4KmFo2PMOUm5uBhMBnBAlPhnaNIhNKdiMkbxnPsvEUnPYeKK8q1QoR9wSGIgN3H10NLNl3sJ0mWWI5K3TnGrKL%2BIFYs4Qr8ekQGLu3aBbYrTIejU6c0acBex2BKpr%2FidlzGeoKKL2hxjAHeKYn8i6n8Ci&amp;X-Amz-Signature=41321eb6d28ec5f43ad040a72fc457a987bda0b870ac476a17d3ab4ebf093b00&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<p>ここで「設定を編集する」を選びます。<br>そうしたら以下のような設定が行えます。これは本来、Raspberry Piを立ち上げて初期設定を行う内容ですが、予めSDカードにこれら情報も書き込むことで、ディスプレイなどがなくても初期設定が完了できる裏技です。この設定をしないと、ディスプレイなどが必要になります。</p>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/22ea0851-3f7d-438d-9e46-73d3dbca6e3b/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666ISA5QYQ%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T101208Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHwaCXVzLXdlc3QtMiJGMEQCIAdLRoVQOhkmDt4DtXY6kr4%2FxZhZA%2B3tLPR%2FAKmJooOUAiAR79XXnuKG1ZJfUjsm61y7pP0YVMmnAoJQhQZUs9JpjCr%2FAwglEAAaDDYzNzQyMzE4MzgwNSIMIMrfWBFklondoJ%2BBKtwDkb9O%2FvlVbJBKlQaCoKDOFVPzELfKNrmXmpzg3h38Lxen%2FfcsAJuE2z%2FtswNgU7FGoWtYYbt%2BhVYD4K5pg6B4k1qRDw4lRaUMu6TjFKSfQ1%2Bz8HhIsQ4U5Vu7diM88RBWxaAuSnO5On6Kic8CRM2Xe562Gl65hU9NeUkwGqQWO0D6CJE%2F0vtxkzyNdLXEndnlu23azLTEFpAr0AzdUnItbo6PkEz760duM%2BTWMRyclEyZlIHVQNpZYHciiaWpQy6CiPYl8Ur2YC3yDT9H4Kz5C3ZuGXE4XFV%2F%2FZ4DoRFyjGiR4P248JIuGk2rBfuELVfiV8OXlAjeIHzQW7FPab8twos8xiBbPvY8E8CDLj74Dzx4FYb%2F%2FiJg%2FLp72o3%2Bg8GtLh3EXuo4rRZroWp6xYX9RzoUfyRKEZqd1O3J7erm0UFBEDaz1qJTb09StwJXqNG3gMfamYa797uu1AzXWSg0Vp1xSwojEl3ZU1KZTy8u2YAZBdz0Yc4e5Nu%2BGjKTEqWZZ6RWMsg9b6qgzMu05sUSGa8M7CAXF%2FH%2F4PsnLjlr1W55wQi44jkwQQ%2BVvM%2Bw%2FfF4nOIlIV7KKHGUpAlyR%2BObuUkixCv9LOfE8979KYdK07hXeJ%2FygirlEGN8h68wyNesxwY6pgEybjk9Tj8fZItkttXtnGH7x0m2b%2BZ6Y8gRbkszd8Ntv%2BmLR%2FXN6r1lmx%2FVt3EYoYNAhD%2F4KmFo2PMOUm5uBhMBnBAlPhnaNIhNKdiMkbxnPsvEUnPYeKK8q1QoR9wSGIgN3H10NLNl3sJ0mWWI5K3TnGrKL%2BIFYs4Qr8ekQGLu3aBbYrTIejU6c0acBex2BKpr%2FidlzGeoKKL2hxjAHeKYn8i6n8Ci&amp;X-Amz-Signature=d49c78d4cb8a79fd31b181710ff8acd7b2116602f5ea88e95466eba2bdd8af32&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<p>ホスト名は内部ネットワークで接続するためのものです。<br>ユーザー名とパスワードは今後も使うので控えておいてください。<br>Wi-Fiは<a href="https://qiita.com/bohemian916/items/e164e8ce37d33b1d02ee" target="_blank">後から変更するのが難しくなったようです</a>。今現在設定をしている場所(自宅など)で普段使う、インターネットに繋がるWi-Fiルーターの設定をしてください。国は必ずJPにしてください。電波法関連のようです。<br>ロケール設定は日本のにしてください。</p>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/cde322a3-0e49-4106-9756-f5305809a083/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666ISA5QYQ%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T101208Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHwaCXVzLXdlc3QtMiJGMEQCIAdLRoVQOhkmDt4DtXY6kr4%2FxZhZA%2B3tLPR%2FAKmJooOUAiAR79XXnuKG1ZJfUjsm61y7pP0YVMmnAoJQhQZUs9JpjCr%2FAwglEAAaDDYzNzQyMzE4MzgwNSIMIMrfWBFklondoJ%2BBKtwDkb9O%2FvlVbJBKlQaCoKDOFVPzELfKNrmXmpzg3h38Lxen%2FfcsAJuE2z%2FtswNgU7FGoWtYYbt%2BhVYD4K5pg6B4k1qRDw4lRaUMu6TjFKSfQ1%2Bz8HhIsQ4U5Vu7diM88RBWxaAuSnO5On6Kic8CRM2Xe562Gl65hU9NeUkwGqQWO0D6CJE%2F0vtxkzyNdLXEndnlu23azLTEFpAr0AzdUnItbo6PkEz760duM%2BTWMRyclEyZlIHVQNpZYHciiaWpQy6CiPYl8Ur2YC3yDT9H4Kz5C3ZuGXE4XFV%2F%2FZ4DoRFyjGiR4P248JIuGk2rBfuELVfiV8OXlAjeIHzQW7FPab8twos8xiBbPvY8E8CDLj74Dzx4FYb%2F%2FiJg%2FLp72o3%2Bg8GtLh3EXuo4rRZroWp6xYX9RzoUfyRKEZqd1O3J7erm0UFBEDaz1qJTb09StwJXqNG3gMfamYa797uu1AzXWSg0Vp1xSwojEl3ZU1KZTy8u2YAZBdz0Yc4e5Nu%2BGjKTEqWZZ6RWMsg9b6qgzMu05sUSGa8M7CAXF%2FH%2F4PsnLjlr1W55wQi44jkwQQ%2BVvM%2Bw%2FfF4nOIlIV7KKHGUpAlyR%2BObuUkixCv9LOfE8979KYdK07hXeJ%2FygirlEGN8h68wyNesxwY6pgEybjk9Tj8fZItkttXtnGH7x0m2b%2BZ6Y8gRbkszd8Ntv%2BmLR%2FXN6r1lmx%2FVt3EYoYNAhD%2F4KmFo2PMOUm5uBhMBnBAlPhnaNIhNKdiMkbxnPsvEUnPYeKK8q1QoR9wSGIgN3H10NLNl3sJ0mWWI5K3TnGrKL%2BIFYs4Qr8ekQGLu3aBbYrTIejU6c0acBex2BKpr%2FidlzGeoKKL2hxjAHeKYn8i6n8Ci&amp;X-Amz-Signature=388ca18dc0a85932d51dec9cca241040fcf06dda897e17ff707bbfaf853ee05b&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<p>次に、サービスのタブでSSHを有効にしてください。<br>公開鍵認証がよりセキュアですが、ここではパスワード認証とします。</p>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/99cdc448-0d6b-45ff-b083-64d00abc2eac/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666ISA5QYQ%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T101208Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHwaCXVzLXdlc3QtMiJGMEQCIAdLRoVQOhkmDt4DtXY6kr4%2FxZhZA%2B3tLPR%2FAKmJooOUAiAR79XXnuKG1ZJfUjsm61y7pP0YVMmnAoJQhQZUs9JpjCr%2FAwglEAAaDDYzNzQyMzE4MzgwNSIMIMrfWBFklondoJ%2BBKtwDkb9O%2FvlVbJBKlQaCoKDOFVPzELfKNrmXmpzg3h38Lxen%2FfcsAJuE2z%2FtswNgU7FGoWtYYbt%2BhVYD4K5pg6B4k1qRDw4lRaUMu6TjFKSfQ1%2Bz8HhIsQ4U5Vu7diM88RBWxaAuSnO5On6Kic8CRM2Xe562Gl65hU9NeUkwGqQWO0D6CJE%2F0vtxkzyNdLXEndnlu23azLTEFpAr0AzdUnItbo6PkEz760duM%2BTWMRyclEyZlIHVQNpZYHciiaWpQy6CiPYl8Ur2YC3yDT9H4Kz5C3ZuGXE4XFV%2F%2FZ4DoRFyjGiR4P248JIuGk2rBfuELVfiV8OXlAjeIHzQW7FPab8twos8xiBbPvY8E8CDLj74Dzx4FYb%2F%2FiJg%2FLp72o3%2Bg8GtLh3EXuo4rRZroWp6xYX9RzoUfyRKEZqd1O3J7erm0UFBEDaz1qJTb09StwJXqNG3gMfamYa797uu1AzXWSg0Vp1xSwojEl3ZU1KZTy8u2YAZBdz0Yc4e5Nu%2BGjKTEqWZZ6RWMsg9b6qgzMu05sUSGa8M7CAXF%2FH%2F4PsnLjlr1W55wQi44jkwQQ%2BVvM%2Bw%2FfF4nOIlIV7KKHGUpAlyR%2BObuUkixCv9LOfE8979KYdK07hXeJ%2FygirlEGN8h68wyNesxwY6pgEybjk9Tj8fZItkttXtnGH7x0m2b%2BZ6Y8gRbkszd8Ntv%2BmLR%2FXN6r1lmx%2FVt3EYoYNAhD%2F4KmFo2PMOUm5uBhMBnBAlPhnaNIhNKdiMkbxnPsvEUnPYeKK8q1QoR9wSGIgN3H10NLNl3sJ0mWWI5K3TnGrKL%2BIFYs4Qr8ekQGLu3aBbYrTIejU6c0acBex2BKpr%2FidlzGeoKKL2hxjAHeKYn8i6n8Ci&amp;X-Amz-Signature=5e0ddfd499732ca5d5b0c67e86c9a1321222340d947530f760186ee8d879b366&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<p>その後、設定を「保存」し、「はい」で進め、警告も最終確認して「はい」で進めます。</p>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/ce94e1a1-faa5-44a9-af6e-7eb4f586ba9f/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666ISA5QYQ%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T101208Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHwaCXVzLXdlc3QtMiJGMEQCIAdLRoVQOhkmDt4DtXY6kr4%2FxZhZA%2B3tLPR%2FAKmJooOUAiAR79XXnuKG1ZJfUjsm61y7pP0YVMmnAoJQhQZUs9JpjCr%2FAwglEAAaDDYzNzQyMzE4MzgwNSIMIMrfWBFklondoJ%2BBKtwDkb9O%2FvlVbJBKlQaCoKDOFVPzELfKNrmXmpzg3h38Lxen%2FfcsAJuE2z%2FtswNgU7FGoWtYYbt%2BhVYD4K5pg6B4k1qRDw4lRaUMu6TjFKSfQ1%2Bz8HhIsQ4U5Vu7diM88RBWxaAuSnO5On6Kic8CRM2Xe562Gl65hU9NeUkwGqQWO0D6CJE%2F0vtxkzyNdLXEndnlu23azLTEFpAr0AzdUnItbo6PkEz760duM%2BTWMRyclEyZlIHVQNpZYHciiaWpQy6CiPYl8Ur2YC3yDT9H4Kz5C3ZuGXE4XFV%2F%2FZ4DoRFyjGiR4P248JIuGk2rBfuELVfiV8OXlAjeIHzQW7FPab8twos8xiBbPvY8E8CDLj74Dzx4FYb%2F%2FiJg%2FLp72o3%2Bg8GtLh3EXuo4rRZroWp6xYX9RzoUfyRKEZqd1O3J7erm0UFBEDaz1qJTb09StwJXqNG3gMfamYa797uu1AzXWSg0Vp1xSwojEl3ZU1KZTy8u2YAZBdz0Yc4e5Nu%2BGjKTEqWZZ6RWMsg9b6qgzMu05sUSGa8M7CAXF%2FH%2F4PsnLjlr1W55wQi44jkwQQ%2BVvM%2Bw%2FfF4nOIlIV7KKHGUpAlyR%2BObuUkixCv9LOfE8979KYdK07hXeJ%2FygirlEGN8h68wyNesxwY6pgEybjk9Tj8fZItkttXtnGH7x0m2b%2BZ6Y8gRbkszd8Ntv%2BmLR%2FXN6r1lmx%2FVt3EYoYNAhD%2F4KmFo2PMOUm5uBhMBnBAlPhnaNIhNKdiMkbxnPsvEUnPYeKK8q1QoR9wSGIgN3H10NLNl3sJ0mWWI5K3TnGrKL%2BIFYs4Qr8ekQGLu3aBbYrTIejU6c0acBex2BKpr%2FidlzGeoKKL2hxjAHeKYn8i6n8Ci&amp;X-Amz-Signature=49cf2568492662030d206bcbbbb617f36fca2fcbce1ecb823cef24840a01ea16&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<p>書き込みが始まりますので、終わるまで待ちます。それなりに時間がかかります。</p>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/aca2637d-09c6-4ff2-b406-1494dd17a539/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666ISA5QYQ%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T101208Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHwaCXVzLXdlc3QtMiJGMEQCIAdLRoVQOhkmDt4DtXY6kr4%2FxZhZA%2B3tLPR%2FAKmJooOUAiAR79XXnuKG1ZJfUjsm61y7pP0YVMmnAoJQhQZUs9JpjCr%2FAwglEAAaDDYzNzQyMzE4MzgwNSIMIMrfWBFklondoJ%2BBKtwDkb9O%2FvlVbJBKlQaCoKDOFVPzELfKNrmXmpzg3h38Lxen%2FfcsAJuE2z%2FtswNgU7FGoWtYYbt%2BhVYD4K5pg6B4k1qRDw4lRaUMu6TjFKSfQ1%2Bz8HhIsQ4U5Vu7diM88RBWxaAuSnO5On6Kic8CRM2Xe562Gl65hU9NeUkwGqQWO0D6CJE%2F0vtxkzyNdLXEndnlu23azLTEFpAr0AzdUnItbo6PkEz760duM%2BTWMRyclEyZlIHVQNpZYHciiaWpQy6CiPYl8Ur2YC3yDT9H4Kz5C3ZuGXE4XFV%2F%2FZ4DoRFyjGiR4P248JIuGk2rBfuELVfiV8OXlAjeIHzQW7FPab8twos8xiBbPvY8E8CDLj74Dzx4FYb%2F%2FiJg%2FLp72o3%2Bg8GtLh3EXuo4rRZroWp6xYX9RzoUfyRKEZqd1O3J7erm0UFBEDaz1qJTb09StwJXqNG3gMfamYa797uu1AzXWSg0Vp1xSwojEl3ZU1KZTy8u2YAZBdz0Yc4e5Nu%2BGjKTEqWZZ6RWMsg9b6qgzMu05sUSGa8M7CAXF%2FH%2F4PsnLjlr1W55wQi44jkwQQ%2BVvM%2Bw%2FfF4nOIlIV7KKHGUpAlyR%2BObuUkixCv9LOfE8979KYdK07hXeJ%2FygirlEGN8h68wyNesxwY6pgEybjk9Tj8fZItkttXtnGH7x0m2b%2BZ6Y8gRbkszd8Ntv%2BmLR%2FXN6r1lmx%2FVt3EYoYNAhD%2F4KmFo2PMOUm5uBhMBnBAlPhnaNIhNKdiMkbxnPsvEUnPYeKK8q1QoR9wSGIgN3H10NLNl3sJ0mWWI5K3TnGrKL%2BIFYs4Qr8ekQGLu3aBbYrTIejU6c0acBex2BKpr%2FidlzGeoKKL2hxjAHeKYn8i6n8Ci&amp;X-Amz-Signature=50be0224e31bf4c5b5fc5ddd0f3640ad2a012bd094010bb45ad2483494890576&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<p>書き込みが終了したらPCからSDカードを取り出します。</p>
+<h3>SSHで接続</h3>
+<p>OSを書き込んだSDカードをRaspberry PiのSDカードスロットに入れます。<br>USBケーブルをRaspberry Piに繋ぎ、USB ACアダプタに繋いで電源を入れます。</p>
+<div class="notion-callout callout-gray_background"><span class="callout-icon">💡</span><div>Raspberry Pi 4以上は電源の推奨要求が高いです。電流が3A、5だと5Aです。確実に電圧降下するので、電圧も5.1Vなど高めに出る物が望ましいと思います。純正品がベターでしょう。</div></div>
+<p>電源を入れて、少し時間が経ったら(立ち上がるのに時間がかかる)、PCなどの外部端末からSSHで繋ぎましょう(外部端末はRaspberry Piと同じネットワークに繋いでください)。<br>もしRaspberry PiのIPアドレスが分かるならそのIPアドレスで、分からないなら先に設定したホスト名で繋ぎます。</p>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/88118139-dcfe-4560-ac28-b0e731440f60/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666ISA5QYQ%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T101208Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHwaCXVzLXdlc3QtMiJGMEQCIAdLRoVQOhkmDt4DtXY6kr4%2FxZhZA%2B3tLPR%2FAKmJooOUAiAR79XXnuKG1ZJfUjsm61y7pP0YVMmnAoJQhQZUs9JpjCr%2FAwglEAAaDDYzNzQyMzE4MzgwNSIMIMrfWBFklondoJ%2BBKtwDkb9O%2FvlVbJBKlQaCoKDOFVPzELfKNrmXmpzg3h38Lxen%2FfcsAJuE2z%2FtswNgU7FGoWtYYbt%2BhVYD4K5pg6B4k1qRDw4lRaUMu6TjFKSfQ1%2Bz8HhIsQ4U5Vu7diM88RBWxaAuSnO5On6Kic8CRM2Xe562Gl65hU9NeUkwGqQWO0D6CJE%2F0vtxkzyNdLXEndnlu23azLTEFpAr0AzdUnItbo6PkEz760duM%2BTWMRyclEyZlIHVQNpZYHciiaWpQy6CiPYl8Ur2YC3yDT9H4Kz5C3ZuGXE4XFV%2F%2FZ4DoRFyjGiR4P248JIuGk2rBfuELVfiV8OXlAjeIHzQW7FPab8twos8xiBbPvY8E8CDLj74Dzx4FYb%2F%2FiJg%2FLp72o3%2Bg8GtLh3EXuo4rRZroWp6xYX9RzoUfyRKEZqd1O3J7erm0UFBEDaz1qJTb09StwJXqNG3gMfamYa797uu1AzXWSg0Vp1xSwojEl3ZU1KZTy8u2YAZBdz0Yc4e5Nu%2BGjKTEqWZZ6RWMsg9b6qgzMu05sUSGa8M7CAXF%2FH%2F4PsnLjlr1W55wQi44jkwQQ%2BVvM%2Bw%2FfF4nOIlIV7KKHGUpAlyR%2BObuUkixCv9LOfE8979KYdK07hXeJ%2FygirlEGN8h68wyNesxwY6pgEybjk9Tj8fZItkttXtnGH7x0m2b%2BZ6Y8gRbkszd8Ntv%2BmLR%2FXN6r1lmx%2FVt3EYoYNAhD%2F4KmFo2PMOUm5uBhMBnBAlPhnaNIhNKdiMkbxnPsvEUnPYeKK8q1QoR9wSGIgN3H10NLNl3sJ0mWWI5K3TnGrKL%2BIFYs4Qr8ekQGLu3aBbYrTIejU6c0acBex2BKpr%2FidlzGeoKKL2hxjAHeKYn8i6n8Ci&amp;X-Amz-Signature=67da52e9e241087158260d7e1ebde7d1ad4cbd05ea2bf68f25bc0d96169c9b9f&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code># コマンドの例(ユーザー名が「pi」でホスト名が「raspberrypi.local」の場合)
+ssh pi@raspberrypi.local
+
+# 初回はこんな感じで尋ねられると思うので「yes」
+Are you sure you want to continue connecting (yes/no/[fingerprint])?
+
+# 設定したパスワードを入力
+pi@raspberrypi.local&#x27;s password:</code></pre>
+                        </div>
+                    </div>
+                    <div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/dbcacc62-c6c9-49cd-b1d9-869ad455cde4/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666ISA5QYQ%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T101208Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHwaCXVzLXdlc3QtMiJGMEQCIAdLRoVQOhkmDt4DtXY6kr4%2FxZhZA%2B3tLPR%2FAKmJooOUAiAR79XXnuKG1ZJfUjsm61y7pP0YVMmnAoJQhQZUs9JpjCr%2FAwglEAAaDDYzNzQyMzE4MzgwNSIMIMrfWBFklondoJ%2BBKtwDkb9O%2FvlVbJBKlQaCoKDOFVPzELfKNrmXmpzg3h38Lxen%2FfcsAJuE2z%2FtswNgU7FGoWtYYbt%2BhVYD4K5pg6B4k1qRDw4lRaUMu6TjFKSfQ1%2Bz8HhIsQ4U5Vu7diM88RBWxaAuSnO5On6Kic8CRM2Xe562Gl65hU9NeUkwGqQWO0D6CJE%2F0vtxkzyNdLXEndnlu23azLTEFpAr0AzdUnItbo6PkEz760duM%2BTWMRyclEyZlIHVQNpZYHciiaWpQy6CiPYl8Ur2YC3yDT9H4Kz5C3ZuGXE4XFV%2F%2FZ4DoRFyjGiR4P248JIuGk2rBfuELVfiV8OXlAjeIHzQW7FPab8twos8xiBbPvY8E8CDLj74Dzx4FYb%2F%2FiJg%2FLp72o3%2Bg8GtLh3EXuo4rRZroWp6xYX9RzoUfyRKEZqd1O3J7erm0UFBEDaz1qJTb09StwJXqNG3gMfamYa797uu1AzXWSg0Vp1xSwojEl3ZU1KZTy8u2YAZBdz0Yc4e5Nu%2BGjKTEqWZZ6RWMsg9b6qgzMu05sUSGa8M7CAXF%2FH%2F4PsnLjlr1W55wQi44jkwQQ%2BVvM%2Bw%2FfF4nOIlIV7KKHGUpAlyR%2BObuUkixCv9LOfE8979KYdK07hXeJ%2FygirlEGN8h68wyNesxwY6pgEybjk9Tj8fZItkttXtnGH7x0m2b%2BZ6Y8gRbkszd8Ntv%2BmLR%2FXN6r1lmx%2FVt3EYoYNAhD%2F4KmFo2PMOUm5uBhMBnBAlPhnaNIhNKdiMkbxnPsvEUnPYeKK8q1QoR9wSGIgN3H10NLNl3sJ0mWWI5K3TnGrKL%2BIFYs4Qr8ekQGLu3aBbYrTIejU6c0acBex2BKpr%2FidlzGeoKKL2hxjAHeKYn8i6n8Ci&amp;X-Amz-Signature=55b77dd5f9e53e39f4fd17e80e208f996257a997f11030fdf15c9efddfbb86cc&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<p>このような表示なったら成功です!<br>外部端末からRaspberry Piに接続できています。<br>あとは好きなようにソフトを入れたりして楽しんでください。</p>
+<h3>家の外から繋ぐ</h3>
+<p>SSHで家の外からでもアクセスできるようにします。<br>まず、自分の家のIPアドレスを確認します。</p>
+
+<div class="bookmark-block">
+<a href="https://www.ugtop.com/spill.shtml" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<div class="bookmark-text">
+<div class="bookmark-title">確認くん</div>
+
+<div class="bookmark-source-info">
+<img src="http://www.ugtop.com/favicon.ico" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+<span class="bookmark-url">www.ugtop.com</span>
+</div>
+</div>
+
+</a>
+</div>
+                    <p><code>あなたのＩＰアドレス(IPv4)</code>で表示されるIPv4のIPアドレスが自分のグローバルなIPアドレスです。</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>ssh pi@ここにグローバルIPアドレス</code></pre>
+                        </div>
+                    </div>
+                    <p>つまり、このようなコマンドで接続します。<br>しかし、ほとんどの場合、接続が失敗すると思います。<br>それは、外(インターネット側)と自宅のRaspberry Piの間にルーターがあるためです。<br>そこで、ルーターに接続を通すための穴(ポート)を開ける必要があります。</p>
+<p>通常SSHは22番ポートを使いますが(上記のコマンドでも22番ポート)、ルーターの22番ポートを開放するとセキュリティ的に良くないです。<br>そこで、インターネット側は別のポートを開放し、ルーター内部で22番ポートにフォワーディングするのが望ましいです。<br>いずれにしろ、ルーターの設定で、ポートを開放してSSHが通るようにしてください。</p>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/156dc52b-6443-4cbd-8787-4e885d4134d4/aaaaaa.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666ISA5QYQ%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T101208Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHwaCXVzLXdlc3QtMiJGMEQCIAdLRoVQOhkmDt4DtXY6kr4%2FxZhZA%2B3tLPR%2FAKmJooOUAiAR79XXnuKG1ZJfUjsm61y7pP0YVMmnAoJQhQZUs9JpjCr%2FAwglEAAaDDYzNzQyMzE4MzgwNSIMIMrfWBFklondoJ%2BBKtwDkb9O%2FvlVbJBKlQaCoKDOFVPzELfKNrmXmpzg3h38Lxen%2FfcsAJuE2z%2FtswNgU7FGoWtYYbt%2BhVYD4K5pg6B4k1qRDw4lRaUMu6TjFKSfQ1%2Bz8HhIsQ4U5Vu7diM88RBWxaAuSnO5On6Kic8CRM2Xe562Gl65hU9NeUkwGqQWO0D6CJE%2F0vtxkzyNdLXEndnlu23azLTEFpAr0AzdUnItbo6PkEz760duM%2BTWMRyclEyZlIHVQNpZYHciiaWpQy6CiPYl8Ur2YC3yDT9H4Kz5C3ZuGXE4XFV%2F%2FZ4DoRFyjGiR4P248JIuGk2rBfuELVfiV8OXlAjeIHzQW7FPab8twos8xiBbPvY8E8CDLj74Dzx4FYb%2F%2FiJg%2FLp72o3%2Bg8GtLh3EXuo4rRZroWp6xYX9RzoUfyRKEZqd1O3J7erm0UFBEDaz1qJTb09StwJXqNG3gMfamYa797uu1AzXWSg0Vp1xSwojEl3ZU1KZTy8u2YAZBdz0Yc4e5Nu%2BGjKTEqWZZ6RWMsg9b6qgzMu05sUSGa8M7CAXF%2FH%2F4PsnLjlr1W55wQi44jkwQQ%2BVvM%2Bw%2FfF4nOIlIV7KKHGUpAlyR%2BObuUkixCv9LOfE8979KYdK07hXeJ%2FygirlEGN8h68wyNesxwY6pgEybjk9Tj8fZItkttXtnGH7x0m2b%2BZ6Y8gRbkszd8Ntv%2BmLR%2FXN6r1lmx%2FVt3EYoYNAhD%2F4KmFo2PMOUm5uBhMBnBAlPhnaNIhNKdiMkbxnPsvEUnPYeKK8q1QoR9wSGIgN3H10NLNl3sJ0mWWI5K3TnGrKL%2BIFYs4Qr8ekQGLu3aBbYrTIejU6c0acBex2BKpr%2FidlzGeoKKL2hxjAHeKYn8i6n8Ci&amp;X-Amz-Signature=85ce8bd664b4e853ab75d1a1b82f4449528cb09c66ab2be46fa20b7c7ad5b00e&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<p>上記は一例です。この例では、外部に対しては8022番ポートを開放し、ルーター内部で22番ポートに繋いでいます。<br>LAN側の向け先IPアドレスをRaspberry PiのローカルIPアドレスにしてください。<br>お使いのルーターのマニュアルをご確認の上、セキュリティに十分配慮して設定してください。</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>ssh -p 8022 pi@ここにグローバルIPアドレス</code></pre>
+                        </div>
+                    </div>
+                    <p>正しく設定できれば、上のようなコマンドで、出先から自宅のRaspberry Piに接続できるはずです。</p>
+<h3>終わりに</h3>
+<p>これで家の外からもRaspberry Piに接続できるようになりました。<br>iPhoneなどスマートフォンからでも接続できるので、Raspberry Piに<a href="https://github.com/google-gemini/gemini-cli" target="_blank">Gemini CLI</a>などをインストールすれば、出先でもVibe Codingできるでしょう。</p>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/1a807f30-1f9b-4709-9fdb-60c6f28639a6/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666ISA5QYQ%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T101208Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHwaCXVzLXdlc3QtMiJGMEQCIAdLRoVQOhkmDt4DtXY6kr4%2FxZhZA%2B3tLPR%2FAKmJooOUAiAR79XXnuKG1ZJfUjsm61y7pP0YVMmnAoJQhQZUs9JpjCr%2FAwglEAAaDDYzNzQyMzE4MzgwNSIMIMrfWBFklondoJ%2BBKtwDkb9O%2FvlVbJBKlQaCoKDOFVPzELfKNrmXmpzg3h38Lxen%2FfcsAJuE2z%2FtswNgU7FGoWtYYbt%2BhVYD4K5pg6B4k1qRDw4lRaUMu6TjFKSfQ1%2Bz8HhIsQ4U5Vu7diM88RBWxaAuSnO5On6Kic8CRM2Xe562Gl65hU9NeUkwGqQWO0D6CJE%2F0vtxkzyNdLXEndnlu23azLTEFpAr0AzdUnItbo6PkEz760duM%2BTWMRyclEyZlIHVQNpZYHciiaWpQy6CiPYl8Ur2YC3yDT9H4Kz5C3ZuGXE4XFV%2F%2FZ4DoRFyjGiR4P248JIuGk2rBfuELVfiV8OXlAjeIHzQW7FPab8twos8xiBbPvY8E8CDLj74Dzx4FYb%2F%2FiJg%2FLp72o3%2Bg8GtLh3EXuo4rRZroWp6xYX9RzoUfyRKEZqd1O3J7erm0UFBEDaz1qJTb09StwJXqNG3gMfamYa797uu1AzXWSg0Vp1xSwojEl3ZU1KZTy8u2YAZBdz0Yc4e5Nu%2BGjKTEqWZZ6RWMsg9b6qgzMu05sUSGa8M7CAXF%2FH%2F4PsnLjlr1W55wQi44jkwQQ%2BVvM%2Bw%2FfF4nOIlIV7KKHGUpAlyR%2BObuUkixCv9LOfE8979KYdK07hXeJ%2FygirlEGN8h68wyNesxwY6pgEybjk9Tj8fZItkttXtnGH7x0m2b%2BZ6Y8gRbkszd8Ntv%2BmLR%2FXN6r1lmx%2FVt3EYoYNAhD%2F4KmFo2PMOUm5uBhMBnBAlPhnaNIhNKdiMkbxnPsvEUnPYeKK8q1QoR9wSGIgN3H10NLNl3sJ0mWWI5K3TnGrKL%2BIFYs4Qr8ekQGLu3aBbYrTIejU6c0acBex2BKpr%2FidlzGeoKKL2hxjAHeKYn8i6n8Ci&amp;X-Amz-Signature=f86c45ed651769b666fd1ef74846cdbd50a943cb8f7e0c1820f3640e92ec2b1c&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<p>Enjoy!</p>
+</article>
+<article>
+<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Gemini CLIをRaspberry Piにインストールして使ってみた</h1></header>
+<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-06-26 18:39</span>
+<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI, Raspberry Pi</span>
+</div>
+<h2>Gemini CLIをRaspberry Piにインストールして使う方法(出先でiPhoneからも使えます)</h2>
+
+<div class="bookmark-block">
+<a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<div class="bookmark-text">
+<div class="bookmark-title">GitHub - google-gemini/gemini-cli: An open-source AI agent that brings the power of Gemini directly into your terminal.</div>
+<p class="bookmark-description">An open-source AI agent that brings the power of Gemini directly into your...</p>
+<div class="bookmark-source-info">
+<img src="https://github.githubassets.com/favicons/favicon.svg" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+<span class="bookmark-url">github.com</span>
+</div>
+</div>
+<div class="bookmark-og-image"><img src="https://repository-images.githubusercontent.com/968197216/8522a757-5632-4fa4-8d01-fcc121390cb1" alt="Preview for GitHub - google-gemini/gemini-cli: An open-source AI agent that brings the power of Gemini directly into your terminal."></div>
+</a>
+</div>
+                    <h3>ゴール</h3>
+<p>iPhoneから自宅のRaspberry PiにSSHで接続して使う</p>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/1a807f30-1f9b-4709-9fdb-60c6f28639a6/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466ZKMUCTGQ%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T101209Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEH0aCXVzLXdlc3QtMiJIMEYCIQDfPzYCHcZN8Xl%2Bm1tbnUXl2F7lJcVqq7gLjC%2FfuwMEOgIhAPKg0aXegLqjMu9OSbHVKijb5or3k3Rl7VkooUoOEL4YKv8DCCUQABoMNjM3NDIzMTgzODA1Igy9GnySqQUgIkz20KMq3AOCn6tI812eUCwcpu0cepwFXLz4ZKrDAuIIqbNtzFPqAiIqYyzBUF4qAAopjTtZSpm5k8yYrrcBUoO1WlUuluDG2Snmt%2B7KOHugxbt8HbYvj6AceAyiVc46L7RLvNqwAWsUSi5RhRAe7TsRo%2ByxedJg2itSCruI%2F9ns9Chcn9ktF1IIHBoQh%2Bha%2FBGFAKynouxJy1RbDH7g4uafBeeEibNnXy4di2W68aWveSkq0dNqIg5tZCurMjGyEf%2BpE%2FSsNjaWRRIFeHsqtmd73VK9T41KP1tyn7iHC%2FsRoj7X2LbpvCE5%2FZH0HIGUuODMU4%2FQGpcIVc7Aet6I7QlvHJXoyM9nB6d%2BBkZYnUfNbpsqtnUETFLnyzKcjpP77iTm2gZsFyVou5sWOEM%2BlYRA3uZhIJYSKsTKnGcgrypek8G74n4%2BqnWpMw2ZVL5xqiQ6IkKrO%2BdHC0Lq0hrJoBuYR5wCYRjRi8hGwNmAqFdmF16BbGrYewWWivkeWwvzSebf3X1dHLg2x3smno%2BuOYZwmdC%2BLDVQ3k4klevqYD393fHRqdGXd5kWXHD10bC%2FOfzZS6AZ45%2FnJIGwbfLAj%2F5koHnugKA3KSc%2BtdF%2BBvgQTm%2FAK1B0a%2FaLYzNDtx9gDQHXEDDc2azHBjqkAZKRjts%2B6QBrXrUFAeqkTlJk%2BLUPp5Sj8IyOouoEaCqFPF1N3Q9hrERoavfzmoP9EfeddQsisQ8KL8Q89DpBJgiztI5lmp5l5gFxOBwrGilNovWlBpO6VGQPI4z7zM3C5tsN%2FzKdMH%2BQcCGERQz8Mrkxfqr2Ure3O4Jx9Tuo35xxH8tB3E1UejEhwMipyasjEbapyY7vSttzMDwpDrsd%2BUSGRumv&amp;X-Amz-Signature=6d1e8e5e21c13f975334364dab110a660b0db8f6f0b333c3b95158f84ebe1f3e&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<h3>インストール</h3>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code># 大前提としてNode.jsとnpmがインストールされていること
+sudo npm install -g @google/gemini-cligemini</code></pre>
+                        </div>
+                    </div>
+                    <h3>立ち上げ</h3>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>gemini</code></pre>
+                        </div>
+                    </div>
+                    <h3>認証</h3>
+
+<div class="bookmark-block">
+<a href="https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/authentication.md" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<div class="bookmark-text">
+<div class="bookmark-title">gemini-cli/docs/cli/authentication.md at main · google-gemini/gemini-cli · GitHub</div>
+<p class="bookmark-description">An open-source AI agent that brings the power of Gemini directly into your...</p>
+<div class="bookmark-source-info">
+<img src="https://github.githubassets.com/favicons/favicon.svg" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+<span class="bookmark-url">github.com</span>
+</div>
+</div>
+<div class="bookmark-og-image"><img src="https://repository-images.githubusercontent.com/968197216/8522a757-5632-4fa4-8d01-fcc121390cb1" alt="Preview for gemini-cli/docs/cli/authentication.md at main · google-gemini/gemini-cli · GitHub"></div>
+</a>
+</div>
+                    <p>認証はGemini CLIを立ち上げた状態で、以下のコマンドで行う(初回はすぐに認証を求められる)</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>/auth</code></pre>
+                        </div>
+                    </div>
+                    <p>「Login with Google」を選択するのが一般的で、ブラウザが立ち上がり、そこでGoogleの個人アカウントで認証すると使えるようになる<br>基本的に初回のみ認証が必要で、一度認証すれば、SSHなどを使って、他の端末からも利用できる</p>
+<p>SSHで接続して使う様子</p>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/596badab-361e-4995-b88f-b1709e8281e9/geminicli0626.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466ZKMUCTGQ%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T101209Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEH0aCXVzLXdlc3QtMiJIMEYCIQDfPzYCHcZN8Xl%2Bm1tbnUXl2F7lJcVqq7gLjC%2FfuwMEOgIhAPKg0aXegLqjMu9OSbHVKijb5or3k3Rl7VkooUoOEL4YKv8DCCUQABoMNjM3NDIzMTgzODA1Igy9GnySqQUgIkz20KMq3AOCn6tI812eUCwcpu0cepwFXLz4ZKrDAuIIqbNtzFPqAiIqYyzBUF4qAAopjTtZSpm5k8yYrrcBUoO1WlUuluDG2Snmt%2B7KOHugxbt8HbYvj6AceAyiVc46L7RLvNqwAWsUSi5RhRAe7TsRo%2ByxedJg2itSCruI%2F9ns9Chcn9ktF1IIHBoQh%2Bha%2FBGFAKynouxJy1RbDH7g4uafBeeEibNnXy4di2W68aWveSkq0dNqIg5tZCurMjGyEf%2BpE%2FSsNjaWRRIFeHsqtmd73VK9T41KP1tyn7iHC%2FsRoj7X2LbpvCE5%2FZH0HIGUuODMU4%2FQGpcIVc7Aet6I7QlvHJXoyM9nB6d%2BBkZYnUfNbpsqtnUETFLnyzKcjpP77iTm2gZsFyVou5sWOEM%2BlYRA3uZhIJYSKsTKnGcgrypek8G74n4%2BqnWpMw2ZVL5xqiQ6IkKrO%2BdHC0Lq0hrJoBuYR5wCYRjRi8hGwNmAqFdmF16BbGrYewWWivkeWwvzSebf3X1dHLg2x3smno%2BuOYZwmdC%2BLDVQ3k4klevqYD393fHRqdGXd5kWXHD10bC%2FOfzZS6AZ45%2FnJIGwbfLAj%2F5koHnugKA3KSc%2BtdF%2BBvgQTm%2FAK1B0a%2FaLYzNDtx9gDQHXEDDc2azHBjqkAZKRjts%2B6QBrXrUFAeqkTlJk%2BLUPp5Sj8IyOouoEaCqFPF1N3Q9hrERoavfzmoP9EfeddQsisQ8KL8Q89DpBJgiztI5lmp5l5gFxOBwrGilNovWlBpO6VGQPI4z7zM3C5tsN%2FzKdMH%2BQcCGERQz8Mrkxfqr2Ure3O4Jx9Tuo35xxH8tB3E1UejEhwMipyasjEbapyY7vSttzMDwpDrsd%2BUSGRumv&amp;X-Amz-Signature=5e36ebf9758e776675b701a0b7bd68f66e7abbfab73e65d5be76b7a69e2710a7&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<h3>料金</h3>
+
+<div class="bookmark-block">
+<a href="https://blog.google/technology/developers/introducing-gemini-cli-open-source-ai-agent/" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<div class="bookmark-text">
+<div class="bookmark-title">Google announces Gemini CLI: your open-source AI agent</div>
+<p class="bookmark-description">Free and open source, Gemini CLI brings Gemini directly into developers’...</p>
+<div class="bookmark-source-info">
+<img src="https://blog.google/favicon.ico" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+<span class="bookmark-url">blog.google</span>
+</div>
+</div>
+<div class="bookmark-og-image"><img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_CLI_Hero_Final.width-1300.png" alt="Preview for Google announces Gemini CLI: your open-source AI agent"></div>
+</a>
+</div>
+                    <p>Gemini CLIの無料枠は以下の通り(超過後もAPIキーの利用などで使えるらしい)</p>
+<blockquote class="notion-quote ">Gemini CLI offers the industry&#x27;s largest usage allowance at 60 model requests per minute and 1,000 model requests per day at no charge</blockquote>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/86e3feec-2896-4151-8d24-d6ad0e10e094/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466ZKMUCTGQ%2F20251012%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20251012T101209Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEH0aCXVzLXdlc3QtMiJIMEYCIQDfPzYCHcZN8Xl%2Bm1tbnUXl2F7lJcVqq7gLjC%2FfuwMEOgIhAPKg0aXegLqjMu9OSbHVKijb5or3k3Rl7VkooUoOEL4YKv8DCCUQABoMNjM3NDIzMTgzODA1Igy9GnySqQUgIkz20KMq3AOCn6tI812eUCwcpu0cepwFXLz4ZKrDAuIIqbNtzFPqAiIqYyzBUF4qAAopjTtZSpm5k8yYrrcBUoO1WlUuluDG2Snmt%2B7KOHugxbt8HbYvj6AceAyiVc46L7RLvNqwAWsUSi5RhRAe7TsRo%2ByxedJg2itSCruI%2F9ns9Chcn9ktF1IIHBoQh%2Bha%2FBGFAKynouxJy1RbDH7g4uafBeeEibNnXy4di2W68aWveSkq0dNqIg5tZCurMjGyEf%2BpE%2FSsNjaWRRIFeHsqtmd73VK9T41KP1tyn7iHC%2FsRoj7X2LbpvCE5%2FZH0HIGUuODMU4%2FQGpcIVc7Aet6I7QlvHJXoyM9nB6d%2BBkZYnUfNbpsqtnUETFLnyzKcjpP77iTm2gZsFyVou5sWOEM%2BlYRA3uZhIJYSKsTKnGcgrypek8G74n4%2BqnWpMw2ZVL5xqiQ6IkKrO%2BdHC0Lq0hrJoBuYR5wCYRjRi8hGwNmAqFdmF16BbGrYewWWivkeWwvzSebf3X1dHLg2x3smno%2BuOYZwmdC%2BLDVQ3k4klevqYD393fHRqdGXd5kWXHD10bC%2FOfzZS6AZ45%2FnJIGwbfLAj%2F5koHnugKA3KSc%2BtdF%2BBvgQTm%2FAK1B0a%2FaLYzNDtx9gDQHXEDDc2azHBjqkAZKRjts%2B6QBrXrUFAeqkTlJk%2BLUPp5Sj8IyOouoEaCqFPF1N3Q9hrERoavfzmoP9EfeddQsisQ8KL8Q89DpBJgiztI5lmp5l5gFxOBwrGilNovWlBpO6VGQPI4z7zM3C5tsN%2FzKdMH%2BQcCGERQz8Mrkxfqr2Ure3O4Jx9Tuo35xxH8tB3E1UejEhwMipyasjEbapyY7vSttzMDwpDrsd%2BUSGRumv&amp;X-Amz-Signature=47c5d22e182846252e3baf7da6c46efa550c0a4a8d526cdaa8671ba2ddda3a6f&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<h3>認証を削除</h3>
+<p>恐らく以下に認証後に生成・更新される各種ファイルが入っている</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>ls /home/pi/.gemini
+# oauth_creds.json  settings.json  tmp  user_id</code></pre>
+                        </div>
+                    </div>
+                    <p>これらのうち「oauth_creds.json / settings.json / user_id」を削除すれば初期化され、再度認証が必要となるようだ</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>cd /home/pi/.gemini
+sudo rm oauth_creds.json
+sudo rm settings.json
+sudo rm user_id</code></pre>
+                        </div>
+                    </div>
+                    </article>
 
 </div>
 <div id="footer">© MAT note</div>
@@ -714,6 +1172,6 @@ el.textContent = `Error rendering formula: ${el.textContent}`;
 });
 </script>
 
-<!-- 2025-10-12 19:04 -->
+<!-- 2025-10-12 19:12 -->
 </body>
 </html>
