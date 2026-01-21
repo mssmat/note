@@ -345,6 +345,428 @@ width: auto;
 <div class="container">
 <div class="spacer"></div>
 <article>
+<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">IPアドレスでもHTTPSが使えるようになった話</h1></header>
+<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2026-01-21 12:33</span>
+<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">VPS</span>
+</div>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/b081a689-d773-4b7b-b0e6-29bd58502d5c/httpstop.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466QH2WVVZA%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T033456Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIDHjVZI3bpd8vSrR7wrucBYhmsBFfx%2ByrWdf2fyFg1rzAiEA1qTmnu3mKQOBVSFd8913cGr%2FmDi%2FDBlR80rxT6%2B22ZIqiAQIvP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDIUK8hWlQZljkGXlNCrcA2Y5H9ntWJbcT07h80T%2FWc8yJRzxE%2FtvgygYMtdBPpOXXiNk7hYK7rGl%2BR9Pcpv6%2F1fRZnvfMTs7b7g0D3VJb3WQboJbM1EJG9Ns9Ef5Pu%2FAVtiTw5Zq%2F3gz2PIquKc9sJ8XT44kbaVrufGVeW7YcJAOq%2B4bu5epr2IDsChwZlLBBbcZMiBXe9bvLlyyx2zIHELG%2B%2F6V%2BlpeHFXzp1ruipfyzPWJXMWo6GZ3F46SJwOdSAhm5WYdiAygPqA5tswn0bKSh9fgjrrDtspcx04ZUtahfnMC%2FoEH8v%2Fvl17fxAsn0O0rw5aRoLUrn%2F6l0%2F9aSBkR0MKWcd5wwIUijm39Xi638ixqFKEaWHZ%2FSxt9SGLRifrH8ZD3GJggnRYu27imqmOULTlv9SVzOJxlx9RRSVTgMGlu6MGvxEsnG7DBbZ9CWkh5IklLL6N7ZVMT8nFDPyrvIS3vAuOt6sHiCw8jVQh0GFAOlBEKBbIaEFUx6fe6ECRzkXbfiIYTN%2BhGK%2BAt%2BOu0ih%2BFdp%2BStd%2FG%2BWvnjEvUNa1ysorn4ga0Tit4kvmS56Iil342B7aPZ2hV8uLFwjihjHs8pMl895DMr2dZOh4j%2Fk5td8fRRuIVuq1V57QdEsz6qY5e0suZ2K9mMJaEwcsGOqUB8cmj6rHFCmNVi5vNPuMjSWQgbw%2B%2BCtAKdl1ZMbAXXLVDFy6WW8TADjLEXE3dD%2Byf%2F1FSvojaY0wXJfehl5UIq0%2FI7kyc0pBFVkradZwLeAiYd1YM%2BHaeShLpOyFQw9PgmVDme8c30My2TZ9GRLJOc0hXpFAxGtVNq9s3SuQ1kjevei7Mds6d2iu%2BQiwUZfSNE2dGbwGEGdxIFRjIsxb8iSk7p%2B3j&amp;X-Amz-Signature=4bc4083fe04137462c6b2b3b2ef21479dd264dd6836a5c46473828f67c622e86&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<h2><strong>まず前提知識.. なぜウェブに「証明書」が必要なのか</strong></h2>
+<h2><strong>〜Let’s Encrypt が変えたインターネットの安全性〜</strong></h2>
+<p>インターネットでブログやサービスを公開しようとすると、<br>**「SSL証明書」「HTTPS」「Let’s Encrypt」**といった言葉をよく目にします。</p>
+<blockquote class="notion-quote ">「よく分からないけど、入れないと危ないらしい…」</blockquote>
+<p>そんな状態のまま設定している人も多いでしょう。<br>この記事では、<strong>なぜ証明書が必要なのか</strong>、そして <strong>Let’s Encrypt がなぜ重要なのか</strong>を、初心者向けに解説します。</p>
+<hr class="notion-divider">
+<h2><strong>ウェブの通信はそのままだと「丸見え」</strong></h2>
+<p>通常のウェブ通信(HTTP)は<strong>暗号化されていません</strong>。</p>
+<p>これはどういうことかというと：</p>
+<ul>
+<li>入力したID・パスワード</li>
+<li>お問い合わせフォームの内容</li>
+<li>クレジットカード番号</li>
+</ul>
+<p>これらが、<strong>途中で盗み見られる可能性がある</strong>ということです。</p>
+<ul>
+<li>公共Wi-Fi(カフェ・空港・ホテル)</li>
+<li>悪意のある第三者が同じネットワークにいる場合</li>
+<li>サーバーとの通信経路</li>
+</ul>
+<hr class="notion-divider">
+<h2><strong>通信の仕組みを考える</strong></h2>
+<p>インターネットでサイトを見るとき、あなたのブラウザは <strong>直接サーバーと会話しているように見えます</strong>。</p>
+<p>しかし実際には、その間にはたくさんの「通り道」があります。</p>
+<p>例えば：</p>
+<ul>
+<li>自宅や会社のルーター</li>
+<li>カフェや空港のWi-Fi</li>
+<li>通信事業者のネットワーク</li>
+<li>世界中にある中継サーバー</li>
+</ul>
+<p>つまり、<strong>あなたとサーバーの間には、常に第三者が存在する可能性がある</strong> のです。</p>
+<hr class="notion-divider">
+<h2><strong>問題①：相手が「本物のサーバー」だと確認できない</strong></h2>
+<p>証明書がない場合、ブラウザはこう思っています。</p>
+<blockquote class="notion-quote ">「このサーバーが本当に example.com なのか分からない…」</blockquote>
+<p>すると何が起きるかというと：</p>
+<ul>
+<li>偽のサーバーが途中で割り込む</li>
+<li>見た目は同じ偽サイトに接続させられる</li>
+<li>IDやパスワードを入力してしまう</li>
+</ul>
+<p>これが <strong>フィッシング攻撃</strong> や <strong>中間者攻撃(Man-in-the-Middle)</strong>と呼ばれるものです。</p>
+<hr class="notion-divider">
+<h2><strong>問題②：通信内容が「そのまま流れている」</strong></h2>
+<p>HTTP通信では、データは <strong>封筒に入れずにハガキで送る</strong> ような状態です。</p>
+<ul>
+<li>誰が見ても内容が読める</li>
+<li>途中で書き換えられる可能性もある</li>
+<li>利用者は気づけない</li>
+</ul>
+<p>この状態で個人情報を扱うのは、<strong>現代のインターネットでは非常に危険</strong> です。</p>
+<hr class="notion-divider">
+<h2><strong>証明書は「身分証＋封印シール」</strong></h2>
+<p>そこで登場するのが <strong>SSL/TLS証明書</strong> です。</p>
+<p>証明書は次の2つを証明します。</p>
+<ul>
+<li>🪪 <strong>このサーバーは本物です(</strong>身元証明)</li>
+<li>🔐 <strong>通信内容は暗号化されています(</strong>盗み見防止)</li>
+</ul>
+<p>つまり、</p>
+<blockquote class="notion-quote ">「この相手は信用できる」<br><p>「この会話は誰にも読めない」</p>
+</blockquote>
+<p>という状態を <strong>ブラウザが保証できる</strong> ようになります。</p>
+<hr class="notion-divider">
+<h2><strong>だから証明書がないと「危険」と表示される</strong></h2>
+<p>現在のブラウザはとても正直です。</p>
+<ul>
+<li>証明書がない</li>
+<li>正体が確認できない</li>
+<li>暗号化されていない</li>
+</ul>
+<p>この条件が揃うと、</p>
+<p>ユーザーに <strong>強い警告</strong> を出します。</p>
+<p>これは意地悪ではなく、<strong>ユーザーを守るための安全装置</strong> なのです。</p>
+<hr class="notion-divider">
+<h2><strong>HTTPS は「信頼できます」のサイン</strong></h2>
+<p>URLが以下のようになっているサイトを見たことがあるでしょう。</p>
+<div class="notion-callout callout-gray_background"><span class="callout-icon">💡</span><div>https://example.com</div></div>
+<p>この <strong>https</strong> の <strong>s</strong> は <strong>secure(安全)</strong> の意味です。</p>
+<ul>
+<li>証明書が正しく設定されている</li>
+<li>通信が暗号化されている</li>
+<li>ブラウザが「安全」と判断している</li>
+</ul>
+<p>という状態を表します。</p>
+<p>今では <strong>Google も HTTPS をSEO評価の要素に含めている</strong> ため、技術的にもビジネス的にも必須になっています。</p>
+<hr class="notion-divider">
+<h2><strong>以前は証明書は「高価で面倒」だった</strong></h2>
+<p>ところが少し前まで、SSL証明書は：</p>
+<ul>
+<li>年間数千円〜数万円かかる</li>
+<li>申請手続きが複雑</li>
+<li>更新を忘れるとサイトが壊れる</li>
+</ul>
+<p>という <strong>初心者やライトユーザーには非常にハードルが高いもの</strong> でした。</p>
+<p>その結果、多くの個人サイトや小規模サービスが「安全ではない状態」のまま放置されていました。</p>
+<hr class="notion-divider">
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/b30670e3-77a6-4f90-9b14-dd43a9e26ce9/httpsdomain.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466QH2WVVZA%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T033456Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIDHjVZI3bpd8vSrR7wrucBYhmsBFfx%2ByrWdf2fyFg1rzAiEA1qTmnu3mKQOBVSFd8913cGr%2FmDi%2FDBlR80rxT6%2B22ZIqiAQIvP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDIUK8hWlQZljkGXlNCrcA2Y5H9ntWJbcT07h80T%2FWc8yJRzxE%2FtvgygYMtdBPpOXXiNk7hYK7rGl%2BR9Pcpv6%2F1fRZnvfMTs7b7g0D3VJb3WQboJbM1EJG9Ns9Ef5Pu%2FAVtiTw5Zq%2F3gz2PIquKc9sJ8XT44kbaVrufGVeW7YcJAOq%2B4bu5epr2IDsChwZlLBBbcZMiBXe9bvLlyyx2zIHELG%2B%2F6V%2BlpeHFXzp1ruipfyzPWJXMWo6GZ3F46SJwOdSAhm5WYdiAygPqA5tswn0bKSh9fgjrrDtspcx04ZUtahfnMC%2FoEH8v%2Fvl17fxAsn0O0rw5aRoLUrn%2F6l0%2F9aSBkR0MKWcd5wwIUijm39Xi638ixqFKEaWHZ%2FSxt9SGLRifrH8ZD3GJggnRYu27imqmOULTlv9SVzOJxlx9RRSVTgMGlu6MGvxEsnG7DBbZ9CWkh5IklLL6N7ZVMT8nFDPyrvIS3vAuOt6sHiCw8jVQh0GFAOlBEKBbIaEFUx6fe6ECRzkXbfiIYTN%2BhGK%2BAt%2BOu0ih%2BFdp%2BStd%2FG%2BWvnjEvUNa1ysorn4ga0Tit4kvmS56Iil342B7aPZ2hV8uLFwjihjHs8pMl895DMr2dZOh4j%2Fk5td8fRRuIVuq1V57QdEsz6qY5e0suZ2K9mMJaEwcsGOqUB8cmj6rHFCmNVi5vNPuMjSWQgbw%2B%2BCtAKdl1ZMbAXXLVDFy6WW8TADjLEXE3dD%2Byf%2F1FSvojaY0wXJfehl5UIq0%2FI7kyc0pBFVkradZwLeAiYd1YM%2BHaeShLpOyFQw9PgmVDme8c30My2TZ9GRLJOc0hXpFAxGtVNq9s3SuQ1kjevei7Mds6d2iu%2BQiwUZfSNE2dGbwGEGdxIFRjIsxb8iSk7p%2B3j&amp;X-Amz-Signature=f03d96bb8a098249cae102f75bb72e16681a6d89bd5fdf100be3bbc5d04b12c8&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<h2><strong>Let’s Encrypt の登場で何が変わったのか</strong></h2>
+<p>ここで登場するのが <strong>Let’s Encrypt</strong> です。</p>
+<p>Let’s Encrypt は、次の特徴を持つ <strong>無料の証明書発行機関</strong> です。</p>
+
+<div class="bookmark-block">
+<a href="https://letsencrypt.org/ja/" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<div class="bookmark-text">
+<div class="bookmark-title">Let&#x27;s Encrypt</div>
+<p class="bookmark-description">Let’s Encrypt は、非営利団体の Internet Security Research Group (ISRG)...</p>
+<div class="bookmark-source-info">
+<img src="https://letsencrypt.org/favicon.ico" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+<span class="bookmark-url">letsencrypt.org</span>
+</div>
+</div>
+<div class="bookmark-og-image"><img src="https://letsencrypt.org/images/LetsEncrypt-SocialShare.png" alt="Preview for Let&#x27;s Encrypt"></div>
+</a>
+</div>
+                    <h3><strong>✔ 完全無料</strong></h3>
+<p>誰でも、何枚でも、費用ゼロで証明書を取得できます。</p>
+<h3><strong>✔ 自動化されている</strong></h3>
+<p>サーバー設定と更新が <strong>自動</strong> で行えます。<br>更新忘れによる事故が激減しました。</p>
+<h3><strong>✔ 世界標準として普及</strong></h3>
+<p>現在、<strong>世界中の非常に多くのHTTPSサイトが Let’s Encrypt を利用</strong>しています。</p>
+<hr class="notion-divider">
+<h2><strong>Let’s Encrypt の意義</strong></h2>
+<p>Let’s Encrypt の価値は「無料」だけではありません。</p>
+<h3><strong>インターネット全体の安全性を底上げした</strong></h3>
+<ul>
+<li>個人ブログ</li>
+<li>学生のポートフォリオ</li>
+<li>小規模スタートアップ</li>
+</ul>
+<p>誰でも <strong>「当たり前に安全な通信」</strong> を使えるようになりました。</p>
+<h3><strong>「暗号化は特別なもの」ではなくなった</strong></h3>
+<p>今では、</p>
+<blockquote class="notion-quote ">証明書がない = 設定ミス or 管理不足</blockquote>
+<p>と見なされる時代です。</p>
+
+<div class="bookmark-block">
+<a href="https://www.itmedia.co.jp/news/articles/2510/31/news085.html" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<div class="bookmark-text">
+<div class="bookmark-title">u¢°Ìz[y[WvÂ¢ÉHTTPS»@¡ÍHTTPÅàpÅ«éªcc - ITmedia NEWS</div>
+<p class="bookmark-description">u¢°Ìz[y[Wvª1031úÜÅÉHTTPSÉÎµ½Bg@ÌÚ±mFÉg...</p>
+<div class="bookmark-source-info">
+<img src="https://www.itmedia.co.jp/favicon.ico" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+<span class="bookmark-url">www.itmedia.co.jp</span>
+</div>
+</div>
+<div class="bookmark-og-image"><img src="https://image.itmedia.co.jp/news/articles/2510/31/cover_news085.jpg" alt="Preview for u¢°Ìz[y[WvÂ¢ÉHTTPS»@¡ÍHTTPÅàpÅ«éªcc - ITmedia NEWS"></div>
+</a>
+</div>
+                    <hr class="notion-divider">
+<h2><strong>初心者こそ、証明書を意識しよう</strong></h2>
+<p>もしあなたが：</p>
+<ul>
+<li>ブログを始めたい</li>
+<li>Webサービスを作りたい</li>
+<li>ポートフォリオを公開したい</li>
+</ul>
+<p>と思っているなら、<strong>HTTPSは必須条件</strong>です。</p>
+<p>幸い、Let’s Encrypt のおかげで危険な時代は終わりました。</p>
+<hr class="notion-divider">
+<h2><strong>前提終わり..</strong></h2>
+<p>さて、ここまでが前提です。ここを理解していないと、これからの話が理解できないと思います。</p>
+<p>ここからが今回の本題となります。</p>
+<hr class="notion-divider">
+<h2><strong>IPアドレスでもHTTPSが使えるようになった話</strong></h2>
+<h2><strong>〜実際どうやるのか〜</strong></h2>
+<hr class="notion-divider">
+<h2><strong>IPアドレスに証明書？昔は無理だった</strong></h2>
+<p>先の前提でご説明した通り、少し前まで、HTTPS は <strong>ドメイン名が必須</strong>でした。</p>
+<ul>
+<li>証明書はドメインに対して発行される</li>
+<li>IPアドレス直指定は対象外</li>
+<li><code>https://1.2.3.4</code> は自己署名か警告付き</li>
+</ul>
+<p>というのが常識でした。</p>
+<hr class="notion-divider">
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/30852e1b-6aac-4148-8d07-a2d1ac121ea0/httpsip.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466ZN4LCFA3%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T033459Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIA5w9WiXkdMab%2F4TsrPqxgQjaC8MCfKJYffLf2mXmHX5AiB5vQyrEpOlPLK2PZhW9lneh9EwB98ER0q42IX%2BO028HiqIBAi8%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMQjhZEmQxo4XN%2FM7vKtwDJR%2By2SIzJ%2FWixaDDARlmh0WPO5a8snqPsuOHq6dFqqLsFxdQoeLPho8n57w0chQFrg%2BGQUmntcRzv%2BgmqYRC%2BnmUR9dWua8CAkEGVu%2BDi%2F3d93lBjbkIvKX7H0TwdZ7e5zCPVqOCb6E%2B5lmM9RcXKGActJiiXfKZ4NwH7Bxk4ThTKOoJaNb%2FsWA3u3q0XY3nDRjlq2RrQZ9jAGOpJTGqHaKzbDxa4DaBQ1ICaue9ne7t7MI%2F7uIUyK9UyArvBUoGZZbAqqPfxfXFS7KCdScVp4hN457TgXL5jbVzoDtO02ATk6muk9lVRRJJ6%2BaGSasXTQFgxM7CpqHQ7GNy%2FZ5Npbudl860C8WL20USOuea7PqRopjfbKqyR%2BE5AgD09wGY91bqIivvN06YJZkjSlnPHAYtMKGBuwFySGfHQaKnca%2BQJLd%2FwyaJe5cKQyvfRBckDNb6P2zJN39kbSPS6yco%2F2kBekq9xGH3eldggUS2jgwSBaqNrnCLcuLUzuLQXAn%2F%2BRPauFlL5pSvX5fAvIbc21U46JtzydpxNpCVfs73t5k2Vm415ctvtR8Y%2BxiVBXogFp0mj9fNJ0A9IsdZf2XcB0DFJMxcHFHyCQxygrzZVUWPwHpKvfgdPnJMQUMw04PBywY6pgGrLD1F98sX0EV0iia3FSnl7mMMXI0kuGTWCbJJdkfxT%2BMS8H99FokCfpeXXtVgiNTdP4j25bELlNsj23cABwQX6Brhz5li9t3FeiA%2F80JnhwxEgrU3nNDjfXOIpsnR1Qws%2FbKn0sopQi6E566CZtueNgq4UVOFrWq%2BpH%2Beu8oSKuKdsMrSYI%2Bfk4TGlLsXHrC1FVbQU0%2BP5xxae5GR49UNAQr4rOvQ&amp;X-Amz-Signature=e6404bd92da6264e4c50ec28c99a6b973a3e640a608b8f18afdbf59abadb8967&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<h2><strong>「IPアドレスそのもの」に証明書が出るようになった</strong></h2>
+<p>現在は、<strong>IPアドレスを SAN に含む正式な公開証明書</strong>が発行できます。<br>発行元は同じく <strong>Let’s Encrypt</strong>。これも無料です。</p>
+
+<div class="bookmark-block">
+<a href="https://letsencrypt.org/2026/01/15/6day-and-ip-general-availability" target="_blank" rel="noopener noreferrer" class="bookmark-link">
+<div class="bookmark-text">
+<div class="bookmark-title">6-day and IP Address Certificates are Generally Available -  Let&#x27;s Encrypt</div>
+<p class="bookmark-description">Short-lived and IP address certificates are now generally available from Let’s...</p>
+<div class="bookmark-source-info">
+<img src="https://letsencrypt.org/favicon.ico" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
+<span class="bookmark-url">letsencrypt.org</span>
+</div>
+</div>
+<div class="bookmark-og-image"><img src="https://letsencrypt.org/images/LetsEncrypt-SocialShare.png" alt="Preview for 6-day and IP Address Certificates are Generally Available -  Let&#x27;s Encrypt"></div>
+</a>
+</div>
+                    <p>特徴はシンプルです。</p>
+<ul>
+<li>DNS不要</li>
+<li>独自ドメイン不要</li>
+<li>IPv4 / IPv6 対応</li>
+<li>証明書は短命(最大6日)</li>
+</ul>
+<p>つまり、</p>
+<blockquote class="notion-quote ">一時VPS・検証環境・実験用途なら、IP直HTTPSが現実解</blockquote>
+<p>になりました。</p>
+<hr class="notion-divider">
+<h2><strong>じゃあ、実際にどうやるか</strong></h2>
+<p>以下は <strong>最短で再現するための手順だけ</strong>を書きます。</p>
+<hr class="notion-divider">
+<h2><strong>今回のテストの前提</strong></h2>
+<ul>
+<li>Ubuntu 22.04 で構築したウェブサーバー(VPSなど)</li>
+<li>IPv4 / IPv6 割り当て済み(固定IP)</li>
+<li>80 / 443 ポート開放済み(ハードウェアおよびファイアウォール)</li>
+<li>root ログイン</li>
+</ul>
+<hr class="notion-divider">
+<h2><strong>1. nginx を入れる</strong></h2>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>apt update &amp;&amp; apt install -y nginx curl</code></pre>
+                        </div>
+                    </div>
+                    <hr class="notion-divider">
+<h2><strong>2. Hello World を用意</strong></h2>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>rm /var/www/html/index.nginx-debian.html
+echo &#x27;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;/head&gt;&lt;h1&gt;Hello World&lt;/h1&gt;&lt;p&gt;IP HTTPS&lt;/p&gt;&lt;/html&gt;&#x27; &gt; /var/www/html/index.html</code></pre>
+                        </div>
+                    </div>
+                    <p>確認(HTTP)：</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>curl http://&lt;IPv4アドレス&gt;</code></pre>
+                        </div>
+                    </div>
+                    <hr class="notion-divider">
+<h2><strong>3. acme.sh を入れる(certbotは使わない)</strong></h2>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>curl &lt;https://get.acme.sh&gt; | sh
+source ~/.bashrc</code></pre>
+                        </div>
+                    </div>
+                    <hr class="notion-divider">
+<h2><strong>4. IPv4 の IP証明書を取る</strong></h2>
+<p>nginx 停止：</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>systemctl stop nginx</code></pre>
+                        </div>
+                    </div>
+                    <p>証明書発行(short-lived)：</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>acme.sh --issue --server letsencrypt -d &lt;IPv4アドレス&gt; --standalone --cert-profile shortlived --days 3</code></pre>
+                        </div>
+                    </div>
+                    <p>生成先(※ <code>_ecc</code> が付く場合)：</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>/root/.acme.sh/&lt;IPv4アドレス&gt;_ecc/</code></pre>
+                        </div>
+                    </div>
+                    <hr class="notion-divider">
+<h2><strong>5. IPv6 の IP証明書を取る</strong></h2>
+<p>IPv6は TLS-ALPN-01 を使う：</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>acme.sh --issue --server letsencrypt -d &lt;IPv6アドレス&gt; --alpn --cert-profile shortlived --days 3</code></pre>
+                        </div>
+                    </div>
+                    <p>※ ディレクトリ名は <code>:</code> を含む場合あり：</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>ls /root/.acme.sh</code></pre>
+                        </div>
+                    </div>
+                    <hr class="notion-divider">
+<h2><strong>6. nginx を HTTPS(IPv4 / IPv6)対応にする</strong></h2>
+<p>default 無効化：</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>rm /etc/nginx/sites-enabled/default</code></pre>
+                        </div>
+                    </div>
+                    <p>設定ファイル作成：</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>nano /etc/nginx/sites-available/ip-https</code></pre>
+                        </div>
+                    </div>
+                    <p>中身：</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                plain text
+                            </div>
+                            <pre><code># IPv4
+server {
+    listen 443 ssl default_server;
+
+    ssl_certificate     /root/.acme.sh/&lt;IPv4アドレス&gt;_ecc/fullchain.cer;
+    ssl_certificate_key /root/.acme.sh/&lt;IPv4アドレス&gt;_ecc/&lt;IPv4アドレス&gt;.key;
+
+    root  /var/www/html;
+    index index.html;
+}
+
+# IPv6
+server {
+    listen [::]:443 ssl default_server;
+
+    ssl_certificate     /root/.acme.sh/&lt;IPv6アドレス&gt;_ecc/fullchain.cer;
+    ssl_certificate_key /root/.acme.sh/&lt;IPv6アドレス&gt;_ecc/&lt;IPv6アドレス&gt;.key;
+
+    root  /var/www/html;
+    index index.html;
+}</code></pre>
+                        </div>
+                    </div>
+                    <p>有効化：</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>ln -s /etc/nginx/sites-available/ip-https /etc/nginx/sites-enabled/</code></pre>
+                        </div>
+                    </div>
+                    <p>起動：</p>
+
+                    <div style="margin: 15px 0;">
+                        <div class="precode">
+                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
+                                bash
+                            </div>
+                            <pre><code>nginx -t
+systemctl start nginx</code></pre>
+                        </div>
+                    </div>
+                    <hr class="notion-divider">
+<h2><strong>7. 確認</strong></h2>
+<ul>
+<li>IPv4：
+https://&lt;IPv4アドレス&gt;</li>
+<li>IPv6(※ [] 必須)：
+https://[&lt;IPv6アドレス&gt;]</li>
+<li>HTTPS 🔒</li>
+<li>発行元：Let’s Encrypt</li>
+<li>SAN：IP Address</li>
+</ul>
+<hr class="notion-divider">
+<h2><strong>よくある詰まりどころ</strong></h2>
+<div class="notion-table-wrapper"><table class="notion-table">
+<thead><tr><th><strong>症状</strong></th><th><strong>原因</strong></th></tr></thead>
+<tbody><tr><td>cert が見つからない</td><td><code>_ecc</code> 付け忘れ</td></tr>
+<tr><td>IPv6で失敗</td><td><code>--alpn</code> 未使用</td></tr>
+<tr><td>nginx 起動失敗</td><td>パス違い</td></tr>
+<tr><td>IPv6でアクセス不可</td><td><code>[]</code> 忘れ</td></tr>
+</tbody></table></div>
+<hr class="notion-divider">
+<h2><strong>まとめ</strong></h2>
+<ul>
+<li>IPアドレスでも正式なHTTPSが可能</li>
+<li>DNSもドメインも不要</li>
+<li>短命証明書 ×</li>
+<li>検証・実験用途で使えそう</li>
+</ul>
+</article>
+<article>
 <header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">🍌 Nano Banana Pro</h1></header>
 <div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-11-21 12:14</span>
 </div>
@@ -441,7 +863,7 @@ width: auto;
 <span class="bookmark-url">github.com</span>
 </div>
 </div>
-<div class="bookmark-og-image"><img src="https://opengraph.githubassets.com/8bce0fdcd4cc1d75c8e985ed64648ba55e72fb13a32a61d8c52a20224e24865e/musistudio/claude-code-router" alt="Preview for GitHub - musistudio/claude-code-router: Use Claude Code as the foundation for coding infrastructure, allowing you to decide how to interact with the model while enjoying updates from Anthropic."></div>
+<div class="bookmark-og-image"><img src="https://opengraph.githubassets.com/a284f37db07ac2ec79b6c404cf91ecd13ad42d41258625f94565316bb69bf035/musistudio/claude-code-router" alt="Preview for GitHub - musistudio/claude-code-router: Use Claude Code as the foundation for coding infrastructure, allowing you to decide how to interact with the model while enjoying updates from Anthropic."></div>
 </a>
 </div>
                     <iframe id="tweet_1939858296271434181" border="0" frameborder="0" scrolling="no" style="width: 100%; min-height: 350px; display: block; margin: 1em auto;" src="https://mssmat.github.io/twiframe/show.html?url=https://twitter.com/Aki_AI_torisetu/status/1939858296271434181&theme=" + (document.body.classList.contains("dark-mode") ? "dark" : "light")"></iframe>
@@ -514,8 +936,8 @@ width: auto;
                             <pre><code>sudo ccr code</code></pre>
                         </div>
                     </div>
-                    <div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/6ec19958-0fee-49f4-9ced-9f37bee2483d/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466RPGG56L7%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T025220Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIAMB188Pck7RpxkrJIiJNldqq7CkQGAQrEX7OFnHiV5sAiBuPLEAVXmTR%2Byo6jhkoOqhj%2FzZs2n9%2BNpTvk3tKOxaHCqIBAi7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMlD%2BH57gDiXp%2FuhC%2FKtwD5p9pzrsnoDmR64WvoPX9xOs%2BGQNjJsg%2BeYUyW0RMkNC%2BVB%2FnAS8Ux3EiY8es2K0NeiFGG8OW6%2Beq%2Bs6VwbNuciiQzB9dm7xrXK7XToZpOcTlwrhMW4R4DFBzoXh6%2BubObt601ey%2FLLGjKQ39F9eH7tuGwbVves%2FOw8mCOr8qLchEnvAIx%2BTyPIFnfpj%2FWR%2FTzH15%2FSiQJKXpleihemiMFoFndu%2Fe94wEFpEBzWbkGBmMpgpKM2Vg1NE5oakAPjL1jfKbdmse2YOIxxME%2Bgwq0bia%2BPMxVuw%2BVQ9o7ZCLEII6k6IzYuoKDSQFs6EN7tD%2FbcPYTvSH0dVPl%2BPo4hzqYE6%2Fx7IVECtCb8Pv19BQomgAsZl4ky66DeLBnj9kd82RomRiDv78NLdbrOJvlRPKSWw5NOihrYBx1M7CRlbFf1mSuT8IKBorJw9lu4OIVzwd7Z2XnnxeSUEFP%2FQoL8v2ZKwNcfKWyPRnaLSFUt5QEzJOdW%2BkWjki5vvy0BoVUn5mDUsOFDYE%2BjkbCePLNTCwYC%2BbyPEAjA5Kngs%2Fk%2FCy8TC2KsipXdncZZypxsfoWk%2BuZJAelbNNtseKMcSWo8zP48Oe7Ij9SPEdZnColiXVkl1Yl48Kmr9cU2rU5Hgw4tfAywY6pgHFxggJyiQjFV2y137Jyfd8%2BxtPMngVP1zzAi1zxydLOvUlVO0J7tnkRa2j4dCEZyMqKovh8riwC4K3LrscUW8MOdpl2Ux3nW%2FkSmluV9fkJ6oefSO6OjTmWCRT1YCHJZiT5yQ8M5vND7U7rs%2BMTs%2F7X%2F8%2BqFp7xy8FToXuo9Jc0Sacx0cuzrdzL28e1kGWzWHTJiICLXEX28e1lWWfcDcOI%2BfrNBSI&amp;X-Amz-Signature=b0bc60be8619d531fbf9976c61a3ec72ba727e96de71e924fcdd473c5b8ba3a2&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
-<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/e352f37f-b850-46e7-a8dd-ef28b3e02b69/IMG_4416.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466RPGG56L7%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T025220Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIAMB188Pck7RpxkrJIiJNldqq7CkQGAQrEX7OFnHiV5sAiBuPLEAVXmTR%2Byo6jhkoOqhj%2FzZs2n9%2BNpTvk3tKOxaHCqIBAi7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMlD%2BH57gDiXp%2FuhC%2FKtwD5p9pzrsnoDmR64WvoPX9xOs%2BGQNjJsg%2BeYUyW0RMkNC%2BVB%2FnAS8Ux3EiY8es2K0NeiFGG8OW6%2Beq%2Bs6VwbNuciiQzB9dm7xrXK7XToZpOcTlwrhMW4R4DFBzoXh6%2BubObt601ey%2FLLGjKQ39F9eH7tuGwbVves%2FOw8mCOr8qLchEnvAIx%2BTyPIFnfpj%2FWR%2FTzH15%2FSiQJKXpleihemiMFoFndu%2Fe94wEFpEBzWbkGBmMpgpKM2Vg1NE5oakAPjL1jfKbdmse2YOIxxME%2Bgwq0bia%2BPMxVuw%2BVQ9o7ZCLEII6k6IzYuoKDSQFs6EN7tD%2FbcPYTvSH0dVPl%2BPo4hzqYE6%2Fx7IVECtCb8Pv19BQomgAsZl4ky66DeLBnj9kd82RomRiDv78NLdbrOJvlRPKSWw5NOihrYBx1M7CRlbFf1mSuT8IKBorJw9lu4OIVzwd7Z2XnnxeSUEFP%2FQoL8v2ZKwNcfKWyPRnaLSFUt5QEzJOdW%2BkWjki5vvy0BoVUn5mDUsOFDYE%2BjkbCePLNTCwYC%2BbyPEAjA5Kngs%2Fk%2FCy8TC2KsipXdncZZypxsfoWk%2BuZJAelbNNtseKMcSWo8zP48Oe7Ij9SPEdZnColiXVkl1Yl48Kmr9cU2rU5Hgw4tfAywY6pgHFxggJyiQjFV2y137Jyfd8%2BxtPMngVP1zzAi1zxydLOvUlVO0J7tnkRa2j4dCEZyMqKovh8riwC4K3LrscUW8MOdpl2Ux3nW%2FkSmluV9fkJ6oefSO6OjTmWCRT1YCHJZiT5yQ8M5vND7U7rs%2BMTs%2F7X%2F8%2BqFp7xy8FToXuo9Jc0Sacx0cuzrdzL28e1kGWzWHTJiICLXEX28e1lWWfcDcOI%2BfrNBSI&amp;X-Amz-Signature=20d4df4d15bd7c3688e0779782cd5bd5c43eea3bf3e9ca34491c9a5991fa7704&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+                    <div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/6ec19958-0fee-49f4-9ced-9f37bee2483d/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466QFG37FD7%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T033502Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIG0y5lS4Jqtn7KBS%2BOWRDL02Gg%2B97ZA4k0g2ZZnLWtC6AiBKKbhp4UZNBGf2fGpy7s6Kz7svjjSX4%2FMj8gQRsADa9yqIBAi8%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIM31o9jNzNIIstbBapKtwDO5cln1Rqn8GX%2B9te%2Fmrto0NwPNowYbAHS7jq4Jf2k9bZML0V2KJKliHQYAEFtXZcrpN5z8aAZyhBezhnhWLknSGXBkXKaxXyv9eXWSJbFFInF4z0k9jefevf5QoBR7lJY6Th7rctN2LMGxp%2FFmctk4pFV%2FbV7npWERKsv%2BCAgcIm17bNqquMqwH%2FlUaGY3r1TQGsFqzaKAOsuQ9aMoHCU%2B3eSM%2FBy5TKY8rUbfol8oJtOTQhfYV9Z2YoZqaJ2OWxMFyYthzxGiMNRSYJkqUSjCTopNtYX9JTo2FoxIih8N%2BRK6KNjqlxAEqR9bI%2Fnv492vJdSbUr5m4yjL7BOar1ILxoRpTBVcT7Wi3s9MogazA3JSfhPDMufT7ShFgNJ%2FUKuXLtqftuFvtjeYY0Ey8g5TZZ4Uk9gd6ipXz%2FmLXKCWqwHKgBXZZEdyGNz9o6XFopmQ6iBUfhkIgjzIZ1YhF6i6wFBzKxGv2yoa2uUHDE318W8cd8GypgxjW3QJgTs%2BB8z180JZbTifhEfLVL0t7B4g8hG6kYCRwm8nwaeTbDp5LOLEal6eFpBMMMnnxoe2PYAbmhMTPNfBYXOroTr7f%2FXtV8yK%2FoU%2B%2BS3OfW9xEbGOTeCi%2F0fRRlvj%2FNC7IwjITBywY6pgGdyFykD%2FR6Pwx7josbzjy9MoLP%2BORDM73FFA8uTn2QrFtrsONmIpo5RAL1z0JbuYLISzv1rieZTWtvyMaUh%2FYZkvOjj6GKu8hiUmWdPf%2FWeJTmfpS2hgk93IuL7C6uzFjiFYyKv8xR9H2xRZDcK865Uhmijf4v8qbN4HVjO5Qybokngj3LJJcp%2FdE%2BGYvY6uc9vRMHlJbtUb8RsckrTiAYytf0qw0A&amp;X-Amz-Signature=6249d3ff6071cb8051fb51b00bd6561a348b460483ddf4b3ab12ef1c704979dc&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/e352f37f-b850-46e7-a8dd-ef28b3e02b69/IMG_4416.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466QFG37FD7%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T033502Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIG0y5lS4Jqtn7KBS%2BOWRDL02Gg%2B97ZA4k0g2ZZnLWtC6AiBKKbhp4UZNBGf2fGpy7s6Kz7svjjSX4%2FMj8gQRsADa9yqIBAi8%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIM31o9jNzNIIstbBapKtwDO5cln1Rqn8GX%2B9te%2Fmrto0NwPNowYbAHS7jq4Jf2k9bZML0V2KJKliHQYAEFtXZcrpN5z8aAZyhBezhnhWLknSGXBkXKaxXyv9eXWSJbFFInF4z0k9jefevf5QoBR7lJY6Th7rctN2LMGxp%2FFmctk4pFV%2FbV7npWERKsv%2BCAgcIm17bNqquMqwH%2FlUaGY3r1TQGsFqzaKAOsuQ9aMoHCU%2B3eSM%2FBy5TKY8rUbfol8oJtOTQhfYV9Z2YoZqaJ2OWxMFyYthzxGiMNRSYJkqUSjCTopNtYX9JTo2FoxIih8N%2BRK6KNjqlxAEqR9bI%2Fnv492vJdSbUr5m4yjL7BOar1ILxoRpTBVcT7Wi3s9MogazA3JSfhPDMufT7ShFgNJ%2FUKuXLtqftuFvtjeYY0Ey8g5TZZ4Uk9gd6ipXz%2FmLXKCWqwHKgBXZZEdyGNz9o6XFopmQ6iBUfhkIgjzIZ1YhF6i6wFBzKxGv2yoa2uUHDE318W8cd8GypgxjW3QJgTs%2BB8z180JZbTifhEfLVL0t7B4g8hG6kYCRwm8nwaeTbDp5LOLEal6eFpBMMMnnxoe2PYAbmhMTPNfBYXOroTr7f%2FXtV8yK%2FoU%2B%2BS3OfW9xEbGOTeCi%2F0fRRlvj%2FNC7IwjITBywY6pgGdyFykD%2FR6Pwx7josbzjy9MoLP%2BORDM73FFA8uTn2QrFtrsONmIpo5RAL1z0JbuYLISzv1rieZTWtvyMaUh%2FYZkvOjj6GKu8hiUmWdPf%2FWeJTmfpS2hgk93IuL7C6uzFjiFYyKv8xR9H2xRZDcK865Uhmijf4v8qbN4HVjO5Qybokngj3LJJcp%2FdE%2BGYvY6uc9vRMHlJbtUb8RsckrTiAYytf0qw0A&amp;X-Amz-Signature=697e61a8f7472728eedbd2f21754909c24e4f529a4633ef24a5fdf3dc68cd3c9&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
 <h3>アップデート</h3>
 
                     <div style="margin: 15px 0;">
@@ -561,7 +983,7 @@ sudo npm uninstall -g @musistudio/claude-code-router</code></pre>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
 </div>
 <p>実行テスト。</p>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/f57e3d93-1f9f-439a-8bc6-a2f4b42b80cb/1751549194309890.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466TXBHACOQ%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T025221Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIBEkvfGwmEiOIJGfGgNqQmPq9olFR1YWgZ3COFF4BppUAiEAxjsEDdscjWRi8F0cP0ceD%2BcUwsmFvJPgbW%2FvqGt18vUqiAQIu%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDJAEWKt2I4%2Btbd0ebSrcA%2F3TgT88klFhFHYnoRGSGJInHye5t%2By4kVOKlHoD8Yw9eUaxHKx90qQujWnmm9aCiBtNnfczdYwysFzYFw9lcX3%2FI02H9eMLwtw9oUnHjIAeZYI4jgk7%2BeT2xtrGKa4gKJybRHN%2FveGwsgz%2FQMA6537%2FbvoBzOnN8Vn6muLxcOYfEJgR8qh9BULouvcjcpkeKK%2BD16sTHxCz1%2F1M71nV8rWl%2F0d1N0qpivdQkxh4HwufF78cGeNs93I3eytuTPL0axHLAMtXg5AuG%2F1fvHzI0yKcavQAvRp09gMjMmp1TAQxQYLfUOZcydojJrKAurlGCTl3I844HYLhbwO8O9mrzG%2Fojd0UN7WLSVGxnEoYRYBlvWEq41uSGwUbpihVSgqHgF9Y34jBg1MkA4mJpUOE1Vm27%2F90CDQc%2B9Eu8v%2FmcXLbZtQSfZpO2fjvWhffLIxtPi843jXWjw2DLo6WrSbbBBCLOaEjHS6cdTVy6ZB5lOHpRY5rjM5zk5ZwovsGpOHxr4vj4DuyGmUWh9MjGY%2FNoSznFqlhnr3jpU9NTr3MA8M3mo2XOqZdeXOT81XezUHfkPVraevCFp3DzHbsAAbRpsli9Qn5hhlU%2BTZ9WDsUXHVNKbwecOthPkUxfV%2FeMMnYwMsGOqUBk02SBju%2B9KYOxpaZIq8bMRgERDfufo3mWKk7awwYpBUXNSxBvHhdGjSqPCXyRZVZT4e9OhFV4G0bGEhL%2B77%2BPvZ0lz2%2FPIMV9hwnJAlE%2BYwCz938ZlwlI8CcmX4dGpvZJDmdPvYcPKvrebFi3RZYmFppxIqD%2BuABpIlCSg0pSYM9j0db7l8fgjuFGHj4sbZ89KXiZrzhdhAk6fkwOIEWaNAvAW7w&amp;X-Amz-Signature=102ff6999d2c96ab1a91b75c87a9da3cb3807fd834e7542e03e2690739790534&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/f57e3d93-1f9f-439a-8bc6-a2f4b42b80cb/1751549194309890.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4665O5JX4AS%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T033503Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQDEjrv9g4xIuRFPF2d6IWMVTM8GTk3Eak0Q1gaWRnzbbAIgIEN%2BVb4nG%2FjiIP6pQGdHaKx9ZF8v4IhQyVhziOoynCEqiAQIvP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDMTpblQv1fNQQIbG5CrcAyjz2rPfZEzdkNRT%2Ff4DqCli5Bm9nwHGCOw56WhQY9Nk9Juz%2BtbyguoAy37lRMQTHtwDQCSfDyH1Yqr6rV8tZ30IjJ2OnjO0xlnlN8n425Lx6uuhETjDWr0CrDjYy9AJee30YbmqmczFPf6aMWRCz7DfL3utbGpDl1sf%2BFzgma8lRcr8R5I4CBv%2F9bpPe0y4Q%2Bg9e2YfdiYDSqPqgdBzeVbgB1rlzwEwYUToGZxMWuAzameXjE41BgBEjA3jSrVp4wp2yvpZyYd0M8WAV4phmJdFtRHRRMO8ig21OjmqsekdtMTM%2BVsFsp9C06gF4Dh1LduxDbA4tnLXTbtM9k0EtSORPSK1aYrszBTANRhjIv%2Fy4q7dhvJuICfaQVQhimTv%2B3uukMue90tcQvJ8iKcuwURsh7L633pgsVeBGtNs6mrd4ZMCkRgBSOLkMX9kwvqrK%2BTkpuMBbijgMbCd6f0TSCEYa6P9KiEs3ursj1z1NIyMYuB%2FVX5MPsH4yl1A4lzDxjnnppZqBxDDrUnIr9lZjS%2FgLubab3sAESZB4s%2FOJA%2BsaF00Pq7l%2FmWaRinU9%2FRmUeWbCJABbQo7Lle7PfSAi3bTYxFFmSApN8GQ40CCkvMdoA7UY%2FBdTx1pamwGMMCEwcsGOqUBTlWFWfMD0ja8zlPxyXz7ZM6QkyM3mNrgwT23SUJCF45cy8VIh1sVhOgkJ7eSLw2%2F7F%2BRhUdvLlbsFy%2B9vzYsSUoc4tHYI75phNqt4A4Ro8viVNAA12LtEUZLw%2BAnry%2FD3wPc53lKwqqK5krKLy15rZ%2FsVVaBIoAkt3POQ8oh06tkTWe4Y4PP8bKFh8ARZPQwKEi25CKzukBUI5U%2BXvRe2ilZz7Iv&amp;X-Amz-Signature=ac2397cdf977964316d716f0a6f819f1a8237e66a3e5579d239bdc5ee51a9cf4&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <p>YouTube動画の字幕を取得して、AIにまとめさせるコードの例。<br>Pythonです。必要なライブラリは事前にインストールしてください。<br>OpenAIのAPIを使います。<a href="https://platform.openai.com/api-keys" target="_blank">APIキーを取得</a>してください。</p>
 
                     <div style="margin: 15px 0;">
@@ -782,7 +1204,7 @@ if __name__ == &quot;__main__&quot;:
 </a>
 </div>
                     <p>履歴は「<a href="https://platform.openai.com/docs/guides/your-data" target="_blank">30日で消える</a>」と解釈できるような説明書きがあるが、実際には消えない(少なくともすでに数ヶ月経つが消えていない)。<br>これは人によっては気分が悪いだろう。</p>
-<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/271a37c2-736d-417c-85e5-dd8c963443f9/resjponsesapilogs.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466UJGHGJMZ%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T025222Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIE3tvh8UBE4zMn75mwIeskFckO1uLKB5BiKw08RhqRUyAiEA%2Bc9ZoJqFFqsp0B2s8AvPpJ1X1h4txj3jvTSoxe1UZjoqiAQIu%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDNwZTk%2Bz1afLbWOxwCrcA3ZMMM1HC4u5%2BQgJtBIKToSNC%2Fp%2Fc3fB2ya5Q%2BZlXYAh4iLBmUBWdN4d9XOqiUzcyn9XXxmQuvKSFfrODmNAY%2BlxA%2FKYWS70J2a2pj6zLeq2JxpYxkEvzdmjfQ7anF3aCTzThfWDEXc34K9VH3a7b6iSQVPb1E2MbFqxGKfg7x%2FcMe8qIWxi4hy6AGelFmLSkjbkvvy7LmqwRfww8PfCz4CyfZ7QGlaT%2F%2BJ%2BA%2BwmjIYTT5GSfWR7xcM0C9VWx2rpgQrnjdo7lGB0BMhAg%2FsBZUarwLKmVa0yMkzU0Xs2mifIyB48w5xkdrhdjup3x8O0gVAmbS0CW3TaVu1FwBm9UKnofpJf1PKK56Nf%2BSc8pEXer%2FSJPKaVaPCLx3VnFtISEow49UZmvM4UrNFbd1CjY9aU80avs%2Fiw0ocQqVuKi0v86dH%2FY21Hmi89LoLYHfi%2BA5vfmJ5nKlyisJvEWnE4Xqh5vX6cTwSUIVabca2jMm33W9Ck8xYrpVD%2F2f128ON%2B49vqXCOndyTT3nIfQ8VJci7bJILeL8crqRRHqmPNVPg6yvOOJalHDMDQqG%2Bbm9pdiJqQaJbyDIqRto%2Fg1Himg3tqMgGBE6o5CuzZeQGVngt6OFTFHYVDp59Q6HIpMM3ZwMsGOqUBj6gZ%2BHh8hWdBJyzHPfeYQH4thxrhYHQoBkHNLKlfs9gLH8ypKAwmpwCzuBJyugVvRGJylOGoDS30PHCpGpfZQjBZy%2FY3MYh7XXUQgVYpzEn5P0fCQXg3aGVKeuCTP42aw01BmTH1%2BzoqYPqu8Ue%2FyI8%2F%2FW9bRvi6Rmxnvh4fUCnBJJOvMmvEf9DFG2Lswq3ZX%2FTSk50bZaaNukgx8o%2Foax39ptac&amp;X-Amz-Signature=f065a8f7b507973ead1e284eb4b9cbab61dfe45494efdd40249eca0693729fe7&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/271a37c2-736d-417c-85e5-dd8c963443f9/resjponsesapilogs.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466Y5JPWQJA%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T033505Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIGn3OFMcXBmE8KHm44El3Id48ZrbMTTZi2dj2jKcjGjPAiBk1hdwUmTiR5c5wpp0kL1bO4k2tzU3439YAW8HapK7KCqIBAi8%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIM4rVgw8LQcQhdJLY2KtwDUXQF4bsrDBOYri5xH%2BtVAwi4HKcTEDq4nT4GvZ0%2B26o5IYgKXi9HsjfqE03gx39dhcRoHZS8rEAeb3KVSwgYf4Ct7JxayCE57E%2Bxh0GBqMmUvkywRXpZ2pelpq8m0ISaB%2FgPf9DT5wb80S8Xsf9a4Mo3z0U%2Fq9gqjDPDqE9Let0U9HwhYWjOUFj7u7yJ7rdc3bQdRNGocqxntOAFBbKdSKJSENU8oQzBMKd0ulwVtDEX0S7h%2Bk3dnoVtyprXUDN6mhyN%2BfUeHXBE%2B1qbQDWB84v2pqh6W%2BcA4FgUVNgElWtjG3Hcu5zTgsyqKIlcoBfDCIMl9NfF%2FentHLG2RZ7hfsXn1mSUFOoK642n6AJeIT%2FbjWoUVddxRAaMFhARnh4S46GYa4WfpnK0t4Vq8nEjY59aoE7WcDY91Q6zRsUHoDU4Ci5GV3F8RByhclTn%2BU6VQcF0PSlBmSSNQsFdNV3bCzyX1JPy%2BLMmbvRTG7YwUH2hmIBkbkHXL2zLRurvXWtiLy1HJmxWKkf1nyBADLPGI8WmtrJMF2lxKzbAbLmSm6xYP6XTlvyqYd9DZW2PO4HhOKkfeHFoZs451lJUkqIJBw7d2bHTAjUtsHgSgJl%2BOMfRTVZ73hyYLe8mn9Iw54PBywY6pgFeNeKZPODNhmPgPkd0McQlwchjMVtvXR%2BRl67RY4nO4Pfn3Pbqadd1BVVeW9ojXeg5PchOYHz%2FvjtHzQB9%2F3h6jVXxuTq8B%2BxltkRazOti29ZzJcFVyr%2BVbS9hFENY5FZUM8F1oVFjlXEmrPXTtXhPWhEt8W%2Fn6h36tphWI67ZRHGAln39b49yFmy7EJBEkJXyxGYmnaI%2BzU3Vc3DN19eHF8txSuyZ&amp;X-Amz-Signature=9d65a356e992499e466bced00fecd65c033e6150b6c427e3c1507f49d204e45e&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
 <h2>履歴を保存しない</h2>
 <p>もし履歴を残したくなければ、APIを呼び出す際に「store」のオプションを「false」にする必要がある。<br>このように明示的にオフにすれば履歴は保存されない(idは発行されるようだ)。<br>以下に例を示す。</p>
 
@@ -876,112 +1298,6 @@ My team uses https://platform.openai.com/ and for privacy/security...</p>
                     <p>ただしこの方法は、会話idを1つ1つ確認する必要があり、手間がかかる(全idを取得するような方法はどうやらなさそう)。</p>
 <h2>結論</h2>
 <p>履歴の保存はオフにすることが推奨される。<br>そしてなるべくならResponses APIは使わない。</p>
-</article>
-<article>
-<header><h1 style="text-align: center; padding: 10px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">Raspberry PiにSSHで接続する</h1></header>
-<div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2025-06-27 20:11</span>
-<span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">Raspberry Pi</span>
-</div>
-<h3>はじめに</h3>
-<p>ここではRaspberry Piの初期設定を行い、SSHで外部端末から接続するまでの手順を書きます。<br>前提は、ディスプレイ、キーボード、マウスがない場合です。<br>つまり、Raspberry Piの本体を買って、USBケーブルと電源、SDカードと、設定するPCがあるだけの状態を想定しています。</p>
-<div class="notion-callout callout-gray_background"><span class="callout-icon">💡</span><div>【警告】この情報を利用したことによって生じた損害について、私は一切の責任を負いません。全て自己責任で行ってください。</div></div>
-<h3>OSインストール</h3>
-<p>まず、Raspberry PiのOSを用意します。色んなOSが使えるのですが、基本的には「Raspberry Pi OS」というのを使います。<br>以前に比べて簡単になり、WindowsやMacなどで最新のOSをダウンロードしてそのままSDカードにインストールできるようになりました。<br>以下からお使いのOS用のソフト「Raspberry Pi Imager」をダウンロードします。</p>
-
-<div class="bookmark-block">
-<a href="https://www.raspberrypi.com/software/" target="_blank" rel="noopener noreferrer" class="bookmark-link">
-<div class="bookmark-text">
-<div class="bookmark-title">https://www.raspberrypi.com/software/</div>
-
-<div class="bookmark-source-info">
-
-<span class="bookmark-url">www.raspberrypi.com</span>
-</div>
-</div>
-
-</a>
-</div>
-                    <p>PCでダウンロードしたソフトを立ち上げ、「デバイス」「OS」「ストレージ」を選択し、OSをSDカードにインストールします。<br>デバイスは手元のRaspberry Piを選びます。OSはRaspberry Pi OS (64-bit)を選べばいいでしょう。ストレージはインストールするSDカードを選びます。</p>
-<p>「次へ」を押すと以下のような画面が出ます。</p>
-<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/731ec803-9eab-4bf7-b73e-20e4e77fac09/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466XBMXHJIU%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T025223Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCwySeWwNf2gMx9vet1kLiQV3Tq3hK%2FD6FK7TLBYl25qgIgO1lJKsWd%2BW0MFmyY4qf4NiFZru1d0bCyCdpMFOJ0AfcqiAQIu%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBoUGW27IqX0DSbm6yrcAyb3Si%2BB0mW0bPJOb6RaGcRwOTRcn1givceVjpOrPK159jhEQUurcP4FcBqMni9YOSsrICLGlmsMEf9Kfww%2FdEGtlVdFpE1VFWwCpMZoUpnoOtKP43sVM2pdy9TgeHczYND7vC5v7sGfJCV8LS%2BDOtDq6t1rNF0CD02dz5%2F117YHQ6SPcPL2B7yYOX%2Bg72yOTJZ2GHyh%2BnXFQlm0oeeJlYtCKW2gpyrpDgMv3RoJjGPBdxje5SctRs4LrhKv8yUoQQG%2BEL0QGWgXWIGkLaVv47Zg5cRuDwuSmbkZOA77m5bufHO8wQHnxJkNl89vdOFQQ5WpAG7cIRisi%2BcRd4Qt7Njyboy7cyrGRPg8WMdOCkZb3LgPQ0IrXprKuA7WgpGZIooOVkk6kDHYQivHTmFm0zws%2BrkKfnYH%2BG9amBkTSAJIWc8oJPauIcnQ7e6Ya5zFNk%2FC%2Fnlbfsar78slMlLtUH4Uo4aQUO5BO7b%2Fm7RR3VRTpIdLOQUUq0Vr7X%2FumiWIzwbnjZdQM1SZ9SfFYqXvEVI74sA4TW7izw8veNgx4s09pvNqtrfCBGB6m3iRWuz57WYg2sxxeps%2Bxx5CEYAUSmObw%2F8C1dN0wCvK%2FWv1LZKw1AhqE8EfmbEU551XMJXYwMsGOqUBeGJOEgXeYTo0cE3YXZwZnSnris4g03icw1sfSuKDhoM%2FkIvV%2Fq8egKOkdyHpYI8QP9CZ1Gbka32AmxptzHHBOgUiVSKFljK3LtlHz1hmsC1%2Bp%2BaKQAB1iA2U3ayS1IDRHgGF79Q78g%2FHjOhKlrkH7%2FBmjoqOMiHO5FLPthi3SrJ8NznqXzJ4iuwsDepcUJrUla%2B%2B%2BMe49zxszmLnrDakg8XPGNiO&amp;X-Amz-Signature=7b3a76686360cd354b5b6e34c47398eda55ed8250b7f87a69230a0ae83c14690&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
-<p>ここで「設定を編集する」を選びます。<br>そうしたら以下のような設定が行えます。これは本来、Raspberry Piを立ち上げて初期設定を行う内容ですが、予めSDカードにこれら情報も書き込むことで、ディスプレイなどがなくても初期設定が完了できる裏技です。この設定をしないと、ディスプレイなどが必要になります。</p>
-<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/22ea0851-3f7d-438d-9e46-73d3dbca6e3b/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466XBMXHJIU%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T025223Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCwySeWwNf2gMx9vet1kLiQV3Tq3hK%2FD6FK7TLBYl25qgIgO1lJKsWd%2BW0MFmyY4qf4NiFZru1d0bCyCdpMFOJ0AfcqiAQIu%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBoUGW27IqX0DSbm6yrcAyb3Si%2BB0mW0bPJOb6RaGcRwOTRcn1givceVjpOrPK159jhEQUurcP4FcBqMni9YOSsrICLGlmsMEf9Kfww%2FdEGtlVdFpE1VFWwCpMZoUpnoOtKP43sVM2pdy9TgeHczYND7vC5v7sGfJCV8LS%2BDOtDq6t1rNF0CD02dz5%2F117YHQ6SPcPL2B7yYOX%2Bg72yOTJZ2GHyh%2BnXFQlm0oeeJlYtCKW2gpyrpDgMv3RoJjGPBdxje5SctRs4LrhKv8yUoQQG%2BEL0QGWgXWIGkLaVv47Zg5cRuDwuSmbkZOA77m5bufHO8wQHnxJkNl89vdOFQQ5WpAG7cIRisi%2BcRd4Qt7Njyboy7cyrGRPg8WMdOCkZb3LgPQ0IrXprKuA7WgpGZIooOVkk6kDHYQivHTmFm0zws%2BrkKfnYH%2BG9amBkTSAJIWc8oJPauIcnQ7e6Ya5zFNk%2FC%2Fnlbfsar78slMlLtUH4Uo4aQUO5BO7b%2Fm7RR3VRTpIdLOQUUq0Vr7X%2FumiWIzwbnjZdQM1SZ9SfFYqXvEVI74sA4TW7izw8veNgx4s09pvNqtrfCBGB6m3iRWuz57WYg2sxxeps%2Bxx5CEYAUSmObw%2F8C1dN0wCvK%2FWv1LZKw1AhqE8EfmbEU551XMJXYwMsGOqUBeGJOEgXeYTo0cE3YXZwZnSnris4g03icw1sfSuKDhoM%2FkIvV%2Fq8egKOkdyHpYI8QP9CZ1Gbka32AmxptzHHBOgUiVSKFljK3LtlHz1hmsC1%2Bp%2BaKQAB1iA2U3ayS1IDRHgGF79Q78g%2FHjOhKlrkH7%2FBmjoqOMiHO5FLPthi3SrJ8NznqXzJ4iuwsDepcUJrUla%2B%2B%2BMe49zxszmLnrDakg8XPGNiO&amp;X-Amz-Signature=9f97380f22dece4ecadde36efd3829cd05284a0058c0d65afd5b099b6cfcf3c0&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
-<p>ホスト名は内部ネットワークで接続するためのものです。<br>ユーザー名とパスワードは今後も使うので控えておいてください。<br>Wi-Fiは<a href="https://qiita.com/bohemian916/items/e164e8ce37d33b1d02ee" target="_blank">後から変更するのが難しくなったようです</a>。今現在設定をしている場所(自宅など)で普段使う、インターネットに繋がるWi-Fiルーターの設定をしてください。国は必ずJPにしてください。電波法関連のようです。<br>ロケール設定は日本のにしてください。</p>
-<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/cde322a3-0e49-4106-9756-f5305809a083/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466XBMXHJIU%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T025223Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCwySeWwNf2gMx9vet1kLiQV3Tq3hK%2FD6FK7TLBYl25qgIgO1lJKsWd%2BW0MFmyY4qf4NiFZru1d0bCyCdpMFOJ0AfcqiAQIu%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBoUGW27IqX0DSbm6yrcAyb3Si%2BB0mW0bPJOb6RaGcRwOTRcn1givceVjpOrPK159jhEQUurcP4FcBqMni9YOSsrICLGlmsMEf9Kfww%2FdEGtlVdFpE1VFWwCpMZoUpnoOtKP43sVM2pdy9TgeHczYND7vC5v7sGfJCV8LS%2BDOtDq6t1rNF0CD02dz5%2F117YHQ6SPcPL2B7yYOX%2Bg72yOTJZ2GHyh%2BnXFQlm0oeeJlYtCKW2gpyrpDgMv3RoJjGPBdxje5SctRs4LrhKv8yUoQQG%2BEL0QGWgXWIGkLaVv47Zg5cRuDwuSmbkZOA77m5bufHO8wQHnxJkNl89vdOFQQ5WpAG7cIRisi%2BcRd4Qt7Njyboy7cyrGRPg8WMdOCkZb3LgPQ0IrXprKuA7WgpGZIooOVkk6kDHYQivHTmFm0zws%2BrkKfnYH%2BG9amBkTSAJIWc8oJPauIcnQ7e6Ya5zFNk%2FC%2Fnlbfsar78slMlLtUH4Uo4aQUO5BO7b%2Fm7RR3VRTpIdLOQUUq0Vr7X%2FumiWIzwbnjZdQM1SZ9SfFYqXvEVI74sA4TW7izw8veNgx4s09pvNqtrfCBGB6m3iRWuz57WYg2sxxeps%2Bxx5CEYAUSmObw%2F8C1dN0wCvK%2FWv1LZKw1AhqE8EfmbEU551XMJXYwMsGOqUBeGJOEgXeYTo0cE3YXZwZnSnris4g03icw1sfSuKDhoM%2FkIvV%2Fq8egKOkdyHpYI8QP9CZ1Gbka32AmxptzHHBOgUiVSKFljK3LtlHz1hmsC1%2Bp%2BaKQAB1iA2U3ayS1IDRHgGF79Q78g%2FHjOhKlrkH7%2FBmjoqOMiHO5FLPthi3SrJ8NznqXzJ4iuwsDepcUJrUla%2B%2B%2BMe49zxszmLnrDakg8XPGNiO&amp;X-Amz-Signature=b3045c8f8af8ee77d3f205062923bb2093cf2ba9d65958f3e85fd4b5da290f29&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
-<p>次に、サービスのタブでSSHを有効にしてください。<br>公開鍵認証がよりセキュアですが、ここではパスワード認証とします。</p>
-<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/99cdc448-0d6b-45ff-b083-64d00abc2eac/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466XBMXHJIU%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T025223Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCwySeWwNf2gMx9vet1kLiQV3Tq3hK%2FD6FK7TLBYl25qgIgO1lJKsWd%2BW0MFmyY4qf4NiFZru1d0bCyCdpMFOJ0AfcqiAQIu%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBoUGW27IqX0DSbm6yrcAyb3Si%2BB0mW0bPJOb6RaGcRwOTRcn1givceVjpOrPK159jhEQUurcP4FcBqMni9YOSsrICLGlmsMEf9Kfww%2FdEGtlVdFpE1VFWwCpMZoUpnoOtKP43sVM2pdy9TgeHczYND7vC5v7sGfJCV8LS%2BDOtDq6t1rNF0CD02dz5%2F117YHQ6SPcPL2B7yYOX%2Bg72yOTJZ2GHyh%2BnXFQlm0oeeJlYtCKW2gpyrpDgMv3RoJjGPBdxje5SctRs4LrhKv8yUoQQG%2BEL0QGWgXWIGkLaVv47Zg5cRuDwuSmbkZOA77m5bufHO8wQHnxJkNl89vdOFQQ5WpAG7cIRisi%2BcRd4Qt7Njyboy7cyrGRPg8WMdOCkZb3LgPQ0IrXprKuA7WgpGZIooOVkk6kDHYQivHTmFm0zws%2BrkKfnYH%2BG9amBkTSAJIWc8oJPauIcnQ7e6Ya5zFNk%2FC%2Fnlbfsar78slMlLtUH4Uo4aQUO5BO7b%2Fm7RR3VRTpIdLOQUUq0Vr7X%2FumiWIzwbnjZdQM1SZ9SfFYqXvEVI74sA4TW7izw8veNgx4s09pvNqtrfCBGB6m3iRWuz57WYg2sxxeps%2Bxx5CEYAUSmObw%2F8C1dN0wCvK%2FWv1LZKw1AhqE8EfmbEU551XMJXYwMsGOqUBeGJOEgXeYTo0cE3YXZwZnSnris4g03icw1sfSuKDhoM%2FkIvV%2Fq8egKOkdyHpYI8QP9CZ1Gbka32AmxptzHHBOgUiVSKFljK3LtlHz1hmsC1%2Bp%2BaKQAB1iA2U3ayS1IDRHgGF79Q78g%2FHjOhKlrkH7%2FBmjoqOMiHO5FLPthi3SrJ8NznqXzJ4iuwsDepcUJrUla%2B%2B%2BMe49zxszmLnrDakg8XPGNiO&amp;X-Amz-Signature=5bc099cc3e3f6d2373222559a7329ba1ad6a959d9b987178aa65a7aa07d7e9ad&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
-<p>その後、設定を「保存」し、「はい」で進め、警告も最終確認して「はい」で進めます。</p>
-<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/ce94e1a1-faa5-44a9-af6e-7eb4f586ba9f/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466XBMXHJIU%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T025223Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCwySeWwNf2gMx9vet1kLiQV3Tq3hK%2FD6FK7TLBYl25qgIgO1lJKsWd%2BW0MFmyY4qf4NiFZru1d0bCyCdpMFOJ0AfcqiAQIu%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBoUGW27IqX0DSbm6yrcAyb3Si%2BB0mW0bPJOb6RaGcRwOTRcn1givceVjpOrPK159jhEQUurcP4FcBqMni9YOSsrICLGlmsMEf9Kfww%2FdEGtlVdFpE1VFWwCpMZoUpnoOtKP43sVM2pdy9TgeHczYND7vC5v7sGfJCV8LS%2BDOtDq6t1rNF0CD02dz5%2F117YHQ6SPcPL2B7yYOX%2Bg72yOTJZ2GHyh%2BnXFQlm0oeeJlYtCKW2gpyrpDgMv3RoJjGPBdxje5SctRs4LrhKv8yUoQQG%2BEL0QGWgXWIGkLaVv47Zg5cRuDwuSmbkZOA77m5bufHO8wQHnxJkNl89vdOFQQ5WpAG7cIRisi%2BcRd4Qt7Njyboy7cyrGRPg8WMdOCkZb3LgPQ0IrXprKuA7WgpGZIooOVkk6kDHYQivHTmFm0zws%2BrkKfnYH%2BG9amBkTSAJIWc8oJPauIcnQ7e6Ya5zFNk%2FC%2Fnlbfsar78slMlLtUH4Uo4aQUO5BO7b%2Fm7RR3VRTpIdLOQUUq0Vr7X%2FumiWIzwbnjZdQM1SZ9SfFYqXvEVI74sA4TW7izw8veNgx4s09pvNqtrfCBGB6m3iRWuz57WYg2sxxeps%2Bxx5CEYAUSmObw%2F8C1dN0wCvK%2FWv1LZKw1AhqE8EfmbEU551XMJXYwMsGOqUBeGJOEgXeYTo0cE3YXZwZnSnris4g03icw1sfSuKDhoM%2FkIvV%2Fq8egKOkdyHpYI8QP9CZ1Gbka32AmxptzHHBOgUiVSKFljK3LtlHz1hmsC1%2Bp%2BaKQAB1iA2U3ayS1IDRHgGF79Q78g%2FHjOhKlrkH7%2FBmjoqOMiHO5FLPthi3SrJ8NznqXzJ4iuwsDepcUJrUla%2B%2B%2BMe49zxszmLnrDakg8XPGNiO&amp;X-Amz-Signature=8ccee3f15aa7181aaca4d2517078ef64b0e65e92037f5cba6af63070ce5b66f0&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
-<p>書き込みが始まりますので、終わるまで待ちます。それなりに時間がかかります。</p>
-<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/aca2637d-09c6-4ff2-b406-1494dd17a539/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466XBMXHJIU%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T025223Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCwySeWwNf2gMx9vet1kLiQV3Tq3hK%2FD6FK7TLBYl25qgIgO1lJKsWd%2BW0MFmyY4qf4NiFZru1d0bCyCdpMFOJ0AfcqiAQIu%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBoUGW27IqX0DSbm6yrcAyb3Si%2BB0mW0bPJOb6RaGcRwOTRcn1givceVjpOrPK159jhEQUurcP4FcBqMni9YOSsrICLGlmsMEf9Kfww%2FdEGtlVdFpE1VFWwCpMZoUpnoOtKP43sVM2pdy9TgeHczYND7vC5v7sGfJCV8LS%2BDOtDq6t1rNF0CD02dz5%2F117YHQ6SPcPL2B7yYOX%2Bg72yOTJZ2GHyh%2BnXFQlm0oeeJlYtCKW2gpyrpDgMv3RoJjGPBdxje5SctRs4LrhKv8yUoQQG%2BEL0QGWgXWIGkLaVv47Zg5cRuDwuSmbkZOA77m5bufHO8wQHnxJkNl89vdOFQQ5WpAG7cIRisi%2BcRd4Qt7Njyboy7cyrGRPg8WMdOCkZb3LgPQ0IrXprKuA7WgpGZIooOVkk6kDHYQivHTmFm0zws%2BrkKfnYH%2BG9amBkTSAJIWc8oJPauIcnQ7e6Ya5zFNk%2FC%2Fnlbfsar78slMlLtUH4Uo4aQUO5BO7b%2Fm7RR3VRTpIdLOQUUq0Vr7X%2FumiWIzwbnjZdQM1SZ9SfFYqXvEVI74sA4TW7izw8veNgx4s09pvNqtrfCBGB6m3iRWuz57WYg2sxxeps%2Bxx5CEYAUSmObw%2F8C1dN0wCvK%2FWv1LZKw1AhqE8EfmbEU551XMJXYwMsGOqUBeGJOEgXeYTo0cE3YXZwZnSnris4g03icw1sfSuKDhoM%2FkIvV%2Fq8egKOkdyHpYI8QP9CZ1Gbka32AmxptzHHBOgUiVSKFljK3LtlHz1hmsC1%2Bp%2BaKQAB1iA2U3ayS1IDRHgGF79Q78g%2FHjOhKlrkH7%2FBmjoqOMiHO5FLPthi3SrJ8NznqXzJ4iuwsDepcUJrUla%2B%2B%2BMe49zxszmLnrDakg8XPGNiO&amp;X-Amz-Signature=fd92fe785383be4af6edab7614da73fb3519dc78a262d65c5d3c5da2fc37cdde&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
-<p>書き込みが終了したらPCからSDカードを取り出します。</p>
-<h3>SSHで接続</h3>
-<p>OSを書き込んだSDカードをRaspberry PiのSDカードスロットに入れます。<br>USBケーブルをRaspberry Piに繋ぎ、USB ACアダプタに繋いで電源を入れます。</p>
-<div class="notion-callout callout-gray_background"><span class="callout-icon">💡</span><div>Raspberry Pi 4以上は電源の推奨要求が高いです。電流が3A、5だと5Aです。確実に電圧降下するので、電圧も5.1Vなど高めに出る物が望ましいと思います。純正品がベターでしょう。</div></div>
-<p>電源を入れて、少し時間が経ったら(立ち上がるのに時間がかかる)、PCなどの外部端末からSSHで繋ぎましょう(外部端末はRaspberry Piと同じネットワークに繋いでください)。<br>もしRaspberry PiのIPアドレスが分かるならそのIPアドレスで、分からないなら先に設定したホスト名で繋ぎます。</p>
-<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/88118139-dcfe-4560-ac28-b0e731440f60/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466XBMXHJIU%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T025223Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCwySeWwNf2gMx9vet1kLiQV3Tq3hK%2FD6FK7TLBYl25qgIgO1lJKsWd%2BW0MFmyY4qf4NiFZru1d0bCyCdpMFOJ0AfcqiAQIu%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBoUGW27IqX0DSbm6yrcAyb3Si%2BB0mW0bPJOb6RaGcRwOTRcn1givceVjpOrPK159jhEQUurcP4FcBqMni9YOSsrICLGlmsMEf9Kfww%2FdEGtlVdFpE1VFWwCpMZoUpnoOtKP43sVM2pdy9TgeHczYND7vC5v7sGfJCV8LS%2BDOtDq6t1rNF0CD02dz5%2F117YHQ6SPcPL2B7yYOX%2Bg72yOTJZ2GHyh%2BnXFQlm0oeeJlYtCKW2gpyrpDgMv3RoJjGPBdxje5SctRs4LrhKv8yUoQQG%2BEL0QGWgXWIGkLaVv47Zg5cRuDwuSmbkZOA77m5bufHO8wQHnxJkNl89vdOFQQ5WpAG7cIRisi%2BcRd4Qt7Njyboy7cyrGRPg8WMdOCkZb3LgPQ0IrXprKuA7WgpGZIooOVkk6kDHYQivHTmFm0zws%2BrkKfnYH%2BG9amBkTSAJIWc8oJPauIcnQ7e6Ya5zFNk%2FC%2Fnlbfsar78slMlLtUH4Uo4aQUO5BO7b%2Fm7RR3VRTpIdLOQUUq0Vr7X%2FumiWIzwbnjZdQM1SZ9SfFYqXvEVI74sA4TW7izw8veNgx4s09pvNqtrfCBGB6m3iRWuz57WYg2sxxeps%2Bxx5CEYAUSmObw%2F8C1dN0wCvK%2FWv1LZKw1AhqE8EfmbEU551XMJXYwMsGOqUBeGJOEgXeYTo0cE3YXZwZnSnris4g03icw1sfSuKDhoM%2FkIvV%2Fq8egKOkdyHpYI8QP9CZ1Gbka32AmxptzHHBOgUiVSKFljK3LtlHz1hmsC1%2Bp%2BaKQAB1iA2U3ayS1IDRHgGF79Q78g%2FHjOhKlrkH7%2FBmjoqOMiHO5FLPthi3SrJ8NznqXzJ4iuwsDepcUJrUla%2B%2B%2BMe49zxszmLnrDakg8XPGNiO&amp;X-Amz-Signature=04483d256782ee36907ce9997867e9ee4f30542b8e7dc902f26637285893d7ac&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
-
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                bash
-                            </div>
-                            <pre><code># コマンドの例(ユーザー名が「pi」でホスト名が「raspberrypi.local」の場合)
-ssh pi@raspberrypi.local
-
-# 初回はこんな感じで尋ねられると思うので「yes」
-Are you sure you want to continue connecting (yes/no/[fingerprint])?
-
-# 設定したパスワードを入力
-pi@raspberrypi.local&#x27;s password:</code></pre>
-                        </div>
-                    </div>
-                    <div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/dbcacc62-c6c9-49cd-b1d9-869ad455cde4/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466XBMXHJIU%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T025223Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCwySeWwNf2gMx9vet1kLiQV3Tq3hK%2FD6FK7TLBYl25qgIgO1lJKsWd%2BW0MFmyY4qf4NiFZru1d0bCyCdpMFOJ0AfcqiAQIu%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBoUGW27IqX0DSbm6yrcAyb3Si%2BB0mW0bPJOb6RaGcRwOTRcn1givceVjpOrPK159jhEQUurcP4FcBqMni9YOSsrICLGlmsMEf9Kfww%2FdEGtlVdFpE1VFWwCpMZoUpnoOtKP43sVM2pdy9TgeHczYND7vC5v7sGfJCV8LS%2BDOtDq6t1rNF0CD02dz5%2F117YHQ6SPcPL2B7yYOX%2Bg72yOTJZ2GHyh%2BnXFQlm0oeeJlYtCKW2gpyrpDgMv3RoJjGPBdxje5SctRs4LrhKv8yUoQQG%2BEL0QGWgXWIGkLaVv47Zg5cRuDwuSmbkZOA77m5bufHO8wQHnxJkNl89vdOFQQ5WpAG7cIRisi%2BcRd4Qt7Njyboy7cyrGRPg8WMdOCkZb3LgPQ0IrXprKuA7WgpGZIooOVkk6kDHYQivHTmFm0zws%2BrkKfnYH%2BG9amBkTSAJIWc8oJPauIcnQ7e6Ya5zFNk%2FC%2Fnlbfsar78slMlLtUH4Uo4aQUO5BO7b%2Fm7RR3VRTpIdLOQUUq0Vr7X%2FumiWIzwbnjZdQM1SZ9SfFYqXvEVI74sA4TW7izw8veNgx4s09pvNqtrfCBGB6m3iRWuz57WYg2sxxeps%2Bxx5CEYAUSmObw%2F8C1dN0wCvK%2FWv1LZKw1AhqE8EfmbEU551XMJXYwMsGOqUBeGJOEgXeYTo0cE3YXZwZnSnris4g03icw1sfSuKDhoM%2FkIvV%2Fq8egKOkdyHpYI8QP9CZ1Gbka32AmxptzHHBOgUiVSKFljK3LtlHz1hmsC1%2Bp%2BaKQAB1iA2U3ayS1IDRHgGF79Q78g%2FHjOhKlrkH7%2FBmjoqOMiHO5FLPthi3SrJ8NznqXzJ4iuwsDepcUJrUla%2B%2B%2BMe49zxszmLnrDakg8XPGNiO&amp;X-Amz-Signature=c975598fb508624a6a06ce77a511b23f5f6295d29345bb4c7ecdf1b625999ce6&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
-<p>このような表示なったら成功です!<br>外部端末からRaspberry Piに接続できています。<br>あとは好きなようにソフトを入れたりして楽しんでください。</p>
-<h3>家の外から繋ぐ</h3>
-<p>SSHで家の外からでもアクセスできるようにします。<br>まず、自分の家のIPアドレスを確認します。</p>
-
-<div class="bookmark-block">
-<a href="https://www.ugtop.com/spill.shtml" target="_blank" rel="noopener noreferrer" class="bookmark-link">
-<div class="bookmark-text">
-<div class="bookmark-title">確認くん</div>
-
-<div class="bookmark-source-info">
-<img src="http://www.ugtop.com/favicon.ico" alt="favicon" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; object-fit: contain;" onerror="this.style.display='none'">
-<span class="bookmark-url">www.ugtop.com</span>
-</div>
-</div>
-
-</a>
-</div>
-                    <p><code>あなたのＩＰアドレス(IPv4)</code>で表示されるIPv4のIPアドレスが自分のグローバルなIPアドレスです。</p>
-
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                bash
-                            </div>
-                            <pre><code>ssh pi@ここにグローバルIPアドレス</code></pre>
-                        </div>
-                    </div>
-                    <p>つまり、このようなコマンドで接続します。<br>しかし、ほとんどの場合、接続が失敗すると思います。<br>それは、外(インターネット側)と自宅のRaspberry Piの間にルーターがあるためです。<br>そこで、ルーターに接続を通すための穴(ポート)を開ける必要があります。</p>
-<p>通常SSHは22番ポートを使いますが(上記のコマンドでも22番ポート)、ルーターの22番ポートを開放するとセキュリティ的に良くないです。<br>そこで、インターネット側は別のポートを開放し、ルーター内部で22番ポートにフォワーディングするのが望ましいです。<br>いずれにしろ、ルーターの設定で、ポートを開放してSSHが通るようにしてください。</p>
-<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/156dc52b-6443-4cbd-8787-4e885d4134d4/aaaaaa.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466XBMXHJIU%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T025223Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCwySeWwNf2gMx9vet1kLiQV3Tq3hK%2FD6FK7TLBYl25qgIgO1lJKsWd%2BW0MFmyY4qf4NiFZru1d0bCyCdpMFOJ0AfcqiAQIu%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBoUGW27IqX0DSbm6yrcAyb3Si%2BB0mW0bPJOb6RaGcRwOTRcn1givceVjpOrPK159jhEQUurcP4FcBqMni9YOSsrICLGlmsMEf9Kfww%2FdEGtlVdFpE1VFWwCpMZoUpnoOtKP43sVM2pdy9TgeHczYND7vC5v7sGfJCV8LS%2BDOtDq6t1rNF0CD02dz5%2F117YHQ6SPcPL2B7yYOX%2Bg72yOTJZ2GHyh%2BnXFQlm0oeeJlYtCKW2gpyrpDgMv3RoJjGPBdxje5SctRs4LrhKv8yUoQQG%2BEL0QGWgXWIGkLaVv47Zg5cRuDwuSmbkZOA77m5bufHO8wQHnxJkNl89vdOFQQ5WpAG7cIRisi%2BcRd4Qt7Njyboy7cyrGRPg8WMdOCkZb3LgPQ0IrXprKuA7WgpGZIooOVkk6kDHYQivHTmFm0zws%2BrkKfnYH%2BG9amBkTSAJIWc8oJPauIcnQ7e6Ya5zFNk%2FC%2Fnlbfsar78slMlLtUH4Uo4aQUO5BO7b%2Fm7RR3VRTpIdLOQUUq0Vr7X%2FumiWIzwbnjZdQM1SZ9SfFYqXvEVI74sA4TW7izw8veNgx4s09pvNqtrfCBGB6m3iRWuz57WYg2sxxeps%2Bxx5CEYAUSmObw%2F8C1dN0wCvK%2FWv1LZKw1AhqE8EfmbEU551XMJXYwMsGOqUBeGJOEgXeYTo0cE3YXZwZnSnris4g03icw1sfSuKDhoM%2FkIvV%2Fq8egKOkdyHpYI8QP9CZ1Gbka32AmxptzHHBOgUiVSKFljK3LtlHz1hmsC1%2Bp%2BaKQAB1iA2U3ayS1IDRHgGF79Q78g%2FHjOhKlrkH7%2FBmjoqOMiHO5FLPthi3SrJ8NznqXzJ4iuwsDepcUJrUla%2B%2B%2BMe49zxszmLnrDakg8XPGNiO&amp;X-Amz-Signature=3c814f843f96f5544699618409073c6ba3befbe13c55f616e4a3153d2389e4ae&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
-<p>上記は一例です。この例では、外部に対しては8022番ポートを開放し、ルーター内部で22番ポートに繋いでいます。<br>LAN側の向け先IPアドレスをRaspberry PiのローカルIPアドレスにしてください。<br>お使いのルーターのマニュアルをご確認の上、セキュリティに十分配慮して設定してください。</p>
-
-                    <div style="margin: 15px 0;">
-                        <div class="precode">
-                            <div style="padding: 8px 16px; border-radius: 5px 5px 0 0; background-color: #f1f1f1; font-family: monospace;">
-                                bash
-                            </div>
-                            <pre><code>ssh -p 8022 pi@ここにグローバルIPアドレス</code></pre>
-                        </div>
-                    </div>
-                    <p>正しく設定できれば、上のようなコマンドで、出先から自宅のRaspberry Piに接続できるはずです。</p>
-<h3>終わりに</h3>
-<p>これで家の外からもRaspberry Piに接続できるようになりました。<br>iPhoneなどスマートフォンからでも接続できるので、Raspberry Piに<a href="https://github.com/google-gemini/gemini-cli" target="_blank">Gemini CLI</a>などをインストールすれば、出先でもVibe Codingできるでしょう。</p>
-<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/1a807f30-1f9b-4709-9fdb-60c6f28639a6/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466XBMXHJIU%2F20260121%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260121T025223Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCwySeWwNf2gMx9vet1kLiQV3Tq3hK%2FD6FK7TLBYl25qgIgO1lJKsWd%2BW0MFmyY4qf4NiFZru1d0bCyCdpMFOJ0AfcqiAQIu%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDBoUGW27IqX0DSbm6yrcAyb3Si%2BB0mW0bPJOb6RaGcRwOTRcn1givceVjpOrPK159jhEQUurcP4FcBqMni9YOSsrICLGlmsMEf9Kfww%2FdEGtlVdFpE1VFWwCpMZoUpnoOtKP43sVM2pdy9TgeHczYND7vC5v7sGfJCV8LS%2BDOtDq6t1rNF0CD02dz5%2F117YHQ6SPcPL2B7yYOX%2Bg72yOTJZ2GHyh%2BnXFQlm0oeeJlYtCKW2gpyrpDgMv3RoJjGPBdxje5SctRs4LrhKv8yUoQQG%2BEL0QGWgXWIGkLaVv47Zg5cRuDwuSmbkZOA77m5bufHO8wQHnxJkNl89vdOFQQ5WpAG7cIRisi%2BcRd4Qt7Njyboy7cyrGRPg8WMdOCkZb3LgPQ0IrXprKuA7WgpGZIooOVkk6kDHYQivHTmFm0zws%2BrkKfnYH%2BG9amBkTSAJIWc8oJPauIcnQ7e6Ya5zFNk%2FC%2Fnlbfsar78slMlLtUH4Uo4aQUO5BO7b%2Fm7RR3VRTpIdLOQUUq0Vr7X%2FumiWIzwbnjZdQM1SZ9SfFYqXvEVI74sA4TW7izw8veNgx4s09pvNqtrfCBGB6m3iRWuz57WYg2sxxeps%2Bxx5CEYAUSmObw%2F8C1dN0wCvK%2FWv1LZKw1AhqE8EfmbEU551XMJXYwMsGOqUBeGJOEgXeYTo0cE3YXZwZnSnris4g03icw1sfSuKDhoM%2FkIvV%2Fq8egKOkdyHpYI8QP9CZ1Gbka32AmxptzHHBOgUiVSKFljK3LtlHz1hmsC1%2Bp%2BaKQAB1iA2U3ayS1IDRHgGF79Q78g%2FHjOhKlrkH7%2FBmjoqOMiHO5FLPthi3SrJ8NznqXzJ4iuwsDepcUJrUla%2B%2B%2BMe49zxszmLnrDakg8XPGNiO&amp;X-Amz-Signature=11519ea4c4c7ea6d0c7b8b366b87a19fdf74758ae5816cdee266b3edebcedf62&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
-<p>Enjoy!</p>
 </article>
 
 </div>
@@ -1120,6 +1436,6 @@ el.textContent = `Error rendering formula: ${el.textContent}`;
 });
 </script>
 
-<!-- 2026-01-21 11:52 -->
+<!-- 2026-01-21 12:35 -->
 </body>
 </html>
