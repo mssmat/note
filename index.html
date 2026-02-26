@@ -840,6 +840,138 @@ width: auto;
 <ul>
 <li>❌ 音声品質はElevenLabsに劣る</li>
 <li>❌ 感情表現が控えめ</li>
+<li>❌ 日本語固有名詞の精度はAIVISに劣る</li>
+</ul>
+<hr class="notion-divider">
+<h2><strong>🎯 最終推奨（用途別ベスト選択）</strong></h2>
+<div class="notion-table-wrapper"><table class="notion-table">
+<thead><tr><th><strong>用途</strong></th><th><strong>第1選択</strong></th><th><strong>第2選択</strong></th><th><strong>理由</strong></th></tr></thead>
+<tbody><tr><td><strong>完全無料</strong></td><td>VOICEVOX</td><td>Google Cloud（無料枠）</td><td>コスト最優先</td></tr>
+<tr><td><strong>YouTubeコンテンツ</strong></td><td><strong>ElevenLabs Creator</strong></td><td>AIVIS月額</td><td>品質・感情表現・音声クローニング</td></tr>
+<tr><td><strong>ポッドキャスト</strong></td><td><strong>ElevenLabs Pro</strong></td><td>AIVIS月額</td><td>音声クローニング・高品質</td></tr>
+<tr><td><strong>AIチャット</strong></td><td><strong>AIVIS月額</strong></td><td>Google Cloud Neural</td><td>低遅延・日本語品質</td></tr>
+<tr><td><strong>ニュース読み上げ</strong></td><td><strong>AIVIS月額</strong></td><td>Google Cloud Neural</td><td>固有名詞の正確性</td></tr>
+<tr><td><strong>大量バッチ処理</strong></td><td><strong>AIVIS月額</strong></td><td>Google Cloud</td><td>コスト効率</td></tr>
+<tr><td><strong>多言語展開</strong></td><td><strong>ElevenLabs</strong></td><td>Google Cloud</td><td>言語数・品質</td></tr>
+<tr><td><strong>企業サービス組込</strong></td><td>Google Cloud / Azure</td><td>AIVIS</td><td>安定性・サポート</td></tr>
+<tr><td><strong>キャラクター音声</strong></td><td><strong>ElevenLabs</strong></td><td>-</td><td>感情表現・音声クローニング</td></tr>
+<tr><td><strong>技術文書読み上げ</strong></td><td><strong>AIVIS月額</strong></td><td>Google Cloud Neural</td><td>専門用語・英単語の読み</td></tr>
+</tbody></table></div>
+<hr class="notion-divider">
+<h2><strong>📝 総合まとめ</strong></h2>
+<h3><strong>各サービスの位置づけ</strong></h3>
+<p><strong>品質ランキング</strong>: ElevenLabs &gt; AIVIS &gt; Google Cloud Neural &gt; Azure &gt; その他</p>
+<p><strong>コストランキング（安い順）</strong>: VOICEVOX &gt; Google Cloud &gt; AIVIS月額 &gt; Azure &gt; Gemini &gt; ElevenLabs &gt; AIVIS従量</p>
+<p><strong>日本語品質ランキング</strong>: AIVIS &gt; Google Cloud &gt; ElevenLabs</p>
+<p><strong>多言語対応ランキング</strong>: Google Cloud (40+言語) &gt; ElevenLabs (32+言語) &gt; Azure</p>
+<hr class="notion-divider">
+<h3><strong>Gemini 2.5 Flash Preview TTS の総合評価</strong></h3>
+<p><strong>価格</strong>: 約9,525円/100万文字（日本語） <strong>評価</strong>: ★★☆☆☆</p>
+<p><strong>ポジション</strong>:</p>
+<ul>
+<li>Google Cloud TTS Neuralの約4倍</li>
+<li>AIVIS月額プランより約4.8倍高い</li>
+<li>ElevenLabsより約半額</li>
+</ul>
+<p><strong>推奨度</strong>: 低い（他に優れた選択肢が多数存在）</p>
+<p><strong>推奨するケース</strong>:</p>
+<ul>
+<li>Gemini APIを既に使っている環境での統合利用</li>
+<li>他の選択肢が使えない特殊な状況</li>
+</ul>
+<hr class="notion-divider">
+<h3><strong>最もコスパが良い選択</strong></h3>
+<h3><strong>無料〜低コスト重視</strong></h3>
+<p><strong>Google Cloud TTS（月100万文字まで無料）</strong></p>
+<h3><strong>月45,000文字以上の大量利用</strong></h3>
+<p><strong>AIVIS Cloud API 月額プラン（月1,980円）</strong></p>
+<ul>
+<li>約2.5時間以上の音声生成で確実にお得</li>
+<li>日本語品質・低遅延も優秀</li>
+<li>ただし10req/分の制限あり</li>
+</ul>
+<h3><strong>最高品質・感情表現重視</strong></h3>
+<p><strong>ElevenLabs（Creator以上）</strong></p>
+<ul>
+<li>YouTubeコンテンツ、ポッドキャスト向け</li>
+<li>音声クローニング機能</li>
+<li>ただし日本語精度と高コストに注意</li>
+</ul>
+<h3><strong>バランス重視</strong></h3>
+<p><strong>Google Cloud TTS Neural（約2,400円/100万文字）</strong></p>
+<ul>
+<li>無料枠活用後も低価格</li>
+<li>安定性・信頼性が高い</li>
+<li>企業利用に最適</li>
+</ul>
+<hr class="notion-divider">
+<h2><strong>📚 根拠となったURL一覧</strong></h2>
+<h3><strong>Gemini API関連</strong></h3>
+<ol>
+<li><strong>Gemini公式価格ページ</strong>: <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank">https://ai.google.dev/gemini-api/docs/pricing</a><div class="notion-children-container"><ul>
+<li>Gemini 2.5 Flash Preview TTSの料金情報</li>
+</ul>
+</div></li>
+<li><strong>Geminiトークン計算ドキュメント</strong>: <a href="https://ai.google.dev/gemini-api/docs/tokens" target="_blank">https://ai.google.dev/gemini-api/docs/tokens</a><div class="notion-children-container"><ul>
+<li>音声トークンの換算方法（1秒=32トークン）</li>
+<li>日本語トークン数の情報</li>
+</ul>
+</div></li>
+<li><strong>Gemini音声理解ドキュメント</strong>: <a href="https://ai.google.dev/gemini-api/docs/audio" target="_blank">https://ai.google.dev/gemini-api/docs/audio</a><div class="notion-children-container"><ul>
+<li>音声処理の詳細仕様</li>
+</ul>
+</div></li>
+</ol>
+<hr class="notion-divider">
+<h3><strong>AIVIS Cloud API関連</strong></h3>
+<ol>
+<li><strong>AIVIS Cloud API公式発表</strong>: <a href="https://note.com/aivis_project/n/nd7840ae2b903" target="_blank">https://note.com/aivis_project/n/nd7840ae2b903</a><div class="notion-children-container"><ul>
+<li>料金プラン（従量課金・月額）</li>
+<li>サービス特徴・機能詳細</li>
+<li>日本語読み上げ精度の情報</li>
+</ul>
+</div></li>
+</ol>
+<hr class="notion-divider">
+<h3><strong>ElevenLabs関連</strong></h3>
+<ol>
+<li><strong>ElevenLabs公式価格ページ（日本語）</strong>: <a href="https://elevenlabs.io/ja/pricing" target="_blank">https://elevenlabs.io/ja/pricing</a><div class="notion-children-container"><ul>
+<li>各プランの料金・クレジット数</li>
+<li>追加料金の情報</li>
+<li>機能比較</li>
+</ul>
+</div></li>
+</ol>
+<hr class="notion-divider">
+<h3><strong>音声読み上げ速度・換算関連</strong></h3>
+<ol>
+<li><strong>一般的な音声読み上げ速度の情報</strong>:<div class="notion-children-container"><ul>
+<li>1分間に300〜350文字が標準的な読み上げ速度</li>
+<li>検索結果から複数の情報源を総合</li>
+</ul>
+</div></li>
+</ol>
+<hr class="notion-divider">
+<h3><strong>その他参考情報</strong></h3>
+<ol>
+<li><strong>Google Cloud Text-to-Speech</strong>: <a href="https://cloud.google.com/text-to-speech/pricing" target="_blank">https://cloud.google.com/text-to-speech/pricing</a><div class="notion-children-container"><ul>
+<li>無料枠・料金情報</li>
+</ul>
+</div></li>
+<li><strong>Amazon Polly</strong>: <a href="https://aws.amazon.com/polly/pricing/" target="_blank">https://aws.amazon.com/polly/pricing/</a><div class="notion-children-container"><ul>
+<li>料金情報</li>
+</ul>
+</div></li>
+<li><strong>Azure Text-to-Speech</strong>: <a href="https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/" target="_blank">https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/</a><div class="notion-children-container"><ul>
+<li>料金情報</li>
+</ul>
+</div></li>
+</ol>
+<hr class="notion-divider">
+<ul>
+<li>すべての料金情報は2026年2月4日時点のもの</li>
+<li>1ドル=150円で換算</li>
+<li>音声時間の計算は1分間300文字の読み上げ速度を基準</li>
 </ul>
 </article>
 <article>
@@ -847,7 +979,7 @@ width: auto;
 <div style="font-size: 0.9em; margin-bottom: 10px; padding: 10px;"><span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">作成日時</span><span style="margin-left: 2px; margin-right: 2px;">2026-01-21 12:33</span>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">VPS</span>
 </div>
-<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/b081a689-d773-4b7b-b0e6-29bd58502d5c/httpstop.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667LBDDJHS%2F20260226%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260226T084247Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFUaCXVzLXdlc3QtMiJIMEYCIQD1VtTdyhafepAAjhDMHT0PE0YryD7LHdgnZcWgbtWvbAIhAMfwYI6MhTIeOt5b5pgvKBq6Wm8LFLH8%2FUQl5e2WSdsIKv8DCB0QABoMNjM3NDIzMTgzODA1IgzGk9sGzkdyEYeAxzkq3AMGG%2BNvSPHK2NGa5IFDR%2BPtb5tYLwD6Fmgn1xIo5mxfvVGPpHS8Ae8H2FqxqiNoa04QzVlgxYfA14Te6cj9qvh7J2JRwiKkD3NspbHwlFg8cgS0w1fKAO2%2FHDWRfxaEaiiOSIhIDKoJ%2FpxBmXJWmr89g5DfZ1BBGWlXgHY1GdH4VH74uhd%2FGcWiLkzd37ZmKvv4G%2BxateUCZdm%2B34zXUK67Ddw2vw%2BOavag68RhlcRjBN0g%2BP7lY93NaP5tJMQBnA0EyXp5853xSl2s7ZisNFxjvVeDr0ywXFjkzaL59gUJ1O1lDHgRfHYGyRBaAlZeabdMjjMr8e0%2BPpuKIX2X5DlFiw9JllThtSCJX%2FCsfdP0cJK%2B8jwvNQhTwaC4Su7td1aEnh2uLp4MkZOiFShJ%2F9xlPneqRTRYTHTGmFUw1Bc6jBllyI7kFa07Bi7JUnX4BPxcAuCy92dwjHZoAP9H3PoNR4EbxMmNT1Bmg9OEQ8JYiDoRsXOq3ut1%2FXQr9OgBP12e4z4OCIZbs0%2Fqq1KPbjmPD%2FKM%2BU3r4BFx6re43PFgVk2RnYM%2FJvut9lRBeKFSkLmh1L6ehTZGgkwT8E%2F8efsztoyLtIi36Jl8WDM%2BhnhGnW81aSqnhZYPXA3vxzDjmP%2FMBjqkAf9Qj1b1lJwDkUay3zgVKH6bg%2BLx2njbSOjX%2FzmvfSdTBozaUvY5HWqKEfYclfRyRIM9ECdspJrzvRKhSGPnGFE%2Fp3d9xdstXcLsOWIlq7nNvevFZhDgWjBg0phL1xMJYn4SljqhlLdeyYvSV3QxvFMfVetGqd8%2FFmdjia201WvyUvHANIRQjiGrE00jEgR8N8sw2pLX5IocrItxA5aHoQLUYo0O&amp;X-Amz-Signature=1898fa4ddfd0332191d3e50844c9be609dc1b3f58986bdd3235b5da028e58279&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/b081a689-d773-4b7b-b0e6-29bd58502d5c/httpstop.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466V5SNXQEE%2F20260226%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260226T093341Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFUaCXVzLXdlc3QtMiJHMEUCIFGrOuHM8CQgH%2BJblcZk42bsYWw3PYouRky0%2BHdbiuB6AiEAleTSUGQQWmI0jKX5YkgDZZXmepgEIoEcuX4Zb9DaQo8q%2FwMIHhAAGgw2Mzc0MjMxODM4MDUiDH2VWx9ocL2RyKBBxSrcAw8w1rIiRazea89%2Bagrdt29LhbRrF2WD9WvDnI5vOSOokR%2FeP1%2FIxxpmIvosTwFe3BZ%2BS5aSB9EEl0igI1WqCytR8QVkeiw0BU%2B3xnZn0NYGZB25qX6py1fTvVIkLmZzfUfNr%2FgyEdbt52TfhxqIb0vn3iyvH5NaykjFUZJevJ7qxf4Z%2BoVv3LZT5p1f1hOb00izR5V7XpUwyrdVIP0DP7WspsRb8dJgXtGAsLk5sOmcH5P8YTIVItYvzBjkZc5FqmVeozmxsAsgtwDSXxYIHzewFkyMBAhPpfK87uyp8qBSp2XKR1ZC%2F1BYbWWvqVCz%2B6drktLTod9YwXFin1ghmY4vCQu%2FEWV%2F%2F%2B4gffCJo%2FdVp7Y65dgAT%2FOhETIeUBuaSltmu5jBKY4FAY1jhFJSy8s9BawyFiFo8W79UneqfnnlSemvnHl61jqEjeJ2AiI0m4EOkZ49nQK9KegJ86obbQtZah6yb8JfqGqyQj99gmW89LAUKlpEIUKu%2FjL5fcP4ZQ5KVEPRmIcOhb1gtGyoCwYM8rTtRfPEzpYEgRrzGl4ibtJYOTmWhDOkEM1qK9%2F0chdwKHlstdPlcSOAExH63VM78RWhSOZTsSHUgLnPEfOKPrzhI86gQY2TPpAqMLyY%2F8wGOqUBYYXSw8s7g5DMtWIHNwX25h1CMqnsHwdsZdBgrKtPMnyJU4IoI1dft0YPnT1%2Fmtc%2B9jY9WUhYCW0FPZFfjXS0ZlM6r5T9rf55S5%2FvoCEq%2F4MxQWd6ErllqA%2F9aX7eO10xKCSNvWAt1ZytMxoGlIKhyI8TlOn4MPOsGYHqPCSWKEitDuw5xhd%2FW%2FGzLqSxGGpgKbpMlA3BKgoqx4tzLI%2FGJ6qCQNnK&amp;X-Amz-Signature=7f8c77622c46062ab6d3cc93b4d9a6dc90e42b05999749dd5afc360c1c0025cd&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
 <h2><strong>まず前提知識.. なぜウェブに「証明書」が必要なのか</strong></h2>
 <h2><strong>〜Let’s Encrypt が変えたインターネットの安全性〜</strong></h2>
 <p>インターネットでブログやサービスを公開しようとすると、<br>**「SSL証明書」「HTTPS」「Let’s Encrypt」**といった言葉をよく目にします。</p>
@@ -946,7 +1078,7 @@ width: auto;
 <p>という <strong>初心者やライトユーザーには非常にハードルが高いもの</strong> でした。</p>
 <p>その結果、多くの個人サイトや小規模サービスが「安全ではない状態」のまま放置されていました。</p>
 <hr class="notion-divider">
-<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/b30670e3-77a6-4f90-9b14-dd43a9e26ce9/httpsdomain.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667LBDDJHS%2F20260226%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260226T084248Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFUaCXVzLXdlc3QtMiJIMEYCIQD1VtTdyhafepAAjhDMHT0PE0YryD7LHdgnZcWgbtWvbAIhAMfwYI6MhTIeOt5b5pgvKBq6Wm8LFLH8%2FUQl5e2WSdsIKv8DCB0QABoMNjM3NDIzMTgzODA1IgzGk9sGzkdyEYeAxzkq3AMGG%2BNvSPHK2NGa5IFDR%2BPtb5tYLwD6Fmgn1xIo5mxfvVGPpHS8Ae8H2FqxqiNoa04QzVlgxYfA14Te6cj9qvh7J2JRwiKkD3NspbHwlFg8cgS0w1fKAO2%2FHDWRfxaEaiiOSIhIDKoJ%2FpxBmXJWmr89g5DfZ1BBGWlXgHY1GdH4VH74uhd%2FGcWiLkzd37ZmKvv4G%2BxateUCZdm%2B34zXUK67Ddw2vw%2BOavag68RhlcRjBN0g%2BP7lY93NaP5tJMQBnA0EyXp5853xSl2s7ZisNFxjvVeDr0ywXFjkzaL59gUJ1O1lDHgRfHYGyRBaAlZeabdMjjMr8e0%2BPpuKIX2X5DlFiw9JllThtSCJX%2FCsfdP0cJK%2B8jwvNQhTwaC4Su7td1aEnh2uLp4MkZOiFShJ%2F9xlPneqRTRYTHTGmFUw1Bc6jBllyI7kFa07Bi7JUnX4BPxcAuCy92dwjHZoAP9H3PoNR4EbxMmNT1Bmg9OEQ8JYiDoRsXOq3ut1%2FXQr9OgBP12e4z4OCIZbs0%2Fqq1KPbjmPD%2FKM%2BU3r4BFx6re43PFgVk2RnYM%2FJvut9lRBeKFSkLmh1L6ehTZGgkwT8E%2F8efsztoyLtIi36Jl8WDM%2BhnhGnW81aSqnhZYPXA3vxzDjmP%2FMBjqkAf9Qj1b1lJwDkUay3zgVKH6bg%2BLx2njbSOjX%2FzmvfSdTBozaUvY5HWqKEfYclfRyRIM9ECdspJrzvRKhSGPnGFE%2Fp3d9xdstXcLsOWIlq7nNvevFZhDgWjBg0phL1xMJYn4SljqhlLdeyYvSV3QxvFMfVetGqd8%2FFmdjia201WvyUvHANIRQjiGrE00jEgR8N8sw2pLX5IocrItxA5aHoQLUYo0O&amp;X-Amz-Signature=f4f242e346a96caea8507c4404557ceff70ae1dc818489f6a6fe43efc2e78408&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/b30670e3-77a6-4f90-9b14-dd43a9e26ce9/httpsdomain.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466V5SNXQEE%2F20260226%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260226T093341Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFUaCXVzLXdlc3QtMiJHMEUCIFGrOuHM8CQgH%2BJblcZk42bsYWw3PYouRky0%2BHdbiuB6AiEAleTSUGQQWmI0jKX5YkgDZZXmepgEIoEcuX4Zb9DaQo8q%2FwMIHhAAGgw2Mzc0MjMxODM4MDUiDH2VWx9ocL2RyKBBxSrcAw8w1rIiRazea89%2Bagrdt29LhbRrF2WD9WvDnI5vOSOokR%2FeP1%2FIxxpmIvosTwFe3BZ%2BS5aSB9EEl0igI1WqCytR8QVkeiw0BU%2B3xnZn0NYGZB25qX6py1fTvVIkLmZzfUfNr%2FgyEdbt52TfhxqIb0vn3iyvH5NaykjFUZJevJ7qxf4Z%2BoVv3LZT5p1f1hOb00izR5V7XpUwyrdVIP0DP7WspsRb8dJgXtGAsLk5sOmcH5P8YTIVItYvzBjkZc5FqmVeozmxsAsgtwDSXxYIHzewFkyMBAhPpfK87uyp8qBSp2XKR1ZC%2F1BYbWWvqVCz%2B6drktLTod9YwXFin1ghmY4vCQu%2FEWV%2F%2F%2B4gffCJo%2FdVp7Y65dgAT%2FOhETIeUBuaSltmu5jBKY4FAY1jhFJSy8s9BawyFiFo8W79UneqfnnlSemvnHl61jqEjeJ2AiI0m4EOkZ49nQK9KegJ86obbQtZah6yb8JfqGqyQj99gmW89LAUKlpEIUKu%2FjL5fcP4ZQ5KVEPRmIcOhb1gtGyoCwYM8rTtRfPEzpYEgRrzGl4ibtJYOTmWhDOkEM1qK9%2F0chdwKHlstdPlcSOAExH63VM78RWhSOZTsSHUgLnPEfOKPrzhI86gQY2TPpAqMLyY%2F8wGOqUBYYXSw8s7g5DMtWIHNwX25h1CMqnsHwdsZdBgrKtPMnyJU4IoI1dft0YPnT1%2Fmtc%2B9jY9WUhYCW0FPZFfjXS0ZlM6r5T9rf55S5%2FvoCEq%2F4MxQWd6ErllqA%2F9aX7eO10xKCSNvWAt1ZytMxoGlIKhyI8TlOn4MPOsGYHqPCSWKEitDuw5xhd%2FW%2FGzLqSxGGpgKbpMlA3BKgoqx4tzLI%2FGJ6qCQNnK&amp;X-Amz-Signature=526bc6d5b5bbfdb0ec2d49d9ee3b1f847481a742fe77f3db15c986fd5dd44b64&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
 <h2><strong>Let’s Encrypt の登場で何が変わったのか</strong></h2>
 <p>ここで登場するのが <strong>Let’s Encrypt</strong> です。</p>
 <p>Let’s Encrypt は、次の特徴を持つ <strong>無料の証明書発行機関</strong> です。</p>
@@ -1023,7 +1155,7 @@ width: auto;
 </ul>
 <p>というのが常識でした。</p>
 <hr class="notion-divider">
-<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/30852e1b-6aac-4148-8d07-a2d1ac121ea0/httpsip.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466YXQD2BCO%2F20260226%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260226T084249Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFUaCXVzLXdlc3QtMiJGMEQCICwwJONTZ8dZ6dazOIQpfvYKnxe54NY66XANYJ1SricvAiB1t0NofULEhPBGBjEJkemPfAwAnD%2FJ0Gm%2FoBPTBZAfHyr%2FAwgeEAAaDDYzNzQyMzE4MzgwNSIMl%2B%2FoScYqZoq9veihKtwDrWpuc0NPrFpLy%2BpbYUWe2b8UHMISmV4hkKJNLecVcpKUwvTV3LV1eGsoWDc4TqTRAIC2Mf%2BSxPmX9S0Rnl7KLQLaIQlfIJWa3MyaI3z%2BP84uoUPgfqTGldZGUhOhEd6LffWOLSXTNZG084Ocfe%2Bkk%2B8SbX7M5U%2BQSWDbIng7uCklhUzw3F29pl%2BHEAqS5VznV0LxjgWCamgVeQRqANB9oUQsfIQjKBNxhg27gahI%2BUP9vu3kSNRIpFu0E2NIZbLhr4HzkdYI3thdSo3pGPsZaNE0a0e3aGtnH2BKPod3V3%2BJCGKwyjVZ%2BYgnRjZ8OdzHWnkBKDasFY1Daq3LNOsV%2BT%2FJnJU7P2D5P35uUOOuUxP823IWGUX31At16f3PWxJuE3hNdAaZCFCqUBkeUaQWkwgphZYaCjkGDCjqKx7QqMIR%2BvCc2l3mIvGfWZPe9dk2PlOG%2BPkyRzwnrOCa64OxUVt%2FJhvcj0OfdoByUOaILmbgH%2Bi7%2B7ONrsgaMcyiv5E2dBJnjwpzGUJpiNET59T1%2BtN99yIhuCntE%2Bvw8Y2Vuisc%2FzoLtGvt1DxQsV1A%2FKAMPeqVM6Qu00drBLRAXfm%2F%2B5G7T67gwXcHD1VoMyCGdP3JopxtetUIFPNLo0Yw1pn%2FzAY6pgHf7Qo49ia6FQVfoQNmLBsWbydsW7ewcH%2F3RCfIaJyfBq3bzAE5Q7m%2FYxnFsNpYHFET2GbcF4N7FESwdIUHeroM9r9uCKRzWJ%2FCKJ%2FAQHzNNnItQqlxaC2xK9wMU0oSVtEgmiV8VSs%2FkmTpdlVkbcAlP1zsP4vIZJrl7hwNHAs1ACHKG58eno1HEzl%2B9YBFnr%2FQxQH6ByTeQkNtcDw6QgTJ1dQh3DIp&amp;X-Amz-Signature=31b7c34e08d0d5744d62e8f79bde4f1ffe1d2e1e436b6577b3b79e784882422a&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/30852e1b-6aac-4148-8d07-a2d1ac121ea0/httpsip.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466TYAOLKE5%2F20260226%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260226T093344Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFUaCXVzLXdlc3QtMiJHMEUCIFvT59tDauifahCYEyJEcV985tUfy8bUFn7i%2FtyWbwKYAiEAqRn9jiycpdG6N7TISQUUWPRmNKvXuyWESllFAnXMiGsq%2FwMIHRAAGgw2Mzc0MjMxODM4MDUiDOcZGK1nC8zYMEzswSrcA2Q8OUiRcRR5q2oRezSlUu4lQvCaK1WHWcRQ4NwUMgYCLZx50By6laBGAh4T6yjHAYNpx75rts4Sb6qwF4tEjSWlE1OnXsRVMEh5qhcKkH2wLYSSCplNJz9m4WYsjno8RNfq4NWZFE53wN0YOVb55k%2FEqzh9lsuQBGYLIyTslKQl9VP5pE9Z2IV9FrfOMbZ7tRcfVD84VqEt9PB3dfyGWcf1gXTKRjYWNBY3Jsa2AKlJ99jUSw1kikVYTBvDNKmFrlN6Wm8pQkOok63oGRSZrCWGX9ykPD0gqzLYQkxgaPfZCZY2HNrSR0VdA7Ts7xXFJZAChqoikFEvpwsmB9uHEhnFWLHl2nxJPrA%2F4qxmIANWRztjaAMQ9oLxvMkUnFaoJbvOhUrsefZind2ZuOizOw%2FMIcspVfQmlntKsR%2FBM%2BUrZOFWZzbXMHxkLd6GmodaulgrWFwZFbMu0O5TaqAA9LAfdGHsCr9XXtpc9mqpf21cacDp0lxeNt1Ys%2F42Puted0%2B6oeLfPUWxbOJC8bDmXh7JpSbKIcD0yrnyTaE3JbXYdDtx0M8awquLn32GQnviEhdxbplFhGKukbTzNXOlMs0H5KwhUHBfVuYQp3yau0bHcCnrX9MGk6nY7LCAMLSY%2F8wGOqUBmt8zzqa6zUvuC105ZPfazBHONc2Rauat28ZcAolkNj6B1693AXkeIUDaT0pMB9csMQlJjeS0LISj5fbjtSbzIJ5sQnd4mChiun5t7W6zA4As41S4Jz8d%2BsUcEwWQhA6cNuWQ0NtMTfBQva%2F51URmWZzIx%2BbUD87ABMjvXjBcotE5QD4mJkHaoGvfpSzLTDYRzutYX4itI2a1at6f7zx9d070JAYz&amp;X-Amz-Signature=e40cb1b1f75598d5a68e7d33fc9a4b49bdcbcf87dff7cec1fa33cc00e66132dd&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
 <h2><strong>「IPアドレスそのもの」に証明書が出るようになった</strong></h2>
 <p>現在は、<strong>IPアドレスを SAN に含む正式な公開証明書</strong>が発行できます。<br>発行元は同じく <strong>Let’s Encrypt</strong>。これも無料です。</p>
 
@@ -1356,7 +1488,7 @@ https://[&lt;IPv6アドレス&gt;]</li>
 <span class="bookmark-url">github.com</span>
 </div>
 </div>
-<div class="bookmark-og-image"><img src="https://opengraph.githubassets.com/2ae88f0947b045ce383f96b03e50c6b2dd85cf34a5e40fe9940d8cbfbfac8bed/musistudio/claude-code-router" alt="Preview for GitHub - musistudio/claude-code-router: Use Claude Code as the foundation for coding infrastructure, allowing you to decide how to interact with the model while enjoying updates from Anthropic."></div>
+<div class="bookmark-og-image"><img src="https://opengraph.githubassets.com/df6d1bad03eee2c3fcb282133d39cb90c233535dc22a5f186d4946e8db15ac74/musistudio/claude-code-router" alt="Preview for GitHub - musistudio/claude-code-router: Use Claude Code as the foundation for coding infrastructure, allowing you to decide how to interact with the model while enjoying updates from Anthropic."></div>
 </a>
 </div>
                     <iframe id="tweet_1939858296271434181" border="0" frameborder="0" scrolling="no" style="width: 100%; min-height: 350px; display: block; margin: 1em auto;" src="https://mssmat.github.io/twiframe/show.html?url=https://twitter.com/Aki_AI_torisetu/status/1939858296271434181&theme=" + (document.body.classList.contains("dark-mode") ? "dark" : "light")"></iframe>
@@ -1429,8 +1561,8 @@ https://[&lt;IPv6アドレス&gt;]</li>
                             <pre><code>sudo ccr code</code></pre>
                         </div>
                     </div>
-                    <div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/6ec19958-0fee-49f4-9ced-9f37bee2483d/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667ZZGGOEI%2F20260226%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260226T084252Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFUaCXVzLXdlc3QtMiJHMEUCIEfAJPqfgiRZRVPSPgugFHzq2DfuPNNCHcrYtGhywuwHAiEA9xwaDNzUvTYy%2BFOjR77DV9X8KYQxhSpnQeGcckT8NnYq%2FwMIHhAAGgw2Mzc0MjMxODM4MDUiDNFY%2BhV3oUKIkbdxbircA1vUU7iHa5Knyka2bv%2BNc5qvxusmBG%2FGQTSJXXpeoPyXzlCEmPLDo8EL%2BDBBODncXOk9odScknJwbSE79FXMFQ%2FFNf%2BEntsp8eRYbtr5nc%2FwJGsSMoVEysdZLmmwBpfRYsSfyYR3aHCci%2BTvDCEv%2F%2Fmrarpl1ynBKP5j03XE75R%2FFp%2B49LZsYVmq2ILVlcb3oL%2BfW6S5uXVnABfjhaPJeAvJRGJqvGdtYcEb0oMrdFD5gOAZAGw9nzNimLddNpCfIDxh3Y6rtmQt%2Bf1yEZjDlZEhAVfPRZVcfH0AlZ6wnY%2FUdyNV3Jfqbz2WBqs1rqlB2SifgPRxQYiTvBQ4tb7FPnaQxsarTyGVLJVlPgg7P6MWy9amWtfttG%2B0749Okk4JGFmq%2B0vny8X33BtWxVIsYm5bdHdLqk8%2FKyjFv%2BeIyfJuEwaizYmkMEpGNqFWwkZfuxugpcWLz7Hz%2FYRxwgpNgHWjR2cNpegcoedwSrR3vDOHYETyDcfF8gD3kMgUCDwJAx8pMuSVXeMZAceAMiW2iWe1odImP2tz%2BVMidOdfdQs44GpDmTAs4%2BMcZc8qbJK%2FbYbv58dIGMlO3KNOH0iYz%2Ffv8aLR7rSjfViKA51jzH2d4Vb12PGA757RztVJMLWY%2F8wGOqUBNNG09LN3KDl4gIZb3UYvhSTZYEUwIiqJX6fOx9Ls5cx7h0%2FS7PD9FI8VVr7u3UnQDJOzSZEiKhiKYmfSVSVTK%2Fo0khpBXldJAJbCP8JPLpl6rql%2FB1MYsswJNusmbQfFlqy%2FEvNEQqUuhJ7fHq0yUBZ31Uz98fRiF3pGTuoOhxWBOL%2Fa%2BYSSam8nThd3YZcpdn2XJd8DaDHxyj2LbsBseZY%2FA5FQ&amp;X-Amz-Signature=049b49b9d615108140e8ee53ff839ddd7d3799f15e0dd71dd5b587eebb8bf53d&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
-<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/e352f37f-b850-46e7-a8dd-ef28b3e02b69/IMG_4416.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667ZZGGOEI%2F20260226%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260226T084252Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFUaCXVzLXdlc3QtMiJHMEUCIEfAJPqfgiRZRVPSPgugFHzq2DfuPNNCHcrYtGhywuwHAiEA9xwaDNzUvTYy%2BFOjR77DV9X8KYQxhSpnQeGcckT8NnYq%2FwMIHhAAGgw2Mzc0MjMxODM4MDUiDNFY%2BhV3oUKIkbdxbircA1vUU7iHa5Knyka2bv%2BNc5qvxusmBG%2FGQTSJXXpeoPyXzlCEmPLDo8EL%2BDBBODncXOk9odScknJwbSE79FXMFQ%2FFNf%2BEntsp8eRYbtr5nc%2FwJGsSMoVEysdZLmmwBpfRYsSfyYR3aHCci%2BTvDCEv%2F%2Fmrarpl1ynBKP5j03XE75R%2FFp%2B49LZsYVmq2ILVlcb3oL%2BfW6S5uXVnABfjhaPJeAvJRGJqvGdtYcEb0oMrdFD5gOAZAGw9nzNimLddNpCfIDxh3Y6rtmQt%2Bf1yEZjDlZEhAVfPRZVcfH0AlZ6wnY%2FUdyNV3Jfqbz2WBqs1rqlB2SifgPRxQYiTvBQ4tb7FPnaQxsarTyGVLJVlPgg7P6MWy9amWtfttG%2B0749Okk4JGFmq%2B0vny8X33BtWxVIsYm5bdHdLqk8%2FKyjFv%2BeIyfJuEwaizYmkMEpGNqFWwkZfuxugpcWLz7Hz%2FYRxwgpNgHWjR2cNpegcoedwSrR3vDOHYETyDcfF8gD3kMgUCDwJAx8pMuSVXeMZAceAMiW2iWe1odImP2tz%2BVMidOdfdQs44GpDmTAs4%2BMcZc8qbJK%2FbYbv58dIGMlO3KNOH0iYz%2Ffv8aLR7rSjfViKA51jzH2d4Vb12PGA757RztVJMLWY%2F8wGOqUBNNG09LN3KDl4gIZb3UYvhSTZYEUwIiqJX6fOx9Ls5cx7h0%2FS7PD9FI8VVr7u3UnQDJOzSZEiKhiKYmfSVSVTK%2Fo0khpBXldJAJbCP8JPLpl6rql%2FB1MYsswJNusmbQfFlqy%2FEvNEQqUuhJ7fHq0yUBZ31Uz98fRiF3pGTuoOhxWBOL%2Fa%2BYSSam8nThd3YZcpdn2XJd8DaDHxyj2LbsBseZY%2FA5FQ&amp;X-Amz-Signature=51cacff2be82d6f720d01cde26e5fd05f5823d24be4fae6d003f094c0c0f0a22&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+                    <div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/6ec19958-0fee-49f4-9ced-9f37bee2483d/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4662WOZCHXT%2F20260226%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260226T093347Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFUaCXVzLXdlc3QtMiJGMEQCIEghw5GnonmRqBhCA0GBPF2aPgwj7sBMLI%2FLcZQn96%2BUAiBbagotfQrCYq0nw%2F8yDsbzgcAQm68mCTA1%2Fu1DJSC%2FTyr%2FAwgeEAAaDDYzNzQyMzE4MzgwNSIMCOPAcguMC%2FKz8LTHKtwDPFswNwsmjv%2B%2FsAQNscb%2BygeOZ4nmuHdW0o%2F7on9Rc0XU9snKKBaOT4Dm2gQrsL4dEnW8OyB1mIxjHwZTDv%2FnUoJoOPMTSZC6vW1Hb63STAjfefuJHvNsUc%2F3odoyNBsf8er1tORZwk%2B7jpq1VcLcapekOX5wFp5BkAbJxkTmNr3O9z0ekZR2LBfGvwc2O7UhTkknLpnHuY5wWhcrkEdZEEDvL3v53t%2BKu3OOqEodEbfI%2BICudFZvCQd0cKpI38B53jBG0HteJ4n%2BPo5OVl2u20BrN4windzxgENlumIiZebSonn%2BmKOetfq9ymE9g8hjeoxugx7WDSmFjTkdBeI4IqUbzro%2BA09mHwr2K7hZ12g4%2BsSdMFNbl3utz9p06FO4xCwP8dPXwTgV%2Bq9PZxupRKPjlzuopU883hKmZXJoJ1EIBz2xTXEisHLrFPtHfkYtgoWw5HfirqTrljBUhjw0Y18EaGQtyPQPvMuw3ork21%2FYwvsvTMTHh5NNsJuyBcOrH%2BLzkJg0S%2FUWF3hBCmfXE%2FmwDxPLqZfPBNrpJBnF0GhwzDfJeHsrVsXG1HnypqsqSgZRLj74WYeQns%2Bm4tnQ4j%2FToVzJ%2FW%2BnLoqQq%2FAejaWqlaFH1v6audw9Q8ow1pn%2FzAY6pgGm0BLdOkPQxJAoU5N5YSfch7NOxToFcK257nOzRlaGh2OpOjB%2BRYEszszrMyMQUUzUXtmn5Vn9HkvW11Flmr6hJSeJprN5a%2FaWGN1arq35LfwhfkdzDO7fSr6mtkcK6ZHANZcUmQMC%2FreIQdZXhGRkqz1m4ckg01V9Oa28gV90gVyWhDaVphZDvARI0p0lkEjIXkZz%2BZRWVHzMbAih%2BMOhXgLHK3JP&amp;X-Amz-Signature=cf25c9b59dda2b845589b099bfe96cd5f9f4c3744c86f76d39b72b43216747b5&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
+<div class="image-container"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/e352f37f-b850-46e7-a8dd-ef28b3e02b69/IMG_4416.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4662WOZCHXT%2F20260226%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260226T093347Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFUaCXVzLXdlc3QtMiJGMEQCIEghw5GnonmRqBhCA0GBPF2aPgwj7sBMLI%2FLcZQn96%2BUAiBbagotfQrCYq0nw%2F8yDsbzgcAQm68mCTA1%2Fu1DJSC%2FTyr%2FAwgeEAAaDDYzNzQyMzE4MzgwNSIMCOPAcguMC%2FKz8LTHKtwDPFswNwsmjv%2B%2FsAQNscb%2BygeOZ4nmuHdW0o%2F7on9Rc0XU9snKKBaOT4Dm2gQrsL4dEnW8OyB1mIxjHwZTDv%2FnUoJoOPMTSZC6vW1Hb63STAjfefuJHvNsUc%2F3odoyNBsf8er1tORZwk%2B7jpq1VcLcapekOX5wFp5BkAbJxkTmNr3O9z0ekZR2LBfGvwc2O7UhTkknLpnHuY5wWhcrkEdZEEDvL3v53t%2BKu3OOqEodEbfI%2BICudFZvCQd0cKpI38B53jBG0HteJ4n%2BPo5OVl2u20BrN4windzxgENlumIiZebSonn%2BmKOetfq9ymE9g8hjeoxugx7WDSmFjTkdBeI4IqUbzro%2BA09mHwr2K7hZ12g4%2BsSdMFNbl3utz9p06FO4xCwP8dPXwTgV%2Bq9PZxupRKPjlzuopU883hKmZXJoJ1EIBz2xTXEisHLrFPtHfkYtgoWw5HfirqTrljBUhjw0Y18EaGQtyPQPvMuw3ork21%2FYwvsvTMTHh5NNsJuyBcOrH%2BLzkJg0S%2FUWF3hBCmfXE%2FmwDxPLqZfPBNrpJBnF0GhwzDfJeHsrVsXG1HnypqsqSgZRLj74WYeQns%2Bm4tnQ4j%2FToVzJ%2FW%2BnLoqQq%2FAejaWqlaFH1v6audw9Q8ow1pn%2FzAY6pgGm0BLdOkPQxJAoU5N5YSfch7NOxToFcK257nOzRlaGh2OpOjB%2BRYEszszrMyMQUUzUXtmn5Vn9HkvW11Flmr6hJSeJprN5a%2FaWGN1arq35LfwhfkdzDO7fSr6mtkcK6ZHANZcUmQMC%2FreIQdZXhGRkqz1m4ckg01V9Oa28gV90gVyWhDaVphZDvARI0p0lkEjIXkZz%2BZRWVHzMbAih%2BMOhXgLHK3JP&amp;X-Amz-Signature=d63de194f28f5c46bf38b9010c08f012e40573d6f671c19493076f4cab293749&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject"></div>
 <h3>アップデート</h3>
 
                     <div style="margin: 15px 0;">
@@ -1476,7 +1608,7 @@ sudo npm uninstall -g @musistudio/claude-code-router</code></pre>
 <span style="border: 0.5px solid #ccc; border-radius: 5px; padding: 2px; margin-left: 2px; margin-right: 2px;">Tag</span><span style="margin-left: 2px; margin-right: 2px;">AI</span>
 </div>
 <p>実行テスト。</p>
-<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/f57e3d93-1f9f-439a-8bc6-a2f4b42b80cb/1751549194309890.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB46663TBACJP%2F20260226%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260226T084254Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFUaCXVzLXdlc3QtMiJHMEUCIF9EgxQa1TZmd%2BSiW19dwrauiq%2F3uH%2BOY2FN22BvaQNGAiEAzDa8S08EnG%2FKbOlIgzmO2ItrlVIDI3P3rLzUHNHyvYwq%2FwMIHhAAGgw2Mzc0MjMxODM4MDUiDP63ePgwYfV3UR6y3SrcA9eW63ILzUYce4Vl9gmTBigpXAHI9PClHHT6MyTvK%2BeC%2FmNDDrEtmgLrT%2BQVar74a38wMqzma57zgUTQgZmeGhXs6w8VhQNTK%2Fw1OqUEISh%2FyopRtyV2Hq3XgceFK1REjBklPZB8R55r6aG8mjIOBwwneL6%2B%2BCBLtycz%2F6sIqwuOWqkMqaTo%2BLIQOUH0PhFdQMg285GkYFaSQkRO4fvhJ%2BcQk7TEtIMdYwQ8XfD8dBs51wIaTp4qqQ0zNhTzzbhU9VVfn6TOtNwqjPGN8YU%2BCL26FfdY4ljBQLXU09bC0p3qSDB2KlBiJWLFksHf74Ry646MhXxPkCXCcI7mXa7%2BZI56xKQWpxMEFRFsY8YZpic56csF6nGYc3b8TWL8wNFi8A03ko67zVx259LJtYO74CtoCh57hsaO2510fRSXFmEPVmitut8GrdsJOyvKmGc3YijmeOQdlnJm22xWL3pH5hqQkOZmojNvazNaCDe8DeBx0CEZ8qK%2B8LmGwJp%2F43k2n3ld63MqPjqhrwZDBk4GC7kwak5m%2FWcX43IiOlKfXv0O7I6qKl99Ra%2F1lf0sfPFLNa0ztb6twj43g8z%2FKLOsH0lxa1axzSNcTBIBDkoqlU2r70wenPYp7gd0szsmMJ2Z%2F8wGOqUBKeH0gU0OETBMAxYbq8%2Fbpy9hfTluhSaQbVpbgiXE8%2BEsWaIvhjoi3QcvxeCCXHhiqtA22pTts%2Bhm%2FVEB95QItCGWvmUMP0gqcNB9IVl2NmfKiYkWE%2BnLF%2FycTp1Sm%2BbMecBufk%2BuCziTblBgnU39nu7NerxA7P7f9fg8Y3PLs4sFG%2FzWjCOvY5UMrKdrT6VeMQKQmJSg6LAdzWvj82o0ypZMbWmd&amp;X-Amz-Signature=2ee0fd70b7d4ec647d2d242573412e9889ef0285aa990a3aae05a8d511d3a89c&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe src="https://prod-files-secure.s3.us-west-2.amazonaws.com/c99ff766-953b-463c-9421-9f731ef02528/f57e3d93-1f9f-439a-8bc6-a2f4b42b80cb/1751549194309890.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666M7BT7JD%2F20260226%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260226T093348Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFUaCXVzLXdlc3QtMiJGMEQCIHY8f477SW2jiWT5%2B6V31sIEF7OFBM9qtcWB1QgTDibfAiAiqTqbn7uy9%2BooBkQ%2F1Dr3VO1le1RepZxEa%2FAhXK%2FFtir%2FAwgeEAAaDDYzNzQyMzE4MzgwNSIMCb6m6nr9tkCet40mKtwDj%2B2UM8gy2%2BGddC4ONx7o2GWsexu5r%2F8Iwr5%2BA2GWOSwkRP6LbqVBisoH6tACrvIhgPAyZffPwq7Hwil5Efs0PKLedzarbTm%2BszToOHLwgS2L6Bc9k%2BVjceIYMC0NiTkIrcy9Nk43jKOs4keIp9d1hVuXc0%2FnGo9jC4I05qbGn%2BcsSx6Hh0Tyqo8Mp4OTinYJDYcjJxsaJNhnh5agj5Ftmfb%2BXN22sJcFKVQhH5PzyEZldvMjii8w0WAAYEfm1N119GKC12ppuvfPN0SeF0J8nFEsvzYGaahQjA%2FKL7Vo7ULAbTIW11icDKWub5Bg7dab1gZoH%2FZcM9qY4pl48He2KEKgyAFed9mF%2FssM9JkSQh4plZV89PNtjyy7o4rWqe2RvYz92kgsUDDXUHdFicRkmZY9Pirh%2BD9zy8qeYQd0epZyBAdoI1kkKSEfG5Bs42LCSoi%2BEkkjWg5DtTYpiUueJY5UOrGB6pQ71SEFjLPKVamYdTY9bmdSs%2Fgs2jSErTB8JoJMz2YfsOBO5mGRalZDH8W7zB8J1J%2F%2B3Q%2FrziJL27%2Bci%2B1Sbf0da%2B11feO6l545Q7efzVaQgVGK1VaIWU%2Ba6k9qM1wh6aAzk%2BOyHPQC3EtshOpTlz4ScqilRbcw%2BZj%2FzAY6pgERAeNJr0ku2FgDl2Iyp6txlU89u4TyqNRH2moM4dZPkN6Hqkpq27wJ5gzdTntZfgVeqvoHg2G5vlvhdtGIni2QWZordPaMUNN%2BfD75Dq%2BWPybuIH52WNyUjIuwdNb8bDX3gYRhgSLKk1w7e5NEzhr4WP2SmlERavKsxZMg7PNhEfV1AFWd01qmmfmPUPavJ9NwEisD8AlanWcV3g6R5%2FB4zsK4%2F6w8&amp;X-Amz-Signature=5f572006aaa673ebb991e352ea48e60db4ecdddf52b9feec3165355ab9fc40e1&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" frameborder="0" allow="accelerometer; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 <p>YouTube動画の字幕を取得して、AIにまとめさせるコードの例。<br>Pythonです。必要なライブラリは事前にインストールしてください。<br>OpenAIのAPIを使います。<a href="https://platform.openai.com/api-keys" target="_blank">APIキーを取得</a>してください。</p>
 
                     <div style="margin: 15px 0;">
@@ -1720,6 +1852,6 @@ el.textContent = `Error rendering formula: ${el.textContent}`;
 });
 </script>
 
-<!-- 2026-02-26 17:42 -->
+<!-- 2026-02-26 18:33 -->
 </body>
 </html>
