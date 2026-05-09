@@ -1372,41 +1372,105 @@ posts/2026-05-09-decision-memo.html</code></pre>
       });
     }
 
-    function initKanban() {
-      let dragged = null;
+function initKanban() {
+  let dragged = null;
+  let selectedTask = null;
 
-      $$(".task").forEach(task => {
-        task.addEventListener("dragstart", () => {
-          dragged = task;
-          setTimeout(() => task.style.opacity = ".4", 0);
-        });
+  function clearSelection() {
+    $$(".task").forEach(task => {
+      task.style.outline = "";
+      task.style.boxShadow = "";
+    });
+    selectedTask = null;
+  }
 
-        task.addEventListener("dragend", () => {
-          task.style.opacity = "1";
-          dragged = null;
-        });
-      });
+  function selectTask(task) {
+    clearSelection();
+    selectedTask = task;
+    task.style.outline = "3px solid var(--accent2)";
+    task.style.boxShadow = "0 0 0 6px rgba(0,212,255,.14)";
+    toast("カードを選択しました。移動先の列をタップしてください。");
+  }
 
-      $$(".lane").forEach(lane => {
-        lane.addEventListener("dragover", event => {
-          event.preventDefault();
-          lane.classList.add("dragover");
-        });
+  $$(".task").forEach(task => {
+    task.setAttribute("tabindex", "0");
 
-        lane.addEventListener("dragleave", () => {
-          lane.classList.remove("dragover");
-        });
+    // PC向けドラッグ
+    task.addEventListener("dragstart", () => {
+      dragged = task;
+      setTimeout(() => task.style.opacity = ".4", 0);
+    });
 
-        lane.addEventListener("drop", event => {
-          event.preventDefault();
-          lane.classList.remove("dragover");
-          if (dragged) {
-            lane.appendChild(dragged);
-            toast("カードを移動しました");
-          }
-        });
-      });
+    task.addEventListener("dragend", () => {
+      task.style.opacity = "1";
+      dragged = null;
+    });
+
+    // スマホ向けタップ選択
+    task.addEventListener("click", event => {
+      event.stopPropagation();
+
+      if (selectedTask === task) {
+        clearSelection();
+        toast("選択を解除しました");
+      } else {
+        selectTask(task);
+      }
+    });
+
+    // キーボード操作
+    task.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        selectTask(task);
+      }
+    });
+  });
+
+  $$(".lane").forEach(lane => {
+    // PC向けドロップ
+    lane.addEventListener("dragover", event => {
+      event.preventDefault();
+      lane.classList.add("dragover");
+    });
+
+    lane.addEventListener("dragleave", () => {
+      lane.classList.remove("dragover");
+    });
+
+    lane.addEventListener("drop", event => {
+      event.preventDefault();
+      lane.classList.remove("dragover");
+
+      if (dragged) {
+        lane.appendChild(dragged);
+        toast("カードを移動しました");
+      }
+    });
+
+    // スマホ向け：移動先の列をタップ
+    lane.addEventListener("click", event => {
+      if (!selectedTask) return;
+
+      const tappedTask = event.target.closest(".task");
+
+      // 選択中カード自体をタップした場合は、移動ではなく選択解除側に任せる
+      if (tappedTask === selectedTask) return;
+
+      lane.appendChild(selectedTask);
+      clearSelection();
+      toast("カードを移動しました");
+    });
+  });
+
+  document.addEventListener("click", event => {
+    const insideKanban = event.target.closest(".kanban");
+    if (!insideKanban && selectedTask) {
+      clearSelection();
+      toast("選択を解除しました");
     }
+  });
+}
 
     function initChecklist() {
       const checks = $$(".check");
