@@ -1,0 +1,1511 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI出力共有デモ｜ワンファイルHTML</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111936;
+      --panel2:#162047;
+      --text:#eef3ff;
+      --muted:#aab7d4;
+      --line:rgba(255,255,255,.13);
+      --accent:#7c5cff;
+      --accent2:#00d4ff;
+      --accent3:#20e39e;
+      --warn:#ffcc66;
+      --danger:#ff6b8a;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:22px;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+      --sans:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+
+    [data-theme="light"]{
+      --bg:#f5f7ff;
+      --panel:#ffffff;
+      --panel2:#eef2ff;
+      --text:#101629;
+      --muted:#52617f;
+      --line:rgba(20,30,60,.15);
+      --shadow:0 20px 60px rgba(60,80,150,.16);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(124,92,255,.38), transparent 32rem),
+        radial-gradient(circle at top right, rgba(0,212,255,.25), transparent 34rem),
+        radial-gradient(circle at bottom, rgba(32,227,158,.13), transparent 30rem),
+        var(--bg);
+      line-height:1.75;
+    }
+
+    a{color:inherit}
+    code,kbd,pre{font-family:var(--mono)}
+    button,input,select,textarea{font:inherit}
+    ::selection{background:rgba(124,92,255,.45)}
+
+    .wrap{
+      width:min(1180px, calc(100% - 32px));
+      margin-inline:auto;
+    }
+
+    .hero{
+      position:relative;
+      padding:72px 0 40px;
+      overflow:hidden;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 13px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      backdrop-filter:blur(12px);
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .dot{
+      width:9px;
+      height:9px;
+      border-radius:999px;
+      background:linear-gradient(135deg,var(--accent2),var(--accent3));
+      box-shadow:0 0 18px var(--accent2);
+    }
+
+    h1{
+      margin:22px 0 14px;
+      font-size:clamp(34px,7vw,78px);
+      line-height:1.02;
+      letter-spacing:-.055em;
+    }
+
+    .grad{
+      background:linear-gradient(90deg,var(--accent2),var(--accent),var(--accent3));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .lead{
+      max-width:850px;
+      color:var(--muted);
+      font-size:clamp(16px,2vw,20px);
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:26px;
+    }
+
+    .btn{
+      border:0;
+      cursor:pointer;
+      border-radius:14px;
+      padding:12px 16px;
+      background:linear-gradient(135deg,var(--accent),#4c9fff);
+      color:white;
+      font-weight:800;
+      box-shadow:0 12px 30px rgba(124,92,255,.26);
+      transition:.18s transform,.18s opacity,.18s box-shadow;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 38px rgba(124,92,255,.36);
+    }
+
+    .btn.secondary{
+      background:rgba(255,255,255,.08);
+      color:var(--text);
+      border:1px solid var(--line);
+      box-shadow:none;
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns:260px 1fr;
+      gap:22px;
+      align-items:start;
+      padding:20px 0 70px;
+    }
+
+    .side{
+      position:sticky;
+      top:16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.07);
+      backdrop-filter:blur(18px);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .side-head{
+      padding:18px;
+      border-bottom:1px solid var(--line);
+      font-weight:900;
+    }
+
+    .nav{
+      display:grid;
+      padding:10px;
+      gap:4px;
+    }
+
+    .nav a{
+      color:var(--muted);
+      text-decoration:none;
+      padding:10px 12px;
+      border-radius:12px;
+      transition:.16s background,.16s color;
+      font-size:14px;
+    }
+
+    .nav a:hover{
+      background:rgba(255,255,255,.08);
+      color:var(--text);
+    }
+
+    main{
+      display:grid;
+      gap:22px;
+    }
+
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.045));
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(18px);
+      overflow:hidden;
+    }
+
+    .card-inner{padding:24px}
+    .section-title{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:14px;
+    }
+
+    h2{
+      margin:0;
+      font-size:clamp(24px,4vw,38px);
+      letter-spacing:-.035em;
+      line-height:1.15;
+    }
+
+    h3{
+      margin:20px 0 8px;
+      font-size:21px;
+      letter-spacing:-.02em;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      border-radius:999px;
+      padding:5px 10px;
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      gap:14px;
+    }
+
+    .metric{
+      grid-column:span 3;
+      padding:18px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.06);
+    }
+
+    .metric strong{
+      display:block;
+      font-size:30px;
+      line-height:1;
+      letter-spacing:-.04em;
+    }
+
+    .metric span{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .callout{
+      border-left:5px solid var(--accent2);
+      background:rgba(0,212,255,.09);
+      padding:16px 18px;
+      border-radius:16px;
+      margin:16px 0;
+    }
+
+    .warning{
+      border-left-color:var(--warn);
+      background:rgba(255,204,102,.1);
+    }
+
+    .danger{
+      border-left-color:var(--danger);
+      background:rgba(255,107,138,.1);
+    }
+
+    .table-wrap{
+      overflow:auto;
+      border:1px solid var(--line);
+      border-radius:18px;
+      margin:14px 0;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:720px;
+      background:rgba(255,255,255,.035);
+    }
+
+    th,td{
+      padding:13px 14px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      position:sticky;
+      top:0;
+      background:rgba(124,92,255,.18);
+      color:var(--text);
+      font-size:13px;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+    }
+
+    tr:hover td{
+      background:rgba(255,255,255,.045);
+    }
+
+    .tag{
+      display:inline-flex;
+      padding:3px 8px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      background:rgba(124,92,255,.18);
+      color:var(--text);
+      border:1px solid rgba(124,92,255,.35);
+      white-space:nowrap;
+    }
+
+    .tag.green{background:rgba(32,227,158,.14);border-color:rgba(32,227,158,.38)}
+    .tag.blue{background:rgba(0,212,255,.14);border-color:rgba(0,212,255,.38)}
+    .tag.yellow{background:rgba(255,204,102,.15);border-color:rgba(255,204,102,.42)}
+    .tag.red{background:rgba(255,107,138,.14);border-color:rgba(255,107,138,.38)}
+
+    .tabs{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:16px 0;
+    }
+
+    .tab{
+      border:1px solid var(--line);
+      color:var(--muted);
+      background:rgba(255,255,255,.06);
+      padding:9px 12px;
+      border-radius:999px;
+      cursor:pointer;
+    }
+
+    .tab.active{
+      color:white;
+      background:linear-gradient(135deg,var(--accent),#4c9fff);
+      border-color:transparent;
+    }
+
+    .tab-panel{display:none}
+    .tab-panel.active{display:block}
+
+    details{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:rgba(255,255,255,.05);
+      margin:10px 0;
+      overflow:hidden;
+    }
+
+    summary{
+      cursor:pointer;
+      padding:14px 16px;
+      font-weight:800;
+    }
+
+    details > div{
+      padding:0 16px 16px;
+      color:var(--muted);
+    }
+
+    .code-box{
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+      background:#090d1a;
+      margin:14px 0;
+    }
+
+    .code-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px 12px;
+      background:rgba(255,255,255,.08);
+      border-bottom:1px solid rgba(255,255,255,.1);
+      color:#cbd6f6;
+      font-size:13px;
+    }
+
+    pre{
+      margin:0;
+      padding:18px;
+      overflow:auto;
+      color:#eaf1ff;
+      font-size:13px;
+      line-height:1.7;
+    }
+
+    .copy{
+      border:1px solid rgba(255,255,255,.15);
+      background:rgba(255,255,255,.08);
+      color:white;
+      border-radius:10px;
+      padding:7px 10px;
+      cursor:pointer;
+      font-size:12px;
+    }
+
+    .kanban{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .lane{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.05);
+      padding:14px;
+      min-height:220px;
+    }
+
+    .lane h3{margin-top:0}
+    .task{
+      background:rgba(255,255,255,.075);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      margin:10px 0;
+      cursor:grab;
+    }
+
+    .task small{color:var(--muted)}
+    .lane.dragover{outline:3px dashed var(--accent2);outline-offset:3px}
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    label{
+      display:grid;
+      gap:6px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    input,select,textarea{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(255,255,255,.07);
+      color:var(--text);
+      padding:12px 13px;
+      outline:none;
+    }
+
+    textarea{min-height:120px;resize:vertical}
+    input:focus,select:focus,textarea:focus{
+      border-color:var(--accent2);
+      box-shadow:0 0 0 4px rgba(0,212,255,.12);
+    }
+
+    .progress{
+      height:12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.09);
+      overflow:hidden;
+      border:1px solid var(--line);
+    }
+
+    .bar{
+      height:100%;
+      width:0%;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--accent2),var(--accent3));
+      transition:.35s width;
+    }
+
+    .chart{
+      display:flex;
+      align-items:end;
+      gap:10px;
+      height:240px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+      background:rgba(255,255,255,.045);
+    }
+
+    .chart-bar{
+      flex:1;
+      min-width:34px;
+      border-radius:12px 12px 6px 6px;
+      background:linear-gradient(180deg,var(--accent2),var(--accent));
+      position:relative;
+      height:20%;
+      transition:.4s height,.2s transform;
+    }
+
+    .chart-bar:hover{transform:translateY(-6px)}
+    .chart-bar span{
+      position:absolute;
+      left:50%;
+      bottom:calc(100% + 8px);
+      transform:translateX(-50%);
+      font-size:12px;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+
+    .timeline{
+      position:relative;
+      padding-left:24px;
+    }
+
+    .timeline:before{
+      content:"";
+      position:absolute;
+      top:8px;
+      bottom:8px;
+      left:7px;
+      width:2px;
+      background:linear-gradient(var(--accent2),var(--accent3));
+      opacity:.75;
+    }
+
+    .event{
+      position:relative;
+      padding:0 0 20px 8px;
+    }
+
+    .event:before{
+      content:"";
+      position:absolute;
+      left:-24px;
+      top:7px;
+      width:14px;
+      height:14px;
+      border-radius:999px;
+      background:var(--accent2);
+      box-shadow:0 0 0 5px rgba(0,212,255,.13);
+    }
+
+    .toast{
+      position:fixed;
+      right:16px;
+      bottom:16px;
+      z-index:30;
+      display:grid;
+      gap:10px;
+      pointer-events:none;
+    }
+
+    .toast-item{
+      background:rgba(10,15,30,.92);
+      color:white;
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:16px;
+      padding:12px 14px;
+      box-shadow:var(--shadow);
+      transform:translateY(16px);
+      opacity:0;
+      animation:toast .28s forwards;
+    }
+
+    @keyframes toast{
+      to{transform:translateY(0);opacity:1}
+    }
+
+    .modal-backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.58);
+      backdrop-filter:blur(8px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      z-index:25;
+    }
+
+    .modal-backdrop.open{display:flex}
+    .modal{
+      width:min(720px,100%);
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:var(--panel);
+      box-shadow:var(--shadow);
+      padding:24px;
+    }
+
+    .modal-head{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:start;
+    }
+
+    .x{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      border-radius:12px;
+      width:40px;
+      height:40px;
+      cursor:pointer;
+    }
+
+    .footer{
+      padding:40px 0 70px;
+      color:var(--muted);
+      text-align:center;
+    }
+
+    .mini{
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    .notice-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+    }
+
+    .notice{
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px;
+      background:rgba(255,255,255,.05);
+    }
+
+    .notice b{
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .big-number{
+      font-size:54px;
+      line-height:1;
+      font-weight:950;
+      letter-spacing:-.06em;
+    }
+
+    @media(max-width:900px){
+      .layout{grid-template-columns:1fr}
+      .side{position:relative;top:auto}
+      .metric{grid-column:span 6}
+      .kanban{grid-template-columns:1fr}
+      .form-grid,.split,.notice-grid{grid-template-columns:1fr}
+    }
+
+    @media(max-width:560px){
+      .wrap{width:min(100% - 22px,1180px)}
+      .hero{padding-top:44px}
+      .card-inner{padding:18px}
+      .metric{grid-column:span 12}
+      h1{font-size:42px}
+      .btn{width:100%}
+      .hero-actions{display:grid}
+    }
+
+    @media print{
+      body{background:white;color:#111}
+      .side,.hero-actions,.copy,.toast,.modal-backdrop{display:none!important}
+      .layout{display:block}
+      .card{box-shadow:none;border:1px solid #ccc;background:white;break-inside:avoid}
+      .card + .card{margin-top:16px}
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <header class="hero">
+    <div class="wrap">
+      <div class="badge"><span class="dot"></span> 完全ワンファイルHTML / CSS内蔵 / JavaScript内蔵 / 外部依存なし</div>
+      <h1>AI出力を<br><span class="grad">そのまま公開ページ化</span>するデモ</h1>
+      <p class="lead">
+        これは、ChatGPTなどで生成した内容を「HTMLとして共有する」ためのサンプルページです。
+        表、カード、タブ、FAQ、コードブロック、簡易グラフ、ドラッグ操作、フォーム、モーダル、テーマ切替などを全部ひとつのHTMLに詰め込んでいます。
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn" href="#summary">デモを見る</a>
+        <button class="btn secondary" id="themeBtn" type="button">ライト/ダーク切替</button>
+        <button class="btn secondary" id="openModal" type="button">共有時の注意を見る</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap layout">
+    <aside class="side">
+      <div class="side-head">目次</div>
+      <nav class="nav">
+        <a href="#summary">概要</a>
+        <a href="#compare">公開方法の比較</a>
+        <a href="#workflow">運用フロー</a>
+        <a href="#interactive">インタラクティブ部品</a>
+        <a href="#code">コード例</a>
+        <a href="#checklist">チェックリスト</a>
+        <a href="#faq">FAQ</a>
+        <a href="#template">投稿テンプレート</a>
+      </nav>
+    </aside>
+
+    <main>
+      <section class="card" id="summary">
+        <div class="card-inner">
+          <div class="section-title">
+            <h2>1. このページの目的</h2>
+            <span class="pill">Single File Demo</span>
+          </div>
+
+          <p>
+            AIが出力した文章を、読みやすく整形して第三者へ共有する場合、
+            <strong>「HTMLとして1枚の静的ページにする」</strong>方法はかなり便利です。
+            GitHub Pages、Netlify Drop、Cloudflare Pages、S3などに置けば、URLだけで共有できます。
+          </p>
+
+          <div class="grid">
+            <div class="metric">
+              <strong>1</strong>
+              <span>HTMLファイルだけで完結</span>
+            </div>
+            <div class="metric">
+              <strong>0</strong>
+              <span>外部ライブラリなし</span>
+            </div>
+            <div class="metric">
+              <strong>9+</strong>
+              <span>デモ用UI部品</span>
+            </div>
+            <div class="metric">
+              <strong>∞</strong>
+              <span>記事・メモ・資料化に応用可能</span>
+            </div>
+          </div>
+
+          <div class="callout">
+            <strong>ポイント：</strong>
+            このHTMLは画像もフォントもCDNも使っていません。つまり、GitHubに貼るだけでも、Netlifyにアップするだけでも動作します。
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="compare">
+        <div class="card-inner">
+          <div class="section-title">
+            <h2>2. 公開方法の比較表</h2>
+            <span class="pill">比較 / 表組み</span>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>方法</th>
+                  <th>向いている用途</th>
+                  <th>スマホ運用</th>
+                  <th>費用感</th>
+                  <th>難易度</th>
+                  <th>コメント</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="tag blue">GitHub Pages</span></td>
+                  <td>HTMLを継続的に公開・更新したい</td>
+                  <td>○</td>
+                  <td>無料</td>
+                  <td>中</td>
+                  <td>履歴管理が強い。すでにGitHubを使っているならかなり有力。</td>
+                </tr>
+                <tr>
+                  <td><span class="tag green">Netlify Drop</span></td>
+                  <td>HTMLファイルを投げて即URL化したい</td>
+                  <td>◎</td>
+                  <td>無料枠あり</td>
+                  <td>低</td>
+                  <td>単発公開が楽。管理性はGitHub連携のほうが上。</td>
+                </tr>
+                <tr>
+                  <td><span class="tag yellow">AWS S3</span></td>
+                  <td>大量配信やAWS運用に寄せたい</td>
+                  <td>△</td>
+                  <td>かなり安い</td>
+                  <td>高</td>
+                  <td>安いが設定が重い。気軽な共有用途ではやや大げさ。</td>
+                </tr>
+                <tr>
+                  <td><span class="tag blue">Cloudflare Pages</span></td>
+                  <td>高速配信・独自ドメイン・Git連携</td>
+                  <td>○</td>
+                  <td>無料枠あり</td>
+                  <td>中</td>
+                  <td>慣れると強い。最初はGitHub Pagesで十分なことも多い。</td>
+                </tr>
+                <tr>
+                  <td><span class="tag red">ChatGPT共有リンク</span></td>
+                  <td>会話そのものを共有したい</td>
+                  <td>◎</td>
+                  <td>無料</td>
+                  <td>低</td>
+                  <td>一番速いが、ページデザインや編集の自由度は低め。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="mini">
+            表は横スクロール対応です。スマホでも崩れにくいようにしています。
+          </p>
+        </div>
+      </section>
+
+      <section class="card" id="workflow">
+        <div class="card-inner">
+          <div class="section-title">
+            <h2>3. おすすめ運用フロー</h2>
+            <span class="pill">タイムライン</span>
+          </div>
+
+          <div class="timeline">
+            <div class="event">
+              <h3>Step 1：AIに本文を作らせる</h3>
+              <p>まずは普通に文章、分析、まとめ、比較表、FAQなどを作ります。この段階ではMarkdownでも構いません。</p>
+            </div>
+            <div class="event">
+              <h3>Step 2：HTML化を依頼する</h3>
+              <p>「CSSとJavaScript込みで、単体HTMLにしてください」と依頼します。今回のページがまさにその例です。</p>
+            </div>
+            <div class="event">
+              <h3>Step 3：ファイル名を決める</h3>
+              <p><code>posts/2026-05-09-ai-share.html</code> のように、日付入りの名前にすると後から管理しやすくなります。</p>
+            </div>
+            <div class="event">
+              <h3>Step 4：GitHub Pagesなどに配置する</h3>
+              <p>GitHubのWeb画面で新規ファイルを作成し、HTMLを貼ってコミットします。</p>
+            </div>
+            <div class="event">
+              <h3>Step 5：URLを共有する</h3>
+              <p>公開URLを相手に送ります。公開前に個人情報や非公開情報が入っていないか確認しましょう。</p>
+            </div>
+          </div>
+
+          <div class="callout warning">
+            <strong>注意：</strong>
+            静的HTMLにした時点で、ページは「URLを知っている人が閲覧できるもの」と考えてください。秘密情報の共有には向いていません。
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="interactive">
+        <div class="card-inner">
+          <div class="section-title">
+            <h2>4. インタラクティブ部品</h2>
+            <span class="pill">JavaScript内蔵</span>
+          </div>
+
+          <h3>タブ切替</h3>
+          <div class="tabs" role="tablist">
+            <button class="tab active" data-tab="tab1" type="button">GitHub Pages</button>
+            <button class="tab" data-tab="tab2" type="button">Netlify Drop</button>
+            <button class="tab" data-tab="tab3" type="button">S3</button>
+          </div>
+
+          <div id="tab1" class="tab-panel active">
+            <div class="callout">
+              <strong>GitHub Pages：</strong>
+              更新履歴が残り、URLも安定しやすいです。すでにGitHubを使っている人にはかなりおすすめです。
+            </div>
+          </div>
+
+          <div id="tab2" class="tab-panel">
+            <div class="callout">
+              <strong>Netlify Drop：</strong>
+              ファイルをアップロードするだけで即URL化できます。スマホから試すならかなり楽です。
+            </div>
+          </div>
+
+          <div id="tab3" class="tab-panel">
+            <div class="callout warning">
+              <strong>S3：</strong>
+              費用は安いですが、バケット設定、公開設定、HTTPS、権限などを考える必要があり、気軽さでは劣ります。
+            </div>
+          </div>
+
+          <h3>進捗バー</h3>
+          <p class="mini">スライダーを動かすと進捗バーが変化します。</p>
+          <label>
+            公開準備の進捗
+            <input id="progressInput" type="range" min="0" max="100" value="65" />
+          </label>
+          <div class="progress" aria-label="公開準備の進捗">
+            <div class="bar" id="progressBar"></div>
+          </div>
+          <p><strong id="progressText">65%</strong> 完了</p>
+
+          <h3>簡易グラフ</h3>
+          <p class="mini">ボタンを押すとランダムに棒グラフを更新します。</p>
+          <button class="btn secondary" id="randomChart" type="button">グラフを更新</button>
+          <div class="chart" id="chart">
+            <div class="chart-bar"><span>月</span></div>
+            <div class="chart-bar"><span>火</span></div>
+            <div class="chart-bar"><span>水</span></div>
+            <div class="chart-bar"><span>木</span></div>
+            <div class="chart-bar"><span>金</span></div>
+            <div class="chart-bar"><span>土</span></div>
+            <div class="chart-bar"><span>日</span></div>
+          </div>
+
+          <h3>ドラッグできる簡易カンバン</h3>
+          <p class="mini">カードをドラッグして列を移動できます。</p>
+          <div class="kanban">
+            <div class="lane" data-lane="todo">
+              <h3>未着手</h3>
+              <div class="task" draggable="true">
+                <strong>AI出力を整える</strong><br>
+                <small>MarkdownからHTMLへ変換</small>
+              </div>
+              <div class="task" draggable="true">
+                <strong>公開前チェック</strong><br>
+                <small>個人情報・誤情報を確認</small>
+              </div>
+            </div>
+            <div class="lane" data-lane="doing">
+              <h3>作業中</h3>
+              <div class="task" draggable="true">
+                <strong>GitHubに貼り付け</strong><br>
+                <small>index.htmlとして保存</small>
+              </div>
+            </div>
+            <div class="lane" data-lane="done">
+              <h3>完了</h3>
+              <div class="task" draggable="true">
+                <strong>URL共有</strong><br>
+                <small>相手にリンクを送る</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="code">
+        <div class="card-inner">
+          <div class="section-title">
+            <h2>5. コード例</h2>
+            <span class="pill">コピー機能つき</span>
+          </div>
+
+          <p>
+            コードブロック右上のボタンでコピーできます。
+            実際の公開ページに、手順やサンプルコードを載せたいときに便利です。
+          </p>
+
+          <div class="code-box">
+            <div class="code-top">
+              <span>HTML：最小ページ例</span>
+              <button class="copy" data-copy="code1" type="button">コピー</button>
+            </div>
+            <pre id="code1"><code>&lt;!doctype html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+  &lt;title&gt;AI出力共有ページ&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;AI出力共有ページ&lt;/h1&gt;
+  &lt;p&gt;ここにAIが生成した内容を掲載します。&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+
+          <div class="code-box">
+            <div class="code-top">
+              <span>GitHub Pages向けファイル名例</span>
+              <button class="copy" data-copy="code2" type="button">コピー</button>
+            </div>
+            <pre id="code2"><code>posts/2026-05-09-ai-output-demo.html
+posts/2026-05-09-research-summary.html
+posts/2026-05-09-decision-memo.html</code></pre>
+          </div>
+
+          <div class="code-box">
+            <div class="code-top">
+              <span>ChatGPTへの依頼文例</span>
+              <button class="copy" data-copy="code3" type="button">コピー</button>
+            </div>
+            <pre id="code3"><code>以下の内容を、単体で公開できるHTMLにしてください。
+
+条件：
+- 日本語
+- CSSはstyleタグ内に含める
+- JavaScriptはscriptタグ内に含める
+- 外部ライブラリは使わない
+- スマホでも読みやすいレスポンシブデザイン
+- 表、見出し、注意書き、FAQ、コードブロックを入れる
+- 公開前の注意書きもページ下部に入れる</code></pre>
+          </div>
+
+          <div class="code-box">
+            <div class="code-top">
+              <span>JavaScript：ローカルだけで動く簡易コピー処理</span>
+              <button class="copy" data-copy="code4" type="button">コピー</button>
+            </div>
+            <pre id="code4"><code>async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    alert("コピーしました");
+  } catch (error) {
+    alert("コピーに失敗しました");
+  }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="checklist">
+        <div class="card-inner">
+          <div class="section-title">
+            <h2>6. 公開前チェックリスト</h2>
+            <span class="pill">フォーム風UI</span>
+          </div>
+
+          <div class="split">
+            <div>
+              <h3>チェック項目</h3>
+              <label><input class="check" type="checkbox"> 個人情報が含まれていない</label>
+              <label><input class="check" type="checkbox"> 社内情報・未公開情報が含まれていない</label>
+              <label><input class="check" type="checkbox"> AIの誤情報を確認した</label>
+              <label><input class="check" type="checkbox"> 引用や出典の扱いを確認した</label>
+              <label><input class="check" type="checkbox"> スマホ表示を確認した</label>
+              <p><strong id="checkCount">0 / 5</strong> 完了</p>
+            </div>
+
+            <div>
+              <h3>公開メモ</h3>
+              <div class="form-grid">
+                <label>
+                  ページタイトル
+                  <input id="memoTitle" type="text" placeholder="例：AI共有デモページ">
+                </label>
+                <label>
+                  公開先
+                  <select id="memoService">
+                    <option>GitHub Pages</option>
+                    <option>Netlify Drop</option>
+                    <option>Cloudflare Pages</option>
+                    <option>AWS S3</option>
+                    <option>その他</option>
+                  </select>
+                </label>
+              </div>
+              <label>
+                メモ
+                <textarea id="memoText" placeholder="公開前に気づいたこと、あとで直したいことなど"></textarea>
+              </label>
+              <button class="btn secondary" id="saveMemo" type="button">このブラウザに一時保存</button>
+              <button class="btn secondary" id="clearMemo" type="button">保存内容を削除</button>
+              <p class="mini">localStorageを使ったデモです。サーバーには送信されません。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="faq">
+        <div class="card-inner">
+          <div class="section-title">
+            <h2>7. FAQ</h2>
+            <span class="pill">details / summary</span>
+          </div>
+
+          <details open>
+            <summary>このHTMLは本当に1ファイルだけで動きますか？</summary>
+            <div>
+              はい。CSSは<code>&lt;style&gt;</code>内、JavaScriptは<code>&lt;script&gt;</code>内に含まれています。
+              外部画像、外部フォント、CDN、ライブラリは使っていません。
+            </div>
+          </details>
+
+          <details>
+            <summary>スマホだけでGitHub Pagesに公開できますか？</summary>
+            <div>
+              可能です。GitHubのWeb画面からファイル作成・編集・コミットができます。
+              ただし、長いHTMLはスマホのテキスト編集がやや大変なので、単発ならNetlify Dropのほうが楽な場合もあります。
+            </div>
+          </details>
+
+          <details>
+            <summary>S3のほうが安いならS3を使うべきですか？</summary>
+            <div>
+              料金だけならS3は非常に安いです。ただし、公開設定や権限、HTTPS、独自ドメインなどを考えると、
+              気軽な共有用途ではGitHub PagesやNetlifyのほうが扱いやすいことが多いです。
+            </div>
+          </details>
+
+          <details>
+            <summary>検索エンジンに見つかりたくない場合は？</summary>
+            <div>
+              完全に見つからない保証はできません。URLを知っている人だけに見せたい場合でも、
+              静的公開ページは「半公開」くらいに考えたほうが安全です。
+              本当に限定したい場合は、認証やパスワード付きのサービスを検討してください。
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="card" id="template">
+        <div class="card-inner">
+          <div class="section-title">
+            <h2>8. 投稿テンプレート例</h2>
+            <span class="pill">実用サンプル</span>
+          </div>
+
+          <div class="notice-grid">
+            <div class="notice">
+              <b>タイトル</b>
+              <p>何についてのAI出力なのか、一目で分かる名前にします。</p>
+            </div>
+            <div class="notice">
+              <b>要約</b>
+              <p>最初に3〜5行で結論を書くと、読者が迷子になりにくいです。</p>
+            </div>
+            <div class="notice">
+              <b>注記</b>
+              <p>AI生成内容であること、最終確認が必要であることを書いておきます。</p>
+            </div>
+          </div>
+
+          <h3>サンプル本文</h3>
+          <p>
+            このページは、AIが生成した調査メモや比較検討メモを第三者に共有するためのデモです。
+            文章だけではなく、比較表、コード例、FAQ、進捗、チェックリストを含めることで、
+            単なるテキストよりも読みやすく、判断しやすい形式にできます。
+          </p>
+
+          <div class="callout danger">
+            <strong>公開時の注意：</strong>
+            AI出力には誤りが含まれる可能性があります。法務、医療、金融、契約、セキュリティなど重要領域では、必ず原典確認や専門家確認を行ってください。
+          </div>
+
+          <h3>ページ下部に入れる注記例</h3>
+          <div class="code-box">
+            <div class="code-top">
+              <span>注記テキスト</span>
+              <button class="copy" data-copy="code5" type="button">コピー</button>
+            </div>
+            <pre id="code5"><code>このページにはAI生成内容を含みます。
+内容は公開前に確認していますが、重要な判断に使う場合は必ず原典や専門家の確認を行ってください。
+個人情報・機密情報を含まないよう配慮しています。</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-inner">
+          <div class="section-title">
+            <h2>9. ちょっとしたダッシュボード風表示</h2>
+            <span class="pill">飾り要素</span>
+          </div>
+
+          <div class="grid">
+            <div class="metric" style="grid-column:span 4;">
+              <div class="big-number">A</div>
+              <span>おすすめ：GitHub Pages</span>
+            </div>
+            <div class="metric" style="grid-column:span 4;">
+              <div class="big-number">B</div>
+              <span>単発公開：Netlify Drop</span>
+            </div>
+            <div class="metric" style="grid-column:span 4;">
+              <div class="big-number">C</div>
+              <span>上級運用：S3 / Cloudflare</span>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>評価軸</th>
+                  <th>GitHub Pages</th>
+                  <th>Netlify Drop</th>
+                  <th>S3</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>初回設定</td>
+                  <td>やや簡単</td>
+                  <td>かなり簡単</td>
+                  <td>やや難しい</td>
+                </tr>
+                <tr>
+                  <td>スマホ操作</td>
+                  <td>可能だが長文編集は少し大変</td>
+                  <td>ファイルアップロード中心で楽</td>
+                  <td>コンソール操作が重い</td>
+                </tr>
+                <tr>
+                  <td>更新履歴</td>
+                  <td>強い</td>
+                  <td>弱め</td>
+                  <td>設定次第</td>
+                </tr>
+                <tr>
+                  <td>見た目の自由度</td>
+                  <td>高い</td>
+                  <td>高い</td>
+                  <td>高い</td>
+                </tr>
+                <tr>
+                  <td>おすすめ度</td>
+                  <td><span class="tag green">高</span></td>
+                  <td><span class="tag green">高</span></td>
+                  <td><span class="tag yellow">中</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>
+        このページは、AI出力共有の検証用に作られたワンファイルHTMLです。
+        GitHub Pages、Netlify Drop、Cloudflare Pages、S3などの静的ホスティングで利用できます。
+      </p>
+      <p class="mini">Generated as a single-file HTML demo. No external dependencies.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="modal-backdrop" id="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <div>
+          <h2 id="modalTitle">共有前の注意</h2>
+          <p class="mini">
+            URLで公開する前に、以下の点を確認してください。
+          </p>
+        </div>
+        <button class="x" id="closeModal" type="button" aria-label="閉じる">×</button>
+      </div>
+      <div class="callout warning">
+        <strong>公開範囲：</strong>
+        URLを知っている人が閲覧できる状態になります。検索エンジンや第三者共有の可能性も考えてください。
+      </div>
+      <div class="callout danger">
+        <strong>内容確認：</strong>
+        個人情報、機密情報、誤情報、著作権上の問題がないか確認してから公開しましょう。
+      </div>
+      <button class="btn" id="modalOk" type="button">理解しました</button>
+    </div>
+  </div>
+
+  <script>
+    const $ = (selector, scope = document) => scope.querySelector(selector);
+    const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+
+    function toast(message) {
+      const area = $("#toast");
+      const item = document.createElement("div");
+      item.className = "toast-item";
+      item.textContent = message;
+      area.appendChild(item);
+      setTimeout(() => {
+        item.style.opacity = "0";
+        item.style.transform = "translateY(12px)";
+        setTimeout(() => item.remove(), 250);
+      }, 2200);
+    }
+
+    function initTheme() {
+      const saved = localStorage.getItem("demo-theme");
+      if (saved) document.body.dataset.theme = saved;
+
+      $("#themeBtn").addEventListener("click", () => {
+        const next = document.body.dataset.theme === "dark" ? "light" : "dark";
+        document.body.dataset.theme = next;
+        localStorage.setItem("demo-theme", next);
+        toast(next === "dark" ? "ダークテーマにしました" : "ライトテーマにしました");
+      });
+    }
+
+    function initTabs() {
+      $$(".tab").forEach(button => {
+        button.addEventListener("click", () => {
+          const target = button.dataset.tab;
+          $$(".tab").forEach(b => b.classList.remove("active"));
+          $$(".tab-panel").forEach(p => p.classList.remove("active"));
+          button.classList.add("active");
+          $("#" + target).classList.add("active");
+        });
+      });
+    }
+
+    function initProgress() {
+      const input = $("#progressInput");
+      const bar = $("#progressBar");
+      const text = $("#progressText");
+
+      function update() {
+        bar.style.width = input.value + "%";
+        text.textContent = input.value + "%";
+      }
+
+      input.addEventListener("input", update);
+      update();
+    }
+
+    function initChart() {
+      const bars = $$(".chart-bar");
+
+      function randomize() {
+        bars.forEach(bar => {
+          const value = Math.floor(Math.random() * 82) + 12;
+          bar.style.height = value + "%";
+          bar.title = value + "%";
+        });
+        toast("グラフを更新しました");
+      }
+
+      $("#randomChart").addEventListener("click", randomize);
+      randomize();
+    }
+
+    function initCopyButtons() {
+      $$(".copy").forEach(button => {
+        button.addEventListener("click", async () => {
+          const id = button.dataset.copy;
+          const target = $("#" + id);
+          const text = target.innerText;
+
+          try {
+            await navigator.clipboard.writeText(text);
+            button.textContent = "コピー済み";
+            toast("コードをコピーしました");
+            setTimeout(() => button.textContent = "コピー", 1400);
+          } catch (error) {
+            toast("コピーに失敗しました。手動で選択してください。");
+          }
+        });
+      });
+    }
+
+    function initKanban() {
+      let dragged = null;
+
+      $$(".task").forEach(task => {
+        task.addEventListener("dragstart", () => {
+          dragged = task;
+          setTimeout(() => task.style.opacity = ".4", 0);
+        });
+
+        task.addEventListener("dragend", () => {
+          task.style.opacity = "1";
+          dragged = null;
+        });
+      });
+
+      $$(".lane").forEach(lane => {
+        lane.addEventListener("dragover", event => {
+          event.preventDefault();
+          lane.classList.add("dragover");
+        });
+
+        lane.addEventListener("dragleave", () => {
+          lane.classList.remove("dragover");
+        });
+
+        lane.addEventListener("drop", event => {
+          event.preventDefault();
+          lane.classList.remove("dragover");
+          if (dragged) {
+            lane.appendChild(dragged);
+            toast("カードを移動しました");
+          }
+        });
+      });
+    }
+
+    function initChecklist() {
+      const checks = $$(".check");
+      const count = $("#checkCount");
+
+      function update() {
+        const done = checks.filter(c => c.checked).length;
+        count.textContent = done + " / " + checks.length;
+      }
+
+      checks.forEach(c => c.addEventListener("change", update));
+      update();
+    }
+
+    function initMemo() {
+      const title = $("#memoTitle");
+      const service = $("#memoService");
+      const text = $("#memoText");
+
+      const saved = JSON.parse(localStorage.getItem("demo-memo") || "{}");
+      if (saved.title) title.value = saved.title;
+      if (saved.service) service.value = saved.service;
+      if (saved.text) text.value = saved.text;
+
+      $("#saveMemo").addEventListener("click", () => {
+        localStorage.setItem("demo-memo", JSON.stringify({
+          title: title.value,
+          service: service.value,
+          text: text.value
+        }));
+        toast("メモをこのブラウザに保存しました");
+      });
+
+      $("#clearMemo").addEventListener("click", () => {
+        localStorage.removeItem("demo-memo");
+        title.value = "";
+        service.selectedIndex = 0;
+        text.value = "";
+        toast("保存内容を削除しました");
+      });
+    }
+
+    function initModal() {
+      const modal = $("#modal");
+
+      function open() {
+        modal.classList.add("open");
+      }
+
+      function close() {
+        modal.classList.remove("open");
+      }
+
+      $("#openModal").addEventListener("click", open);
+      $("#closeModal").addEventListener("click", close);
+      $("#modalOk").addEventListener("click", close);
+
+      modal.addEventListener("click", event => {
+        if (event.target === modal) close();
+      });
+
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape") close();
+      });
+    }
+
+    function initScrollSpyLite() {
+      const links = $$(".nav a");
+      const sections = links
+        .map(link => $(link.getAttribute("href")))
+        .filter(Boolean);
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          links.forEach(link => {
+            const active = link.getAttribute("href") === "#" + entry.target.id;
+            link.style.background = active ? "rgba(124,92,255,.18)" : "";
+            link.style.color = active ? "var(--text)" : "";
+          });
+        });
+      }, { rootMargin: "-25% 0px -65% 0px", threshold: 0.01 });
+
+      sections.forEach(section => observer.observe(section));
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initTheme();
+      initTabs();
+      initProgress();
+      initChart();
+      initCopyButtons();
+      initKanban();
+      initChecklist();
+      initMemo();
+      initModal();
+      initScrollSpyLite();
+      toast("ワンファイルHTMLデモを読み込みました");
+    });
+  </script>
+</body>
+</html>
