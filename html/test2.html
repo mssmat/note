@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>破れる和紙UI｜Tearable Japanese Demo</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --ink: #15100b;
+      --paper: #fff8e7;
+      --paper2: #f3e4bf;
+      --red: #d74343;
+      --blue: #2356ff;
+      --green: #0aa06e;
+      --gold: #d6a84f;
+      --shadow: 0 24px 80px rgba(0,0,0,.32);
+      --radius: 28px;
+      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --serif: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: var(--sans);
+      color: #f6f7fb;
+      background:
+        radial-gradient(circle at top left, rgba(215,67,67,.28), transparent 34rem),
+        radial-gradient(circle at top right, rgba(35,86,255,.22), transparent 30rem),
+        radial-gradient(circle at bottom, rgba(214,168,79,.16), transparent 34rem),
+        linear-gradient(135deg, #0b0f16, #131927 45%, #080b11);
+      overflow-x: hidden;
+    }
+
+    body.tearing {
+      cursor: grabbing;
+      user-select: none;
+      touch-action: none;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .18;
+      z-index: 0;
+      background-image:
+        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 26px 26px;
+      mix-blend-mode: overlay;
+    }
+
+    .site {
+      position: relative;
+      z-index: 1;
+      min-height: 100dvh;
+      padding: 28px;
+      display: grid;
+      place-items: center;
+    }
+
+    .stage {
+      width: min(1120px, 100%);
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .panel {
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.07);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero {
+      padding: clamp(26px, 5vw, 56px);
+      min-height: 620px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 16% 12%, rgba(255,255,255,.13), transparent 18rem),
+        radial-gradient(circle at 80% 90%, rgba(255,255,255,.08), transparent 20rem);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      width: fit-content;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      padding: 8px 13px;
+      color: rgba(255,255,255,.72);
+      background: rgba(255,255,255,.08);
+      font-size: 13px;
+      position: relative;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #ff5151;
+      box-shadow: 0 0 20px #ff5151;
+    }
+
+    h1 {
+      position: relative;
+      margin: 26px 0 16px;
+      font-size: clamp(42px, 7vw, 92px);
+      line-height: .96;
+      letter-spacing: -.08em;
+    }
+
+    .hero p {
+      position: relative;
+      color: rgba(255,255,255,.72);
+      font-size: clamp(15px, 2vw, 19px);
+      line-height: 1.95;
+      max-width: 760px;
+    }
+
+    .grad {
+      background: linear-gradient(100deg, #ff5d5d, #ffd166, #77f3c7, #82a6ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+      position: relative;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 16px;
+      padding: 13px 16px;
+      color: #111;
+      background: #fff;
+      cursor: pointer;
+      font-weight: 900;
+      box-shadow: 0 14px 34px rgba(0,0,0,.2);
+    }
+
+    .btn.dark {
+      color: white;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: none;
+    }
+
+    .info {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 26px;
+      position: relative;
+    }
+
+    .stat {
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 22px;
+      padding: 18px;
+      background: rgba(0,0,0,.18);
+    }
+
+    .stat b {
+      display: block;
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .stat span {
+      color: rgba(255,255,255,.62);
+      font-size: 13px;
+    }
+
+    .side {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      min-height: 620px;
+    }
+
+    .content {
+      padding: 28px;
+    }
+
+    .content h2 {
+      margin: 0 0 12px;
+      font-size: 30px;
+      letter-spacing: -.04em;
+    }
+
+    .content p {
+      color: rgba(255,255,255,.68);
+      line-height: 1.9;
+    }
+
+    .cards {
+      display: grid;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .mini-card {
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 20px;
+      padding: 18px;
+      background: rgba(255,255,255,.065);
+    }
+
+    .mini-card strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .mini-card small {
+      color: rgba(255,255,255,.62);
+      line-height: 1.8;
+      display: block;
+    }
+
+    .console {
+      margin: 0;
+      padding: 18px;
+      min-height: 180px;
+      background: #070a11;
+      color: #bcebdc;
+      overflow: auto;
+      font: 13px/1.7 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+
+    .tear-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      pointer-events: auto;
+      touch-action: none;
+    }
+
+    #paperCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+      touch-action: none;
+    }
+
+    .hint {
+      position: fixed;
+      z-index: 11;
+      left: 50%;
+      bottom: max(18px, env(safe-area-inset-bottom));
+      transform: translateX(-50%);
+      width: min(680px, calc(100% - 28px));
+      border: 1px solid rgba(80,45,20,.18);
+      border-radius: 999px;
+      background: rgba(255,248,231,.92);
+      color: #2b2117;
+      box-shadow: 0 18px 60px rgba(0,0,0,.28);
+      backdrop-filter: blur(14px);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+    }
+
+    .hint small {
+      font-weight: 700;
+      color: rgba(43,33,23,.65);
+    }
+
+    .hint button {
+      border: 0;
+      border-radius: 999px;
+      padding: 9px 12px;
+      color: white;
+      background: #1c1b19;
+      cursor: pointer;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .tear-piece {
+      position: fixed;
+      z-index: 12;
+      width: 34px;
+      height: 26px;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 25% 35%, rgba(255,255,255,.75), transparent 25%),
+        linear-gradient(135deg, #fff8e7, #e4c987);
+      clip-path: polygon(0 12%, 28% 0, 57% 14%, 100% 4%, 88% 72%, 62% 100%, 25% 82%, 0 96%);
+      border: 1px solid rgba(96,69,34,.12);
+      box-shadow: 0 10px 24px rgba(0,0,0,.16);
+      animation: fly 900ms ease-out forwards;
+    }
+
+    @keyframes fly {
+      to {
+        transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(.62);
+        opacity: 0;
+      }
+    }
+
+    .stamp {
+      position: fixed;
+      z-index: 13;
+      right: 22px;
+      top: 22px;
+      width: 82px;
+      height: 82px;
+      border: 4px solid rgba(180,30,30,.7);
+      color: rgba(180,30,30,.82);
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      font-family: var(--serif);
+      font-weight: 900;
+      transform: rotate(8deg);
+      background: rgba(255,255,255,.08);
+      pointer-events: none;
+      letter-spacing: .06em;
+    }
+
+    .meter {
+      position: fixed;
+      z-index: 13;
+      left: 22px;
+      top: 22px;
+      width: min(320px, calc(100% - 44px));
+      border-radius: 999px;
+      border: 1px solid rgba(80,45,20,.18);
+      background: rgba(255,248,231,.78);
+      padding: 8px;
+      pointer-events: none;
+      box-shadow: 0 12px 35px rgba(0,0,0,.18);
+    }
+
+    .meter-bar {
+      height: 12px;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #d74343, #f2bd4d, #0aa06e);
+      transition: width .16s ease;
+    }
+
+    .complete {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: none;
+      place-items: center;
+      pointer-events: none;
+      padding: 24px;
+    }
+
+    .complete.show {
+      display: grid;
+      animation: pop .4s ease-out both;
+    }
+
+    .complete-card {
+      width: min(520px, 100%);
+      border-radius: 28px;
+      padding: 28px;
+      text-align: center;
+      background: rgba(8,11,18,.88);
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+    }
+
+    .complete-card h2 {
+      margin: 0 0 10px;
+      font-size: 32px;
+    }
+
+    .complete-card p {
+      margin: 0;
+      color: rgba(255,255,255,.72);
+      line-height: 1.8;
+    }
+
+    @keyframes pop {
+      from {
+        transform: scale(.96);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .site {
+        padding: 16px;
+        place-items: start center;
+      }
+
+      .stage {
+        grid-template-columns: 1fr;
+      }
+
+      .hero, .side {
+        min-height: auto;
+      }
+
+      .info {
+        grid-template-columns: 1fr;
+      }
+
+      .hint {
+        border-radius: 22px;
+        align-items: flex-start;
+      }
+
+      .stamp {
+        width: 64px;
+        height: 64px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grain"></div>
+
+  <main class="site" aria-hidden="true">
+    <section class="stage">
+      <div class="panel hero">
+        <div>
+          <div class="badge"><span class="dot"></span> 触って破れるインターフェース</div>
+          <h1>紙を破って<br><span class="grad">中身を読む</span></h1>
+          <p>
+            このデモは、上に重なっている和紙レイヤーを指やマウスで破っていく
+            日本語サイトのサンプルです。スマホでは指でなぞってください。
+            PCではマウスでドラッグできます。
+          </p>
+          <div class="actions">
+            <button class="btn" type="button" onclick="resetPaper()">紙を戻す</button>
+            <button class="btn dark" type="button" onclick="autoTear()">自動で少し破る</button>
+          </div>
+        </div>
+
+        <div class="info">
+          <div class="stat">
+            <b>1</b>
+            <span>HTMLファイルだけで動作</span>
+          </div>
+          <div class="stat">
+            <b>Touch</b>
+            <span>スマホの指操作に対応</span>
+          </div>
+          <div class="stat">
+            <b>Canvas</b>
+            <span>紙の破れを描画</span>
+          </div>
+          <div class="stat">
+            <b>JP</b>
+            <span>日本語サイト向けデザイン</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="panel side">
+        <div class="content">
+          <h2>破った先にあるコンテンツ</h2>
+          <p>
+            紙を破ると、下のページが現れます。
+            ランディングページ、キャンペーン、招待状、診断コンテンツ、
+            AI生成ページの演出などに使えます。
+          </p>
+
+          <div class="cards">
+            <div class="mini-card">
+              <strong>01. 和紙の質感</strong>
+              <small>Canvas上に紙色、繊維、ノイズ、罫線、墨文字を描いています。</small>
+            </div>
+            <div class="mini-card">
+              <strong>02. 破れの表現</strong>
+              <small>ドラッグした軌跡を消しゴムのように抜き、周囲に紙片を飛ばします。</small>
+            </div>
+            <div class="mini-card">
+              <strong>03. スマホ対応</strong>
+              <small>マウス専用のdragではなく、Pointer Eventsでタッチにも対応しています。</small>
+            </div>
+          </div>
+        </div>
+
+        <pre class="console" id="console">> ready
+> 画面の紙を指でなぞると破れます
+> 右上の朱印まで見えたら成功です</pre>
+      </aside>
+    </section>
+  </main>
+
+  <div class="tear-layer" id="tearLayer" aria-label="破れる紙のレイヤー">
+    <canvas id="paperCanvas"></canvas>
+  </div>
+
+  <div class="meter">
+    <div class="meter-bar" id="meterBar"></div>
+  </div>
+
+  <div class="stamp">封<br>印</div>
+
+  <div class="hint" id="hint">
+    <span>
+      紙を指でなぞって破ってください
+      <br>
+      <small>スマホOK。何度もこすると大きく破れます。</small>
+    </span>
+    <button type="button" onclick="resetPaper()">リセット</button>
+  </div>
+
+  <div class="complete" id="complete">
+    <div class="complete-card">
+      <h2>開封完了</h2>
+      <p>
+        和紙レイヤーが十分に破れました。<br>
+        これはGitHub Pagesなどに置ける、完全ワンファイルの演出デモです。
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("paperCanvas");
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    const layer = document.getElementById("tearLayer");
+    const meterBar = document.getElementById("meterBar");
+    const logBox = document.getElementById("console");
+    const complete = document.getElementById("complete");
+
+    let w = 0;
+    let h = 0;
+    let dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    let isDown = false;
+    let last = null;
+    let tearAmount = 0;
+    let completed = false;
+    let pieceTick = 0;
+
+    function log(text) {
+      const now = new Date();
+      const time = now.toLocaleTimeString("ja-JP", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      });
+      logBox.textContent += `\n[${time}] ${text}`;
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    function resize() {
+      w = Math.floor(window.innerWidth);
+      h = Math.floor(window.innerHeight);
+      dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      canvas.style.width = w + "px";
+      canvas.style.height = h + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      drawPaper();
+      tearAmount = 0;
+      updateMeter();
+      completed = false;
+      complete.classList.remove("show");
+      layer.style.pointerEvents = "auto";
+    }
+
+    function drawPaper() {
+      ctx.globalCompositeOperation = "source-over";
+      ctx.clearRect(0, 0, w, h);
+
+      const grad = ctx.createLinearGradient(0, 0, w, h);
+      grad.addColorStop(0, "#fff8e7");
+      grad.addColorStop(.45, "#f4e5bf");
+      grad.addColorStop(1, "#e7cf92");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
+
+      drawFibers();
+      drawFoldLines();
+      drawText();
+      drawSeal();
+
+      ctx.globalAlpha = .12;
+      for (let i = 0; i < 36; i++) {
+        ctx.beginPath();
+        ctx.arc(Math.random() * w, Math.random() * h, 50 + Math.random() * 120, 0, Math.PI * 2);
+        ctx.fillStyle = Math.random() > .5 ? "#ffffff" : "#8f6d34";
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    function drawFibers() {
+      ctx.save();
+      ctx.globalAlpha = .22;
+
+      for (let i = 0; i < 900; i++) {
+        const x = Math.random() * w;
+        const y = Math.random() * h;
+        const len = 8 + Math.random() * 48;
+        const angle = -0.4 + Math.random() * 0.8;
+        ctx.strokeStyle = Math.random() > .5 ? "rgba(122,86,35,.26)" : "rgba(255,255,255,.5)";
+        ctx.lineWidth = Math.random() * 1.1;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + Math.cos(angle) * len, y + Math.sin(angle) * len);
+        ctx.stroke();
+      }
+
+      ctx.restore();
+    }
+
+    function drawFoldLines() {
+      ctx.save();
+      ctx.globalAlpha = .18;
+      ctx.strokeStyle = "#7e6238";
+      ctx.lineWidth = 1;
+
+      for (let yLine = 90; yLine < h; yLine += 78) {
+        ctx.beginPath();
+        ctx.moveTo(0, yLine + Math.sin(yLine) * 3);
+        for (let x = 0; x <= w; x += 40) {
+          ctx.lineTo(x, yLine + Math.sin(x * .02 + yLine) * 4);
+        }
+        ctx.stroke();
+      }
+
+      ctx.restore();
+    }
+
+    function drawText() {
+      ctx.save();
+
+      const cx = w / 2;
+      const top = h * .18;
+
+      ctx.fillStyle = "rgba(25,16,8,.88)";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.font = `900 ${Math.min(70, Math.max(38, w * .09))}px "Hiragino Mincho ProN", "Yu Mincho", serif`;
+      ctx.fillText("破れる手紙", cx, top);
+
+      ctx.font = `700 ${Math.min(22, Math.max(15, w * .032))}px system-ui, sans-serif`;
+      ctx.fillStyle = "rgba(45,31,16,.72)";
+      ctx.fillText("指でなぞると、紙が少しずつ裂けていきます", cx, top + 64);
+
+      const lines = [
+        "これは日本語サイト向けの Tearable UI サンプルです。",
+        "Canvasで紙の表面を描き、ドラッグした部分だけを消しています。",
+        "下に隠れたページが現れるので、開封・発見・解禁の演出に使えます。",
+        "スマホでは指で、PCではマウスで操作してください。"
+      ];
+
+      ctx.textAlign = "left";
+      ctx.font = `600 ${Math.min(19, Math.max(14, w * .026))}px system-ui, sans-serif`;
+      ctx.fillStyle = "rgba(45,31,16,.74)";
+
+      const maxWidth = Math.min(720, w - 54);
+      const startX = Math.max(26, (w - maxWidth) / 2);
+      let y = top + 132;
+
+      for (const line of lines) {
+        ctx.fillText(line, startX, y);
+        y += 38;
+      }
+
+      ctx.font = `800 ${Math.min(15, Math.max(12, w * .02))}px system-ui, sans-serif`;
+      ctx.fillStyle = "rgba(180,30,30,.82)";
+      ctx.fillText("ヒント：何度も同じ場所をこすると、穴が広がります。", startX, y + 14);
+
+      ctx.restore();
+    }
+
+    function drawSeal() {
+      ctx.save();
+      const size = Math.min(120, Math.max(76, w * .16));
+      const x = w - size - 38;
+      const y = h - size - 52;
+
+      ctx.translate(x + size / 2, y + size / 2);
+      ctx.rotate(-0.12);
+
+      ctx.strokeStyle = "rgba(176, 28, 28, .74)";
+      ctx.lineWidth = 6;
+      ctx.strokeRect(-size / 2, -size / 2, size, size);
+
+      ctx.fillStyle = "rgba(176, 28, 28, .78)";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.font = `900 ${size * .32}px "Hiragino Mincho ProN", "Yu Mincho", serif`;
+      ctx.fillText("未", 0, -size * .17);
+      ctx.fillText("開", 0, size * .2);
+
+      ctx.restore();
+    }
+
+    function getPoint(event) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+      };
+    }
+
+    function beginTear(event) {
+      event.preventDefault();
+      isDown = true;
+      last = getPoint(event);
+      document.body.classList.add("tearing");
+      canvas.setPointerCapture?.(event.pointerId);
+      tearAt(last.x, last.y, 34);
+      log("tear start");
+    }
+
+    function moveTear(event) {
+      if (!isDown || !last) return;
+      event.preventDefault();
+
+      const p = getPoint(event);
+      const dx = p.x - last.x;
+      const dy = p.y - last.y;
+      const dist = Math.hypot(dx, dy);
+      const steps = Math.max(1, Math.ceil(dist / 8));
+
+      for (let i = 1; i <= steps; i++) {
+        const t = i / steps;
+        const x = last.x + dx * t;
+        const y = last.y + dy * t;
+        const pressure = event.pressure && event.pressure > 0 ? event.pressure : 0.55;
+        const radius = 22 + pressure * 36 + Math.sin(Date.now() * .02 + i) * 5;
+        tearAt(x, y, radius);
+
+        pieceTick++;
+        if (pieceTick % 3 === 0) createPiece(x, y, dx, dy);
+      }
+
+      tearAmount += dist * 0.012;
+      last = p;
+      updateMeter();
+    }
+
+    function endTear(event) {
+      if (!isDown) return;
+      isDown = false;
+      last = null;
+      document.body.classList.remove("tearing");
+      log("tear end");
+      checkCompletion();
+    }
+
+    function tearAt(x, y, radius) {
+      ctx.save();
+      ctx.globalCompositeOperation = "destination-out";
+
+      const points = 18;
+      ctx.beginPath();
+
+      for (let i = 0; i <= points; i++) {
+        const a = (Math.PI * 2 * i) / points;
+        const jag = radius * (0.72 + Math.random() * 0.48);
+        const px = x + Math.cos(a) * jag;
+        const py = y + Math.sin(a) * jag;
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.globalCompositeOperation = "source-over";
+      ctx.strokeStyle = "rgba(98,68,32,.22)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+
+      for (let i = 0; i <= points; i++) {
+        const a = (Math.PI * 2 * i) / points;
+        const jag = radius * (0.78 + Math.random() * 0.38);
+        const px = x + Math.cos(a) * jag;
+        const py = y + Math.sin(a) * jag;
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function createPiece(x, y, dx, dy) {
+      const piece = document.createElement("div");
+      piece.className = "tear-piece";
+      piece.style.left = `${x - 16}px`;
+      piece.style.top = `${y - 12}px`;
+
+      const side = Math.random() > .5 ? 1 : -1;
+      const mag = 60 + Math.random() * 150;
+      const angle = Math.atan2(dy || 1, dx || 1) + side * (1.1 + Math.random() * .8);
+      const outX = Math.cos(angle) * mag;
+      const outY = Math.sin(angle) * mag + 80 + Math.random() * 120;
+
+      piece.style.setProperty("--dx", `${outX}px`);
+      piece.style.setProperty("--dy", `${outY}px`);
+      piece.style.setProperty("--rot", `${-220 + Math.random() * 440}deg`);
+
+      document.body.appendChild(piece);
+      setTimeout(() => piece.remove(), 980);
+    }
+
+    function updateMeter() {
+      const percent = Math.min(100, Math.round(tearAmount));
+      meterBar.style.width = percent + "%";
+    }
+
+    function checkCompletion() {
+      if (completed) return;
+      if (tearAmount >= 100) {
+        completed = true;
+        layer.style.pointerEvents = "none";
+        complete.classList.add("show");
+        log("paper opened");
+        setTimeout(() => complete.classList.remove("show"), 3200);
+      }
+    }
+
+    function resetPaper() {
+      drawPaper();
+      tearAmount = 0;
+      completed = false;
+      updateMeter();
+      complete.classList.remove("show");
+      layer.style.pointerEvents = "auto";
+      log("paper reset");
+    }
+
+    function autoTear() {
+      const points = 42;
+      let i = 0;
+
+      const timer = setInterval(() => {
+        const t = i / points;
+        const x = w * (.18 + .68 * t);
+        const y = h * (.38 + Math.sin(t * Math.PI * 3) * .16);
+        tearAt(x, y, 34 + Math.random() * 26);
+        createPiece(x, y, 12, 4);
+        tearAmount += 1.9;
+        updateMeter();
+        i++;
+
+        if (i > points) {
+          clearInterval(timer);
+          log("auto tear");
+          checkCompletion();
+        }
+      }, 24);
+    }
+
+    canvas.addEventListener("pointerdown", beginTear, { passive: false });
+    canvas.addEventListener("pointermove", moveTear, { passive: false });
+    canvas.addEventListener("pointerup", endTear);
+    canvas.addEventListener("pointercancel", endTear);
+    canvas.addEventListener("lostpointercapture", endTear);
+
+    window.addEventListener("resize", resize);
+
+    resize();
+  </script>
+</body>
+</html>
